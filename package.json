@@ -1,6 +1,6 @@
 {
-  "homepage": "bgordon.pl",
-  "name": "",
+  "homepage": "https://www.bgordon.pl",
+  "name": "bgordon",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
