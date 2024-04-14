@@ -1,5 +1,5 @@
 name: Build and Deploy
-on: [push]
+on: push
 permissions:
   contents: write
   
@@ -13,7 +13,7 @@ jobs:
 
       - name: Install and Build 
         run: |
-          npm ci && npm run deploy
+          npm install && npm run deploy
 
       - name: Deploy 🚀
         uses: JamesIves/github-pages-deploy-action@v4
