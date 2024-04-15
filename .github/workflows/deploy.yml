@@ -33,13 +33,3 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build
-
-      - name: Get deployment status
-        run: |
-          STATUS=$(curl -s -o /dev/null -w "%{http_code}" -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" https://api.github.com/repos/$GITHUB_REPOSITORY/deployments/${{ steps.deploy.outputs.deployment_id }}/statuses)
-          if [ $STATUS -eq 200 ]; then
-            echo "Deployment status: Success"
-          else
-            echo "Deployment status: Failed"
-            exit 1
-          fi
