@@ -32,3 +32,9 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./build
+
+      - name: Get deployment status
+        uses: montudor/action-get-pages-deployment-status@v1
+        with:
+          deployment_id: ${{ steps.deploy.outputs.deployment_id }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
