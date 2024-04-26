@@ -5,17 +5,11 @@ export default function Navbar() {
   const [activeItem, setActiveItem] = useState<string>("");
 
   const location = useLocation();
-  const { hash, pathname, search } = location;
-
-  console.log(pathname);
+  const { pathname } = location;
 
   useEffect(() => {
-    if (pathname === "/") handleItemClick("About");
-  }, []);
-
-  const handleItemClick = (item: string) => {
-    setActiveItem(item);
-  };
+    if (pathname === "/") setActiveItem("About");
+  }, [pathname]);
 
   const NavItem: FunctionComponent<{
     activeItem: string;
@@ -31,8 +25,10 @@ export default function Navbar() {
   };
 
   return (
-    <div>
-      <span className="font-bold text-green-400">{activeItem}</span>
+    <div className="flex justify-between px-5">
+      <span className="text-xl font-bold text-green-400 border-b-4 border-green-400">
+        {activeItem}
+      </span>
       <div className="flex space-x-3">
         <NavItem
           setActiveItem={setActiveItem}
