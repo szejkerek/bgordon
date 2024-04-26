@@ -18,7 +18,7 @@ export default function Sidebar() {
       <p>
         <a
           className="px-2 py-1 my-3 bg-gray-200 rounded-full flex items-center justify-center"
-          href=""
+          href="www.google.pl"
           download="name"
         >
           <GiTie className="w-6 h-6" />
@@ -30,7 +30,7 @@ export default function Sidebar() {
         <a href="https://github.com/szejkerek">
           <AiFillGithub className="w-8 h-8" />
         </a>
-        <a href="">
+        <a href="www.google.pl">
           <AiFillLinkedin className="w-8 h-8" />
         </a>
       </div>
