@@ -2,27 +2,27 @@ import React from "react";
 import { AiFillGithub, AiFillLinkedin } from "react-icons/ai";
 import { GoLocation } from "react-icons/go";
 import { GiTie } from "react-icons/gi";
+import logo from "../resources/avatar.jpg";
+import { Link } from "react-router-dom";
 
 export default function Sidebar() {
   return (
     <div>
-      <img
-        src="https://cdn.discordapp.com/attachments/782221077119631382/1232724408473227314/IMG20240424180552.jpg?ex=662bd111&is=662a7f91&hm=81c850f33870ed1fef2cd1b15368fcce8cf65f1f70269167691b7ea0e4565842&"
-        alt="Ramen"
-        className="w-32 h-32 mx-auto rounded-full"
-      />
+      <img src={logo} alt="Avatar" className="w-32 h-32 mx-auto rounded-full" />
       <h1 className="my-4 text-3xl font-medium">
         <span>Bartłomiej</span> Gordon
       </h1>
       <p className="px-2 py-1 my-3 bg-gray-200 rounded-full">Game Developer</p>
       <p>
-        <a
+        <Link
           className="flex items-center justify-center px-2 py-1 my-3 bg-gray-200 rounded-full"
-          download="name"
+          to="/resources/cv.pdf"
+          target="_blank"
+          download
         >
           <GiTie className="w-6 h-6" />
           Download Resume
-        </a>
+        </Link>
       </p>
 
       <div className="flex justify-center w-full my-5 space-x-8 text-black">
