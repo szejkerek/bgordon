@@ -1,5 +1,6 @@
 import React from "react";
 import { AiFillGithub, AiFillLinkedin } from "react-icons/ai";
+import { FaItchIo } from "react-icons/fa";
 import { GoLocation } from "react-icons/go";
 import { GiTie } from "react-icons/gi";
 import logo from "../resources/avatar.jpg";
@@ -16,7 +17,7 @@ export default function Sidebar() {
       <p>
         <Link
           className="flex items-center justify-center px-2 py-1 my-3 bg-gray-200 rounded-full"
-          to="/resources/cv.pdf"
+          to="cv.pdf"
           target="_blank"
           download
         >
@@ -31,6 +32,9 @@ export default function Sidebar() {
         </a>
         <a href="https://www.linkedin.com/in/bartekgordon/">
           <AiFillLinkedin className="w-8 h-8 cursor-pointer" />
+        </a>
+        <a href="https://szejkerek.itch.io/">
+          <FaItchIo className="w-8 h-8 cursor-pointer" />
         </a>
       </div>
       <div className="py-4 my-5 bg-gray-200">

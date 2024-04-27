@@ -19,17 +19,17 @@ export default function Navbar() {
   }> = ({ activeItem, setActiveItem, name, route }) => {
     return activeItem !== name ? (
       <Link to={route} onClick={() => setActiveItem(name)}>
-        <span>{name}</span>
+        <span className="hover:text-green-500">{name}</span>
       </Link>
     ) : null;
   };
 
   return (
-    <div className="flex justify-between px-5">
-      <span className="text-xl font-bold text-green-400 border-b-4 border-green-400">
+    <div className="flex justify-between px-5 py-3 my-3">
+      <span className="text-xl font-bold text-green-400 border-b-4 border-green-400 md:text-2xl">
         {activeItem}
       </span>
-      <div className="flex space-x-3">
+      <div className="flex space-x-5 text-lg">
         <NavItem
           setActiveItem={setActiveItem}
           activeItem={activeItem}
