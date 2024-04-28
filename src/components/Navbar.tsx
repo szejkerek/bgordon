@@ -37,21 +37,18 @@ export default function Navbar() {
           setActiveItem={setActiveItem}
           activeItem={activeItem}
           name="About"
-          // route="https://bgordon.pl/"
           route="/"
         />
         <NavItem
           setActiveItem={setActiveItem}
           activeItem={activeItem}
           name="Skills"
-          // route="https://bgordon.pl/resume"
           route="/skills"
         />
         <NavItem
           setActiveItem={setActiveItem}
           activeItem={activeItem}
           name="Projects"
-          // route="https://bgordon.pl/projects"
           route="/projects"
         />
       </div>

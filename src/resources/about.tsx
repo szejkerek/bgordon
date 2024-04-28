@@ -1,11 +1,20 @@
 import { IconType } from "react-icons";
 import { FaGamepad, FaCode, FaNetworkWired } from "react-icons/fa";
 
-interface IAboutService {
+export interface IAboutService {
   title: string;
   about: string;
   icon: IconType;
 }
+
+export interface AboutHeader {
+  title: string;
+}
+
+export const AboutHeader: AboutHeader = {
+  title:
+    "Skilled computer science graduate with few years of experience in designing and developing games. Passionate about graphics and software development, that wants to improve his skills in Rendering, Game Design and Graphics API Programming.",
+};
 
 export const AboutService: IAboutService[] = [
   {
