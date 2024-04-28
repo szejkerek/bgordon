@@ -17,7 +17,7 @@ export default function Sidebar() {
       <p>
         <Link
           className="flex items-center justify-center px-2 py-1 my-3 bg-gray-200 rounded-full"
-          to="https://bgordon.pl/cv.pdf"
+          to="/cv.pdf"
           download
         >
           <GiTie className="w-6 h-6" />
