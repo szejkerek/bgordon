@@ -6,7 +6,7 @@ export default function Navbar() {
 
   const location = useLocation();
   const { pathname } = location;
-
+  console.log(pathname);
   useEffect(() => {
     if (pathname === "/") setActiveItem("About");
   }, [pathname]);
