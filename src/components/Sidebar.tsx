@@ -17,12 +17,11 @@ export default function Sidebar() {
       <p>
         <Link
           className="flex items-center justify-center px-2 py-1 my-3 bg-gray-200 rounded-full"
-          to="cv.pdf"
-          target="_blank"
+          to="https://bgordon.pl/cv.pdf"
           download
         >
           <GiTie className="w-6 h-6" />
-          Download Resume
+          Show Resume
         </Link>
       </p>
 

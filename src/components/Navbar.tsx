@@ -9,6 +9,8 @@ export default function Navbar() {
   console.log(pathname);
   useEffect(() => {
     if (pathname === "/") setActiveItem("About");
+    if (pathname === "/resume") setActiveItem("Resume");
+    if (pathname === "/projects") setActiveItem("Projects");
   }, [pathname]);
 
   const NavItem: FunctionComponent<{
@@ -34,19 +36,22 @@ export default function Navbar() {
           setActiveItem={setActiveItem}
           activeItem={activeItem}
           name="About"
-          route="https://bgordon.pl/"
+          // route="https://bgordon.pl/"
+          route="/"
         />
         <NavItem
           setActiveItem={setActiveItem}
           activeItem={activeItem}
           name="Resume"
-          route="https://bgordon.pl/resume"
+          // route="https://bgordon.pl/resume"
+          route="/resume"
         />
         <NavItem
           setActiveItem={setActiveItem}
           activeItem={activeItem}
           name="Projects"
-          route="https://bgordon.pl/projects"
+          // route="https://bgordon.pl/projects"
+          route="/projects"
         />
       </div>
     </div>
