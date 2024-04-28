@@ -1,7 +1,7 @@
 import "./App.css";
 import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
-import Resume from "./pages/Resume";
+import About from "./pages/About";
 
 export default function App() {
   return (
@@ -11,7 +11,7 @@ export default function App() {
       </div>
       <div className="col-span-12 bg-white lg:col-span-9 rounded-2xl">
         <Navbar />
-        <Resume />
+        <About />
       </div>
     </div>
   );
