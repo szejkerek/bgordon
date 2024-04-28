@@ -9,8 +9,9 @@ export default function Navbar() {
   console.log(pathname);
   useEffect(() => {
     if (pathname === "/") setActiveItem("About");
-    if (pathname === "/resume") setActiveItem("Resume");
-    if (pathname === "/projects") setActiveItem("Projects");
+    else if (pathname === "/skills") setActiveItem("Skills");
+    else if (pathname === "/projects") setActiveItem("Projects");
+    else setActiveItem("About");
   }, [pathname]);
 
   const NavItem: FunctionComponent<{
@@ -42,9 +43,9 @@ export default function Navbar() {
         <NavItem
           setActiveItem={setActiveItem}
           activeItem={activeItem}
-          name="Resume"
+          name="Skills"
           // route="https://bgordon.pl/resume"
-          route="/resume"
+          route="/skills"
         />
         <NavItem
           setActiveItem={setActiveItem}
