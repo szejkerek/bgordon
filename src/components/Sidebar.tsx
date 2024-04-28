@@ -15,14 +15,14 @@ export default function Sidebar() {
       </h1>
       <p className="px-2 py-1 my-3 bg-gray-200 rounded-full">Game Developer</p>
       <p>
-        <Link
+        <a
           className="flex items-center justify-center px-2 py-1 my-3 bg-gray-200 rounded-full"
-          to="/cv.pdf"
+          href="https://bgordon.pl/cv.pdf"
           download
         >
           <GiTie className="w-6 h-6" />
           Show Resume
-        </Link>
+        </a>
       </p>
 
       <div className="flex justify-center w-full my-5 space-x-8 text-black">
