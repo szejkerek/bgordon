@@ -1,5 +1,14 @@
-import React from "react";
+import { FunctionComponent } from "react";
+import { IAboutServices } from "../resources/about";
 
-export default function AboutCard() {
-  return <h1 className="text-3xl font-bold underline">Hello world!</h1>;
-}
+export const AboutCard: FunctionComponent<{ service: IAboutServices }> = ({
+  service: { Icon, About, Title },
+}) => {
+  return (
+    <div>
+      <Icon />
+      <h4>{Title}</h4>
+      <p>{About}</p>
+    </div>
+  );
+};
