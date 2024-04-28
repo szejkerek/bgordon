@@ -4,7 +4,6 @@ import { FaItchIo } from "react-icons/fa";
 import { GoLocation } from "react-icons/go";
 import { GiTie } from "react-icons/gi";
 import logo from "../resources/avatar.jpg";
-import { Link } from "react-router-dom";
 
 export default function Sidebar() {
   return (
