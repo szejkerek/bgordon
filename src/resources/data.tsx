@@ -1,11 +1,6 @@
-import { IconType } from "react-icons";
+import { BsCircleFill } from "react-icons/bs";
+import { IAboutServices, ISkill } from "../types";
 import { FaGamepad, FaCode, FaNetworkWired } from "react-icons/fa";
-
-export interface IAboutServices {
-  Title: string;
-  About: string;
-  Icon: IconType;
-}
 
 export const AboutHeader =
   "Skilled computer science graduate with few years of experience in designing and developing games. Passionate about graphics and software development, that wants to improve his skills in Rendering, Game Design and Graphics API Programming.";
@@ -46,5 +41,31 @@ export const AboutServices: IAboutServices[] = [
     About:
       "Creating intuitive and visually appealing user interfaces for seamless gaming experiences.",
     Icon: FaCode,
+  },
+];
+
+export const Languages: ISkill[] = [
+  {
+    name: "Python",
+    level: "50%",
+    Icon: BsCircleFill,
+  },
+  {
+    name: "C#",
+    level: "70%",
+    Icon: BsCircleFill,
+  },
+];
+
+export const Tools: ISkill[] = [
+  {
+    name: "Unity",
+    level: "80%",
+    Icon: BsCircleFill,
+  },
+  {
+    name: "Unreal",
+    level: "20%",
+    Icon: BsCircleFill,
   },
 ];

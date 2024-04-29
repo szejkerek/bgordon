@@ -1,5 +1,5 @@
 import { FunctionComponent } from "react";
-import { IAboutServices } from "../resources/about";
+import { IAboutServices } from "../types";
 
 export const AboutCard: FunctionComponent<{ service: IAboutServices }> = ({
   service: { Icon, About, Title },

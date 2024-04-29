@@ -1,5 +1,5 @@
 import React from "react";
-import { AboutHeader, AboutServices } from "../resources/about";
+import { AboutHeader, AboutServices } from "../resources/data";
 import { AboutCard } from "../components/AboutCard";
 
 export default function About() {
