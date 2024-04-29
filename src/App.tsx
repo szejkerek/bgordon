@@ -1,6 +1,7 @@
 import "./App.css";
 import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
+import Skills from "./pages/Skills";
 import About from "./pages/About";
 
 export default function App() {
@@ -12,6 +13,7 @@ export default function App() {
       <div className="col-span-12 overflow-hidden bg-white lg:col-span-9 rounded-2xl">
         <Navbar />
         <About />
+        <Skills />
       </div>
     </div>
   );
