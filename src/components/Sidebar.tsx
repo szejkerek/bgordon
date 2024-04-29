@@ -3,12 +3,12 @@ import { AiFillGithub, AiFillLinkedin } from "react-icons/ai";
 import { FaItchIo } from "react-icons/fa";
 import { GoLocation } from "react-icons/go";
 import { GiTie } from "react-icons/gi";
-import logo from "../resources/avatar.jpg";
+// import logo from "../resources/avatar.jpg";
 
 export default function Sidebar() {
   return (
     <div>
-      <img src={logo} alt="Avatar" className="w-32 h-32 mx-auto rounded-full" />
+      {/* <img src={logo} alt="Avatar" className="w-32 h-32 mx-auto rounded-full" /> */}
       <h1 className="my-4 text-3xl font-medium">
         <span>Bartłomiej</span> Gordon
       </h1>
