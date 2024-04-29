@@ -2,26 +2,29 @@ import { useEffect, useState, FunctionComponent } from "react";
 import { Link, useLocation } from "react-router-dom";
 
 export default function Navbar() {
-  const [activeItem, setActiveItem] = useState<string>("");
+  let NavBarItems: [name: string, path: string][] = [
+    ["About", "/"],
+    ["Skills", "/skills"],
+    ["Projects", "/projects"],
+  ];
 
+  const [activeItem, setActiveItem] = useState<string>("");
   const location = useLocation();
   const { pathname } = location;
 
   useEffect(() => {
-    if (pathname === "/") setActiveItem("About");
-    else if (pathname === "/skills") setActiveItem("Skills");
-    else if (pathname === "/projects") setActiveItem("Projects");
-    else setActiveItem("About");
+    setActiveItem(NavBarItems[0][0]);
+    NavBarItems.map((pair) => {
+      if (pathname === pair[1]) setActiveItem(pair[0]);
+    });
   }, [pathname]);
 
   const NavItem: FunctionComponent<{
-    activeItem: string;
-    setActiveItem: Function;
     name: string;
-    route: string;
-  }> = ({ activeItem, setActiveItem, name, route }) => {
+    path: string;
+  }> = ({ name, path }) => {
     return activeItem !== name ? (
-      <Link to={route} onClick={() => setActiveItem(name)}>
+      <Link to={path} onClick={() => setActiveItem(name)}>
         <span className="hover:text-green-500">{name}</span>
       </Link>
     ) : null;
@@ -33,24 +36,9 @@ export default function Navbar() {
         {activeItem}
       </span>
       <div className="flex space-x-5 text-lg">
-        <NavItem
-          setActiveItem={setActiveItem}
-          activeItem={activeItem}
-          name="About"
-          route="/"
-        />
-        <NavItem
-          setActiveItem={setActiveItem}
-          activeItem={activeItem}
-          name="Skills"
-          route="/skills"
-        />
-        <NavItem
-          setActiveItem={setActiveItem}
-          activeItem={activeItem}
-          name="Projects"
-          route="/projects"
-        />
+        {NavBarItems.map((pair, index) => (
+          <NavItem name={pair[0]} path={pair[1]} />
+        ))}
       </div>
     </div>
   );
