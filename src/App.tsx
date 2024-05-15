@@ -3,6 +3,8 @@ import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
 import Skills from "./pages/Skills";
 import About from "./pages/About";
+import Projects from "./pages/Projects";
+import { Route, Routes } from "react-router-dom";
 
 export default function App() {
   return (
@@ -12,8 +14,11 @@ export default function App() {
       </div>
       <div className="col-span-12 overflow-hidden bg-white lg:col-span-9 rounded-2xl">
         <Navbar />
-        <About />
-        <Skills />
+        <Routes>
+          <Route path="/" Component={About} />
+          <Route path="/skills" Component={Skills} />
+          <Route path="/projects" Component={Projects} />
+        </Routes>
       </div>
     </div>
   );
