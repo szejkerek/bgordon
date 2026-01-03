@@ -4,8 +4,8 @@ import mdx from '@astrojs/mdx';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://yourusername.github.io',
-  base: '/gamedev-portfolio',
+  site: 'https://szejkerek.github.io',
+  base: '/bgordon',
   integrations: [svelte(), mdx()],
   output: 'static',
 });
