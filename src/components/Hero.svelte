@@ -8,7 +8,7 @@
   });
 </script>
 
-<section class="hero" class:visible>
+<section class="hero" class:visible={visible}>
   <div class="hero-content">
     <div class="hero-badge">
       <span class="pulse"></span>
