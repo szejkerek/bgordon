@@ -4,7 +4,7 @@ import mdx from '@astrojs/mdx';
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://bgordon.pl",
-  base: "/",
+  site: "https://szejkerek.github.io",
+  base: "/bgordon",
   integrations: [svelte()]
 });
