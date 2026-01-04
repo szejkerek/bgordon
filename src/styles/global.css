@@ -26,7 +26,12 @@
   
   --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.3);
   --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.4);
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --hover-duration: 220ms;
+  --hover-lift: -4px;
+  --hover-shadow: var(--shadow-lg);
 }
+
 
 *, *::before, *::after {
   box-sizing: border-box;
@@ -52,7 +57,7 @@ body {
 a {
   color: var(--accent);
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color var(--hover-duration) var(--ease-out);
 }
 
 a:hover {
@@ -93,8 +98,8 @@ p { color: var(--text-secondary); }
   background: var(--bg-card);
   color: var(--text-primary);
   cursor: pointer;
-  transition: all 0.2s ease;
-  text-decoration: none;
+  transition: transform var(--hover-duration) var(--ease-out), box-shadow var(--hover-duration) var(--ease-out), border-color var(--hover-duration) var(--ease-out), background-color var(--hover-duration) var(--ease-out), color var(--hover-duration) var(--ease-out);
+text-decoration: none;
 }
 
 .btn:hover {
@@ -135,17 +140,31 @@ p { color: var(--text-secondary); }
 
 /* Cards */
 .card {
+  will-change: transform;
   background: var(--bg-card);
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-lg);
-  transition: all 0.3s ease;
+  transition: transform var(--hover-duration) var(--ease-out), box-shadow var(--hover-duration) var(--ease-out), border-color var(--hover-duration) var(--ease-out), background-color var(--hover-duration) var(--ease-out);
+
 }
 
 .card:hover {
   background: var(--bg-card-hover);
   border-color: var(--border-light);
-  transform: translateY(-4px);
-  box-shadow: var(--shadow-lg);
+  transform: translate3d(0, var(--hover-lift), 0);
+  box-shadow: var(--hover-shadow);
+}
+
+
+/* Hover utility */
+.hover-surface {
+  transition: transform var(--hover-duration) var(--ease-out), box-shadow var(--hover-duration) var(--ease-out);
+  will-change: transform;
+}
+
+.hover-surface:hover {
+  transform: translate3d(0, var(--hover-lift), 0);
+  box-shadow: var(--hover-shadow);
 }
 
 section {

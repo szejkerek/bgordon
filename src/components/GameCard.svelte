@@ -2,7 +2,7 @@
   let { game } = $props();
 </script>
 
-<article class="game-card">
+<article class="game-card card hover-surface">
   <div class="card-image">
     {#if game.data.image}
       <img src={game.data.image} alt={game.data.title} />
@@ -14,10 +14,6 @@
           <path d="M15 10v4M13 12h4"></path>
         </svg>
       </div>
-    {/if}
-
-    {#if game.data.featured}
-      <span class="featured-badge">Featured</span>
     {/if}
   </div>
 
@@ -66,30 +62,20 @@
 
 <style>
   .game-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-subtle);
-    border-radius: var(--radius-lg);
     overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
-    will-change: transform;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
   }
 
-  .game-card:hover {
-    transform: translate3d(0, -4px, 0);
-    border-color: var(--border-light);
-    box-shadow: var(--shadow-lg);
+
+  .card-image {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+    background: var(--bg-elevated);
+    flex-shrink: 0;
   }
-
-.card-image {
-  mask-image: linear-gradient(
-    to bottom,
-    black 0%,
-    black 60%,
-    transparent 100%
-  );
-}
-
-
 
   .card-image img {
     width: 100%;
@@ -97,11 +83,11 @@
     object-fit: cover;
     transform: translateZ(0);
     will-change: transform;
-    transition: transform 0.4s ease;
+    transition: transform var(--hover-duration) var(--ease-out);
   }
 
   .game-card:hover .card-image img {
-    transform: scale(1.03) translateZ(0);
+    transform: scale(1.05) translateZ(0);
   }
 
   .placeholder {
@@ -113,29 +99,15 @@
     color: var(--text-muted);
   }
 
-  .featured-badge {
-    position: absolute;
-    top: 0.75rem;
-    right: 0.75rem;
-    padding: 0.25rem 0.625rem;
-    background: var(--accent);
-    color: var(--bg-primary);
-    font-size: 0.7rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    border-radius: 4px;
+  .card-content {
+    padding: 1.5rem;
+    background: var(--bg-card);
+    position: relative;
     z-index: 1;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
   }
-
-.card-content {
-  padding: 1.5rem;
-  margin-top: -1px;
-  background: var(--bg-card);
-  position: relative;
-  z-index: 1;
-}
-
 
   .card-meta {
     display: flex;
@@ -179,6 +151,11 @@
     color: var(--text-secondary);
     line-height: 1.6;
     margin-bottom: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    flex-grow: 1;
   }
 
   .card-tags {
@@ -193,6 +170,7 @@
     gap: 1.25rem;
     padding-top: 1rem;
     border-top: 1px solid var(--border-subtle);
+    margin-top: auto;
   }
 
   .link {
