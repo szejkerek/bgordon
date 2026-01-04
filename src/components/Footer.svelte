@@ -1,10 +1,8 @@
 <script>
-  const currentYear = new Date().getFullYear();
-  
   const socialLinks = [
-    { name: 'GitHub', url: 'https://github.com/yourusername' },
-    { name: 'Twitter', url: 'https://twitter.com/yourusername' },
-    { name: 'itch.io', url: 'https://yourusername.itch.io' },
+    { name: 'GitHub', url: 'https://github.com/szejkerek' },
+    { name: 'LinkedIn', url: 'https://linkedin.com/in/bartekgordon' },
+    { name: 'itch.io', url: 'https://szejkerek.itch.io' },
   ];
 </script>
 
@@ -13,13 +11,13 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <p class="name">Bartłomiej Gordon</p>
-        <p class="tagline">Game developer crafting interactive experiences with passion and precision.</p>
+        <a href="mailto:bartekk.gordon@gmail.com" class="brand-email">bartekk.gordon@gmail.com</a>
       </div>
       <div class="footer-col">
         <h4>Work</h4>
+        <a href="/#experience">Experience</a>
         <a href="/#projects">Projects</a>
         <a href="/#achievements">Achievements</a>
-        <a href="/cv">CV</a>
       </div>
       <div class="footer-col">
         <h4>Connect</h4>
@@ -27,15 +25,11 @@
           <a href={link.url} target="_blank" rel="noopener">{link.name}</a>
         {/each}
       </div>
-      <div class="footer-col">
-        <h4>Contact</h4>
-        <a href="mailto:your@email.com">your@email.com</a>
-      </div>
     </div>
     
     <div class="footer-bottom">
-      <p>© {currentYear} Bartłomiej Gordon</p>
-      <p>Built with Astro + Svelte</p>
+      <p>© 2020 — 2026 Bartłomiej Gordon</p>
+      <p>Gliwice / Katowice, Poland</p>
     </div>
   </div>
 </footer>
@@ -54,7 +48,7 @@
   
   .footer-grid {
     display: grid;
-    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    grid-template-columns: 1.5fr 1fr 1fr;
     gap: 3rem;
     margin-bottom: 3rem;
     padding-bottom: 2rem;
@@ -69,10 +63,15 @@
     margin-bottom: 0.5rem;
   }
   
-  .footer-brand .tagline {
-    color: var(--text-muted);
+  .brand-email {
     font-size: 0.9rem;
-    line-height: 1.6;
+    color: var(--text-secondary);
+    text-decoration: none;
+    transition: color var(--hover-duration) var(--ease-out);
+  }
+  
+  .brand-email:hover {
+    color: var(--accent);
   }
   
   .footer-col h4 {
@@ -91,7 +90,7 @@
     text-decoration: none;
     font-size: 0.9rem;
     padding: 0.35rem 0;
-    transition: color 0.2s ease;
+    transition: color var(--hover-duration) var(--ease-out);
   }
   
   .footer-col a:hover {

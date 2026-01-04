@@ -25,6 +25,11 @@ const achievementsCollection = defineCollection({
     type: z.string(),
     icon: z.string().optional().default('trophy'),
     url: z.string().optional(),
+    image: z.string().optional(),
+    gallery: z.array(z.string()).optional(),
+    game: z.string().optional(),
+    rank: z.string().optional(),
+    participants: z.string().optional(),
   }),
 });
 

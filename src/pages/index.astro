@@ -1,6 +1,7 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.svelte';
+import JobTimeline from '../components/JobTimeline.svelte';
 import GameCard from '../components/GameCard.svelte';
 import AchievementCard from '../components/AchievementCard.svelte';
 import { getCollection } from 'astro:content';
@@ -17,15 +18,17 @@ const sortedAchievements = achievements.sort((a, b) =>
 );
 ---
 
-<Layout title="Bartłomiej Gordon — Game Developer">
+<Layout title="Bartłomiej Gordon — Unity Developer">
   <Hero client:load />
+  
+  <!-- Job Timeline Section -->
+  <JobTimeline client:visible />
   
   <!-- Projects Section -->
   <section id="projects" class="section">
     <div class="container">
       <header class="section-header">
         <h2 class="section-title">Projects</h2>
-        <p class="section-description">A selection of games from jams and personal work.</p>
       </header>
       
       <div class="games-grid">
@@ -41,7 +44,6 @@ const sortedAchievements = achievements.sort((a, b) =>
     <div class="container">
       <header class="section-header">
         <h2 class="section-title">Achievements</h2>
-        <p class="section-description">Awards and recognition from game jams.</p>
       </header>
       
       <div class="achievements-grid">
@@ -77,13 +79,7 @@ const sortedAchievements = achievements.sort((a, b) =>
     font-size: 2rem;
     font-weight: 600;
     color: var(--text-primary);
-    margin-bottom: 0.5rem;
     letter-spacing: -0.02em;
-  }
-  
-  .section-description {
-    font-size: 1rem;
-    color: var(--text-secondary);
   }
   
   .games-grid {
