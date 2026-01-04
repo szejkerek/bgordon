@@ -9,92 +9,73 @@
 </script>
 
 <section class="hero" class:visible={visible}>
-  <div class="hero-content">
-    <div class="hero-badge">
-      <span class="pulse"></span>
-      Available for hire
+  <div class="hero-grid">
+    <div class="hero-content">
+      <p class="hero-label">Game Developer</p>
+      <h1 class="hero-name">Crafting games with intention and care.</h1>
+      <p class="hero-bio">
+        I design and build interactive experiences — from roguelikes to cozy sims. 
+        Focused on creating games that feel good to play and leave a lasting impression.
+      </p>
+      
+      <div class="hero-links">
+        <a href="#projects" class="hero-link primary">
+          View Projects
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M7 17L17 7M17 7H7M17 7V17"/>
+          </svg>
+        </a>
+        <a href="mailto:your@email.com" class="hero-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+          Email
+        </a>
+        <a href="https://github.com/yourusername" target="_blank" rel="noopener" class="hero-link">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+          </svg>
+          GitHub
+        </a>
+      </div>
     </div>
     
-    <h1 class="hero-title">
-      <span class="line">Game</span>
-      <span class="line highlight">Developer</span>
-      <span class="line">&amp; Designer</span>
-    </h1>
-    
-    <p class="hero-description">
-      Creating memorable gaming experiences through code, art, and passion.
-      Specializing in indie games, game jams, and interactive experiences.
-    </p>
-    
-    <div class="hero-actions">
-      <a href="#games" class="btn">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <polygon points="5 3 19 12 5 21 5 3"></polygon>
-        </svg>
-        View Games
-      </a>
-      <a href="/cv" class="btn btn-secondary">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-          <polyline points="14 2 14 8 20 8"></polyline>
-          <line x1="16" y1="13" x2="8" y2="13"></line>
-          <line x1="16" y1="17" x2="8" y2="17"></line>
-          <polyline points="10 9 9 9 8 9"></polyline>
-        </svg>
-        View CV
-      </a>
-    </div>
-    
-    <div class="hero-stats">
-      <div class="stat">
-        <span class="stat-value">10+</span>
-        <span class="stat-label">Games Shipped</span>
-      </div>
-      <div class="stat">
-        <span class="stat-value">5</span>
-        <span class="stat-label">Jam Wins</span>
-      </div>
-      <div class="stat">
-        <span class="stat-value">3+</span>
-        <span class="stat-label">Years Exp</span>
+    <div class="hero-photo">
+      <div class="photo-wrapper">
+        <div class="photo-frame">
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          <span>Your Photo</span>
+        </div>
+        <!-- Replace the placeholder div above with:
+        <img src="/your-photo.jpg" alt="Bartłomiej Gordon" class="photo-frame" />
+        -->
       </div>
     </div>
   </div>
   
-  <div class="hero-visual">
-    <div class="terminal">
-      <div class="terminal-header">
-        <span class="dot red"></span>
-        <span class="dot yellow"></span>
-        <span class="dot green"></span>
-        <span class="terminal-title">portfolio.exe</span>
-      </div>
-      <div class="terminal-body">
-        <p><span class="prompt">$</span> loading_skills...</p>
-        <p class="indent"><span class="key">unity</span>: <span class="value">████████░░</span> 80%</p>
-        <p class="indent"><span class="key">godot</span>: <span class="value">███████░░░</span> 70%</p>
-        <p class="indent"><span class="key">c#</span>: <span class="value">█████████░</span> 90%</p>
-        <p class="indent"><span class="key">pixel_art</span>: <span class="value">██████░░░░</span> 60%</p>
-        <p><span class="prompt">$</span> status: <span class="success">ready_to_create</span></p>
-        <p class="cursor"><span class="prompt">$</span> <span class="blink">_</span></p>
-      </div>
-    </div>
-  </div>
+  <a href="#projects" class="scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-arrow"></div>
+  </a>
 </section>
 
 <style>
   .hero {
     min-height: 100vh;
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4rem;
-    align-items: center;
-    padding: 8rem 2rem 4rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 8rem 2rem 3rem;
     max-width: 1200px;
     margin: 0 auto;
+    position: relative;
     opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.8s ease;
+    transform: translateY(16px);
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
   }
   
   .hero.visible {
@@ -102,253 +83,225 @@
     transform: translateY(0);
   }
   
-  .hero-badge {
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 4rem;
+    align-items: center;
+  }
+  
+  .hero-content {
+    max-width: 560px;
+  }
+  
+  .hero-label {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.5rem 1rem;
-    background: rgba(0, 255, 136, 0.1);
-    border: 1px solid rgba(0, 255, 136, 0.3);
-    border-radius: 50px;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--accent);
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--accent-primary);
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
   }
   
-  .pulse {
-    width: 8px;
-    height: 8px;
-    background: var(--accent-primary);
-    border-radius: 50%;
-    animation: pulse 2s ease-in-out infinite;
+  .hero-label::before {
+    content: '';
+    width: 24px;
+    height: 2px;
+    background: var(--accent);
   }
   
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.5; transform: scale(1.2); }
-  }
-  
-  .hero-title {
-    font-size: clamp(3rem, 6vw, 5rem);
-    font-weight: 700;
+  .hero-name {
+    font-family: var(--font-display);
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 600;
     line-height: 1.1;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1.25rem;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
   }
   
-  .hero-title .line {
-    display: block;
-  }
-  
-  .hero-title .highlight {
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  
-  .hero-description {
-    font-size: 1.125rem;
+  .hero-bio {
+    font-size: 1.1rem;
     color: var(--text-secondary);
-    max-width: 500px;
+    line-height: 1.75;
     margin-bottom: 2rem;
-    line-height: 1.7;
   }
   
-  .hero-actions {
+  .hero-links {
     display: flex;
-    gap: 1rem;
-    margin-bottom: 3rem;
+    flex-wrap: wrap;
+    gap: 0.75rem;
   }
   
-  .btn {
+  .hero-link {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.75rem 1.5rem;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.875rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    border: 2px solid var(--accent-primary);
-    border-radius: 8px;
-    background: transparent;
-    color: var(--accent-primary);
+    padding: 0.625rem 1.25rem;
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--text-primary);
     text-decoration: none;
-    transition: all 0.3s ease;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: var(--radius);
+    transition: all 0.2s ease;
   }
   
-  .btn:hover {
-    background: var(--accent-primary);
+  .hero-link:hover {
+    background: var(--bg-elevated);
+    border-color: var(--accent);
+  }
+  
+  .hero-link.primary {
+    background: var(--accent);
+    border-color: var(--accent);
     color: var(--bg-primary);
-    box-shadow: 0 0 30px rgba(0, 255, 136, 0.4);
-    transform: translateY(-2px);
   }
   
-  .btn-secondary {
-    border-color: var(--accent-secondary);
-    color: var(--accent-secondary);
+  .hero-link.primary:hover {
+    background: var(--accent-dim);
+    border-color: var(--accent-dim);
   }
   
-  .btn-secondary:hover {
-    background: var(--accent-secondary);
-    box-shadow: 0 0 30px rgba(255, 51, 102, 0.4);
+  .hero-photo {
+    position: relative;
   }
   
-  .hero-stats {
-    display: flex;
-    gap: 3rem;
+  .photo-wrapper {
+    width: 320px;
+    height: 400px;
+    position: relative;
   }
   
-  .stat {
+  .photo-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    right: -20px;
+    bottom: -20px;
+    border: 2px solid var(--accent);
+    border-radius: var(--radius-lg);
+    opacity: 0.3;
+  }
+  
+  .photo-frame {
+    width: 100%;
+    height: 100%;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
-  }
-  
-  .stat-value {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--accent-primary);
-  }
-  
-  .stat-label {
-    font-size: 0.875rem;
-    color: var(--text-muted);
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-  }
-  
-  .hero-visual {
-    display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    color: var(--text-muted);
+    object-fit: cover;
   }
   
-  .terminal {
-    width: 100%;
-    max-width: 400px;
-    background: var(--bg-card);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  .photo-frame span {
+    font-size: 0.85rem;
   }
   
-  .terminal-header {
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
     display: flex;
+    flex-direction: column;
     align-items: center;
     gap: 0.5rem;
-    padding: 0.75rem 1rem;
-    background: rgba(255, 255, 255, 0.05);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-  }
-  
-  .dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-  }
-  
-  .dot.red { background: #ff5f57; }
-  .dot.yellow { background: #febc2e; }
-  .dot.green { background: #28c840; }
-  
-  .terminal-title {
-    margin-left: auto;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
+    text-decoration: none;
     color: var(--text-muted);
+    transition: color 0.2s ease;
   }
   
-  .terminal-body {
-    padding: 1.5rem;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.875rem;
-    line-height: 1.8;
+  .scroll-hint:hover {
+    color: var(--accent);
   }
   
-  .terminal-body p {
-    margin: 0;
+  .scroll-hint span {
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
   }
   
-  .prompt {
-    color: var(--accent-primary);
+  .scroll-arrow {
+    width: 24px;
+    height: 40px;
+    border: 2px solid currentColor;
+    border-radius: 12px;
+    position: relative;
   }
   
-  .indent {
-    padding-left: 1rem;
+  .scroll-arrow::before {
+    content: '';
+    position: absolute;
+    top: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 8px;
+    background: currentColor;
+    border-radius: 2px;
+    animation: scrollDown 1.5s ease-in-out infinite;
   }
   
-  .key {
-    color: var(--accent-tertiary);
+  @keyframes scrollDown {
+    0%, 100% { opacity: 1; top: 8px; }
+    50% { opacity: 0.3; top: 18px; }
   }
   
-  .value {
-    color: var(--accent-primary);
-    letter-spacing: -2px;
-  }
-  
-  .success {
-    color: var(--accent-primary);
-  }
-  
-  .cursor {
-    margin-top: 0.5rem;
-  }
-  
-  .blink {
-    animation: blink 1s step-end infinite;
-  }
-  
-  @keyframes blink {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0; }
-  }
-  
-  @media (max-width: 968px) {
-    .hero {
+  @media (max-width: 900px) {
+    .hero-grid {
       grid-template-columns: 1fr;
+      gap: 3rem;
       text-align: center;
-      padding-top: 6rem;
     }
     
-    .hero-description {
-      margin-left: auto;
-      margin-right: auto;
+    .hero-content {
+      max-width: none;
     }
     
-    .hero-actions {
+    .hero-label {
       justify-content: center;
     }
     
-    .hero-stats {
+    .hero-label::before {
+      display: none;
+    }
+    
+    .hero-links {
       justify-content: center;
     }
     
-    .hero-visual {
+    .hero-photo {
       order: -1;
+      display: flex;
+      justify-content: center;
     }
     
-    .terminal {
-      max-width: 350px;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .hero-stats {
-      gap: 1.5rem;
+    .photo-wrapper {
+      width: 200px;
+      height: 250px;
     }
     
-    .stat-value {
-      font-size: 1.5rem;
-    }
-    
-    .hero-actions {
-      flex-direction: column;
-      align-items: center;
+    .scroll-hint {
+      position: relative;
+      bottom: auto;
+      left: auto;
+      transform: none;
+      margin-top: 3rem;
     }
   }
 </style>

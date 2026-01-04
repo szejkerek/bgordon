@@ -8,23 +8,17 @@
 
 <nav class="nav">
   <div class="nav-container">
-    <a href="/" class="logo">
-      <span class="logo-bracket">[</span>
-      <span class="logo-text">DEV</span>
-      <span class="logo-bracket">]</span>
-    </a>
+    <a href="/" class="logo">Bartłomiej Gordon</a>
     
     <button class="menu-toggle" onclick={toggleMenu} aria-label="Toggle menu">
-      <span class="bar" class:open={isMenuOpen}></span>
       <span class="bar" class:open={isMenuOpen}></span>
       <span class="bar" class:open={isMenuOpen}></span>
     </button>
     
     <ul class="nav-links" class:open={isMenuOpen}>
-      <li><a href="/#games">Games</a></li>
+      <li><a href="/#projects">Projects</a></li>
       <li><a href="/#achievements">Achievements</a></li>
-      <li><a href="/#about">About</a></li>
-      <li><a href="/cv" class="nav-btn">View CV</a></li>
+      <li><a href="/cv" class="nav-btn">CV</a></li>
     </ul>
   </div>
 </nav>
@@ -36,9 +30,10 @@
     left: 0;
     right: 0;
     z-index: 1000;
-    background: rgba(10, 10, 15, 0.9);
-    backdrop-filter: blur(10px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(12, 12, 12, 0.8);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border-subtle);
   }
   
   .nav-container {
@@ -51,31 +46,17 @@
   }
   
   .logo {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 1.5rem;
-    font-weight: 700;
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
     color: var(--text-primary);
     text-decoration: none;
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
+    letter-spacing: -0.02em;
+    transition: color 0.2s ease;
   }
   
-  .logo-bracket {
-    color: var(--accent-primary);
-    animation: glow 2s ease-in-out infinite;
-  }
-  
-  .logo-text {
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-  
-  @keyframes glow {
-    0%, 100% { opacity: 0.7; }
-    50% { opacity: 1; }
+  .logo:hover {
+    color: var(--accent);
   }
   
   .nav-links {
@@ -88,75 +69,54 @@
   }
   
   .nav-links a {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.875rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
+    font-size: 0.85rem;
+    font-weight: 500;
     color: var(--text-secondary);
     text-decoration: none;
-    transition: all 0.3s ease;
-    position: relative;
+    transition: color 0.2s ease;
   }
   
-  .nav-links a:not(.nav-btn)::after {
-    content: '';
-    position: absolute;
-    bottom: -4px;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--gradient-primary);
-    transition: width 0.3s ease;
-  }
-  
-  .nav-links a:not(.nav-btn):hover {
-    color: var(--accent-primary);
-  }
-  
-  .nav-links a:not(.nav-btn):hover::after {
-    width: 100%;
+  .nav-links a:hover {
+    color: var(--text-primary);
   }
   
   .nav-btn {
-    padding: 0.5rem 1rem;
-    border: 1px solid var(--accent-primary);
-    border-radius: 4px;
-    color: var(--accent-primary) !important;
+    padding: 0.5rem 1.25rem;
+    background: var(--accent);
+    border-radius: var(--radius);
+    color: var(--bg-primary) !important;
+    font-weight: 600;
   }
   
   .nav-btn:hover {
-    background: var(--accent-primary);
+    background: var(--accent-dim);
     color: var(--bg-primary) !important;
-    box-shadow: 0 0 20px rgba(0, 255, 136, 0.3);
   }
   
   .menu-toggle {
     display: none;
     flex-direction: column;
-    gap: 5px;
+    gap: 6px;
     background: none;
     border: none;
     cursor: pointer;
-    padding: 5px;
+    padding: 6px;
   }
   
   .bar {
-    width: 25px;
+    width: 22px;
     height: 2px;
-    background: var(--accent-primary);
-    transition: all 0.3s ease;
+    background: var(--text-primary);
+    transition: all 0.25s ease;
+    border-radius: 2px;
   }
   
   .bar.open:nth-child(1) {
-    transform: rotate(45deg) translate(5px, 5px);
+    transform: rotate(45deg) translate(3px, 3px);
   }
   
   .bar.open:nth-child(2) {
-    opacity: 0;
-  }
-  
-  .bar.open:nth-child(3) {
-    transform: rotate(-45deg) translate(5px, -5px);
+    transform: rotate(-45deg) translate(3px, -3px);
   }
   
   @media (max-width: 768px) {
@@ -170,13 +130,16 @@
       left: 0;
       right: 0;
       flex-direction: column;
-      background: rgba(10, 10, 15, 0.98);
-      padding: 2rem;
-      gap: 1.5rem;
+      background: rgba(12, 12, 12, 0.98);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      padding: 1.5rem 2rem 2rem;
+      gap: 1.25rem;
+      border-bottom: 1px solid var(--border-subtle);
       transform: translateY(-100%);
       opacity: 0;
       pointer-events: none;
-      transition: all 0.3s ease;
+      transition: all 0.25s ease;
     }
     
     .nav-links.open {
