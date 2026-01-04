@@ -2,51 +2,40 @@
   const currentYear = new Date().getFullYear();
   
   const socialLinks = [
-    { name: 'GitHub', url: 'https://github.com/yourusername', icon: 'github' },
-    { name: 'Twitter', url: 'https://twitter.com/yourusername', icon: 'twitter' },
-    { name: 'itch.io', url: 'https://yourusername.itch.io', icon: 'itch' },
-    { name: 'LinkedIn', url: 'https://linkedin.com/in/yourusername', icon: 'linkedin' },
+    { name: 'GitHub', url: 'https://github.com/yourusername' },
+    { name: 'Twitter', url: 'https://twitter.com/yourusername' },
+    { name: 'itch.io', url: 'https://yourusername.itch.io' },
   ];
 </script>
 
 <footer class="footer">
   <div class="footer-content">
-    <div class="footer-main">
+    <div class="footer-grid">
       <div class="footer-brand">
-        <a href="/" class="logo">
-          <span class="bracket">[</span>DEV<span class="bracket">]</span>
-        </a>
-        <p class="tagline">Crafting games, one pixel at a time.</p>
+        <p class="name">Bartłomiej Gordon</p>
+        <p class="tagline">Game developer crafting interactive experiences with passion and precision.</p>
       </div>
-      
-      <nav class="footer-nav">
-        <div class="nav-column">
-          <h4>Portfolio</h4>
-          <a href="/#games">Games</a>
-          <a href="/#achievements">Achievements</a>
-          <a href="/#about">About</a>
-        </div>
-        <div class="nav-column">
-          <h4>Connect</h4>
-          {#each socialLinks as link}
-            <a href={link.url} target="_blank" rel="noopener">{link.name}</a>
-          {/each}
-        </div>
-        <div class="nav-column">
-          <h4>More</h4>
-          <a href="/cv">View CV</a>
-          <a href="mailto:your@email.com">Contact</a>
-        </div>
-      </nav>
+      <div class="footer-col">
+        <h4>Work</h4>
+        <a href="/#projects">Projects</a>
+        <a href="/#achievements">Achievements</a>
+        <a href="/cv">CV</a>
+      </div>
+      <div class="footer-col">
+        <h4>Connect</h4>
+        {#each socialLinks as link}
+          <a href={link.url} target="_blank" rel="noopener">{link.name}</a>
+        {/each}
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <a href="mailto:your@email.com">your@email.com</a>
+      </div>
     </div>
     
     <div class="footer-bottom">
-      <p class="copyright">© {currentYear} Your Name. All rights reserved.</p>
-      <p class="built-with">
-        Built with 
-        <span class="heart">♥</span> 
-        using Astro + Svelte
-      </p>
+      <p>© {currentYear} Bartłomiej Gordon</p>
+      <p>Built with Astro + Svelte</p>
     </div>
   </div>
 </footer>
@@ -54,70 +43,59 @@
 <style>
   .footer {
     background: var(--bg-secondary);
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    margin-top: auto;
+    border-top: 1px solid var(--border-subtle);
+    padding: 4rem 2rem 2rem;
   }
   
   .footer-content {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 4rem 2rem 2rem;
   }
   
-  .footer-main {
+  .footer-grid {
     display: grid;
-    grid-template-columns: 1fr 2fr;
-    gap: 4rem;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 3rem;
     margin-bottom: 3rem;
-    padding-bottom: 3rem;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border-subtle);
   }
   
-  .logo {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 1.5rem;
-    font-weight: 700;
+  .footer-brand .name {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-weight: 600;
     color: var(--text-primary);
-    text-decoration: none;
+    margin-bottom: 0.5rem;
   }
   
-  .bracket {
-    color: var(--accent-primary);
-  }
-  
-  .tagline {
-    margin-top: 0.75rem;
+  .footer-brand .tagline {
     color: var(--text-muted);
     font-size: 0.9rem;
+    line-height: 1.6;
   }
   
-  .footer-nav {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-  }
-  
-  .nav-column h4 {
-    font-family: 'JetBrains Mono', monospace;
+  .footer-col h4 {
+    font-family: var(--font-body);
     font-size: 0.8rem;
+    font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.1em;
     color: var(--text-primary);
     margin-bottom: 1rem;
   }
   
-  .nav-column a {
+  .footer-col a {
     display: block;
     color: var(--text-secondary);
     text-decoration: none;
     font-size: 0.9rem;
-    padding: 0.3rem 0;
-    transition: all 0.3s ease;
+    padding: 0.35rem 0;
+    transition: color 0.2s ease;
   }
   
-  .nav-column a:hover {
-    color: var(--accent-primary);
-    transform: translateX(4px);
+  .footer-col a:hover {
+    color: var(--accent);
   }
   
   .footer-bottom {
@@ -128,40 +106,22 @@
     color: var(--text-muted);
   }
   
-  .built-with {
-    font-family: 'JetBrains Mono', monospace;
-  }
-  
-  .heart {
-    color: var(--accent-secondary);
-    animation: heartbeat 1.5s ease-in-out infinite;
-  }
-  
-  @keyframes heartbeat {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
-  }
-  
-  @media (max-width: 768px) {
-    .footer-main {
-      grid-template-columns: 1fr;
+  @media (max-width: 900px) {
+    .footer-grid {
+      grid-template-columns: 1fr 1fr;
       gap: 2rem;
     }
-    
-    .footer-nav {
-      grid-template-columns: repeat(2, 1fr);
+  }
+  
+  @media (max-width: 600px) {
+    .footer-grid {
+      grid-template-columns: 1fr;
     }
     
     .footer-bottom {
       flex-direction: column;
       gap: 0.5rem;
       text-align: center;
-    }
-  }
-  
-  @media (max-width: 480px) {
-    .footer-nav {
-      grid-template-columns: 1fr;
     }
   }
 </style>
