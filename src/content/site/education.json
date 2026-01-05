@@ -1,0 +1,18 @@
+[
+  {
+    "institution": "Silesian University of Technology",
+    "logo": "images/logos/polsl.png",
+    "degree": "MSc Computer Science",
+    "period": "2024 to 2025",
+    "description": "Master's degree in Game and Software Development. Focus on graphics programming and rendering techniques.",
+    "skills": ["Game Dev", "Graphics", "Research"]
+  },
+  {
+    "institution": "Silesian University of Technology",
+    "logo": "images/logos/polsl.png",
+    "degree": "BSc Computer Science",
+    "period": "2020 to 2024",
+    "description": "Bachelor's degree in Computer Software Development. Co authored publication on rehabilitation using depth sensors.",
+    "skills": ["Software Dev", "Unity", "Research"]
+  }
+]

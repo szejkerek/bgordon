@@ -6,6 +6,7 @@ tags: ["Unity", "C#", "Git", "Tools"]
 image: "/images/games/unity-package.png"
 sourceUrl: "https://github.com/szejkerek"
 featured: false
+teamSize: 1
 ---
 
 ## About This Package

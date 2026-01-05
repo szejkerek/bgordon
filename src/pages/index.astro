@@ -6,6 +6,11 @@ import GameCard from '../components/GameCard.svelte';
 import AchievementCard from '../components/AchievementCard.svelte';
 import { getCollection } from 'astro:content';
 
+// Load site content from JSON files
+import heroData from '../content/site/hero.json';
+import workExperience from '../content/site/work-experience.json';
+import education from '../content/site/education.json';
+
 const games = await getCollection('games');
 const achievements = await getCollection('achievements');
 
@@ -19,10 +24,14 @@ const sortedAchievements = achievements.sort((a, b) =>
 ---
 
 <Layout title="Bartłomiej Gordon — Unity Developer">
-  <Hero client:load />
+  <Hero heroData={heroData} client:load />
   
   <!-- Job Timeline Section -->
-  <JobTimeline client:visible />
+  <JobTimeline 
+    workExperience={workExperience} 
+    education={education} 
+    client:visible 
+  />
   
   <!-- Projects Section -->
   <section id="projects" class="section">

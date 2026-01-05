@@ -1,53 +1,13 @@
 <script>
   import { onMount } from "svelte";
 
+  let { workExperience = [], education = [] } = $props();
+
   let sectionEl;
   let hydrated = false;
   let inView = false;
 
   let logoErrors = {};
-
-  const workExperience = [
-    {
-      company: "Radicate",
-      logo: "images/logos/radicate.png",
-      role: "Unity Developer",
-      period: "May 2023 to Present",
-      description:
-        "Working on 2 applications simultaneously: maintaining the mobile game Jump Heroes (available on mobile and PC), and developing an unannounced PC game with an 8 person team.",
-      skills: ["Unity", "C#", "Mobile", "PC"]
-    },
-    {
-      company: "IT Silesia",
-      logo: "images/logos/itsilesia.png",
-      role: "Mid Unity VR Developer",
-      period: "April 2022 to July 2023",
-      description:
-        "Developed 6 independent VR simulations using Oculus headsets. Projects outsourced by international company TransFr with bi weekly client meetings.",
-      skills: ["Unity", "VR", "Oculus XR", "C#"]
-    }
-  ];
-
-  const education = [
-    {
-      company: "Silesian University of Technology",
-      logo: "images/logos/polsl.png",
-      role: "MSc Computer Science",
-      period: "2024 to 2025",
-      description:
-        "Master's degree in Game and Software Development. Focus on graphics programming and rendering techniques.",
-      skills: ["Game Dev", "Graphics", "Research"]
-    },
-    {
-      company: "Silesian University of Technology",
-      logo: "images/logos/polsl.png",
-      role: "BSc Computer Science",
-      period: "2020 to 2024",
-      description:
-        "Bachelor's degree in Computer Software Development. Co authored publication on rehabilitation using depth sensors.",
-      skills: ["Software Dev", "Unity", "Research"]
-    }
-  ];
 
   function handleLogoError(kind, index) {
     const key = `${kind}_${index}`;
@@ -164,7 +124,7 @@
         </div>
       </div>
 
-      <div class="timeline-column">
+      <div class="timeline-column" id="education">
         <header class="column-header">
           <div class="header-icon" aria-hidden="true">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -179,7 +139,7 @@
           {#each education as edu, index}
             <article class="timeline-item" style={`--delay:${(index + 2) * 0.15}s`}>
               <div class="timeline-marker" aria-hidden="true">
-                <div class="marker-dot education"></div>
+                <div class="marker-dot"></div>
                 {#if index < education.length - 1}
                   <div class="marker-line"></div>
                 {/if}
@@ -191,7 +151,7 @@
                     {#if edu.logo && !logoErrors[`edu_${index}`]}
                       <img
                         src={edu.logo}
-                        alt={edu.company}
+                        alt={edu.institution}
                         loading="lazy"
                         decoding="async"
                         on:error={() => handleLogoError("edu", index)}
@@ -207,8 +167,8 @@
                   </div>
 
                   <div class="job-info">
-                    <h3 class="company-name">{edu.company}</h3>
-                    <p class="job-role">{edu.role}</p>
+                    <h3 class="company-name">{edu.institution}</h3>
+                    <p class="job-role">{edu.degree}</p>
                   </div>
                 </div>
 
@@ -337,11 +297,6 @@
     border-radius: 50%;
     box-shadow: 0 0 0 3px var(--accent-glow);
     flex-shrink: 0;
-  }
-
-  .marker-dot.education {
-    background: #818cf8;
-    box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.15);
   }
 
   .marker-line {

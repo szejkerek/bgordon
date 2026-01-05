@@ -6,6 +6,7 @@ tags: ["Python", "PyTorch", "Machine Learning", "Computer Vision"]
 image: "/images/games/animal-detection.png"
 sourceUrl: "https://github.com/szejkerek"
 featured: false
+teamSize: 1
 ---
 
 ## About This Project

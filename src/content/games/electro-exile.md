@@ -7,6 +7,7 @@ image: "/images/games/electro-exile.png"
 sourceUrl: "https://github.com/szejkerek"
 jam: "BEST IT Festival"
 featured: false
+teamSize: 6
 ---
 
 ## About This Game

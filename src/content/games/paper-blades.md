@@ -6,6 +6,7 @@ tags: ["Unity", "C#", "Voice Control", "RTS", "Roguelike"]
 image: "/images/games/paper-blades.png"
 jam: "ZTGK 2024"
 featured: true
+teamSize: 6
 ---
 
 ## About This Game

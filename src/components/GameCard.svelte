@@ -5,10 +5,10 @@
 <article class="game-card card hover-surface">
   <div class="card-image">
     {#if game.data.image}
-      <img src={game.data.image} alt={game.data.title} />
+      <img src={game.data.image} alt={game.data.title} loading="lazy" decoding="async" />
     {:else}
       <div class="placeholder">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
           <rect x="2" y="6" width="20" height="12" rx="2"></rect>
           <circle cx="8" cy="12" r="2"></circle>
           <path d="M15 10v4M13 12h4"></path>
@@ -23,6 +23,17 @@
       {#if game.data.jam}
         <span class="tag highlight">{game.data.jam}</span>
       {/if}
+      {#if game.data.teamSize}
+        <span class="team-size" title="Team size">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          {game.data.teamSize}
+        </span>
+      {/if}
     </div>
 
     <h3 class="card-title">{game.data.title}</h3>
@@ -36,8 +47,8 @@
 
     <div class="card-links">
       {#if game.data.playUrl}
-        <a href={game.data.playUrl} class="link" target="_blank" rel="noopener">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <a href={game.data.playUrl} class="link" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <polygon points="5 3 19 12 5 21 5 3"></polygon>
           </svg>
           Play
@@ -45,8 +56,8 @@
       {/if}
 
       {#if game.data.sourceUrl}
-        <a href={game.data.sourceUrl} class="link" target="_blank" rel="noopener">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <a href={game.data.sourceUrl} class="link" target="_blank" rel="noopener noreferrer">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
           </svg>
           Source
@@ -114,6 +125,7 @@
     align-items: center;
     gap: 0.75rem;
     margin-bottom: 0.75rem;
+    flex-wrap: wrap;
   }
 
   .date {
@@ -136,6 +148,19 @@
   .tag.highlight {
     background: var(--accent-glow);
     color: var(--accent);
+  }
+
+  .team-size {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    font-weight: 500;
+  }
+
+  .team-size svg {
+    opacity: 0.7;
   }
 
   .card-title {

@@ -6,9 +6,20 @@ import '../styles/global.css';
 interface Props {
   title: string;
   description?: string;
+  image?: string;
+  canonicalUrl?: string;
 }
 
-const { title, description = 'Game Developer Portfolio - Games, Achievements, and More' } = Astro.props;
+const { 
+  title, 
+  description = 'Unity Developer with 5 years of experience. Specializing in game development, VR/AR applications, and graphics programming.', 
+  image = '/images/og-image.png',
+  canonicalUrl 
+} = Astro.props;
+
+const siteUrl = 'https://bartlomiejgordon.dev';
+const fullImageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
+const canonical = canonicalUrl || Astro.url.href;
 ---
 
 <!DOCTYPE html>
@@ -17,17 +28,65 @@ const { title, description = 'Game Developer Portfolio - Games, Achievements, an
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
+    <meta name="author" content="Bartłomiej Gordon" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#0c0c0c" />
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href={canonical} />
+    
+    <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    
     <title>{title}</title>
     
-    <!-- Open Graph -->
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:type" content="website" />
+    <meta property="og:image" content={fullImageUrl} />
+    <meta property="og:site_name" content="Bartłomiej Gordon — Unity Developer" />
+    <meta property="og:locale" content="en_US" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonical} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={fullImageUrl} />
+    
+    <!-- Preconnect to external resources -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    
+    <!-- DNS Prefetch for external links -->
+    <link rel="dns-prefetch" href="https://github.com" />
+    <link rel="dns-prefetch" href="https://linkedin.com" />
+    
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Bartłomiej Gordon",
+        "url": "https://bartlomiejgordon.dev",
+        "jobTitle": "Unity Developer",
+        "description": "Computer Science graduate with 5 years of experience in game development. Specializing in Unity, VR and AR applications, and graphics programming.",
+        "sameAs": [
+          "https://github.com/szejkerek",
+          "https://linkedin.com/in/bartekgordon",
+          "https://szejkerek.itch.io"
+        ],
+        "knowsAbout": ["Unity", "C#", "VR Development", "AR Development", "Game Development", "Graphics Programming"]
+      }
+    </script>
   </head>
   <body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
     <Navigation client:load />
-    <main>
+    <main id="main-content">
       <slot />
     </main>
     <Footer client:load />
@@ -39,5 +98,60 @@ const { title, description = 'Game Developer Portfolio - Games, Achievements, an
     min-height: 100vh;
     display: flex;
     flex-direction: column;
+  }
+  
+  /* Skip link for accessibility */
+  .skip-link {
+    position: absolute;
+    top: -100%;
+    left: 0;
+    background: var(--accent);
+    color: var(--bg-primary);
+    padding: 0.75rem 1.5rem;
+    z-index: 10000;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 0 0 var(--radius) 0;
+    transition: top 0.2s ease;
+  }
+  
+  .skip-link:focus {
+    top: 0;
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  
+  /* Focus styles for better accessibility */
+  :focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+  
+  /* Improve focus styles for links and buttons */
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+  
+  /* Reduce motion for users who prefer it */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+  
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    :root {
+      --border-subtle: rgba(255, 255, 255, 0.2);
+      --border-light: rgba(255, 255, 255, 0.4);
+    }
   }
 </style>

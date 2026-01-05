@@ -7,6 +7,7 @@ image: "/images/games/pirate-rush-vr.png"
 playUrl: "https://szejkerek.itch.io/pirate-rush-vr"
 sourceUrl: "https://github.com/szejkerek"
 featured: true
+teamSize: 1
 ---
 
 ## About This Game

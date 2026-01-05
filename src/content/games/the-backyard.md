@@ -7,6 +7,7 @@ image: "/images/games/the-backyard.png"
 sourceUrl: "https://github.com/szejkerek"
 jam: "GameJamPlus"
 featured: false
+teamSize: 5
 ---
 
 ## About This Game

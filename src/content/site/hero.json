@@ -1,0 +1,27 @@
+{
+  "label": "Unity Developer",
+  "name": "Bartłomiej Gordon",
+  "bio": "Computer Science graduate with 5 years of experience in game development. Specializing in Unity, VR and AR applications, and graphics programming. Currently focused on Rendering and Graphics API Programming.",
+  "photo": "images/profilePicture.jpg",
+  "primaryLink": {
+    "text": "View Projects",
+    "url": "#projects"
+  },
+  "socialLinks": [
+    {
+      "type": "email",
+      "text": "Email",
+      "url": "mailto:bartekk.gordon@gmail.com"
+    },
+    {
+      "type": "github",
+      "text": "GitHub",
+      "url": "https://github.com/szejkerek"
+    },
+    {
+      "type": "linkedin",
+      "text": "LinkedIn",
+      "url": "https://linkedin.com/in/bartekgordon"
+    }
+  ]
+}

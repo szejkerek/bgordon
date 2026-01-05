@@ -6,6 +6,7 @@ tags: ["x86 Assembly", "C", "C#", "Multithreading"]
 image: "/images/games/high-pass-filter.png"
 sourceUrl: "https://github.com/szejkerek"
 featured: false
+teamSize: 1
 ---
 
 ## About This Project

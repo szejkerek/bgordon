@@ -4,6 +4,8 @@
     { name: 'LinkedIn', url: 'https://linkedin.com/in/bartekgordon' },
     { name: 'itch.io', url: 'https://szejkerek.itch.io' },
   ];
+
+  const currentYear = new Date().getFullYear();
 </script>
 
 <footer class="footer">
@@ -16,19 +18,20 @@
       <div class="footer-col">
         <h4>Work</h4>
         <a href="/#experience">Experience</a>
+        <a href="/#education">Education</a>
         <a href="/#projects">Projects</a>
         <a href="/#achievements">Achievements</a>
       </div>
       <div class="footer-col">
         <h4>Connect</h4>
         {#each socialLinks as link}
-          <a href={link.url} target="_blank" rel="noopener">{link.name}</a>
+          <a href={link.url} target="_blank" rel="noopener noreferrer">{link.name}</a>
         {/each}
       </div>
     </div>
     
     <div class="footer-bottom">
-      <p>© 2020 — 2026 Bartłomiej Gordon</p>
+      <p>© 2020 — {currentYear} Bartłomiej Gordon</p>
       <p>Gliwice / Katowice, Poland</p>
     </div>
   </div>

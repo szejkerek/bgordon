@@ -45,7 +45,7 @@
   <article class="achievement-card card hover-surface" class:winner={isWinner}>
     {#if achievement?.data?.image}
       <div class="ach-image">
-        <img src={achievement.data.image} alt={achievement.data.title} loading="lazy" />
+        <img src={achievement.data.image} alt={achievement.data.title} loading="lazy" decoding="async" />
       </div>
     {:else}
       <div class="ach-icon" class:winner={isWinner}>
@@ -65,7 +65,7 @@
       <p class="ach-event">{achievement.data.event}</p>
       <p class="ach-desc">{achievement.data.description}</p>
 
-      <span class="ach-link">View Details →</span>
+      <span class="ach-link">Details →</span>
     </div>
   </article>
 </a>
