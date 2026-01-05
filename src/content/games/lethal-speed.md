@@ -6,6 +6,7 @@ tags: ["Unity", "C#", "Shader Graph", "AI"]
 image: "/images/games/lethal-speed.png"
 sourceUrl: "https://github.com/szejkerek"
 featured: true
+teamSize: 6
 ---
 
 ## About This Game

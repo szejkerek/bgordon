@@ -8,10 +8,12 @@ const gamesCollection = defineCollection({
     date: z.string(),
     tags: z.array(z.string()).optional(),
     image: z.string().optional(),
+    gallery: z.array(z.string()).optional(),
     playUrl: z.string().optional(),
     sourceUrl: z.string().optional(),
     jam: z.string().optional(),
     featured: z.boolean().optional().default(false),
+    teamSize: z.number().optional(),
   }),
 });
 

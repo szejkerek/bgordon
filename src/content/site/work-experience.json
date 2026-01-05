@@ -1,0 +1,18 @@
+[
+  {
+    "company": "Radicate",
+    "logo": "images/logos/radicate.png",
+    "role": "Unity Developer",
+    "period": "May 2023 to Present",
+    "description": "Working on 2 applications simultaneously: maintaining the mobile game Jump Heroes (available on mobile and PC), and developing an unannounced PC game with an 8 person team.",
+    "skills": ["Unity", "C#", "Mobile", "PC"]
+  },
+  {
+    "company": "IT Silesia",
+    "logo": "images/logos/itsilesia.png",
+    "role": "Mid Unity VR Developer",
+    "period": "April 2022 to July 2023",
+    "description": "Developed 6 independent VR simulations using Oculus headsets. Projects outsourced by international company TransFr with bi weekly client meetings.",
+    "skills": ["Unity", "VR", "Oculus XR", "C#"]
+  }
+]

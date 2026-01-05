@@ -1,11 +1,29 @@
 <script>
   import { onMount } from "svelte";
 
+  let { heroData = {} } = $props();
+
   let visible = $state(false);
 
   onMount(() => {
     visible = true;
   });
+
+  // SVG icons for social links
+  const icons = {
+    email: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+      <polyline points="22,6 12,13 2,6" />
+    </svg>`,
+    github: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+    </svg>`,
+    linkedin: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+      <rect x="2" y="9" width="4" height="12" />
+      <circle cx="4" cy="4" r="2" />
+    </svg>`
+  };
 </script>
 
 <section class="hero" class:visible={visible} aria-label="Hero section">
@@ -13,55 +31,44 @@
 
   <div class="hero-grid">
     <div class="hero-content">
-      <p class="hero-label">Unity Developer</p>
+      <p class="hero-label">{heroData.label || 'Unity Developer'}</p>
 
-      <h1 class="hero-name">Bartłomiej Gordon</h1>
+      <h1 class="hero-name">{heroData.name || 'Bartłomiej Gordon'}</h1>
 
       <p class="hero-bio">
-        Computer Science graduate with 5 years of experience in game development.
-        Specializing in Unity, VR and AR applications, and graphics programming.
-        Currently focused on Rendering and Graphics API Programming.
+        {heroData.bio || 'Computer Science graduate with 5 years of experience in game development.'}
       </p>
 
       <nav class="hero-links" aria-label="Primary links">
-        <a href="#projects" class="hero-link primary">
-          <span>View Projects</span>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <path d="M7 17L17 7M17 7H7M17 7V17" />
-          </svg>
-        </a>
+        {#if heroData.primaryLink}
+          <a href={heroData.primaryLink.url} class="hero-link primary">
+            <span>{heroData.primaryLink.text}</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M7 17L17 7M17 7H7M17 7V17" />
+            </svg>
+          </a>
+        {/if}
 
-        <a href="mailto:bartekk.gordon@gmail.com" class="hero-link">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-            <polyline points="22,6 12,13 2,6" />
-          </svg>
-          <span>Email</span>
-        </a>
-
-        <a href="https://github.com/szejkerek" target="_blank" rel="noopener noreferrer" class="hero-link">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-          </svg>
-          <span>GitHub</span>
-        </a>
-
-        <a href="https://linkedin.com/in/bartekgordon" target="_blank" rel="noopener noreferrer" class="hero-link">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-          <rect x="2" y="9" width="4" height="12" />
-            <circle cx="4" cy="4" r="2" />
-          </svg>
-          <span>LinkedIn</span>
-        </a>
+        {#each heroData.socialLinks || [] as link}
+          {@const isExternal = link.url.startsWith('http')}
+          <a 
+            href={link.url} 
+            class="hero-link"
+            target={isExternal ? "_blank" : undefined}
+            rel={isExternal ? "noopener noreferrer" : undefined}
+          >
+            {@html icons[link.type] || ''}
+            <span>{link.text}</span>
+          </a>
+        {/each}
       </nav>
     </div>
 
     <div class="hero-photo" aria-label="Profile photo">
       <div class="photo-wrapper">
         <img
-          src="images/profilePicture.jpg"
-          alt="Bartłomiej Gordon"
+          src={heroData.photo || 'images/profilePicture.jpg'}
+          alt={heroData.name || 'Bartłomiej Gordon'}
           class="photo-frame"
           loading="eager"
           decoding="async"
@@ -173,7 +180,7 @@
     will-change: transform;
   }
 
-  .hero-link svg {
+  .hero-link :global(svg) {
     opacity: 0.92;
     transition: opacity 0.22s ease, transform 0.22s ease;
   }
@@ -185,7 +192,7 @@
     background: rgba(255, 255, 255, 0.05);
   }
 
-  .hero-link:hover svg {
+  .hero-link:hover :global(svg) {
     opacity: 1;
     transform: rotate(-2deg);
   }
@@ -276,7 +283,7 @@
   @media (prefers-reduced-motion: reduce) {
     .hero,
     .hero-link,
-    .hero-link svg,
+    .hero-link :global(svg),
     .photo-frame {
       transition: none;
     }

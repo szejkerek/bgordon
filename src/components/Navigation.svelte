@@ -4,23 +4,33 @@
   function toggleMenu() {
     isMenuOpen = !isMenuOpen;
   }
+
+  function closeMenu() {
+    isMenuOpen = false;
+  }
 </script>
 
 <nav class="nav">
   <div class="nav-container">
     <a href="/" class="logo">Bartłomiej Gordon</a>
     
-    <button class="menu-toggle" onclick={toggleMenu} aria-label="Toggle menu">
+    <button 
+      class="menu-toggle" 
+      onclick={toggleMenu} 
+      aria-label="Toggle menu"
+      aria-expanded={isMenuOpen}
+    >
       <span class="bar" class:open={isMenuOpen}></span>
       <span class="bar" class:open={isMenuOpen}></span>
     </button>
     
     <ul class="nav-links" class:open={isMenuOpen}>
-      <li><a href="/#experience">Experience</a></li>
-      <li><a href="/#projects">Projects</a></li>
-      <li><a href="/#achievements">Achievements</a></li>
+      <li><a href="/#experience" onclick={closeMenu}>Experience</a></li>
+      <li><a href="/#education" onclick={closeMenu}>Education</a></li>
+      <li><a href="/#projects" onclick={closeMenu}>Projects</a></li>
+      <li><a href="/#achievements" onclick={closeMenu}>Achievements</a></li>
       <li><a href="/cv.pdf" download class="nav-btn">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px;">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px;" aria-hidden="true">
           <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
           <polyline points="7 10 12 15 17 10"></polyline>
           <line x1="12" y1="15" x2="12" y2="3"></line>
@@ -89,6 +99,8 @@
   }
   
   .nav-btn {
+    display: inline-flex;
+    align-items: center;
     padding: 0.5rem 1.25rem;
     background: var(--accent);
     border-radius: var(--radius);
