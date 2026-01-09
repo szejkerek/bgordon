@@ -1,4 +1,10 @@
 ---
+/**
+ * Layout Component
+ * 
+ * Main layout wrapper with SEO, navigation, and footer.
+ * Includes proper meta tags, structured data, and accessibility features.
+ */
 import Navigation from '../components/Navigation.svelte';
 import Footer from '../components/Footer.svelte';
 import '../styles/global.css';
@@ -8,18 +14,47 @@ interface Props {
   description?: string;
   image?: string;
   canonicalUrl?: string;
+  noIndex?: boolean;
 }
 
 const { 
   title, 
   description = 'Unity Developer with 5 years of experience. Specializing in game development, VR/AR applications, and graphics programming.', 
   image = '/images/og-image.png',
-  canonicalUrl 
+  canonicalUrl,
+  noIndex = false,
 } = Astro.props;
 
-const siteUrl = 'https://bartlomiejgordon.dev';
-const fullImageUrl = image.startsWith('http') ? image : `${siteUrl}${image}`;
+// Site configuration
+const SITE_URL = 'https://bartlomiejgordon.dev';
+const SITE_NAME = 'Bartłomiej Gordon — Unity Developer';
+
+// Build full URLs
+const fullImageUrl = image.startsWith('http') ? image : `${SITE_URL}${image}`;
 const canonical = canonicalUrl || Astro.url.href;
+
+// Structured data
+const structuredData = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "Bartłomiej Gordon",
+  "url": SITE_URL,
+  "jobTitle": "Unity Developer",
+  "description": "Computer Science graduate with 5 years of experience in game development. Specializing in Unity, VR and AR applications, and graphics programming.",
+  "sameAs": [
+    "https://github.com/szejkerek",
+    "https://linkedin.com/in/bartekgordon",
+    "https://szejkerek.itch.io"
+  ],
+  "knowsAbout": [
+    "Unity",
+    "C#",
+    "VR Development",
+    "AR Development",
+    "Game Development",
+    "Graphics Programming"
+  ]
+};
 ---
 
 <!DOCTYPE html>
@@ -27,19 +62,25 @@ const canonical = canonicalUrl || Astro.url.href;
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Primary Meta Tags -->
+    <title>{title}</title>
+    <meta name="title" content={title} />
     <meta name="description" content={description} />
     <meta name="author" content="Bartłomiej Gordon" />
-    <meta name="robots" content="index, follow" />
+    <meta name="robots" content={noIndex ? 'noindex, nofollow' : 'index, follow'} />
     <meta name="theme-color" content="#0c0c0c" />
+    <meta name="color-scheme" content="dark" />
     
     <!-- Canonical URL -->
     <link rel="canonical" href={canonical} />
     
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    
-    <title>{title}</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website" />
@@ -47,7 +88,9 @@ const canonical = canonicalUrl || Astro.url.href;
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={fullImageUrl} />
-    <meta property="og:site_name" content="Bartłomiej Gordon — Unity Developer" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content={SITE_NAME} />
     <meta property="og:locale" content="en_US" />
     
     <!-- Twitter -->
@@ -57,7 +100,7 @@ const canonical = canonicalUrl || Astro.url.href;
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={fullImageUrl} />
     
-    <!-- Preconnect to external resources -->
+    <!-- Preconnect to external resources (performance optimization) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     
@@ -66,29 +109,21 @@ const canonical = canonicalUrl || Astro.url.href;
     <link rel="dns-prefetch" href="https://linkedin.com" />
     
     <!-- JSON-LD Structured Data -->
-    <script type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Bartłomiej Gordon",
-        "url": "https://bartlomiejgordon.dev",
-        "jobTitle": "Unity Developer",
-        "description": "Computer Science graduate with 5 years of experience in game development. Specializing in Unity, VR and AR applications, and graphics programming.",
-        "sameAs": [
-          "https://github.com/szejkerek",
-          "https://linkedin.com/in/bartekgordon",
-          "https://szejkerek.itch.io"
-        ],
-        "knowsAbout": ["Unity", "C#", "VR Development", "AR Development", "Game Development", "Graphics Programming"]
-      }
-    </script>
+    <script type="application/ld+json" set:html={JSON.stringify(structuredData)} />
   </head>
   <body>
+    <!-- Skip link for accessibility -->
     <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Navigation -->
     <Navigation client:load />
+    
+    <!-- Main content -->
     <main id="main-content">
       <slot />
     </main>
+    
+    <!-- Footer -->
     <Footer client:load />
   </body>
 </html>
@@ -105,32 +140,32 @@ const canonical = canonicalUrl || Astro.url.href;
     position: absolute;
     top: -100%;
     left: 0;
-    background: var(--accent);
-    color: var(--bg-primary);
-    padding: 0.75rem 1.5rem;
-    z-index: 10000;
-    font-weight: 600;
+    background: var(--color-accent);
+    color: var(--color-bg-primary);
+    padding: var(--space-5) var(--space-8);
+    z-index: var(--z-max);
+    font-weight: var(--font-weight-semibold);
     text-decoration: none;
-    border-radius: 0 0 var(--radius) 0;
-    transition: top 0.2s ease;
+    border-radius: 0 0 var(--radius-md) 0;
+    transition: top var(--duration-fast) ease;
   }
   
   .skip-link:focus {
     top: 0;
-    outline: 2px solid var(--accent);
+    outline: 2px solid var(--color-accent);
     outline-offset: 2px;
   }
   
   /* Focus styles for better accessibility */
   :focus-visible {
-    outline: 2px solid var(--accent);
+    outline: 2px solid var(--color-accent);
     outline-offset: 2px;
   }
   
   /* Improve focus styles for links and buttons */
   a:focus-visible,
   button:focus-visible {
-    outline: 2px solid var(--accent);
+    outline: 2px solid var(--color-accent);
     outline-offset: 3px;
     border-radius: 2px;
   }
@@ -150,8 +185,8 @@ const canonical = canonicalUrl || Astro.url.href;
   /* High contrast mode support */
   @media (prefers-contrast: high) {
     :root {
-      --border-subtle: rgba(255, 255, 255, 0.2);
-      --border-light: rgba(255, 255, 255, 0.4);
+      --color-border-subtle: rgba(255, 255, 255, 0.2);
+      --color-border-light: rgba(255, 255, 255, 0.4);
     }
   }
 </style>

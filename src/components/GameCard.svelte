@@ -1,37 +1,65 @@
-<script>
-  let { game } = $props();
+<script lang="ts">
+  /**
+   * GameCard Component
+   * 
+   * Card component for displaying game projects.
+   * Clickable with accessible keyboard support.
+   */
+  import Icon from "./Icon.svelte";
+  import type { GameEntry } from "../types";
+
+  interface Props {
+    game: GameEntry;
+  }
+
+  let { game }: Props = $props();
+  
+  // Computed values
+  const href = $derived(`/games/${game.slug}`);
+  const hasImage = $derived(!!game.data.image);
+  const tags = $derived(game.data.tags || []);
 </script>
 
-<article class="game-card card hover-surface">
+<article 
+	class="game-card card"
+>
+	<a
+		href={href}
+		class="card-overlay-link"
+		aria-label="View {game.data.title} project details"
+	>
+		<span class="sr-only">View {game.data.title} project details</span>
+	</a>
+
   <div class="card-image">
-    {#if game.data.image}
-      <img src={game.data.image} alt={game.data.title} loading="lazy" decoding="async" />
+    {#if hasImage}
+      <img 
+        src={game.data.image} 
+        alt={game.data.title} 
+        loading="lazy" 
+        decoding="async" 
+      />
     {:else}
       <div class="placeholder">
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-          <rect x="2" y="6" width="20" height="12" rx="2"></rect>
-          <circle cx="8" cy="12" r="2"></circle>
-          <path d="M15 10v4M13 12h4"></path>
-        </svg>
+        <Icon name="gamepad" size={48} strokeWidth={1.5} />
       </div>
     {/if}
+    <div class="click-hint">
+      <Icon name="external" size={16} />
+      <span>Click to view details</span>
+    </div>
   </div>
 
   <div class="card-content">
     <div class="card-meta">
       <span class="date">{game.data.date}</span>
       {#if game.data.jam}
-        <span class="tag highlight">{game.data.jam}</span>
+        <span class="tag tag--highlight">{game.data.jam}</span>
       {/if}
       {#if game.data.teamSize}
         <span class="team-size" title="Team size">
-          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-            <circle cx="9" cy="7" r="4"></circle>
-            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-          </svg>
-          {game.data.teamSize}
+          <Icon name="team" size={12} />
+          <span>{game.data.teamSize}</span>
         </span>
       {/if}
     </div>
@@ -40,51 +68,94 @@
     <p class="card-description">{game.data.description}</p>
 
     <div class="card-tags">
-      {#each game.data.tags || [] as tag}
+      {#each tags as tag (tag)}
         <span class="tag">{tag}</span>
       {/each}
     </div>
 
     <div class="card-links">
       {#if game.data.playUrl}
-        <a href={game.data.playUrl} class="link" target="_blank" rel="noopener noreferrer">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <polygon points="5 3 19 12 5 21 5 3"></polygon>
-          </svg>
-          Play
+        <a 
+          href={game.data.playUrl} 
+          class="external-link link" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          aria-label="Play {game.data.title}"
+        >
+          <Icon name="play" size={14} />
+          <span>Play</span>
         </a>
       {/if}
 
       {#if game.data.sourceUrl}
-        <a href={game.data.sourceUrl} class="link" target="_blank" rel="noopener noreferrer">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
-          </svg>
-          Source
+        <a 
+          href={game.data.sourceUrl} 
+          class="external-link link" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          aria-label="View source code for {game.data.title}"
+        >
+          <Icon name="github" size={14} />
+          <span>Source</span>
         </a>
       {/if}
-
-      <a href={`/games/${game.slug}`} class="link link-primary">
-        Details →
-      </a>
     </div>
   </div>
 </article>
 
 <style>
   .game-card {
+		position: relative;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     height: 100%;
+    cursor: pointer;
+    border-radius: var(--radius-lg);
+    transition: 
+      border-color var(--duration-normal) var(--ease-out),
+      box-shadow var(--duration-normal) var(--ease-out),
+      background-color var(--duration-normal) var(--ease-out);
   }
 
+  .game-card:hover {
+    border-color: var(--color-border-light);
+    box-shadow: var(--shadow-xl);
+    background: var(--color-bg-card-hover);
+  }
+
+
+	.card-overlay-link {
+		position: absolute;
+		inset: 0;
+		z-index: 2;
+		display: block;
+		border-radius: inherit;
+		text-decoration: none;
+	}
+
+	.card-overlay-link:focus-visible {
+		outline: 2px solid var(--color-accent);
+		outline-offset: 2px;
+	}
+
+	.sr-only {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0, 0, 0, 0);
+		white-space: nowrap;
+		border: 0;
+	}
 
   .card-image {
     position: relative;
     height: 200px;
     overflow: hidden;
-    background: var(--bg-elevated);
+    background: var(--color-bg-elevated);
     flex-shrink: 0;
   }
 
@@ -92,13 +163,39 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transform: translateZ(0);
-    will-change: transform;
-    transition: transform var(--hover-duration) var(--ease-out);
+    display: block;
+    transition: transform var(--duration-normal) var(--ease-out);
   }
 
   .game-card:hover .card-image img {
-    transform: scale(1.05) translateZ(0);
+    transform: scale(1.05);
+  }
+  
+  .click-hint {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-3);
+    padding: var(--space-5);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+    color: var(--color-text-primary);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    opacity: 0;
+    transform: translateY(100%);
+    transition: 
+      opacity var(--duration-normal) var(--ease-out), 
+      transform var(--duration-normal) var(--ease-out);
+  }
+  
+  .game-card:hover .click-hint,
+	.card-overlay-link:focus-visible + .card-image .click-hint {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   .placeholder {
@@ -107,14 +204,13 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--text-muted);
+    color: var(--color-text-muted);
   }
 
   .card-content {
-    padding: 1.5rem;
-    background: var(--bg-card);
+    padding: var(--space-8);
+    background: var(--color-bg-card);
     position: relative;
-    z-index: 1;
     display: flex;
     flex-direction: column;
     flex: 1;
@@ -123,59 +219,55 @@
   .card-meta {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 0.75rem;
+    gap: var(--space-5);
+    margin-bottom: var(--space-5);
     flex-wrap: wrap;
   }
 
   .date {
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    font-weight: 500;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    font-weight: var(--font-weight-medium);
   }
 
   .tag {
-    padding: 0.25rem 0.625rem;
-    font-size: 0.7rem;
-    font-weight: 600;
+    padding: var(--space-1) var(--space-4);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    background: var(--bg-elevated);
-    border-radius: 4px;
-    color: var(--text-secondary);
+    letter-spacing: var(--letter-spacing-wide);
+    background: var(--color-bg-elevated);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-secondary);
   }
 
-  .tag.highlight {
-    background: var(--accent-glow);
-    color: var(--accent);
+  .tag--highlight {
+    background: var(--color-accent-glow);
+    color: var(--color-accent);
   }
 
   .team-size {
     display: inline-flex;
     align-items: center;
     gap: 0.35rem;
-    font-size: 0.75rem;
-    color: var(--text-muted);
-    font-weight: 500;
-  }
-
-  .team-size svg {
-    opacity: 0.7;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    font-weight: var(--font-weight-medium);
   }
 
   .card-title {
     font-family: var(--font-display);
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    color: var(--text-primary);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-3);
+    color: var(--color-text-primary);
   }
 
   .card-description {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    line-height: 1.6;
-    margin-bottom: 1rem;
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-base);
+    margin-bottom: var(--space-6);
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
@@ -186,39 +278,35 @@
   .card-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.375rem;
-    margin-bottom: 1.25rem;
+    gap: var(--space-2);
+    margin-bottom: var(--space-7);
   }
 
   .card-links {
     display: flex;
-    gap: 1.25rem;
-    padding-top: 1rem;
-    border-top: 1px solid var(--border-subtle);
+    gap: var(--space-7);
+    padding-top: var(--space-6);
+    border-top: 1px solid var(--color-border-subtle);
     margin-top: auto;
   }
 
   .link {
     display: inline-flex;
     align-items: center;
-    gap: 0.4rem;
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: var(--text-secondary);
+    gap: var(--space-2);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-secondary);
     text-decoration: none;
-    transition: color 0.2s ease;
+    transition: color var(--duration-fast) var(--ease-out);
   }
 
   .link:hover {
-    color: var(--text-primary);
+    color: var(--color-accent);
   }
-
-  .link-primary {
-    margin-left: auto;
-    color: var(--accent);
-  }
-
-  .link-primary:hover {
-    color: var(--accent-dim);
+  
+  .external-link {
+    position: relative;
+		z-index: 4;
   }
 </style>

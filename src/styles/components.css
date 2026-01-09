@@ -1,0 +1,330 @@
+/**
+ * Shared Component Styles
+ * 
+ * Reusable styles for common UI patterns.
+ * Import this in components that need these styles.
+ */
+
+/* ============================================
+   Buttons
+   ============================================ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-4) var(--space-7);
+  font-family: var(--font-body);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  line-height: 1;
+  text-decoration: none;
+  border: 1px solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  background: var(--color-bg-card);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: var(--transition-colors), var(--transition-transform), var(--transition-shadow);
+}
+
+.btn:hover {
+  background: var(--color-bg-elevated);
+  border-color: var(--color-accent);
+  color: var(--color-text-primary);
+}
+
+.btn:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+.btn:active {
+  transform: translateY(1px);
+}
+
+.btn--primary {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+  color: var(--color-bg-primary);
+}
+
+.btn--primary:hover {
+  background: var(--color-accent-dim);
+  border-color: var(--color-accent-dim);
+  color: var(--color-bg-primary);
+}
+
+/* ============================================
+   Tags
+   ============================================ */
+
+.tag {
+  display: inline-block;
+  padding: var(--space-1) var(--space-4);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--letter-spacing-wide);
+  background: var(--color-bg-elevated);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-secondary);
+}
+
+.tag--highlight {
+  background: var(--color-accent-glow);
+  color: var(--color-accent);
+}
+
+.tag--skill {
+  padding: 0.2rem 0.5rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.03em;
+}
+
+/* ============================================
+   Cards
+   ============================================ */
+
+.card {
+  background: var(--color-bg-card);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
+  transition: var(--transition-colors), var(--transition-shadow);
+  will-change: transform;
+}
+
+.card:hover {
+  border-color: var(--color-border-light);
+  background: var(--color-bg-card-hover);
+  box-shadow: var(--shadow-xl);
+}
+
+.card--interactive {
+  cursor: pointer;
+}
+
+.card--interactive:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   Back Links
+   ============================================ */
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-accent);
+  text-decoration: none;
+  margin-bottom: var(--space-9);
+  transition: var(--transition-colors);
+}
+
+.back-link:hover {
+  color: var(--color-accent-dim);
+}
+
+/* ============================================
+   Section Headers
+   ============================================ */
+
+.section {
+  padding: var(--section-padding) 0;
+}
+
+.section--alt {
+  background: var(--color-bg-secondary);
+}
+
+.section-header {
+  margin-bottom: var(--space-11);
+}
+
+.section-title {
+  font-family: var(--font-display);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  letter-spacing: var(--letter-spacing-tight);
+}
+
+/* ============================================
+   Container
+   ============================================ */
+
+.container {
+  width: 100%;
+  max-width: var(--container-max-width);
+  margin: 0 auto;
+  padding: 0 var(--container-padding);
+}
+
+.container--narrow {
+  max-width: var(--container-max-width-narrow);
+}
+
+.container--article {
+  max-width: var(--container-max-width-article);
+}
+
+/* ============================================
+   Date & Meta
+   ============================================ */
+
+.date {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  font-weight: var(--font-weight-medium);
+}
+
+.meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  flex-wrap: wrap;
+}
+
+/* ============================================
+   Team Badge
+   ============================================ */
+
+.team-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-4);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  background: var(--color-bg-elevated);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-secondary);
+}
+
+.team-badge svg {
+  opacity: 0.7;
+}
+
+/* ============================================
+   Click Hints
+   ============================================ */
+
+.click-hint {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  padding: var(--space-5);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+  color: var(--color-text-primary);
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  opacity: 0;
+  transform: translateY(100%);
+  transition: var(--transition-opacity), var(--transition-transform);
+}
+
+.click-hint--visible,
+.card:hover .click-hint,
+.card:focus-visible .click-hint {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================
+   Video Indicator
+   ============================================ */
+
+.video-indicator {
+  position: absolute;
+  top: var(--space-5);
+  right: var(--space-5);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+  border-radius: var(--radius-full);
+  color: white;
+  pointer-events: none;
+}
+
+/* ============================================
+   Content Styles (for markdown rendered content)
+   ============================================ */
+
+.prose {
+  color: var(--color-text-secondary);
+  line-height: var(--line-height-relaxed);
+}
+
+.prose h2 {
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  color: var(--color-text-primary);
+  margin: var(--space-9) 0 var(--space-5);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.prose h3 {
+  font-family: var(--font-display);
+  font-size: 1.125rem;
+  color: var(--color-text-primary);
+  margin: var(--space-8) 0 var(--space-4);
+}
+
+.prose p {
+  margin-bottom: var(--space-6);
+}
+
+.prose ul {
+  list-style: none;
+  padding-left: var(--space-7);
+  margin-bottom: var(--space-7);
+}
+
+.prose li {
+  position: relative;
+  margin-bottom: var(--space-2);
+}
+
+.prose li::before {
+  content: '–';
+  position: absolute;
+  left: calc(var(--space-7) * -1);
+  color: var(--color-text-muted);
+}
+
+.prose a {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-decoration-color: var(--color-accent-glow);
+  transition: var(--transition-colors);
+}
+
+.prose a:hover {
+  color: var(--color-accent-dim);
+}
+
+/* ============================================
+   Responsive Overrides
+   ============================================ */
+
+@media (max-width: 768px) {
+  .container {
+    padding: 0 var(--container-padding-mobile);
+  }
+  
+  .section {
+    padding: var(--section-padding-mobile) 0;
+  }
+}
