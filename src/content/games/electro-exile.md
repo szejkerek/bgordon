@@ -3,7 +3,11 @@ title: "Electro Exile"
 description: "Game where you control a battery that must manage its stored electricity while navigating through a world filled with power-draining objects. 3rd place winner at BEST IT Festival."
 date: "2023-11"
 tags: ["Unity", "C#", "Git", "Trello"]
-image: "/images/games/electro-exile.png"
+image: "/images/games/electro-exile/1.png"
+gallery:
+  - "/images/games/electro-exile/2.png"
+  - "/images/games/electro-exile/3.png"
+
 sourceUrl: "https://github.com/szejkerek"
 jam: "BEST IT Festival"
 featured: false
