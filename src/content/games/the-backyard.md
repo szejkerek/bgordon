@@ -3,7 +3,12 @@ title: "The Backyard"
 description: "Isometric resource management game set in a kid's treehouse, featuring childhood outdoor games. Created during a 48-hour GameJamPlus event."
 date: "2023-05"
 tags: ["Unity", "C#", "Isometric", "Resource Management"]
-image: "/images/games/the-backyard.png"
+image: "/images/games/the-backyard/1.png"
+gallery:
+  - "/images/games/the-backyard/2.png"
+  - "/images/games/the-backyard/3.png"
+  - "/images/games/the-backyard/4.png"
+
 sourceUrl: "https://github.com/szejkerek"
 jam: "GameJamPlus"
 featured: false

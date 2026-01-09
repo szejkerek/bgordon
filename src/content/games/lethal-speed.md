@@ -3,7 +3,12 @@ title: "Lethal Speed"
 description: "Action game based on Ghostrunner with speedrunning mechanics. Features advanced enemy AI, weapon systems, and dynamic visuals."
 date: "2023-09"
 tags: ["Unity", "C#", "Shader Graph", "AI"]
-image: "/images/games/lethal-speed.png"
+image: "/images/games/lethal-speed/1.png"
+gallery:
+  - "/images/games/lethal-speed/2.png"
+  - "/images/games/lethal-speed/3.png"
+  - "/images/games/lethal-speed/4.png"
+  - "/images/games/lethal-speed/5.png"
 sourceUrl: "https://github.com/szejkerek"
 featured: true
 teamSize: 6

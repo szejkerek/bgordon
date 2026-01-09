@@ -3,7 +3,7 @@ title: "Image High Pass Filter"
 description: "Low-level multithreaded high-pass filter implementation in C and x86 Assembly. Each solution kept in separate DLL for benchmark purposes."
 date: "2023-08"
 tags: ["x86 Assembly", "C", "C#", "Multithreading"]
-image: "/images/games/high-pass-filter.png"
+image: "/images/games/highpass-filter/1.png"
 sourceUrl: "https://github.com/szejkerek"
 featured: false
 teamSize: 1
