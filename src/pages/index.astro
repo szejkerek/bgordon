@@ -1,29 +1,32 @@
 ---
+/**
+ * Home Page
+ * 
+ * Main landing page with hero, timeline, projects, and achievements.
+ */
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.svelte';
 import JobTimeline from '../components/JobTimeline.svelte';
 import GameCard from '../components/GameCard.svelte';
 import AchievementCard from '../components/AchievementCard.svelte';
 import { getCollection } from 'astro:content';
+import { sortByDateDesc } from '../utils/dates';
 
 // Load site content from JSON files
 import heroData from '../content/site/hero.json';
 import workExperience from '../content/site/work-experience.json';
 import education from '../content/site/education.json';
 
+// Load and sort content collections
 const games = await getCollection('games');
 const achievements = await getCollection('achievements');
 
-const sortedGames = games.sort((a, b) => 
-  new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
-);
-
-const sortedAchievements = achievements.sort((a, b) => 
-  new Date(b.data.date).getTime() - new Date(a.data.date).getTime()
-);
+const sortedGames = sortByDateDesc(games);
+const sortedAchievements = sortByDateDesc(achievements);
 ---
 
 <Layout title="Bartłomiej Gordon — Unity Developer">
+  <!-- Hero Section -->
   <Hero heroData={heroData} client:load />
   
   <!-- Job Timeline Section -->
@@ -49,7 +52,7 @@ const sortedAchievements = achievements.sort((a, b) =>
   </section>
   
   <!-- Achievements Section -->
-  <section id="achievements" class="section section-alt">
+  <section id="achievements" class="section section--alt">
     <div class="container">
       <header class="section-header">
         <h2 class="section-title">Achievements</h2>
@@ -66,41 +69,41 @@ const sortedAchievements = achievements.sort((a, b) =>
 
 <style>
   .section {
-    padding: 5rem 0;
+    padding: var(--section-padding) 0;
   }
   
-  .section-alt {
-    background: var(--bg-secondary);
+  .section--alt {
+    background: var(--color-bg-secondary);
   }
   
   .container {
-    max-width: 1200px;
+    max-width: var(--container-max-width);
     margin: 0 auto;
-    padding: 0 2rem;
+    padding: 0 var(--container-padding);
   }
   
   .section-header {
-    margin-bottom: 3rem;
+    margin-bottom: var(--space-11);
   }
   
   .section-title {
     font-family: var(--font-display);
-    font-size: 2rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    letter-spacing: -0.02em;
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    letter-spacing: var(--letter-spacing-tight);
   }
   
   .games-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: 1.5rem;
+    gap: var(--space-8);
   }
   
   .achievements-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: 1.25rem;
+    gap: var(--space-7);
   }
   
   @media (max-width: 768px) {
@@ -110,7 +113,7 @@ const sortedAchievements = achievements.sort((a, b) =>
     }
     
     .section {
-      padding: 3.5rem 0;
+      padding: var(--section-padding-mobile) 0;
     }
   }
 </style>

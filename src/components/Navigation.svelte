@@ -1,42 +1,86 @@
-<script>
+<script lang="ts">
+  /**
+   * Navigation Component
+   * 
+   * Responsive navigation with mobile menu support.
+   * Uses centralized icons and improved accessibility.
+   */
+  import { onMount } from "svelte";
+  import Icon from "./Icon.svelte";
+  
+  // Navigation links configuration
+  const navLinks = [
+    { href: "/#experience", label: "Experience" },
+    { href: "/#education", label: "Education" },
+    { href: "/#projects", label: "Projects" },
+    { href: "/#achievements", label: "Achievements" },
+  ] as const;
+  
   let isMenuOpen = $state(false);
   
-  function toggleMenu() {
+  function toggleMenu(): void {
     isMenuOpen = !isMenuOpen;
   }
 
-  function closeMenu() {
+  function closeMenu(): void {
     isMenuOpen = false;
   }
+  
+  function handleKeydown(e: KeyboardEvent): void {
+    if (e.key === 'Escape' && isMenuOpen) {
+      closeMenu();
+    }
+  }
+  
+  onMount(() => {
+    document.addEventListener('keydown', handleKeydown);
+    return () => document.removeEventListener('keydown', handleKeydown);
+  });
 </script>
 
-<nav class="nav">
+<nav class="nav" aria-label="Main navigation">
   <div class="nav-container">
-    <a href="/" class="logo">Bartłomiej Gordon</a>
+    <a href="/" class="logo" aria-label="Bartłomiej Gordon - Home">
+      Bartłomiej Gordon
+    </a>
     
     <button 
       class="menu-toggle" 
       onclick={toggleMenu} 
-      aria-label="Toggle menu"
+      aria-label={isMenuOpen ? "Close menu" : "Open menu"}
       aria-expanded={isMenuOpen}
+      aria-controls="nav-links"
+      type="button"
     >
       <span class="bar" class:open={isMenuOpen}></span>
       <span class="bar" class:open={isMenuOpen}></span>
     </button>
     
-    <ul class="nav-links" class:open={isMenuOpen}>
-      <li><a href="/#experience" onclick={closeMenu}>Experience</a></li>
-      <li><a href="/#education" onclick={closeMenu}>Education</a></li>
-      <li><a href="/#projects" onclick={closeMenu}>Projects</a></li>
-      <li><a href="/#achievements" onclick={closeMenu}>Achievements</a></li>
-      <li><a href="/cv.pdf" download class="nav-btn">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="margin-right: 4px;" aria-hidden="true">
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-          <polyline points="7 10 12 15 17 10"></polyline>
-          <line x1="12" y1="15" x2="12" y2="3"></line>
-        </svg>
-        Download CV
-      </a></li>
+    <ul id="nav-links" class="nav-links" class:open={isMenuOpen} role="menubar">
+      {#each navLinks as link}
+        <li role="none">
+          <a 
+            href={link.href} 
+            onclick={closeMenu} 
+            role="menuitem"
+          >
+            {link.label}
+          </a>
+        </li>
+      {/each}
+      
+      <li role="none">
+        <a 
+          href="/cv.pdf" 
+          download 
+          class="nav-btn" 
+          role="menuitem"
+          aria-label="Download CV as PDF"
+        >
+          <Icon name="download" size={14} />
+          <span>Download CV</span>
+        </a>
+      </li>
     </ul>
   </div>
 </nav>
@@ -47,17 +91,17 @@
     top: 0;
     left: 0;
     right: 0;
-    z-index: 1000;
+    z-index: var(--z-fixed);
     background: rgba(12, 12, 12, 0.8);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border-subtle);
+    border-bottom: 1px solid var(--color-border-subtle);
   }
   
   .nav-container {
-    max-width: 1200px;
+    max-width: var(--container-max-width);
     margin: 0 auto;
-    padding: 1rem 2rem;
+    padding: var(--space-6) var(--space-9);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -65,52 +109,54 @@
   
   .logo {
     font-family: var(--font-display);
-    font-size: 1.25rem;
-    font-weight: 600;
-    color: var(--text-primary);
+    font-size: var(--font-size-xl);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
     text-decoration: none;
-    letter-spacing: -0.02em;
-    transition: color 0.2s ease;
+    letter-spacing: var(--letter-spacing-tight);
+    transition: color var(--duration-fast) var(--ease-out);
   }
   
   .logo:hover {
-    color: var(--accent);
+    color: var(--color-accent);
   }
   
   .nav-links {
     display: flex;
     list-style: none;
-    gap: 2rem;
+    gap: var(--space-9);
     align-items: center;
     margin: 0;
     padding: 0;
   }
   
   .nav-links a {
-    font-size: 0.85rem;
-    font-weight: 500;
-    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-secondary);
     text-decoration: none;
-    transition: color 0.2s ease;
+    transition: color var(--duration-fast) var(--ease-out);
   }
   
   .nav-links a:hover {
-    color: var(--text-primary);
+    color: var(--color-text-primary);
   }
   
   .nav-btn {
     display: inline-flex;
     align-items: center;
-    padding: 0.5rem 1.25rem;
-    background: var(--accent);
-    border-radius: var(--radius);
-    color: var(--bg-primary) !important;
-    font-weight: 600;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-7);
+    background: var(--color-accent);
+    border-radius: var(--radius-md);
+    color: var(--color-bg-primary) !important;
+    font-weight: var(--font-weight-semibold);
+    transition: background var(--duration-fast) var(--ease-out);
   }
   
   .nav-btn:hover {
-    background: var(--accent-dim);
-    color: var(--bg-primary) !important;
+    background: var(--color-accent-dim);
+    color: var(--color-bg-primary) !important;
   }
   
   .menu-toggle {
@@ -126,8 +172,8 @@
   .bar {
     width: 22px;
     height: 2px;
-    background: var(--text-primary);
-    transition: all var(--hover-duration) var(--ease-out);
+    background: var(--color-text-primary);
+    transition: transform var(--duration-normal) var(--ease-out);
     border-radius: 2px;
   }
   
@@ -153,13 +199,13 @@
       background: rgba(12, 12, 12, 0.98);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
-      padding: 1.5rem 2rem 2rem;
-      gap: 1.25rem;
-      border-bottom: 1px solid var(--border-subtle);
+      padding: var(--space-8) var(--space-9) var(--space-9);
+      gap: var(--space-7);
+      border-bottom: 1px solid var(--color-border-subtle);
       transform: translateY(-100%);
       opacity: 0;
       pointer-events: none;
-      transition: all var(--hover-duration) var(--ease-out);
+      transition: all var(--duration-normal) var(--ease-out);
     }
     
     .nav-links.open {

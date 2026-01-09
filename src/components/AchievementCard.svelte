@@ -1,61 +1,56 @@
-<script>
-  let { achievement } = $props();
+<script lang="ts">
+  /**
+   * AchievementCard Component
+   * 
+   * Card component for displaying achievements.
+   * Uses centralized icons and proper TypeScript types.
+   */
+  import Icon from "./Icon.svelte";
+  import type { AchievementEntry, IconType } from "../types";
 
-  const iconMap = {
-    trophy: `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-      <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
-      <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
-      <path d="M4 22h16"></path>
-      <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
-      <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
-      <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
-    </svg>`,
-    medal: `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-      <circle cx="12" cy="17" r="5"></circle>
-      <path d="M12 12V2"></path>
-      <path d="M8 2h8"></path>
-    </svg>`,
-    star: `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
-    </svg>`,
-    award: `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-      <circle cx="12" cy="8" r="6"></circle>
-      <path d="M15.477 12.89 17 22l-5-3-5 3 1.523-9.11"></path>
-    </svg>`,
-    book: `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
-      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
-      <line x1="8" y1="6" x2="16" y2="6"></line>
-      <line x1="8" y1="10" x2="14" y2="10"></line>
-    </svg>`,
-    users: `<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-      <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
-      <circle cx="9" cy="7" r="4"></circle>
-      <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
-      <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-    </svg>`
-  };
+  interface Props {
+    achievement: AchievementEntry;
+  }
 
-  const isWinner = achievement?.data?.type === "winner";
-  const href = `/achievements/${achievement?.slug}`;
-  const iconSvg = iconMap[achievement?.data?.icon] || iconMap.trophy;
+  let { achievement }: Props = $props();
+
+  // Computed values
+  const isWinner = $derived(achievement?.data?.type === "winner");
+  const href = $derived(`/achievements/${achievement?.slug}`);
+  const iconName = $derived<IconType>(
+    (achievement?.data?.icon as IconType) || 'trophy'
+  );
+  const hasImage = $derived(!!achievement?.data?.image);
 </script>
 
-<a class="achievement-card-link" href={href}>
-  <article class="achievement-card card hover-surface" class:winner={isWinner}>
-    {#if achievement?.data?.image}
+<a 
+  class="achievement-card-link" 
+  href={href} 
+  aria-label="View {achievement?.data?.title} achievement details"
+>
+  <article class="achievement-card card" class:winner={isWinner}>
+    {#if hasImage}
       <div class="ach-image">
-        <img src={achievement.data.image} alt={achievement.data.title} loading="lazy" decoding="async" />
+        <img 
+          src={achievement.data.image} 
+          alt={achievement.data.title} 
+          loading="lazy" 
+          decoding="async" 
+        />
+        <div class="click-hint">
+          <Icon name="external" size={14} />
+          <span>View details</span>
+        </div>
       </div>
     {:else}
       <div class="ach-icon" class:winner={isWinner}>
-        {@html iconSvg}
+        <Icon name={iconName} size={26} strokeWidth={1.5} />
       </div>
     {/if}
 
     <div class="ach-content">
       <div class="ach-header">
-        <span class="tag" class:highlight={isWinner}>
+        <span class="tag" class:tag--highlight={isWinner}>
           {isWinner ? "Winner" : achievement.data.type}
         </span>
         <span class="date">{achievement.data.date}</span>
@@ -64,8 +59,11 @@
       <h3 class="ach-title">{achievement.data.title}</h3>
       <p class="ach-event">{achievement.data.event}</p>
       <p class="ach-desc">{achievement.data.description}</p>
-
-      <span class="ach-link">Details →</span>
+      
+      <div class="ach-cta">
+        <Icon name="external" size={16} />
+        <span>Click to view</span>
+      </div>
     </div>
   </article>
 </a>
@@ -78,40 +76,37 @@
 
   .achievement-card {
     display: flex;
-    gap: 1.25rem;
-    padding: 1.5rem;
+    gap: var(--space-7);
+    padding: var(--space-8);
     overflow: hidden;
-
-    transition: transform var(--hover-duration) var(--ease-out),
-      box-shadow var(--hover-duration) var(--ease-out),
-      background var(--hover-duration) var(--ease-out),
-      border-color var(--hover-duration) var(--ease-out);
-    will-change: transform;
+    transition: 
+      box-shadow var(--duration-normal) var(--ease-out),
+      background var(--duration-normal) var(--ease-out),
+      border-color var(--duration-normal) var(--ease-out);
   }
 
   .achievement-card.winner {
     background: linear-gradient(
       135deg,
-      var(--bg-card) 0%,
+      var(--color-bg-card) 0%,
       rgba(110, 231, 183, 0.05) 100%
     );
     border-color: rgba(110, 231, 183, 0.2);
   }
 
   .achievement-card-link:hover .achievement-card {
-    border-color: var(--border-light);
-    transform: translate3d(0, var(--hover-lift), 0);
-    box-shadow: var(--hover-shadow);
+    border-color: var(--color-border-light);
+    box-shadow: var(--shadow-xl);
   }
 
   .achievement-card-link:hover .achievement-card:not(.winner) {
-    background: var(--bg-card-hover);
+    background: var(--color-bg-card-hover);
   }
 
   .achievement-card-link:hover .achievement-card.winner {
     background: linear-gradient(
       135deg,
-      var(--bg-card) 0%,
+      var(--color-bg-card) 0%,
       rgba(110, 231, 183, 0.08) 100%
     );
     border-color: rgba(110, 231, 183, 0.25);
@@ -121,16 +116,17 @@
     flex-shrink: 0;
     width: 100px;
     height: 100px;
-    border-radius: var(--radius);
+    border-radius: var(--radius-md);
     overflow: hidden;
-    background: var(--bg-elevated);
+    background: var(--color-bg-elevated);
+    position: relative;
   }
 
   .ach-image img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform var(--hover-duration) var(--ease-out);
+    transition: transform var(--duration-normal) var(--ease-out);
   }
 
   .achievement-card-link:hover .ach-image img {
@@ -144,14 +140,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--bg-elevated);
-    border-radius: var(--radius);
-    color: var(--text-muted);
+    background: var(--color-bg-elevated);
+    border-radius: var(--radius-md);
+    color: var(--color-text-muted);
   }
 
   .ach-icon.winner {
-    background: var(--accent-glow);
-    color: var(--accent);
+    background: var(--color-accent-glow);
+    color: var(--color-accent);
   }
 
   .ach-content {
@@ -162,69 +158,106 @@
   .ach-header {
     display: flex;
     align-items: center;
-    gap: 0.75rem;
-    margin-bottom: 0.5rem;
+    gap: var(--space-5);
+    margin-bottom: var(--space-3);
   }
 
   .tag {
-    padding: 0.25rem 0.625rem;
-    font-size: 0.7rem;
-    font-weight: 600;
+    padding: var(--space-1) var(--space-4);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
     text-transform: uppercase;
-    letter-spacing: 0.05em;
-    background: var(--bg-elevated);
-    border-radius: 4px;
-    color: var(--text-secondary);
+    letter-spacing: var(--letter-spacing-wide);
+    background: var(--color-bg-elevated);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-secondary);
   }
 
-  .tag.highlight {
-    background: var(--accent-glow);
-    color: var(--accent);
+  .tag--highlight {
+    background: var(--color-accent-glow);
+    color: var(--color-accent);
   }
 
   .date {
-    font-size: 0.75rem;
-    color: var(--text-muted);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
   }
 
   .ach-title {
     font-family: var(--font-display);
     font-size: 1.1rem;
-    font-weight: 600;
-    color: var(--text-primary);
-    margin-bottom: 0.25rem;
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-1);
   }
 
   .ach-event {
-    font-size: 0.85rem;
-    color: var(--accent);
-    margin-bottom: 0.375rem;
-    font-weight: 500;
+    font-size: var(--font-size-sm);
+    color: var(--color-accent);
+    margin-bottom: var(--space-2);
+    font-weight: var(--font-weight-medium);
   }
 
   .ach-desc {
-    font-size: 0.85rem;
-    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
     line-height: 1.5;
   }
 
-  .ach-link {
-    display: inline-block;
-    margin-top: 0.75rem;
-    font-size: 0.8rem;
-    font-weight: 500;
-    color: var(--accent);
-    transition: color var(--hover-duration) var(--ease-out);
+  .ach-cta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-top: var(--space-5);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-muted);
+    opacity: 0;
+    transform: translateY(4px);
+    transition: 
+      opacity var(--duration-normal) var(--ease-out),
+      transform var(--duration-normal) var(--ease-out),
+      color var(--duration-normal) var(--ease-out);
   }
 
-  .achievement-card-link:hover .ach-link {
-    color: var(--accent-dim);
+  .achievement-card-link:hover .ach-cta,
+  .achievement-card-link:focus-visible .ach-cta {
+    opacity: 1;
+    transform: translateY(0);
+    color: var(--color-accent);
+  }
+  
+  .click-hint {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: var(--space-3);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+    color: var(--color-text-primary);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    opacity: 0;
+    transform: translateY(100%);
+    transition: 
+      opacity var(--duration-normal) var(--ease-out), 
+      transform var(--duration-normal) var(--ease-out);
+  }
+  
+  .achievement-card-link:hover .click-hint,
+  .achievement-card-link:focus-visible .click-hint {
+    opacity: 1;
+    transform: translateY(0);
   }
 
   @media (max-width: 600px) {
     .achievement-card {
       flex-direction: column;
-      gap: 1rem;
+      gap: var(--space-6);
     }
 
     .ach-image {

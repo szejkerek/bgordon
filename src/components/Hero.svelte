@@ -1,63 +1,77 @@
-<script>
+<script lang="ts">
+  /**
+   * Hero Component
+   * 
+   * Landing section with profile info and social links.
+   * Uses centralized icons and proper TypeScript types.
+   */
   import { onMount } from "svelte";
+  import Icon from "./Icon.svelte";
+  import type { HeroData, SocialLink } from "../types";
 
-  let { heroData = {} } = $props();
+  interface Props {
+    heroData?: HeroData;
+  }
+
+  let { heroData = {} }: Props = $props();
 
   let visible = $state(false);
+
+  // Default values
+  const defaults = {
+    label: 'Unity Developer',
+    name: 'Bartłomiej Gordon',
+    bio: 'Computer Science graduate with 5 years of experience in game development.',
+    photo: '/images/profilePicture.jpg',
+  };
+
+  // Merged data with defaults
+  const data = $derived({
+    label: heroData.label || defaults.label,
+    name: heroData.name || defaults.name,
+    bio: heroData.bio || defaults.bio,
+    photo: heroData.photo || defaults.photo,
+    primaryLink: heroData.primaryLink,
+    socialLinks: heroData.socialLinks || [],
+  });
+
+  // Check if link is external
+  function isExternalLink(url: string): boolean {
+    return url.startsWith('http');
+  }
 
   onMount(() => {
     visible = true;
   });
-
-  // SVG icons for social links
-  const icons = {
-    email: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-      <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
-      <polyline points="22,6 12,13 2,6" />
-    </svg>`,
-    github: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-      <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-    </svg>`,
-    linkedin: `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-      <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
-      <rect x="2" y="9" width="4" height="12" />
-      <circle cx="4" cy="4" r="2" />
-    </svg>`
-  };
 </script>
 
-<section class="hero" class:visible={visible} aria-label="Hero section">
+<section class="hero" class:visible aria-label="Hero section">
   <div class="hero-bg" aria-hidden="true"></div>
 
   <div class="hero-grid">
     <div class="hero-content">
-      <p class="hero-label">{heroData.label || 'Unity Developer'}</p>
-
-      <h1 class="hero-name">{heroData.name || 'Bartłomiej Gordon'}</h1>
-
-      <p class="hero-bio">
-        {heroData.bio || 'Computer Science graduate with 5 years of experience in game development.'}
-      </p>
+      <p class="hero-label">{data.label}</p>
+      <h1 class="hero-name">{data.name}</h1>
+      <p class="hero-bio">{data.bio}</p>
 
       <nav class="hero-links" aria-label="Primary links">
-        {#if heroData.primaryLink}
-          <a href={heroData.primaryLink.url} class="hero-link primary">
-            <span>{heroData.primaryLink.text}</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="M7 17L17 7M17 7H7M17 7V17" />
-            </svg>
+        {#if data.primaryLink}
+          <a href={data.primaryLink.url} class="hero-link primary">
+            <span>{data.primaryLink.text}</span>
+            <Icon name="external" size={16} />
           </a>
         {/if}
 
-        {#each heroData.socialLinks || [] as link}
-          {@const isExternal = link.url.startsWith('http')}
+        {#each data.socialLinks as link (link.url)}
+          {@const isExternal = isExternalLink(link.url)}
           <a 
             href={link.url} 
             class="hero-link"
             target={isExternal ? "_blank" : undefined}
             rel={isExternal ? "noopener noreferrer" : undefined}
+            aria-label={link.text}
           >
-            {@html icons[link.type] || ''}
+            <Icon name={link.type} size={16} />
             <span>{link.text}</span>
           </a>
         {/each}
@@ -67,11 +81,13 @@
     <div class="hero-photo" aria-label="Profile photo">
       <div class="photo-wrapper">
         <img
-          src={heroData.photo || 'images/profilePicture.jpg'}
-          alt={heroData.name || 'Bartłomiej Gordon'}
+          src={data.photo}
+          alt={data.name}
           class="photo-frame"
           loading="eager"
           decoding="async"
+          width="320"
+          height="400"
         />
       </div>
     </div>
@@ -85,13 +101,13 @@
     display: flex;
     align-items: center;
     padding: 8rem 2rem 4rem;
-    max-width: 1200px;
+    max-width: var(--container-max-width);
     margin: 0 auto;
-
     opacity: 0;
     transform: translateY(16px);
-    transition: opacity 0.65s cubic-bezier(0.2, 0.8, 0.2, 1),
-      transform 0.65s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: 
+      opacity 0.65s var(--ease-spring),
+      transform 0.65s var(--ease-spring);
   }
 
   .hero.visible {
@@ -107,7 +123,7 @@
     height: 100%;
     transform: translateX(-50%);
     z-index: -1;
-    background-color: var(--bg-primary);
+    background-color: var(--color-bg-primary);
     background-image:
       linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
       linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
@@ -117,7 +133,7 @@
   .hero-grid {
     display: grid;
     grid-template-columns: 1fr auto;
-    gap: 4rem;
+    gap: var(--space-12);
     align-items: center;
     width: 100%;
   }
@@ -127,74 +143,59 @@
   }
 
   .hero-label {
-    font-size: 0.75rem;
-    font-weight: 700;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-bold);
     letter-spacing: 0.14em;
-    color: var(--accent);
-    margin-bottom: 1.25rem;
+    color: var(--color-accent);
+    margin-bottom: var(--space-7);
     text-transform: uppercase;
     opacity: 0.95;
   }
 
   .hero-name {
-    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-size: var(--font-size-4xl);
     line-height: 1.05;
-    margin-bottom: 1.25rem;
+    margin-bottom: var(--space-7);
   }
 
   .hero-bio {
     font-size: 1.05rem;
-    line-height: 1.75;
-    color: var(--text-secondary);
-    margin-bottom: 2rem;
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-9);
   }
 
   .hero-links {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem;
+    gap: var(--space-5);
   }
 
   .hero-link {
     display: inline-flex;
     align-items: center;
     gap: 0.55rem;
-    padding: 0.68rem 1.25rem;
-
+    padding: 0.68rem var(--space-7);
     text-decoration: none;
-    font-size: 0.86rem;
-    color: var(--text-primary);
-
-    border-radius: var(--radius);
-    border: 1px solid var(--border-light);
-
+    font-size: var(--font-size-base);
+    color: var(--color-text-primary);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--color-border-light);
     background: rgba(255, 255, 255, 0.03);
-
     transform: translate3d(0, 0, 0);
-    transition:
-      transform 0.22s cubic-bezier(0.2, 0.8, 0.2, 1),
-      box-shadow 0.22s cubic-bezier(0.2, 0.8, 0.2, 1),
-      border-color 0.22s cubic-bezier(0.2, 0.8, 0.2, 1),
-      background 0.22s cubic-bezier(0.2, 0.8, 0.2, 1),
-      color 0.22s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: 
+      transform var(--duration-normal) var(--ease-spring),
+      box-shadow var(--duration-normal) var(--ease-spring),
+      border-color var(--duration-normal) var(--ease-spring),
+      background var(--duration-normal) var(--ease-spring);
     will-change: transform;
-  }
-
-  .hero-link :global(svg) {
-    opacity: 0.92;
-    transition: opacity 0.22s ease, transform 0.22s ease;
   }
 
   .hero-link:hover {
     transform: translate3d(0, -3px, 0);
-    border-color: var(--border-subtle);
+    border-color: var(--color-border-subtle);
     box-shadow: 0 18px 48px rgba(0, 0, 0, 0.22);
     background: rgba(255, 255, 255, 0.05);
-  }
-
-  .hero-link:hover :global(svg) {
-    opacity: 1;
-    transform: rotate(-2deg);
   }
 
   .hero-link:active {
@@ -233,7 +234,7 @@
     position: absolute;
     inset: 0;
     transform: translate(16px, 16px);
-    border: 2px solid var(--accent);
+    border: 2px solid var(--color-accent);
     border-radius: var(--radius-lg);
     opacity: 0.28;
     pointer-events: none;
@@ -244,13 +245,13 @@
     height: 100%;
     object-fit: cover;
     border-radius: var(--radius-lg);
-    border: 1px solid var(--border-light);
-    background: var(--bg-card);
+    border: 1px solid var(--color-border-light);
+    background: var(--color-bg-card);
     position: relative;
     z-index: 1;
     display: block;
     transform: translate3d(0, 0, 0);
-    transition: transform 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+    transition: transform var(--duration-slower) var(--ease-spring);
   }
 
   .photo-wrapper:hover .photo-frame {
@@ -283,7 +284,6 @@
   @media (prefers-reduced-motion: reduce) {
     .hero,
     .hero-link,
-    .hero-link :global(svg),
     .photo-frame {
       transition: none;
     }

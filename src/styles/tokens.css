@@ -1,0 +1,157 @@
+/**
+ * Design Tokens
+ * 
+ * Central source of truth for all design values.
+ * Imported as CSS custom properties.
+ */
+
+:root {
+  /* ============================================
+     Colors
+     ============================================ */
+  
+  /* Background colors */
+  --color-bg-primary: #0c0c0c;
+  --color-bg-secondary: #111111;
+  --color-bg-card: #161616;
+  --color-bg-card-hover: #1c1c1c;
+  --color-bg-elevated: #222222;
+  
+  /* Accent colors */
+  --color-accent: #6ee7b7;
+  --color-accent-dim: #34d399;
+  --color-accent-glow: rgba(110, 231, 183, 0.15);
+  
+  /* Text colors */
+  --color-text-primary: #fafafa;
+  --color-text-secondary: #a3a3a3;
+  --color-text-muted: #666666;
+  
+  /* Border colors */
+  --color-border-subtle: rgba(255, 255, 255, 0.06);
+  --color-border-light: rgba(255, 255, 255, 0.12);
+  
+  /* ============================================
+     Typography
+     ============================================ */
+  
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  
+  /* Font sizes (using clamp for fluid typography) */
+  --font-size-xs: 0.7rem;
+  --font-size-sm: 0.8rem;
+  --font-size-base: 0.9rem;
+  --font-size-md: 1rem;
+  --font-size-lg: 1.1rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: clamp(1.5rem, 3vw, 2rem);
+  --font-size-3xl: clamp(2rem, 4vw, 3rem);
+  --font-size-4xl: clamp(2.5rem, 5vw, 3.5rem);
+  
+  /* Font weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  /* Line heights */
+  --line-height-tight: 1.2;
+  --line-height-base: 1.6;
+  --line-height-relaxed: 1.75;
+  
+  /* Letter spacing */
+  --letter-spacing-tight: -0.02em;
+  --letter-spacing-normal: 0;
+  --letter-spacing-wide: 0.05em;
+  --letter-spacing-wider: 0.1em;
+  
+  /* ============================================
+     Spacing
+     ============================================ */
+  
+  --space-1: 0.25rem;   /* 4px */
+  --space-2: 0.375rem;  /* 6px */
+  --space-3: 0.5rem;    /* 8px */
+  --space-4: 0.625rem;  /* 10px */
+  --space-5: 0.75rem;   /* 12px */
+  --space-6: 1rem;      /* 16px */
+  --space-7: 1.25rem;   /* 20px */
+  --space-8: 1.5rem;    /* 24px */
+  --space-9: 2rem;      /* 32px */
+  --space-10: 2.5rem;   /* 40px */
+  --space-11: 3rem;     /* 48px */
+  --space-12: 4rem;     /* 64px */
+  --space-13: 5rem;     /* 80px */
+  
+  /* ============================================
+     Layout
+     ============================================ */
+  
+  --container-max-width: 1200px;
+  --container-max-width-narrow: 900px;
+  --container-max-width-article: 1000px;
+  --container-padding: 2rem;
+  --container-padding-mobile: 1.5rem;
+  
+  /* Section padding */
+  --section-padding: 5rem;
+  --section-padding-mobile: 3.5rem;
+  
+  /* ============================================
+     Borders & Radius
+     ============================================ */
+  
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-full: 9999px;
+  
+  /* ============================================
+     Shadows
+     ============================================ */
+  
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.4);
+  --shadow-xl: 0 8px 32px rgba(0, 0, 0, 0.35);
+  
+  /* ============================================
+     Transitions & Animation
+     ============================================ */
+  
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+  
+  --duration-fast: 150ms;
+  --duration-normal: 220ms;
+  --duration-slow: 300ms;
+  --duration-slower: 450ms;
+  
+  /* Common transition patterns */
+  --transition-colors: color var(--duration-normal) var(--ease-out),
+                       background-color var(--duration-normal) var(--ease-out),
+                       border-color var(--duration-normal) var(--ease-out);
+  --transition-transform: transform var(--duration-normal) var(--ease-out);
+  --transition-shadow: box-shadow var(--duration-normal) var(--ease-out);
+  --transition-opacity: opacity var(--duration-normal) var(--ease-out);
+  
+  /* Hover effects */
+  --hover-lift: -4px;
+  --hover-scale: 1.02;
+  
+  /* ============================================
+     Z-Index Scale
+     ============================================ */
+  
+  --z-base: 0;
+  --z-dropdown: 100;
+  --z-sticky: 500;
+  --z-fixed: 1000;
+  --z-modal-backdrop: 1500;
+  --z-modal: 2000;
+  --z-tooltip: 2500;
+  --z-max: 9999;
+}
