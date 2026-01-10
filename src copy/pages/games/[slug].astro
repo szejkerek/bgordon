@@ -1,0 +1,343 @@
+---
+/**
+ * Game Detail Page
+ * 
+ * Dynamic page for individual game projects.
+ * Uses shared Gallery component for media display.
+ */
+import Layout from '../../layouts/Layout.astro';
+import ImageGallery from '../../components/ImageGallery.svelte';
+import ClickableImage from '../../components/ClickableImage.svelte';
+import { getCollection } from 'astro:content';
+import { getIcon } from '../../utils/icons';
+
+export async function getStaticPaths() {
+  const games = await getCollection('games', ({ data }) => !data.draft);
+  return games.map((game) => ({
+    params: { slug: game.slug },
+    props: { game },
+  }));
+}
+
+const { game } = Astro.props;
+const { Content } = await game.render();
+
+// Computed values
+const hasImage = !!game.data.image;
+const hasGallery = game.data.gallery && game.data.gallery.length > 0;
+const tags = game.data.tags || [];
+const teamLabel = game.data.teamSize === 1 ? 'person' : 'people';
+
+// Collect all images for lightbox navigation
+const allImages = [
+  ...(hasImage ? [game.data.image] : []),
+  ...(game.data.gallery || []).filter((item: string) => {
+    const ext = item.split('.').pop()?.toLowerCase() || '';
+    return !['mp4', 'webm', 'ogg'].includes(ext);
+  })
+];
+
+// Icons
+const playIcon = getIcon('play', { size: 16 });
+const githubIcon = getIcon('github', { size: 16 });
+const teamIcon = getIcon('team', { size: 14 });
+---
+
+<Layout 
+  title={`${game.data.title} — Bartłomiej Gordon`} 
+  description={game.data.description}
+  image={game.data.image}
+>
+  <article class="game-detail">
+    <div class="container">
+      <a href="/#projects" class="back-link">← Back to Projects</a>
+      
+      <header class="game-header">
+        {hasImage && (
+          <div class="game-image">
+            <ClickableImage 
+              src={game.data.image} 
+              alt={game.data.title}
+              allImages={allImages}
+              client:load
+            />
+          </div>
+        )}
+        
+        <div class="game-info">
+          <div class="game-meta">
+            <span class="date">{game.data.date}</span>
+            {game.data.jam && <span class="tag tag--highlight">{game.data.jam}</span>}
+            {game.data.teamSize && (
+              <span class="team-badge">
+                <Fragment set:html={teamIcon} />
+                <span>{game.data.teamSize} {teamLabel}</span>
+              </span>
+            )}
+          </div>
+          
+          <h1>{game.data.title}</h1>
+          <p class="description">{game.data.description}</p>
+          
+          {tags.length > 0 && (
+            <div class="tags">
+              {tags.map((tag) => (
+                <span class="tag">{tag}</span>
+              ))}
+            </div>
+          )}
+          
+          <div class="actions">
+            {game.data.playUrl && (
+              <a 
+                href={game.data.playUrl} 
+                class="btn btn--primary" 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                <Fragment set:html={playIcon} />
+                Play Game
+              </a>
+            )}
+            {game.data.sourceUrl && (
+              <a 
+                href={game.data.sourceUrl} 
+                class="btn" 
+                target="_blank" 
+                rel="noopener noreferrer"
+              >
+                <Fragment set:html={githubIcon} />
+                Source Code
+              </a>
+            )}
+          </div>
+        </div>
+      </header>
+      
+      {hasGallery && (
+        <ImageGallery 
+          items={game.data.gallery} 
+          title={game.data.title}
+          columns={3}
+          client:load
+        />
+      )}
+      
+      <div class="game-content prose">
+        <Content />
+      </div>
+    </div>
+  </article>
+</Layout>
+
+<style>
+  .game-detail {
+    padding: 7rem 0 4rem;
+    min-height: 100vh;
+  }
+  
+  .container {
+    max-width: var(--container-max-width-narrow);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+  }
+  
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-accent);
+    text-decoration: none;
+    margin-bottom: var(--space-9);
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+  
+  .back-link:hover {
+    color: var(--color-accent-dim);
+  }
+  
+  .game-header {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-10);
+    margin-bottom: var(--space-11);
+    padding-bottom: var(--space-10);
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+  
+  .game-image {
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    background: var(--color-bg-card);
+    display: flex;
+    align-items: center;
+  }
+  
+  .game-image :global(.clickable-image) {
+    width: 100%;
+  }
+  
+  .game-image :global(.clickable-image img) {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+  
+  .game-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .game-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+    margin-bottom: var(--space-5);
+    flex-wrap: wrap;
+  }
+  
+  .date {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+  }
+  
+  .tag {
+    padding: var(--space-1) var(--space-4);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    text-transform: uppercase;
+    background: var(--color-bg-elevated);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-secondary);
+  }
+  
+  .tag--highlight {
+    background: var(--color-accent-glow);
+    color: var(--color-accent);
+  }
+  
+  .team-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-4);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    background: var(--color-bg-elevated);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-secondary);
+  }
+  
+  h1 {
+    font-family: var(--font-display);
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--space-5);
+    color: var(--color-text-primary);
+  }
+  
+  .description {
+    font-size: var(--font-size-md);
+    color: var(--color-text-secondary);
+    line-height: 1.65;
+    margin-bottom: var(--space-7);
+  }
+  
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-2);
+    margin-bottom: var(--space-8);
+  }
+  
+  .actions {
+    display: flex;
+    gap: var(--space-5);
+  }
+  
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
+    padding: var(--space-4) var(--space-7);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-md);
+    background: var(--color-bg-card);
+    color: var(--color-text-primary);
+    text-decoration: none;
+    transition: all var(--duration-fast) var(--ease-out);
+  }
+  
+  .btn:hover {
+    background: var(--color-bg-elevated);
+    border-color: var(--color-accent);
+  }
+  
+  .btn--primary {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-bg-primary);
+  }
+  
+  .btn--primary:hover {
+    background: var(--color-accent-dim);
+    border-color: var(--color-accent-dim);
+  }
+  
+  /* Prose styles for markdown content */
+  .prose :global(h2) {
+    font-family: var(--font-display);
+    font-size: 1.375rem;
+    color: var(--color-text-primary);
+    margin: var(--space-9) 0 var(--space-5);
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+  
+  .prose :global(h3) {
+    font-family: var(--font-display);
+    font-size: 1.125rem;
+    color: var(--color-text-primary);
+    margin: var(--space-8) 0 var(--space-4);
+  }
+  
+  .prose :global(p) {
+    margin-bottom: var(--space-6);
+  }
+  
+  .prose :global(ul) {
+    list-style: none;
+    padding-left: var(--space-7);
+    margin-bottom: var(--space-7);
+  }
+  
+  .prose :global(li) {
+    position: relative;
+    margin-bottom: var(--space-2);
+  }
+  
+  .prose :global(li::before) {
+    content: '–';
+    position: absolute;
+    left: calc(var(--space-7) * -1);
+    color: var(--color-text-muted);
+  }
+  
+  @media (max-width: 768px) {
+    .game-header {
+      grid-template-columns: 1fr;
+      gap: var(--space-8);
+    }
+    
+    h1 {
+      font-size: 1.625rem;
+    }
+    
+    .actions {
+      flex-direction: column;
+    }
+  }
+</style>
