@@ -9,6 +9,11 @@
   },
   "socialLinks": [
     {
+      "type": "download",
+      "text": "Download CV",
+      "url": "/cv.pdf"
+    },
+    {
       "type": "email",
       "text": "Email",
       "url": "mailto:bartekk.gordon@gmail.com"

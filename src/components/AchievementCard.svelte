@@ -20,7 +20,6 @@
   const iconName = $derived<IconType>(
     (achievement?.data?.icon as IconType) || 'trophy'
   );
-  const hasImage = $derived(!!achievement?.data?.image);
 </script>
 
 <a 
@@ -29,24 +28,9 @@
   aria-label="View {achievement?.data?.title} achievement details"
 >
   <article class="achievement-card card" class:winner={isWinner}>
-    {#if hasImage}
-      <div class="ach-image">
-        <img 
-          src={achievement.data.image} 
-          alt={achievement.data.title} 
-          loading="lazy" 
-          decoding="async" 
-        />
-        <div class="click-hint">
-          <Icon name="external" size={14} />
-          <span>View details</span>
-        </div>
-      </div>
-    {:else}
-      <div class="ach-icon" class:winner={isWinner}>
-        <Icon name={iconName} size={26} strokeWidth={1.5} />
-      </div>
-    {/if}
+    <div class="ach-icon" class:winner={isWinner}>
+      <Icon name={iconName} size={26} strokeWidth={1.5} />
+    </div>
 
     <div class="ach-content">
       <div class="ach-header">
@@ -80,6 +64,7 @@
     padding: var(--space-8);
     overflow: hidden;
     transition: 
+      transform var(--duration-normal) var(--ease-out),
       box-shadow var(--duration-normal) var(--ease-out),
       background var(--duration-normal) var(--ease-out),
       border-color var(--duration-normal) var(--ease-out);
@@ -94,9 +79,11 @@
     border-color: rgba(110, 231, 183, 0.2);
   }
 
-  .achievement-card-link:hover .achievement-card {
+  .achievement-card-link:hover .achievement-card,
+  .achievement-card-link:focus-visible .achievement-card {
     border-color: var(--color-border-light);
     box-shadow: var(--shadow-xl);
+    transform: scale(1.02);
   }
 
   .achievement-card-link:hover .achievement-card:not(.winner) {
@@ -110,27 +97,6 @@
       rgba(110, 231, 183, 0.08) 100%
     );
     border-color: rgba(110, 231, 183, 0.25);
-  }
-
-  .ach-image {
-    flex-shrink: 0;
-    width: 100px;
-    height: 100px;
-    border-radius: var(--radius-md);
-    overflow: hidden;
-    background: var(--color-bg-elevated);
-    position: relative;
-  }
-
-  .ach-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform var(--duration-normal) var(--ease-out);
-  }
-
-  .achievement-card-link:hover .ach-image img {
-    transform: scale(1.05);
   }
 
   .ach-icon {
@@ -227,42 +193,10 @@
     color: var(--color-accent);
   }
   
-  .click-hint {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-2);
-    padding: var(--space-3);
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
-    color: var(--color-text-primary);
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-medium);
-    opacity: 0;
-    transform: translateY(100%);
-    transition: 
-      opacity var(--duration-normal) var(--ease-out), 
-      transform var(--duration-normal) var(--ease-out);
-  }
-  
-  .achievement-card-link:hover .click-hint,
-  .achievement-card-link:focus-visible .click-hint {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
   @media (max-width: 600px) {
     .achievement-card {
       flex-direction: column;
       gap: var(--space-6);
-    }
-
-    .ach-image {
-      width: 100%;
-      height: 140px;
     }
 
     .ach-icon {

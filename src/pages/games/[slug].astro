@@ -6,12 +6,13 @@
  * Uses shared Gallery component for media display.
  */
 import Layout from '../../layouts/Layout.astro';
-import Gallery from '../../components/Gallery.astro';
+import ImageGallery from '../../components/ImageGallery.svelte';
+import ClickableImage from '../../components/ClickableImage.svelte';
 import { getCollection } from 'astro:content';
 import { getIcon } from '../../utils/icons';
 
 export async function getStaticPaths() {
-  const games = await getCollection('games');
+  const games = await getCollection('games', ({ data }) => !data.draft);
   return games.map((game) => ({
     params: { slug: game.slug },
     props: { game },
@@ -26,6 +27,15 @@ const hasImage = !!game.data.image;
 const hasGallery = game.data.gallery && game.data.gallery.length > 0;
 const tags = game.data.tags || [];
 const teamLabel = game.data.teamSize === 1 ? 'person' : 'people';
+
+// Collect all images for lightbox navigation
+const allImages = [
+  ...(hasImage ? [game.data.image] : []),
+  ...(game.data.gallery || []).filter((item: string) => {
+    const ext = item.split('.').pop()?.toLowerCase() || '';
+    return !['mp4', 'webm', 'ogg'].includes(ext);
+  })
+];
 
 // Icons
 const playIcon = getIcon('play', { size: 16 });
@@ -45,11 +55,11 @@ const teamIcon = getIcon('team', { size: 14 });
       <header class="game-header">
         {hasImage && (
           <div class="game-image">
-            <img 
+            <ClickableImage 
               src={game.data.image} 
               alt={game.data.title}
-              loading="eager"
-              decoding="async"
+              allImages={allImages}
+              client:load
             />
           </div>
         )}
@@ -105,10 +115,11 @@ const teamIcon = getIcon('team', { size: 14 });
       </header>
       
       {hasGallery && (
-        <Gallery 
+        <ImageGallery 
           items={game.data.gallery} 
           title={game.data.title}
           columns={3}
+          client:load
         />
       )}
       
@@ -158,14 +169,19 @@ const teamIcon = getIcon('team', { size: 14 });
   .game-image {
     border-radius: var(--radius-lg);
     overflow: hidden;
-    aspect-ratio: 16 / 10;
     background: var(--color-bg-card);
+    display: flex;
+    align-items: center;
   }
   
-  .game-image img {
+  .game-image :global(.clickable-image) {
     width: 100%;
-    height: 100%;
-    object-fit: cover;
+  }
+  
+  .game-image :global(.clickable-image img) {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
   }
   
   .game-info {

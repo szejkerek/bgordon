@@ -81,7 +81,7 @@
       <div class="timeline-column">
         <header class="column-header">
           <div class="header-icon" aria-hidden="true">
-            <Icon name="briefcase" size={24} />
+            <Icon name="briefcase" size={28} />
           </div>
           <h2 class="column-title">Work Experience</h2>
         </header>
@@ -134,7 +134,7 @@
       <div class="timeline-column" id="education">
         <header class="column-header">
           <div class="header-icon" aria-hidden="true">
-            <Icon name="graduation" size={24} />
+            <Icon name="graduation" size={28} />
           </div>
           <h2 class="column-title">Education</h2>
         </header>

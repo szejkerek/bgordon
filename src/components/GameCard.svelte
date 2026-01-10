@@ -113,12 +113,14 @@
     cursor: pointer;
     border-radius: var(--radius-lg);
     transition: 
+      transform var(--duration-normal) var(--ease-out),
       border-color var(--duration-normal) var(--ease-out),
       box-shadow var(--duration-normal) var(--ease-out),
       background-color var(--duration-normal) var(--ease-out);
   }
 
   .game-card:hover {
+    transform: scale(1.02);
     border-color: var(--color-border-light);
     box-shadow: var(--shadow-xl);
     background: var(--color-bg-card-hover);

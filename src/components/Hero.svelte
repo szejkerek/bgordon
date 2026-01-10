@@ -40,6 +40,11 @@
     return url.startsWith('http');
   }
 
+  // Check if link is a download
+  function isDownloadLink(link: SocialLink): boolean {
+    return link.type === 'download' || link.url.endsWith('.pdf');
+  }
+
   onMount(() => {
     visible = true;
   });
@@ -64,11 +69,13 @@
 
         {#each data.socialLinks as link (link.url)}
           {@const isExternal = isExternalLink(link.url)}
+          {@const isDownload = isDownloadLink(link)}
           <a 
             href={link.url} 
             class="hero-link"
             target={isExternal ? "_blank" : undefined}
             rel={isExternal ? "noopener noreferrer" : undefined}
+            download={isDownload ? "" : undefined}
             aria-label={link.text}
           >
             <Icon name={link.type} size={16} />

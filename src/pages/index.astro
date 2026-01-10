@@ -17,9 +17,9 @@ import heroData from '../content/site/hero.json';
 import workExperience from '../content/site/work-experience.json';
 import education from '../content/site/education.json';
 
-// Load and sort content collections
-const games = await getCollection('games');
-const achievements = await getCollection('achievements');
+// Load and sort content collections (filter out drafts)
+const games = await getCollection('games', ({ data }) => !data.draft);
+const achievements = await getCollection('achievements', ({ data }) => !data.draft);
 
 const sortedGames = sortByDateDesc(games);
 const sortedAchievements = sortByDateDesc(achievements);
