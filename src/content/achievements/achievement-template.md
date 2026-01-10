@@ -10,6 +10,7 @@ image: "/images/achievements/your-image.png"
 game: "related-project-slug"
 rank: "1st Place"
 participants: "150+ participants"
+draft: true
 ---
 
 ## About This Achievement

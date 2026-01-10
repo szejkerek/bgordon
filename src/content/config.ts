@@ -17,6 +17,7 @@ const gamesCollection = defineCollection({
     jam: z.string().optional(),
     featured: z.boolean().optional().default(false),
     teamSize: z.number().int().positive().optional(),
+    draft: z.boolean().optional().default(false),
   }),
 });
 
@@ -38,6 +39,7 @@ const achievementsCollection = defineCollection({
     game: z.string().optional(),
     rank: z.string().optional(),
     participants: z.string().optional(),
+    draft: z.boolean().optional().default(false),
   }),
 });
 

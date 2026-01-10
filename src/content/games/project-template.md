@@ -9,6 +9,7 @@ sourceUrl: "https://github.com/yourusername/repo"
 jam: "Game Jam Name"
 featured: false
 teamSize: 3
+draft: true
 ---
 
 ## About This Project
