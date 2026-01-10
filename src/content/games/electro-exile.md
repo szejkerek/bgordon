@@ -8,7 +8,7 @@ gallery:
   - "/images/games/electro-exile/2.png"
   - "/images/games/electro-exile/3.png"
 
-sourceUrl: "https://github.com/szejkerek"
+sourceUrl: "https://carbon-crab-games.itch.io/the-last-battery"
 jam: "BEST IT Festival"
 featured: false
 teamSize: 6
