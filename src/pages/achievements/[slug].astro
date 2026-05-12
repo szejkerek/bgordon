@@ -8,34 +8,31 @@
 import Layout from '../../layouts/Layout.astro';
 import ImageGallery from '../../components/ImageGallery.svelte';
 import ClickableImage from '../../components/ClickableImage.svelte';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import { getIcon } from '../../utils/icons';
-import type { IconType } from '../../types';
+import { splitMedia } from '../../utils/media';
 
 export async function getStaticPaths() {
   const achievements = await getCollection('achievements', ({ data }) => !data.draft);
   return achievements.map((achievement) => ({
-    params: { slug: achievement.slug },
+    params: { slug: achievement.id },
     props: { achievement },
   }));
 }
 
 const { achievement } = Astro.props;
-const { Content } = await achievement.render();
+const { Content } = await render(achievement);
 
 // Computed values
 const isWinner = achievement.data.type === 'winner';
 const hasImage = !!achievement.data.image;
 const hasGallery = achievement.data.gallery && achievement.data.gallery.length > 0;
-const iconName: IconType = (achievement.data.icon as IconType) || 'trophy';
+const iconName = achievement.data.icon;
 
 // Collect all images for lightbox navigation
 const allImages = [
-  ...(hasImage ? [achievement.data.image] : []),
-  ...(achievement.data.gallery || []).filter((item: string) => {
-    const ext = item.split('.').pop()?.toLowerCase() || '';
-    return !['mp4', 'webm', 'ogg'].includes(ext);
-  })
+  ...(achievement.data.image ? [achievement.data.image] : []),
+  ...splitMedia(achievement.data.gallery).images,
 ];
 
 // Icons

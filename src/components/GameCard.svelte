@@ -6,16 +6,16 @@
    * Clickable with accessible keyboard support.
    */
   import Icon from "./Icon.svelte";
-  import type { GameEntry } from "../types";
+  import type { CollectionEntry } from "astro:content";
 
   interface Props {
-    game: GameEntry;
+    game: CollectionEntry<'games'>;
   }
 
   let { game }: Props = $props();
   
   // Computed values
-  const href = $derived(`/games/${game.slug}`);
+  const href = $derived(`/games/${game.id}`);
   const hasImage = $derived(!!game.data.image);
   const tags = $derived(game.data.tags || []);
 </script>

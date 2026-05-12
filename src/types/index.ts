@@ -72,55 +72,6 @@ export interface Education {
 }
 
 // ============================================
-// Content Collection Types (Runtime)
-// ============================================
-
-export interface GameData {
-  title: string;
-  description: string;
-  date: string;
-  tags?: string[];
-  image?: string;
-  gallery?: string[];
-  playUrl?: string;
-  sourceUrl?: string;
-  jam?: string;
-  featured?: boolean;
-  teamSize?: number;
-}
-
-export interface GameEntry {
-  slug: string;
-  data: GameData;
-  render: () => Promise<{ Content: any }>;
-}
-
-export interface AchievementType {
-  type: 'winner' | 'finalist' | 'participant' | 'publication' | 'organization';
-}
-
-export interface AchievementData {
-  title: string;
-  event: string;
-  date: string;
-  description: string;
-  type: AchievementType['type'];
-  icon?: IconType;
-  url?: string;
-  image?: string;
-  gallery?: string[];
-  game?: string;
-  rank?: string;
-  participants?: string;
-}
-
-export interface AchievementEntry {
-  slug: string;
-  data: AchievementData;
-  render: () => Promise<{ Content: any }>;
-}
-
-// ============================================
 // Media Types
 // ============================================
 

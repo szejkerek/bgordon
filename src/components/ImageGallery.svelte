@@ -6,6 +6,7 @@
    * Click any image to view in fullscreen with navigation.
    */
   import Lightbox from "./Lightbox.svelte";
+  import { getMediaType, splitMedia } from "../utils/media";
 
   interface Props {
     items: string[];
@@ -19,20 +20,7 @@
   let lightboxIndex = $state(0);
 
   // Filter out videos - lightbox only supports images
-  const imageItems = $derived(
-    items.filter(item => {
-      const ext = item.split('.').pop()?.toLowerCase() || '';
-      return !['mp4', 'webm', 'ogg'].includes(ext);
-    })
-  );
-
-  // Get media type for rendering
-  function getMediaType(src: string): 'image' | 'video' | 'gif' {
-    const ext = src.split('.').pop()?.toLowerCase() || '';
-    if (['mp4', 'webm', 'ogg'].includes(ext)) return 'video';
-    if (ext === 'gif') return 'gif';
-    return 'image';
-  }
+  const imageItems = $derived(splitMedia(items).images);
 
   function openLightbox(index: number) {
     // Find the correct index in imageItems array

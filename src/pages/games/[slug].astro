@@ -8,19 +8,20 @@
 import Layout from '../../layouts/Layout.astro';
 import ImageGallery from '../../components/ImageGallery.svelte';
 import ClickableImage from '../../components/ClickableImage.svelte';
-import { getCollection } from 'astro:content';
+import { getCollection, render } from 'astro:content';
 import { getIcon } from '../../utils/icons';
+import { splitMedia } from '../../utils/media';
 
 export async function getStaticPaths() {
   const games = await getCollection('games', ({ data }) => !data.draft);
   return games.map((game) => ({
-    params: { slug: game.slug },
+    params: { slug: game.id },
     props: { game },
   }));
 }
 
 const { game } = Astro.props;
-const { Content } = await game.render();
+const { Content } = await render(game);
 
 // Computed values
 const hasImage = !!game.data.image;
@@ -30,11 +31,8 @@ const teamLabel = game.data.teamSize === 1 ? 'person' : 'people';
 
 // Collect all images for lightbox navigation
 const allImages = [
-  ...(hasImage ? [game.data.image] : []),
-  ...(game.data.gallery || []).filter((item: string) => {
-    const ext = item.split('.').pop()?.toLowerCase() || '';
-    return !['mp4', 'webm', 'ogg'].includes(ext);
-  })
+  ...(game.data.image ? [game.data.image] : []),
+  ...splitMedia(game.data.gallery).images,
 ];
 
 // Icons

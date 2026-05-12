@@ -4,7 +4,7 @@
  * Centralized logic for detecting media types from file paths.
  */
 
-import type { MediaType, MediaItem } from '../types';
+import type { MediaType } from '../types';
 
 const VIDEO_EXTENSIONS = /\.(mp4|webm|ogg|mov)$/i;
 const GIF_EXTENSION = /\.gif$/i;
@@ -40,15 +40,13 @@ export function isImage(src: string): boolean {
   return IMAGE_EXTENSIONS.test(src) && !isGif(src);
 }
 
-/**
- * Convert array of media paths to MediaItem objects
- */
-export function parseGallery(paths: string[], titlePrefix: string): MediaItem[] {
-  return paths.map((src, index) => ({
-    src,
-    type: getMediaType(src),
-    alt: `${titlePrefix} - ${getMediaType(src) === 'gif' ? 'GIF' : getMediaType(src) === 'video' ? 'Video' : 'Image'} ${index + 1}`,
-  }));
+export function splitMedia(items: string[]): { images: string[]; videos: string[] } {
+  const images: string[] = [];
+  const videos: string[] = [];
+  for (const item of items) {
+    (isVideo(item) ? videos : images).push(item);
+  }
+  return { images, videos };
 }
 
 /**

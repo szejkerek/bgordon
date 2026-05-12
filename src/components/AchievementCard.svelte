@@ -6,20 +6,18 @@
    * Uses centralized icons and proper TypeScript types.
    */
   import Icon from "./Icon.svelte";
-  import type { AchievementEntry, IconType } from "../types";
+  import type { CollectionEntry } from "astro:content";
 
   interface Props {
-    achievement: AchievementEntry;
+    achievement: CollectionEntry<'achievements'>;
   }
 
   let { achievement }: Props = $props();
 
   // Computed values
   const isWinner = $derived(achievement?.data?.type === "winner");
-  const href = $derived(`/achievements/${achievement?.slug}`);
-  const iconName = $derived<IconType>(
-    (achievement?.data?.icon as IconType) || 'trophy'
-  );
+  const href = $derived(`/achievements/${achievement?.id}`);
+  const iconName = $derived(achievement.data.icon);
 </script>
 
 <a 

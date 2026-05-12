@@ -1,7 +1,8 @@
 import { defineCollection, z } from 'astro:content';
+import { glob } from 'astro/loaders';
 
 const gamesCollection = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.md', base: './src/content/games' }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
@@ -22,7 +23,7 @@ const gamesCollection = defineCollection({
 });
 
 const achievementsCollection = defineCollection({
-  type: 'content',
+  loader: glob({ pattern: '**/*.md', base: './src/content/achievements' }),
   schema: z.object({
     title: z.string(),
     event: z.string(),
