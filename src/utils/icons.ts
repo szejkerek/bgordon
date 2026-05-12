@@ -13,6 +13,10 @@ import {
   Gamepad2,
   Download,
   ArrowLeft,
+  X,
+  ChevronLeft,
+  ChevronRight,
+  ZoomIn,
 } from 'lucide-svelte';
 import GithubIcon from '../components/icons/GithubIcon.svelte';
 import LinkedinIcon from '../components/icons/LinkedinIcon.svelte';
@@ -35,7 +39,14 @@ const iconComponents = {
   download: Download,
   'arrow-left': ArrowLeft,
   team: Users,
+  x: X,
+  'chevron-left': ChevronLeft,
+  'chevron-right': ChevronRight,
+  'zoom-in': ZoomIn,
 } satisfies Record<string, unknown>;
 
 export { iconComponents };
 export type IconType = keyof typeof iconComponents;
+
+export const achievementIconKeys = ['trophy', 'medal', 'star', 'award', 'book', 'users'] as const satisfies readonly IconType[];
+export type AchievementIconType = typeof achievementIconKeys[number];

@@ -1,17 +1,18 @@
 <script lang="ts">
-  /**
-   * Footer Component
-   * 
-   * Site footer with navigation and social links.
-   */
   import { getCurrentYear } from "../utils/dates";
   import { ROUTES } from "../utils/routes";
 
-  const socialLinks = [
-    { name: 'GitHub', url: 'https://github.com/szejkerek' },
-    { name: 'LinkedIn', url: 'https://linkedin.com/in/bartekgordon' },
-    { name: 'itch.io', url: 'https://szejkerek.itch.io' },
-  ] as const;
+  interface ConnectLink {
+    text: string;
+    url: string;
+  }
+
+  interface Props {
+    email?: string;
+    connectLinks?: ConnectLink[];
+  }
+
+  let { email = '', connectLinks = [] }: Props = $props();
 
   const navLinks = [
     { label: 'Experience', href: ROUTES.experience },
@@ -29,13 +30,15 @@
     <div class="footer-grid">
       <div class="footer-brand">
         <p class="name">Bartłomiej Gordon</p>
-        <a 
-          href="mailto:bartekk.gordon@gmail.com" 
-          class="brand-email" 
-          aria-label="Send email to bartekk.gordon@gmail.com"
-        >
-          bartekk.gordon@gmail.com
-        </a>
+        {#if email}
+          <a
+            href="mailto:{email}"
+            class="brand-email"
+            aria-label="Send email to {email}"
+          >
+            {email}
+          </a>
+        {/if}
       </div>
       
       <nav class="footer-col" aria-label="Site navigation">
@@ -47,14 +50,14 @@
       
       <nav class="footer-col" aria-label="Social links">
         <h4>Connect</h4>
-        {#each socialLinks as link (link.url)}
-          <a 
-            href={link.url} 
-            target="_blank" 
-            rel="noopener noreferrer" 
-            aria-label="Visit {link.name} profile"
+        {#each connectLinks as link (link.url)}
+          <a
+            href={link.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visit {link.text} profile"
           >
-            {link.name}
+            {link.text}
           </a>
         {/each}
       </nav>

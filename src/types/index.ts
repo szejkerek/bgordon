@@ -60,34 +60,3 @@ export interface Education {
 
 export type MediaType = 'image' | 'video' | 'gif';
 
-export interface MediaItem {
-  src: string;
-  type: MediaType;
-  alt?: string;
-}
-
-// ============================================
-// Component Props Types
-// ============================================
-
-export interface CardBaseProps {
-  className?: string;
-}
-
-export interface ButtonProps {
-  variant?: 'primary' | 'secondary';
-  href?: string;
-  external?: boolean;
-  icon?: IconType;
-}
-
-// ============================================
-// Layout Props
-// ============================================
-
-export interface LayoutProps {
-  title: string;
-  description?: string;
-  image?: string;
-  canonicalUrl?: string;
-}

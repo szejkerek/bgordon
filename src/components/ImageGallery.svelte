@@ -6,6 +6,7 @@
    * Click any image to view in fullscreen with navigation.
    */
   import Lightbox from "./Lightbox.svelte";
+  import Icon from "./Icon.svelte";
   import { getMediaType, splitMedia } from "../utils/media";
 
   interface Props {
@@ -58,9 +59,7 @@
               <track kind="captions" />
             </video>
             <div class="video-indicator">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <polygon points="5 3 19 12 5 21 5 3"></polygon>
-              </svg>
+              <Icon name="play" size={16} />
             </div>
           </div>
         {:else}
@@ -77,12 +76,7 @@
               decoding="async" 
             />
             <div class="zoom-indicator">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="11" cy="11" r="8"></circle>
-                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                <line x1="11" y1="8" x2="11" y2="14"></line>
-                <line x1="8" y1="11" x2="14" y2="11"></line>
-              </svg>
+              <Icon name="zoom-in" size={32} />
             </div>
           </button>
         {/if}

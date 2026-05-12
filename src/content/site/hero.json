@@ -27,6 +27,11 @@
       "type": "linkedin",
       "text": "LinkedIn",
       "url": "https://linkedin.com/in/bartekgordon"
+    },
+    {
+      "type": "external",
+      "text": "itch.io",
+      "url": "https://szejkerek.itch.io"
     }
   ]
 }

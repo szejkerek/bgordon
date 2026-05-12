@@ -1,15 +1,14 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
+import { achievementIconKeys } from './utils/icons';
+import { dateRefine, dateRefineMessage } from './utils/dates';
 
 const gamesCollection = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/games' }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
-    date: z.string().refine(
-      (val) => !isNaN(Date.parse(val.replace(/(\w+)\s+(\d{4})/, '$1 1, $2'))),
-      { message: 'Invalid date format. Use "Month Year" format (e.g., "January 2024")' }
-    ),
+    date: z.string().refine(dateRefine, dateRefineMessage),
     tags: z.array(z.string()).optional().default([]),
     image: z.string().optional(),
     gallery: z.array(z.string()).optional().default([]),
@@ -27,13 +26,10 @@ const achievementsCollection = defineCollection({
   schema: z.object({
     title: z.string(),
     event: z.string(),
-    date: z.string().refine(
-      (val) => !isNaN(Date.parse(val.replace(/(\w+)\s+(\d{4})/, '$1 1, $2'))),
-      { message: 'Invalid date format. Use "Month Year" format (e.g., "January 2024")' }
-    ),
+    date: z.string().refine(dateRefine, dateRefineMessage),
     description: z.string(),
     type: z.enum(['winner', 'finalist', 'participant', 'publication', 'organization']),
-    icon: z.enum(['trophy', 'medal', 'star', 'award', 'book', 'users']).optional().default('trophy'),
+    icon: z.enum(achievementIconKeys).optional().default('trophy'),
     url: z.string().url().optional(),
     image: z.string().optional(),
     gallery: z.array(z.string()).optional().default([]),

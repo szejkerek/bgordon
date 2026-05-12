@@ -8,6 +8,7 @@
 import Navigation from '../components/Navigation.svelte';
 import Footer from '../components/Footer.svelte';
 import '../styles/global.css';
+import heroData from '../content/site/hero.json';
 
 interface Props {
   title: string;
@@ -32,6 +33,11 @@ const SITE_NAME = 'Bartłomiej Gordon — Unity Developer';
 // Build full URLs
 const fullImageUrl = image.startsWith('http') ? image : `${SITE_URL}${image}`;
 const canonical = canonicalUrl || Astro.url.href;
+
+// Footer data derived from hero.json
+const emailLink = heroData.socialLinks.find(l => l.type === 'email');
+const footerEmail = emailLink?.url.replace('mailto:', '') ?? '';
+const connectLinks = heroData.socialLinks.filter(l => l.type !== 'download' && l.type !== 'email');
 
 // Structured data
 const structuredData = {
@@ -125,7 +131,7 @@ const structuredData = {
     </main>
     
     <!-- Footer -->
-    <Footer client:load />
+    <Footer email={footerEmail} connectLinks={connectLinks} client:load />
   </body>
 </html>
 

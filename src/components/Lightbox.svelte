@@ -6,6 +6,7 @@
    * Supports keyboard controls (Escape, Arrow keys).
    */
   import { onMount } from "svelte";
+  import Icon from "./Icon.svelte";
 
   interface Props {
     images: string[];
@@ -120,10 +121,7 @@
       onclick={close}
       aria-label="Close lightbox"
     >
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <line x1="18" y1="6" x2="6" y2="18"></line>
-        <line x1="6" y1="6" x2="18" y2="18"></line>
-      </svg>
+      <Icon name="x" size={20} strokeWidth={2.5} />
     </button>
 
     <!-- Main content area with image and arrows -->
@@ -136,9 +134,7 @@
           onclick={prev}
           aria-label="Previous image"
         >
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="15 18 9 12 15 6"></polyline>
-          </svg>
+          <Icon name="chevron-left" size={28} strokeWidth={2.5} />
         </button>
       {/if}
 
@@ -160,9 +156,7 @@
           onclick={next}
           aria-label="Next image"
         >
-          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="9 18 15 12 9 6"></polyline>
-          </svg>
+          <Icon name="chevron-right" size={28} strokeWidth={2.5} />
         </button>
       {/if}
     </div>
@@ -310,11 +304,6 @@
     .nav-btn {
       width: 44px;
       height: 44px;
-    }
-
-    .nav-btn svg {
-      width: 22px;
-      height: 22px;
     }
 
     .close-btn {
