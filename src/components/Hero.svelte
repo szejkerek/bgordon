@@ -8,6 +8,7 @@
   import { onMount } from "svelte";
   import Icon from "./Icon.svelte";
   import type { HeroData, SocialLink } from "../types";
+  import { resolveMediaPath } from "../utils/media";
 
   interface Props {
     heroData?: HeroData;
@@ -30,7 +31,7 @@
     label: heroData.label || defaults.label,
     name: heroData.name || defaults.name,
     bio: heroData.bio || defaults.bio,
-    photo: heroData.photo || defaults.photo,
+    photo: resolveMediaPath(heroData.photo || defaults.photo),
     primaryLink: heroData.primaryLink,
     socialLinks: heroData.socialLinks || [],
   });

@@ -8,6 +8,8 @@
   import { onMount } from "svelte";
   import Icon from "./Icon.svelte";
   import type { WorkExperience, Education } from "../types";
+  import { SECTION_IDS } from "../utils/routes";
+  import { resolveMediaPath } from "../utils/media";
 
   interface Props {
     workExperience?: WorkExperience[];
@@ -69,7 +71,7 @@
 </script>
 
 <section
-  id="experience"
+  id={SECTION_IDS.experience}
   bind:this={sectionEl}
   class="timeline-section"
   class:hydrated
@@ -94,7 +96,7 @@
                   <div class="company-logo">
                     {#if job.logo && !hasLogoError('work', index)}
                       <img
-                        src={job.logo}
+                        src={resolveMediaPath(job.logo)}
                         alt={job.company}
                         loading="lazy"
                         decoding="async"
@@ -131,7 +133,7 @@
       </div>
 
       <!-- Education Column -->
-      <div class="timeline-column" id="education">
+      <div class="timeline-column" id={SECTION_IDS.education}>
         <header class="column-header">
           <div class="header-icon" aria-hidden="true">
             <Icon name="graduation" size={28} />
@@ -147,7 +149,7 @@
                   <div class="company-logo">
                     {#if edu.logo && !hasLogoError('edu', index)}
                       <img
-                        src={edu.logo}
+                        src={resolveMediaPath(edu.logo)}
                         alt={edu.institution}
                         loading="lazy"
                         decoding="async"

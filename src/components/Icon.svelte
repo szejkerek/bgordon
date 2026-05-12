@@ -1,44 +1,24 @@
 <script lang="ts">
-  /**
-   * Icon Component
-   * 
-   * Renders SVG icons from the centralized icon registry.
-   * Usage: <Icon name="github" size={24} />
-   */
-  import { getIcon, hasIcon } from '../utils/icons';
-  import type { IconType } from '../types';
-  
+  import { iconComponents } from '../utils/icons';
+  import type { IconType } from '../utils/icons';
+
   interface Props {
     name: IconType;
     size?: number;
     strokeWidth?: number;
     class?: string;
   }
-  
-  let { 
-    name, 
-    size = 16, 
+
+  let {
+    name,
+    size = 16,
     strokeWidth = 2,
-    class: className = ''
+    class: className = '',
   }: Props = $props();
-  
-  const iconHtml = $derived(
-    hasIcon(name) 
-      ? getIcon(name, { size, strokeWidth, className }) 
-      : ''
-  );
+
+  const Component = $derived(iconComponents[name]);
 </script>
 
-{#if iconHtml}
-  {@html iconHtml}
-{:else}
-  <span class="icon-placeholder" style="width: {size}px; height: {size}px;"></span>
+{#if Component}
+  <Component {size} {strokeWidth} class={className} />
 {/if}
-
-<style>
-  .icon-placeholder {
-    display: inline-block;
-    background: var(--color-bg-elevated);
-    border-radius: 2px;
-  }
-</style>

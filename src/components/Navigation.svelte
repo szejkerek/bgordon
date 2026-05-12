@@ -7,13 +7,13 @@
    */
   import { onMount } from "svelte";
   import Icon from "./Icon.svelte";
-  
-  // Navigation links configuration
+  import { ROUTES } from "../utils/routes";
+
   const navLinks = [
-    { href: "/#experience", label: "Experience" },
-    { href: "/#education", label: "Education" },
-    { href: "/#projects", label: "Projects" },
-    { href: "/#achievements", label: "Achievements" },
+    { href: ROUTES.experience, label: "Experience" },
+    { href: ROUTES.education, label: "Education" },
+    { href: ROUTES.projects, label: "Projects" },
+    { href: ROUTES.achievements, label: "Achievements" },
   ] as const;
   
   let isMenuOpen = $state(false);

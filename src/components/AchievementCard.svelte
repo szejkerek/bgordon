@@ -42,10 +42,6 @@
       <p class="ach-event">{achievement.data.event}</p>
       <p class="ach-desc">{achievement.data.description}</p>
       
-      <div class="ach-cta">
-        <Icon name="external" size={16} />
-        <span>Click to view</span>
-      </div>
     </div>
   </article>
 </a>
@@ -168,29 +164,6 @@
     line-height: 1.5;
   }
 
-  .ach-cta {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    margin-top: var(--space-5);
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
-    color: var(--color-text-muted);
-    opacity: 0;
-    transform: translateY(4px);
-    transition: 
-      opacity var(--duration-normal) var(--ease-out),
-      transform var(--duration-normal) var(--ease-out),
-      color var(--duration-normal) var(--ease-out);
-  }
-
-  .achievement-card-link:hover .ach-cta,
-  .achievement-card-link:focus-visible .ach-cta {
-    opacity: 1;
-    transform: translateY(0);
-    color: var(--color-accent);
-  }
-  
   @media (max-width: 600px) {
     .achievement-card {
       flex-direction: column;

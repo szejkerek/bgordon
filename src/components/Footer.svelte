@@ -5,19 +5,19 @@
    * Site footer with navigation and social links.
    */
   import { getCurrentYear } from "../utils/dates";
-  
-  // Configuration
+  import { ROUTES } from "../utils/routes";
+
   const socialLinks = [
     { name: 'GitHub', url: 'https://github.com/szejkerek' },
     { name: 'LinkedIn', url: 'https://linkedin.com/in/bartekgordon' },
     { name: 'itch.io', url: 'https://szejkerek.itch.io' },
   ] as const;
-  
+
   const navLinks = [
-    { label: 'Experience', href: '/#experience' },
-    { label: 'Education', href: '/#education' },
-    { label: 'Projects', href: '/#projects' },
-    { label: 'Achievements', href: '/#achievements' },
+    { label: 'Experience', href: ROUTES.experience },
+    { label: 'Education', href: ROUTES.education },
+    { label: 'Projects', href: ROUTES.projects },
+    { label: 'Achievements', href: ROUTES.achievements },
   ] as const;
 
   const currentYear = getCurrentYear();

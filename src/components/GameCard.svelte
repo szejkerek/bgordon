@@ -44,10 +44,6 @@
         <Icon name="gamepad" size={48} strokeWidth={1.5} />
       </div>
     {/if}
-    <div class="click-hint">
-      <Icon name="external" size={16} />
-      <span>Click to view details</span>
-    </div>
   </div>
 
   <div class="card-content">
@@ -173,33 +169,6 @@
     transform: scale(1.05);
   }
   
-  .click-hint {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: var(--space-3);
-    padding: var(--space-5);
-    background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
-    color: var(--color-text-primary);
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
-    opacity: 0;
-    transform: translateY(100%);
-    transition: 
-      opacity var(--duration-normal) var(--ease-out), 
-      transform var(--duration-normal) var(--ease-out);
-  }
-  
-  .game-card:hover .click-hint,
-	.card-overlay-link:focus-visible + .card-image .click-hint {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
   .placeholder {
     width: 100%;
     height: 100%;

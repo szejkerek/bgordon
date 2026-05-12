@@ -11,6 +11,7 @@ import GameCard from '../components/GameCard.svelte';
 import AchievementCard from '../components/AchievementCard.svelte';
 import { getCollection } from 'astro:content';
 import { sortByDateDesc } from '../utils/dates';
+import { SECTION_IDS } from '../utils/routes';
 
 // Load site content from JSON files
 import heroData from '../content/site/hero.json';
@@ -37,7 +38,7 @@ const sortedAchievements = sortByDateDesc(achievements);
   />
   
   <!-- Projects Section -->
-  <section id="projects" class="section">
+  <section id={SECTION_IDS.projects} class="section">
     <div class="container">
       <header class="section-header">
         <h2 class="section-title">Projects</h2>
@@ -52,7 +53,7 @@ const sortedAchievements = sortByDateDesc(achievements);
   </section>
   
   <!-- Achievements Section -->
-  <section id="achievements" class="section section--alt">
+  <section id={SECTION_IDS.achievements} class="section section--alt">
     <div class="container">
       <header class="section-header">
         <h2 class="section-title">Achievements</h2>

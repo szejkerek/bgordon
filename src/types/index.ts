@@ -6,24 +6,7 @@
 // Social & Link Types
 // ============================================
 
-export type IconType = 
-  | 'email' 
-  | 'github' 
-  | 'linkedin' 
-  | 'trophy' 
-  | 'medal' 
-  | 'star' 
-  | 'award' 
-  | 'book' 
-  | 'users'
-  | 'play'
-  | 'external'
-  | 'briefcase'
-  | 'graduation'
-  | 'gamepad'
-  | 'download'
-  | 'arrow-left'
-  | 'team';
+export type { IconType } from '../utils/icons';
 
 export interface SocialLink {
   type: IconType;

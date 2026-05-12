@@ -49,6 +49,10 @@ export function splitMedia(items: string[]): { images: string[]; videos: string[
   return { images, videos };
 }
 
+export function resolveMediaPath(path: string): string {
+  return path.startsWith('/') ? path : `/${path}`;
+}
+
 /**
  * Get loading strategy based on media type
  */

@@ -8,26 +8,6 @@
 @import './tokens.css';
 @import './components.css';
 
-/* ============================================
-   Font Loading (Optimized)
-   ============================================ */
-
-/* Preload fonts with font-display: swap for better performance */
-@font-face {
-  font-family: 'Inter';
-  font-style: normal;
-  font-weight: 400 700;
-  font-display: swap;
-  src: url('https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuLyfAZ9hiJ-Ek-_EeA.woff2') format('woff2');
-}
-
-@font-face {
-  font-family: 'Playfair Display';
-  font-style: normal;
-  font-weight: 500 700;
-  font-display: swap;
-  src: url('https://fonts.gstatic.com/s/playfairdisplay/v36/nuFvD-vYSZviVYUb_rj3ij__anPXJzDwcbmjWBN2PKdFvUDQZNLo_U2r.woff2') format('woff2');
-}
 
 /* ============================================
    CSS Reset

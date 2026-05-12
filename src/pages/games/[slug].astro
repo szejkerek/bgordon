@@ -8,9 +8,10 @@
 import Layout from '../../layouts/Layout.astro';
 import ImageGallery from '../../components/ImageGallery.svelte';
 import ClickableImage from '../../components/ClickableImage.svelte';
+import Icon from '../../components/Icon.svelte';
 import { getCollection, render } from 'astro:content';
-import { getIcon } from '../../utils/icons';
 import { splitMedia } from '../../utils/media';
+import { ROUTES } from '../../utils/routes';
 
 export async function getStaticPaths() {
   const games = await getCollection('games', ({ data }) => !data.draft);
@@ -35,10 +36,7 @@ const allImages = [
   ...splitMedia(game.data.gallery).images,
 ];
 
-// Icons
-const playIcon = getIcon('play', { size: 16 });
-const githubIcon = getIcon('github', { size: 16 });
-const teamIcon = getIcon('team', { size: 14 });
+
 ---
 
 <Layout 
@@ -48,7 +46,7 @@ const teamIcon = getIcon('team', { size: 14 });
 >
   <article class="game-detail">
     <div class="container">
-      <a href="/#projects" class="back-link">← Back to Projects</a>
+      <a href={ROUTES.projects} class="back-link">← Back to Projects</a>
       
       <header class="game-header">
         {hasImage && (
@@ -68,7 +66,7 @@ const teamIcon = getIcon('team', { size: 14 });
             {game.data.jam && <span class="tag tag--highlight">{game.data.jam}</span>}
             {game.data.teamSize && (
               <span class="team-badge">
-                <Fragment set:html={teamIcon} />
+                <Icon name="team" size={14} />
                 <span>{game.data.teamSize} {teamLabel}</span>
               </span>
             )}
@@ -93,7 +91,7 @@ const teamIcon = getIcon('team', { size: 14 });
                 target="_blank" 
                 rel="noopener noreferrer"
               >
-                <Fragment set:html={playIcon} />
+                <Icon name="play" size={16} />
                 Play Game
               </a>
             )}
@@ -104,7 +102,7 @@ const teamIcon = getIcon('team', { size: 14 });
                 target="_blank" 
                 rel="noopener noreferrer"
               >
-                <Fragment set:html={githubIcon} />
+                <Icon name="github" size={16} />
                 Source Code
               </a>
             )}

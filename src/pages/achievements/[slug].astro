@@ -9,11 +9,26 @@ import Layout from '../../layouts/Layout.astro';
 import ImageGallery from '../../components/ImageGallery.svelte';
 import ClickableImage from '../../components/ClickableImage.svelte';
 import { getCollection, render } from 'astro:content';
-import { getIcon } from '../../utils/icons';
+import Icon from '../../components/Icon.svelte';
 import { splitMedia } from '../../utils/media';
+import { ROUTES } from '../../utils/routes';
 
 export async function getStaticPaths() {
-  const achievements = await getCollection('achievements', ({ data }) => !data.draft);
+  const [achievements, games] = await Promise.all([
+    getCollection('achievements', ({ data }) => !data.draft),
+    getCollection('games', ({ data }) => !data.draft),
+  ]);
+
+  const gameIds = new Set(games.map((g) => g.id));
+
+  for (const achievement of achievements) {
+    if (achievement.data.game && !gameIds.has(achievement.data.game)) {
+      throw new Error(
+        `Achievement "${achievement.id}" references unknown game "${achievement.data.game}". Valid IDs: ${[...gameIds].sort().join(', ')}`
+      );
+    }
+  }
+
   return achievements.map((achievement) => ({
     params: { slug: achievement.id },
     props: { achievement },
@@ -35,10 +50,7 @@ const allImages = [
   ...splitMedia(achievement.data.gallery).images,
 ];
 
-// Icons
-const mainIcon = getIcon(iconName, { size: 32, strokeWidth: 1.5 });
-const externalIcon = getIcon('external', { size: 16 });
-const gamepadIcon = getIcon('gamepad', { size: 16 });
+
 ---
 
 <Layout 
@@ -48,12 +60,12 @@ const gamepadIcon = getIcon('gamepad', { size: 16 });
 >
   <article class="achievement-detail">
     <div class="container">
-      <a href="/#achievements" class="back-link">← Back to Achievements</a>
+      <a href={ROUTES.achievements} class="back-link">← Back to Achievements</a>
       
       <header class="achievement-header">
         <div class="header-content">
           <div class="icon-wrapper" class:list={{ winner: isWinner }}>
-            <Fragment set:html={mainIcon} />
+            <Icon name={iconName} size={32} strokeWidth={1.5} />
           </div>
           
           <div class="header-info">
@@ -85,13 +97,13 @@ const gamepadIcon = getIcon('gamepad', { size: 16 });
                   target="_blank" 
                   rel="noopener noreferrer"
                 >
-                  <Fragment set:html={externalIcon} />
+                  <Icon name="external" size={16} />
                   Open Link
                 </a>
               )}
               {achievement.data.game && (
                 <a href={`/games/${achievement.data.game}`} class="btn">
-                  <Fragment set:html={gamepadIcon} />
+                  <Icon name="gamepad" size={16} />
                   View Game
                 </a>
               )}
