@@ -1,7 +1,7 @@
 ---
 title: "Lethal Speed"
 description: "A fast-paced parkour action game where movement mastery and split-second sword combat decide how quickly you can clear three distinct levels."
-date: "September 2023"
+date: "2023-09"
 tags: ["C#", "Unity", "Game Development", "State Machine", "Parkour", "Physics-Based Movement", "Enemy AI", "NavMesh", "Animation Rigging", "DOTween", "Addressables", "Speedrunning", "CI/CD"]
 image: "/images/games/lethal-speed/1.png"
 gallery:

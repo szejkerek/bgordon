@@ -1,7 +1,7 @@
 ---
 title: "CardsEstateQuest"
 description: "A digital two-player strategy game that faithfully adapts a university-developed urban planning card game into an interactive 3D experience."
-date: "June 2024"
+date: "2024-06"
 tags: ["C#", "Unity", "Card Game", "Strategy", "State Pattern", "ScriptableObjects", "Addressables", "DOTween", "URP", "Turn-Based", "Design Patterns"]
 
 image: "/images/games/cards-estate-quest/1.png"

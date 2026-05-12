@@ -1,7 +1,7 @@
 ---
 title: "Animal Detection Neural Network"
 description: "A neural network system that segments camouflaged animals from their natural environments using multi-class semantic segmentation."
-date: "March 2024"
+date: "2024-03"
 tags: ["Python", "PyTorch", "Deep Learning", "Computer Vision", "UNet", "ResNet", "Transfer Learning", "Semantic Segmentation", "albumentations", "CUDA"]
 image: "/images/games/animal-detection/1.png"
 gallery:

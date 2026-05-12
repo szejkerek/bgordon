@@ -1,7 +1,7 @@
 ---
 title: "High Pass Image Filter"
 description: "A multi-threaded image sharpening tool that compares the performance of C++ and hand-written x64 Assembly implementations of the same convolution filter."
-date: "August 2023"
+date: "2023-08"
 tags: ["C#", "C++", "x64 Assembly", "MASM", "SIMD", "Image Processing", "Multithreading", "P/Invoke", "Native Interop", "Performance Benchmarking", ".NET 6", "Windows"]
 image: "/images/games/highpass-filter/1.png"
 gallery:

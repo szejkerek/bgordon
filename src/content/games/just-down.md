@@ -1,7 +1,7 @@
 ---
 title: "JustDown"
 description: "A from-scratch 3D game demo built in C++ and OpenGL, featuring physics-based movement, advanced rendering effects, and a declarative scene format."
-date: "June 2023"
+date: "2023-06"
 tags: ["C++", "OpenGL", "GLSL", "Game Development", "3D Graphics", "Physics Simulation", "Parallax Mapping", "Bloom", "HDR Rendering", "AABB Collision", "GLFW", "GLM"]
 image: "/images/games/just-down/1.png"
 gallery:

@@ -1,7 +1,7 @@
 ---
 title: "Chess In Terminal"
 description: "A fully playable two-player chess game that runs entirely in the terminal, with FEN position loading and PGN game export."
-date: "July 2021"
+date: "2021-07"
 tags: ["C++", "OOP", "Chess", "Terminal", "FEN", "PGN", "Design Patterns", "Smart Pointers"]
 image: "/images/games/chess-in-terminal/1.png"
 sourceUrl: "https://github.com/szejkerek/ChessInTerminal"
