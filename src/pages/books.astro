@@ -1,0 +1,118 @@
+---
+import Layout from '../layouts/Layout.astro';
+import BookCard from '../components/BookCard.astro';
+import { getCollection } from 'astro:content';
+
+const allBooks = await getCollection('books', ({ data }) => !data.draft);
+
+const reading = allBooks.filter(b => b.data.status === 'reading');
+
+const finished = allBooks
+  .filter(b => b.data.status === 'finished')
+  .sort((a, b) => {
+    const da = a.data.finishDate ?? a.data.startDate;
+    const db = b.data.finishDate ?? b.data.startDate;
+    if (!da || !db) return 0;
+    return db.localeCompare(da);
+  });
+
+const wantToRead = allBooks.filter(b => b.data.status === 'want-to-read');
+---
+
+<Layout
+  title="Books — Bartłomiej Gordon"
+  description="Books I'm reading and have read, with personal notes."
+>
+  <div class="books-page">
+    <div class="container">
+      <header class="page-header">
+        <h1>Books</h1>
+        <p class="page-subtitle">What I'm reading and what I've read.</p>
+      </header>
+
+      {reading.length > 0 && (
+        <section class="book-group">
+          <h2 class="group-title">Currently Reading</h2>
+          <div class="book-list">
+            {reading.map((book) => <BookCard book={book} />)}
+          </div>
+        </section>
+      )}
+
+      {finished.length > 0 && (
+        <section class="book-group">
+          <h2 class="group-title">Finished</h2>
+          <div class="book-list">
+            {finished.map((book) => <BookCard book={book} />)}
+          </div>
+        </section>
+      )}
+
+      {wantToRead.length > 0 && (
+        <section class="book-group">
+          <h2 class="group-title">Want to Read</h2>
+          <div class="book-list">
+            {wantToRead.map((book) => <BookCard book={book} />)}
+          </div>
+        </section>
+      )}
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .books-page {
+    padding: 7rem 0 4rem;
+    min-height: 100vh;
+  }
+
+  .container {
+    max-width: var(--container-max-width-article);
+    margin: 0 auto;
+    padding: 0 var(--container-padding);
+  }
+
+  .page-header {
+    margin-bottom: var(--space-12);
+  }
+
+  h1 {
+    color: var(--color-text-primary);
+    letter-spacing: var(--letter-spacing-tight);
+    margin-bottom: var(--space-4);
+  }
+
+  .page-subtitle {
+    font-size: var(--font-size-md);
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+
+  .book-group {
+    margin-bottom: var(--space-12);
+  }
+
+  .group-title {
+    color: var(--color-text-primary);
+    letter-spacing: var(--letter-spacing-tight);
+    margin-bottom: var(--space-7);
+    padding-bottom: var(--space-4);
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  .book-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-5);
+  }
+
+  @media (max-width: 768px) {
+    .books-page {
+      padding: 6rem 0 3rem;
+    }
+
+    .container {
+      padding: 0 var(--container-padding-mobile);
+    }
+  }
+</style>

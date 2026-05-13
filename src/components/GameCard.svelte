@@ -33,11 +33,13 @@
 
   <div class="card-image">
     {#if hasImage}
-      <img 
-        src={game.data.image} 
-        alt={game.data.title} 
-        loading="lazy" 
-        decoding="async" 
+      <img
+        src={game.data.image}
+        alt={game.data.title}
+        loading="lazy"
+        decoding="async"
+        width="640"
+        height="360"
       />
     {:else}
       <div class="placeholder">

@@ -1,0 +1,168 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import Icon from './Icon.svelte';
+
+interface Props {
+  book: CollectionEntry<'books'>;
+}
+
+const { book } = Astro.props;
+const { title, author, status, startDate, finishDate, image, thoughts } = book.data;
+
+const statusLabel = {
+  reading: 'Reading',
+  finished: 'Finished',
+  'want-to-read': 'Want to Read',
+}[status];
+
+const isHighlight = status === 'reading';
+
+function formatDate(d: string) {
+  const [year, month] = d.split('-');
+  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  return `${months[parseInt(month) - 1]} ${year}`;
+}
+---
+
+<article class="book-card">
+  {status !== 'want-to-read' && (
+    <div class="book-cover">
+      {image ? (
+        <img src={image} alt={`Cover of ${title}`} width="120" height="160" />
+      ) : (
+        <div class="cover-placeholder">
+          <Icon name="book" size={40} />
+        </div>
+      )}
+    </div>
+  )}
+
+  <div class="book-info">
+    <div class="book-meta">
+      <span class={`tag ${isHighlight ? 'tag--highlight' : ''}`}>{statusLabel}</span>
+      {startDate && (
+        <span class="date">
+          {formatDate(startDate)}{finishDate ? ` → ${formatDate(finishDate)}` : ''}
+        </span>
+      )}
+    </div>
+
+    <h3 class="book-title">{title}</h3>
+    <p class="book-author">{author}</p>
+
+    {thoughts && <p class="book-thoughts">{thoughts}</p>}
+  </div>
+</article>
+
+<style>
+  .book-card {
+    display: flex;
+    gap: var(--space-8);
+    padding: var(--space-8);
+    background: var(--color-bg-card);
+    border: 1px solid var(--color-border-subtle);
+    border-radius: var(--radius-lg);
+    transition: border-color var(--duration-fast) var(--ease-out),
+                background var(--duration-fast) var(--ease-out);
+  }
+
+  .book-card:hover {
+    border-color: var(--color-border-light);
+    background: var(--color-bg-card-hover);
+  }
+
+  .book-cover {
+    flex-shrink: 0;
+    width: 120px;
+    height: 160px;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    background: var(--color-bg-elevated);
+  }
+
+  .book-cover img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .cover-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-muted);
+  }
+
+  .book-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+    justify-content: center;
+  }
+
+  .book-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+    flex-wrap: wrap;
+  }
+
+  .tag {
+    display: inline-block;
+    padding: var(--space-1) var(--space-4);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+    background: var(--color-bg-elevated);
+    border-radius: var(--radius-sm);
+    color: var(--color-text-secondary);
+  }
+
+  .tag--highlight {
+    background: var(--color-accent-glow);
+    color: var(--color-accent);
+  }
+
+  .date {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+  }
+
+  .book-title {
+    font-family: var(--font-display);
+    font-size: var(--font-size-lg);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .book-author {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+
+  .book-thoughts {
+    font-size: var(--font-size-base);
+    color: var(--color-text-secondary);
+    line-height: var(--line-height-relaxed);
+    margin: var(--space-2) 0 0;
+  }
+
+  @media (max-width: 600px) {
+    .book-card {
+      flex-direction: column;
+      gap: var(--space-6);
+    }
+
+    .book-cover {
+      width: 90px;
+      height: 120px;
+    }
+  }
+</style>

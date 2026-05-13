@@ -11,9 +11,10 @@
 
   const navLinks = [
     { href: ROUTES.experience, label: "Experience" },
-    { href: ROUTES.education, label: "Education" },
+    { href: ROUTES.experience, label: "Education" },
     { href: ROUTES.projects, label: "Projects" },
     { href: ROUTES.achievements, label: "Achievements" },
+    { href: ROUTES.books, label: "Books" },
   ] as const;
   
   let isMenuOpen = $state(false);

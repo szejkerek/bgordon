@@ -3,12 +3,12 @@ title: "Lethal Speed"
 description: "A fast-paced parkour action game where movement mastery and split-second sword combat decide how quickly you can clear three distinct levels."
 date: "2023-09"
 tags: ["C#", "Unity", "Game Development", "State Machine", "Parkour", "Physics-Based Movement", "Enemy AI", "NavMesh", "Animation Rigging", "DOTween", "Addressables", "Speedrunning", "CI/CD"]
-image: "/images/games/lethal-speed/1.png"
+image: "/images/games/lethal-speed/1.webp"
 gallery:
   - "/images/games/lethal-speed/2.png"
   - "/images/games/lethal-speed/3.png"
-  - "/images/games/lethal-speed/4.png"
-  - "/images/games/lethal-speed/5.png"
+  - "/images/games/lethal-speed/4.webp"
+  - "/images/games/lethal-speed/5.webp"
 sourceUrl: "https://github.com/szejkerek/LethalSpeed"
 featured: true
 teamSize: 6

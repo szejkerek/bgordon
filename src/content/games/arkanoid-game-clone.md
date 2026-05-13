@@ -8,7 +8,7 @@ gallery:
   - "/images/games/arkanoid/2.png"
   - "/images/games/arkanoid/3.png"
   - "/images/games/arkanoid/4.png"
-  - "/images/games/arkanoid/5.gif"
+  - "/images/games/arkanoid/5.webp"
 sourceUrl: "https://github.com/szejkerek/ArkanoidGameClone"
 featured: false
 teamSize: 1

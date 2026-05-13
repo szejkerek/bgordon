@@ -10,4 +10,5 @@ export const ROUTES = {
   education: `/#${SECTION_IDS.education}`,
   projects: `/#${SECTION_IDS.projects}`,
   achievements: `/#${SECTION_IDS.achievements}`,
+  books: '/books',
 } as const;

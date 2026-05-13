@@ -40,7 +40,22 @@ const achievementsCollection = defineCollection({
   }),
 });
 
+const booksCollection = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/books' }),
+  schema: z.object({
+    title: z.string(),
+    author: z.string(),
+    status: z.enum(['reading', 'finished', 'want-to-read']),
+    startDate: z.string().refine(dateRefine, dateRefineMessage).optional(),
+    finishDate: z.string().refine(dateRefine, dateRefineMessage).optional(),
+    image: z.string().optional(),
+    thoughts: z.string().optional(),
+    draft: z.boolean().optional().default(false),
+  }),
+});
+
 export const collections = {
   games: gamesCollection,
   achievements: achievementsCollection,
+  books: booksCollection,
 };

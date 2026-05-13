@@ -69,11 +69,13 @@
             onclick={() => openLightbox(index)}
             aria-label="View {title} image {index + 1} in fullscreen"
           >
-            <img 
-              src={media} 
-              alt={`${title} - ${mediaType === 'gif' ? 'GIF' : 'Image'} ${index + 1}`} 
+            <img
+              src={media}
+              alt={`${title} - ${mediaType === 'gif' ? 'GIF' : 'Image'} ${index + 1}`}
               loading="lazy"
-              decoding="async" 
+              decoding="async"
+              width="800"
+              height="500"
             />
             <div class="zoom-indicator">
               <Icon name="zoom-in" size={32} />

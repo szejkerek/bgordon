@@ -7,7 +7,7 @@ tags: ["C#", "Unity", "Card Game", "Strategy", "State Pattern", "ScriptableObjec
 image: "/images/games/cards-estate-quest/1.png"
 gallery:
   - "/images/games/cards-estate-quest/2.png"
-  - "/images/games/cards-estate-quest/3.png"
+  - "/images/games/cards-estate-quest/3.webp"
 featured: true
 teamSize: 1
 ---

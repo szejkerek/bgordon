@@ -106,10 +106,15 @@ const structuredData = {
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={fullImageUrl} />
     
-    <!-- Preconnect to external resources (performance optimization) -->
+    <!-- Preconnect to font origins -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" />
+    <!-- Non-render-blocking font load -->
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" media="print" onload="this.media='all'" />
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" /></noscript>
+    <!-- Preload LCP image -->
+    <link rel="preload" as="image" href="/images/profilePicture.jpg" />
     
     <!-- DNS Prefetch for external links -->
     <link rel="dns-prefetch" href="https://github.com" />
@@ -123,15 +128,15 @@ const structuredData = {
     <a href="#main-content" class="skip-link">Skip to main content</a>
     
     <!-- Navigation -->
-    <Navigation client:load />
-    
+    <Navigation client:idle />
+
     <!-- Main content -->
     <main id="main-content">
       <slot />
     </main>
-    
+
     <!-- Footer -->
-    <Footer email={footerEmail} connectLinks={connectLinks} client:load />
+    <Footer email={footerEmail} connectLinks={connectLinks} />
   </body>
 </html>
 
