@@ -1,32 +1,28 @@
 ---
 title: "Skeleton Offense"
-description: "Roguelike game with RTS elements set in feudal Japan where you command a squad of origami samurais using your own voice. 2nd place winner at ZTGK competition."
-date: "2024-06"
-tags: ["Unity", "C#", "Voice Control", "RTS", "Roguelike"]
-image: "/images/games/paper-blades.png"
-jam: "ZTGK 2024"
-featured: true
-teamSize: 6
+description: "Auto-chess tower-offense prototype where you draft skeleton units, combine matching triplets into higher tiers, and send your army down a spline path to attack enemy towers and bases."
+date: "2024-10"
+tags: ["Unity", "C#", "Auto-Chess", "Tower Defense", "3D", "NavMesh", "Splines", "URP"]
+image: "/images/games/skeleton-offence/1.png"
+gallery:
+  - "/images/games/skeleton-offence/2.png"
+sourceUrl: "https://github.com/PlaceHoldersStudio/SkeletonOffense"
+featured: false
 ---
 
 ## About This Game
 
-Paper Blades is an innovative roguelike game that combines RTS elements with voice control mechanics. Set in feudal Japan, players command a squad of origami samurais using their own voice.
+Skeleton Offense is a prototype blending auto-chess drafting with tower-offense gameplay. Players buy units from a loot-box shop, place them on board slots, and watch three identical same-tier units automatically combine into a single stronger one. Once a round starts, the army marches down a spline path and breaks off to attack towers and a final enemy base.
 
 ### Features
 
-- **Voice-Controlled Commands**: Direct your samurai squad with voice commands
-- **Roguelike Elements**: Procedural generation and permadeath mechanics
-- **RTS Gameplay**: Strategic unit positioning and tactical combat
-- **Feudal Japan Setting**: Beautiful origami-inspired art style
+- **Auto-Merge**: Three identical same-tier units in the camp automatically combine into a tier-up — detected via LINQ `GroupBy({Config, Tier})`
+- **Spline Path + NavMesh Hybrid**: Units walk a Unity Splines path; when close enough to a precomputed aggro waypoint, they switch to NavMesh navigation to fight
+- **Loot Box System**: `ILootGenerator<T>` interface with unit (tier-weighted), gold, and buff generators
+- **Three Unit Types**: Swordsman, crossbowman, mage — each with distinct weapon ranges and tier-scaled damage
 
-### Awards
+### Technical Highlights
 
-- **2nd Place ex aequo** at 16th ZTGK Competition
-- **Digital Dragons Award**
-- **Game Access Award**
-- **GameDev Lawyer Award** (long-term legal support)
-
-### Team
-
-Developed by a team of 6 people (Team Placeholders), showcasing collaborative game development.
+- Stand positions pre-computed at spawn time via 200-sample NavMesh rejection loop, correlating each valid position to the earliest spline waypoint — aggro trigger is a single float comparison per frame
+- State machine with seven states; machine is a thin dispatcher, all logic lives in state objects that cache component references at construction
+- `StageManager` coroutine spawner supports per-unit `BulkSpawnCount` for burst-arrival enemy types

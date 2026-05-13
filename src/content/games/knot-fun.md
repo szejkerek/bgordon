@@ -1,32 +1,30 @@
 ---
 title: "Knot Fun"
-description: "Roguelike game with RTS elements set in feudal Japan where you command a squad of origami samurais using your own voice. 2nd place winner at ZTGK competition."
-date: "2024-06"
-tags: ["Unity", "C#", "Voice Control", "RTS", "Roguelike"]
-image: "/images/games/paper-blades.png"
-jam: "ZTGK 2024"
+description: "Co-op arena shooter where players are physically tethered by a Verlet-physics rope that swings through the environment and deals damage to enemies on contact."
+date: "2024-11"
+tags: ["Unity", "C#", "Multiplayer", "Physics", "Verlet Integration", "Game Jam", "URP"]
+image: "/images/games/knot-fun.png"
+sourceUrl: "https://github.com/PlaceHoldersStudio/KnotFun"
+jam: "BIT Festival 2024"
 featured: true
 teamSize: 6
 ---
 
 ## About This Game
 
-Paper Blades is an innovative roguelike game that combines RTS elements with voice control mechanics. Set in feudal Japan, players command a squad of origami samurais using their own voice.
+Knot Fun is a 3D co-op arena shooter where two players are connected by a physically simulated rope. The rope is not merely visual — it collides with geometry and damages enemies on contact, turning cooperative positioning into the core combat mechanic.
 
 ### Features
 
-- **Voice-Controlled Commands**: Direct your samurai squad with voice commands
-- **Roguelike Elements**: Procedural generation and permadeath mechanics
-- **RTS Gameplay**: Strategic unit positioning and tactical combat
-- **Feudal Japan Setting**: Beautiful origami-inspired art style
+- **Physics Rope**: Verlet integration rope that swings dynamically and deals damage
+- **Co-op Play**: Two or more players connected — coordination is required
+- **Wave Combat**: Fight enemy waves with distinct types (melee, ranged, AOE, throw)
+- **Upgrade System**: Procedurally generated card upgrades between waves driven by Google Sheets balance data
+- **Tension Feedback**: Rope colour shifts from grey to yellow as players approach maximum distance
 
-### Awards
+### Technical Highlights
 
-- **2nd Place ex aequo** at 16th ZTGK Competition
-- **Digital Dragons Award**
-- **Game Access Award**
-- **GameDev Lawyer Award** (long-term legal support)
-
-### Team
-
-Developed by a team of 6 people (Team Placeholders), showcasing collaborative game development.
+- Custom Verlet integration rope simulation with multi-pass constraint solving and sphere-based collision response
+- Per-weapon possibility matrix prevents nonsensical upgrades via rejection sampling
+- Multi-player force accumulation aggregates impulses per player before applying them to avoid same-frame interference
+- Google Sheets CSV backend for live balance editing, parsed with a custom quoted-field CSV parser
