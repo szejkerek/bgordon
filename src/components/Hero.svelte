@@ -175,7 +175,7 @@
 
   .hero-links {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: var(--space-5);
   }
 
@@ -183,9 +183,9 @@
     display: inline-flex;
     align-items: center;
     gap: 0.55rem;
-    padding: 0.68rem var(--space-7);
+    padding: 0.45rem var(--space-5);
     text-decoration: none;
-    font-size: var(--font-size-base);
+    font-size: var(--font-size-sm);
     color: var(--color-text-primary);
     border-radius: var(--radius-md);
     border: 1px solid var(--color-border-light);

@@ -27,7 +27,10 @@ const wantToRead = allBooks.filter(b => b.data.status === 'want-to-read');
     <div class="container">
       <header class="page-header">
         <h1>Books</h1>
-        <p class="page-subtitle">What I'm reading and what I've read.</p>
+        <p class="page-subtitle">My personal reading tracker — kept public on purpose. One of the tricks I picked up from <em>Atomic Habits</em>: making a habit visible creates accountability and keeps motivation going.</p>
+        {wantToRead.length > 0 && (
+          <a href="#wishlist" class="wishlist-btn">Wishlist →</a>
+        )}
       </header>
 
       {reading.length > 0 && (
@@ -49,7 +52,7 @@ const wantToRead = allBooks.filter(b => b.data.status === 'want-to-read');
       )}
 
       {wantToRead.length > 0 && (
-        <section class="book-group">
+        <section id="wishlist" class="book-group">
           <h2 class="group-title">Want to Read</h2>
           <div class="book-list">
             {wantToRead.map((book) => <BookCard book={book} />)}
@@ -85,7 +88,25 @@ const wantToRead = allBooks.filter(b => b.data.status === 'want-to-read');
   .page-subtitle {
     font-size: var(--font-size-md);
     color: var(--color-text-secondary);
-    margin: 0;
+    margin: 0 0 var(--space-6);
+  }
+
+  .wishlist-btn {
+    display: inline-block;
+    padding: var(--space-2) var(--space-5);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-accent);
+    border: 1px solid var(--color-accent);
+    border-radius: var(--radius-sm);
+    text-decoration: none;
+    transition: background var(--duration-fast) var(--ease-out),
+                color var(--duration-fast) var(--ease-out);
+  }
+
+  .wishlist-btn:hover {
+    background: var(--color-accent);
+    color: var(--color-bg);
   }
 
   .book-group {
