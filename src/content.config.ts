@@ -13,8 +13,7 @@ const gamesCollection = defineCollection({
     playUrl: z.string().url().optional(),
     sourceUrl: z.string().url().optional(),
     jam: z.string().optional(),
-    featured: z.boolean().optional().default(false),
-    teamSize: z.number().int().positive().optional(),
+teamSize: z.number().int().positive().optional(),
     draft: z.boolean().optional().default(false),
   }),
 });

@@ -1,10 +1,4 @@
-<script lang="ts">
-  /**
-   * ClickableImage Component
-   * 
-   * A single image that opens in a lightbox when clicked.
-   * Used for featured images on detail pages.
-   */
+﻿<script lang="ts">
   import Lightbox from "./Lightbox.svelte";
   import Icon from "./Icon.svelte";
 

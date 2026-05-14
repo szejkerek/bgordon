@@ -4,7 +4,6 @@ description: "A from-scratch 3D game demo built in C++ and OpenGL, featuring phy
 date: "2023-06"
 tags: ["C++", "OpenGL", "GLSL", "Game Development", "3D Graphics", "Physics Simulation", "Parallax Mapping", "Bloom", "HDR Rendering", "AABB Collision", "GLFW", "GLM"]
 sourceUrl: "https://github.com/szejkerek/JustDown"
-featured: false
 teamSize: 1
 ---
 

@@ -1,10 +1,4 @@
-<script lang="ts">
-  /**
-   * Lightbox Component
-   * 
-   * Full-screen image viewer with navigation.
-   * Supports keyboard controls (Escape, Arrow keys).
-   */
+﻿<script lang="ts">
   import { onMount } from "svelte";
   import Icon from "./Icon.svelte";
 

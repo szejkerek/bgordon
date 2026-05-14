@@ -1,10 +1,4 @@
-<script lang="ts">
-  /**
-   * AchievementCard Component
-   * 
-   * Card component for displaying achievements.
-   * Uses centralized icons and proper TypeScript types.
-   */
+﻿<script lang="ts">
   import Icon from "./Icon.svelte";
   import type { CollectionEntry } from "astro:content";
 

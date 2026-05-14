@@ -4,7 +4,6 @@ description: "A neural network system that segments camouflaged animals from the
 date: "2024-03"
 tags: ["Python", "PyTorch", "Deep Learning", "Computer Vision", "UNet", "ResNet", "Transfer Learning", "Semantic Segmentation", "albumentations", "CUDA"]
 sourceUrl: "https://github.com/szejkerek/AnimalDetection"
-featured: false
 teamSize: 1
 ---
 

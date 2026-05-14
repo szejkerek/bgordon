@@ -4,7 +4,6 @@ description: "A social fitness tracker where users log workouts, follow friends,
 date: "2023-06"
 tags: ["TypeScript", "Svelte", "SvelteKit", "Firebase", "Firestore", "Tailwind CSS", "Full-Stack", "NoSQL", "Social Platform", "Fitness", "Bitwise Flags", "Svelte Stores", "Vite", "Node.js"]
 sourceUrl: "https://github.com/szejkerek/WorkoutTracker"
-featured: false
 teamSize: 1
 ---
 

@@ -4,7 +4,6 @@ description: "A brief description of your project. Keep it to 1-2 sentences that
 date: "2024-01"
 tags: ["Tag1", "Tag2", "Tag3", "Tag4"]
 sourceUrl: "https://github.com/yourusername/repo"
-featured: false
 teamSize: 1
 draft: true
 ---

@@ -6,7 +6,6 @@ tags: ["Unity", "C#", "Isometric", "Resource Management"]
 
 sourceUrl: "https://github.com/szejkerek"
 jam: "GameJamPlus"
-featured: false
 teamSize: 5
 ---
 

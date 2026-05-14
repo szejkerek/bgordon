@@ -4,7 +4,6 @@ description: "A fast-paced parkour action game where movement mastery and split-
 date: "2023-09"
 tags: ["C#", "Unity", "Game Development", "State Machine", "Parkour", "Physics-Based Movement", "Enemy AI", "NavMesh", "Animation Rigging", "DOTween", "Addressables", "Speedrunning", "CI/CD"]
 sourceUrl: "https://github.com/szejkerek/LethalSpeed"
-featured: true
 teamSize: 6
 ---
 

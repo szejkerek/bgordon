@@ -1,10 +1,4 @@
-<script lang="ts">
-  /**
-   * Hero Component
-   * 
-   * Landing section with profile info and social links.
-   * Uses centralized icons and proper TypeScript types.
-   */
+﻿<script lang="ts">
   import { onMount } from "svelte";
   import Icon from "./Icon.svelte";
   import type { HeroData, SocialLink } from "../types";

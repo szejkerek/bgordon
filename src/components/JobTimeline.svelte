@@ -1,10 +1,4 @@
-<script lang="ts">
-  /**
-   * JobTimeline Component
-   * 
-   * Two-column timeline for work experience and education.
-   * Uses intersection observer for animation.
-   */
+﻿<script lang="ts">
   import { onMount } from "svelte";
   import Icon from "./Icon.svelte";
   import type { WorkExperience, Education } from "../types";

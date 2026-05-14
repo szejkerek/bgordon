@@ -5,7 +5,6 @@ date: "2024-01"
 tags: ["C#", "Unity", "VR", "Oculus Quest 2", "XR Interaction Toolkit", "URP", "Addressables", "EzySlice", "DOTween", "ScriptableObjects", "Command Pattern", "Ballistic Physics", "Engineering Thesis"]
 playUrl: "https://szejkerek.itch.io/pirate-rush-vr"
 sourceUrl: "https://github.com/szejkerek"
-featured: true
 teamSize: 1
 ---
 

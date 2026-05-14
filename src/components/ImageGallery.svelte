@@ -1,10 +1,4 @@
-<script lang="ts">
-  /**
-   * ImageGallery Component
-   * 
-   * Interactive gallery for displaying images with lightbox support.
-   * Click any image to view in fullscreen with navigation.
-   */
+﻿<script lang="ts">
   import Lightbox from "./Lightbox.svelte";
   import Icon from "./Icon.svelte";
   import { getMediaType, splitMedia } from "../utils/media";

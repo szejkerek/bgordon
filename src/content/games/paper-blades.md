@@ -4,7 +4,6 @@ description: "Roguelike game with RTS elements set in feudal Japan where you com
 date: "2024-06"
 tags: ["Unity", "C#", "Voice Control", "RTS", "Roguelike"]
 jam: "ZTGK 2024"
-featured: true
 teamSize: 6
 ---
 

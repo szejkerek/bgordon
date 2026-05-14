@@ -1,10 +1,4 @@
-<script lang="ts">
-  /**
-   * GameCard Component
-   * 
-   * Card component for displaying game projects.
-   * Clickable with accessible keyboard support.
-   */
+﻿<script lang="ts">
   import Icon from "./Icon.svelte";
   import type { CollectionEntry } from "astro:content";
 

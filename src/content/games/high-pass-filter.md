@@ -4,7 +4,6 @@ description: "A multi-threaded image sharpening tool that compares the performan
 date: "2023-08"
 tags: ["C#", "C++", "x64 Assembly", "MASM", "SIMD", "Image Processing", "Multithreading", "P/Invoke", "Native Interop", "Performance Benchmarking", ".NET 6", "Windows"]
 sourceUrl: "https://github.com/szejkerek/HighPassImageFilter"
-featured: false
 teamSize: 1
 ---
 

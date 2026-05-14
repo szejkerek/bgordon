@@ -4,7 +4,6 @@ description: "A faithful C++ recreation of the 1986 Taito arcade classic, comple
 date: "2022-06"
 tags: ["C++", "SFML", "Game Development", "2D Physics", "OOP", "Collision Detection", "Scene Management", "Design Patterns", "Windows"]
 sourceUrl: "https://github.com/szejkerek/ArkanoidGameClone"
-featured: false
 teamSize: 1
 ---
 

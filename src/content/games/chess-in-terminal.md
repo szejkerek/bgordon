@@ -4,7 +4,6 @@ description: "A fully playable two-player chess game that runs entirely in the t
 date: "2021-07"
 tags: ["C++", "OOP", "Chess", "Terminal", "FEN", "PGN", "Design Patterns", "Smart Pointers"]
 sourceUrl: "https://github.com/szejkerek/ChessInTerminal"
-featured: false
 teamSize: 1
 ---
 

@@ -4,7 +4,6 @@ description: "3D action prototype with a composable wand-casting skill system â€
 date: "2025-11"
 tags: ["Unity", "C#", "3D", "Action", "Zenject", "ScriptableObjects", "Design Patterns", "URP"]
 sourceUrl: "https://github.com/PlaceHoldersStudio/ReWand"
-featured: false
 ---
 
 ## About This Project

@@ -1,10 +1,4 @@
-<script lang="ts">
-  /**
-   * Navigation Component
-   * 
-   * Responsive navigation with mobile menu support.
-   * Uses centralized icons and improved accessibility.
-   */
+﻿<script lang="ts">
   import { onMount } from "svelte";
   import Icon from "./Icon.svelte";
   import { ROUTES } from "../utils/routes";

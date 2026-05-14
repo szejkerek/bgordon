@@ -4,7 +4,6 @@ description: "Auto-chess tower-offense prototype where you draft skeleton units,
 date: "2024-10"
 tags: ["Unity", "C#", "Auto-Chess", "Tower Defense", "3D", "NavMesh", "Splines", "URP"]
 sourceUrl: "https://github.com/PlaceHoldersStudio/SkeletonOffense"
-featured: false
 ---
 
 ## About This Game
