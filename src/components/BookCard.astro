@@ -9,14 +9,6 @@ interface Props {
 const { book } = Astro.props;
 const { title, author, status, startDate, finishDate, image, thoughts } = book.data;
 
-const statusLabel = {
-  reading: 'Reading',
-  finished: 'Finished',
-  'want-to-read': 'Want to Read',
-}[status];
-
-const isHighlight = status === 'reading';
-
 function formatDate(d: string) {
   const [year, month] = d.split('-');
   const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
@@ -24,8 +16,13 @@ function formatDate(d: string) {
 }
 ---
 
-<article class="book-card">
-  {status !== 'want-to-read' && (
+{status === 'want-to-read' ? (
+  <article class="book-card book-card--wishlist">
+    <h3 class="book-title">{title}</h3>
+    <p class="book-author">{author}</p>
+  </article>
+) : (
+  <article class={`book-card${status === 'reading' ? ' book-card--reading' : ''}`}>
     <div class="book-cover">
       {image ? (
         <img src={image} alt={`Cover of ${title}`} width="120" height="160" />
@@ -35,24 +32,19 @@ function formatDate(d: string) {
         </div>
       )}
     </div>
-  )}
 
-  <div class="book-info">
-    <div class="book-meta">
-      <span class={`tag ${isHighlight ? 'tag--highlight' : ''}`}>{statusLabel}</span>
+    <div class="book-info">
       {startDate && (
         <span class="date">
           {formatDate(startDate)}{finishDate ? ` → ${formatDate(finishDate)}` : ''}
         </span>
       )}
+      <h3 class="book-title">{title}</h3>
+      <p class="book-author">{author}</p>
+      {thoughts && <p class="book-thoughts">{thoughts}</p>}
     </div>
-
-    <h3 class="book-title">{title}</h3>
-    <p class="book-author">{author}</p>
-
-    {thoughts && <p class="book-thoughts">{thoughts}</p>}
-  </div>
-</article>
+  </article>
+)}
 
 <style>
   .book-card {
@@ -71,6 +63,26 @@ function formatDate(d: string) {
     background: var(--color-bg-card-hover);
   }
 
+  .book-card--reading {
+    padding: var(--space-10);
+    background: var(--color-bg-elevated);
+    border-color: var(--color-accent);
+  }
+
+  .book-card--reading:hover {
+    background: var(--color-bg-elevated);
+    border-color: var(--color-accent);
+  }
+
+  .book-card--wishlist {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    gap: var(--space-4);
+    padding: var(--space-4) var(--space-6);
+    flex-wrap: nowrap;
+  }
+
   .book-cover {
     flex-shrink: 0;
     width: 120px;
@@ -78,6 +90,11 @@ function formatDate(d: string) {
     border-radius: var(--radius-md);
     overflow: hidden;
     background: var(--color-bg-elevated);
+  }
+
+  .book-card--reading .book-cover {
+    width: 140px;
+    height: 185px;
   }
 
   .book-cover img {
@@ -104,30 +121,6 @@ function formatDate(d: string) {
     justify-content: center;
   }
 
-  .book-meta {
-    display: flex;
-    align-items: center;
-    gap: var(--space-5);
-    flex-wrap: wrap;
-  }
-
-  .tag {
-    display: inline-block;
-    padding: var(--space-1) var(--space-4);
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-semibold);
-    text-transform: uppercase;
-    letter-spacing: var(--letter-spacing-wide);
-    background: var(--color-bg-elevated);
-    border-radius: var(--radius-sm);
-    color: var(--color-text-secondary);
-  }
-
-  .tag--highlight {
-    background: var(--color-accent-glow);
-    color: var(--color-accent);
-  }
-
   .date {
     font-size: var(--font-size-sm);
     color: var(--color-text-muted);
@@ -139,12 +132,22 @@ function formatDate(d: string) {
     font-weight: var(--font-weight-semibold);
     color: var(--color-text-primary);
     margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .book-card--reading .book-title {
+    font-size: var(--font-size-xl);
   }
 
   .book-author {
     font-size: var(--font-size-sm);
     color: var(--color-text-secondary);
     margin: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
   }
 
   .book-thoughts {
@@ -163,6 +166,15 @@ function formatDate(d: string) {
     .book-cover {
       width: 90px;
       height: 120px;
+    }
+
+    .book-card--reading .book-cover {
+      width: 100px;
+      height: 135px;
+    }
+
+    .book-card--wishlist {
+      flex-wrap: wrap;
     }
   }
 </style>
