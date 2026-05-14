@@ -1,41 +1,31 @@
 ﻿<script lang="ts">
-  import { onMount } from "svelte";
   import Icon from "./Icon.svelte";
 
   interface Props {
     images: string[];
-    initialIndex?: number;
-    isOpen?: boolean;
-    onClose?: () => void;
   }
 
-  let { 
-    images = [], 
-    initialIndex = 0, 
-    isOpen = false,
-    onClose = () => {}
-  }: Props = $props();
+  let { images = [] }: Props = $props();
 
+  let isOpen = $state(false);
   let currentIndex = $state(0);
   let isVisible = $state(false);
   let isFading = $state(false);
   let dialogEl: HTMLDivElement | undefined = $state();
 
-  // Update currentIndex when initialIndex or isOpen changes
-  $effect(() => {
-    if (isOpen) {
-      currentIndex = initialIndex;
-      requestAnimationFrame(() => {
-        isVisible = true;
-        dialogEl?.focus();
-      });
-    }
-  });
+  export function open(index: number) {
+    currentIndex = index;
+    isOpen = true;
+    requestAnimationFrame(() => {
+      isVisible = true;
+      dialogEl?.focus();
+    });
+  }
 
   function close() {
     isVisible = false;
     setTimeout(() => {
-      onClose();
+      isOpen = false;
     }, 200);
   }
 
@@ -82,16 +72,9 @@
     }
   }
 
-  // Prevent body scroll when open
   $effect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
+    document.body.style.overflow = isOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
   });
 </script>
 

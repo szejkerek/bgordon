@@ -1,10 +1,9 @@
-﻿---
-import Layout from '../../layouts/Layout.astro';
-import ImageGallery from '../../components/ImageGallery.svelte';
+---
+import DetailLayout from '../../layouts/DetailLayout.astro';
 import ClickableImage from '../../components/ClickableImage.svelte';
 import { getCollection, render } from 'astro:content';
 import Icon from '../../components/Icon.svelte';
-import { splitMedia } from '../../utils/media';
+import { collectLightboxImages } from '../../utils/media';
 import { ROUTES } from '../../utils/routes';
 
 export async function getStaticPaths() {
@@ -32,146 +31,100 @@ export async function getStaticPaths() {
 const { achievement } = Astro.props;
 const { Content } = await render(achievement);
 
-// Computed values
 const isWinner = achievement.data.type === 'winner';
 const hasImage = !!achievement.data.image;
-const hasGallery = achievement.data.gallery && achievement.data.gallery.length > 0;
 const iconName = achievement.data.icon;
 
-// Collect all images for lightbox navigation
-const allImages = [
-  ...(achievement.data.image ? [achievement.data.image] : []),
-  ...splitMedia(achievement.data.gallery).images,
-];
-
-
+const allImages = collectLightboxImages(achievement.data.image, achievement.data.gallery);
 ---
 
-<Layout 
-  title={`${achievement.data.title} — Bartłomiej Gordon`} 
+<DetailLayout
+  title={`${achievement.data.title} — Bartłomiej Gordon`}
   description={achievement.data.description}
   image={achievement.data.image}
+  backHref={ROUTES.achievements}
+  backLabel="Back to Achievements"
+  containerWidth="article"
+  galleryItems={achievement.data.gallery}
+  galleryTitle={achievement.data.title}
 >
-  <article class="achievement-detail">
-    <div class="container">
-      <a href={ROUTES.achievements} class="back-link">← Back to Achievements</a>
-      
-      <header class="achievement-header">
-        <div class="header-content">
-          <div class="icon-wrapper" class:list={{ winner: isWinner }}>
-            <Icon name={iconName} size={32} strokeWidth={1.5} />
-          </div>
-          
-          <div class="header-info">
-            <div class="meta">
-              <span class="tag" class:list={{ 'tag--highlight': isWinner }}>
-                {isWinner ? 'Winner' : achievement.data.type}
-              </span>
-              <span class="date">{achievement.data.date}</span>
-              {achievement.data.participants && (
-                <span class="participants">{achievement.data.participants} participants</span>
-              )}
-            </div>
-            
-            <h1>{achievement.data.title}</h1>
-            <p class="event">{achievement.data.event}</p>
-            <p class="description">{achievement.data.description}</p>
-            
-            {achievement.data.rank && (
-              <div class="rank-badge">
-                <span class="rank-value">{achievement.data.rank}</span>
-              </div>
-            )}
-            
-            <div class="actions">
-              {achievement.data.url && (
-                <a 
-                  href={achievement.data.url} 
-                  class="btn btn--primary" 
-                  target="_blank" 
-                  rel="noopener noreferrer"
-                >
-                  <Icon name="external" size={16} />
-                  Open Link
-                </a>
-              )}
-              {achievement.data.game && (
-                <a href={`/games/${achievement.data.game}`} class="btn">
-                  <Icon name="gamepad" size={16} />
-                  View Game
-                </a>
-              )}
-            </div>
-          </div>
+  <header class="achievement-header" slot="header">
+    <div class="header-content">
+      <div class="icon-wrapper" class:list={{ winner: isWinner }}>
+        <Icon name={iconName} size={32} strokeWidth={1.5} />
+      </div>
+
+      <div class="header-info">
+        <div class="meta">
+          <span class="tag" class:list={{ 'tag--highlight': isWinner }}>
+            {isWinner ? 'Winner' : achievement.data.type}
+          </span>
+          <span class="date">{achievement.data.date}</span>
+          {achievement.data.participants && (
+            <span class="participants">{achievement.data.participants} participants</span>
+          )}
         </div>
-        
-        {hasImage && (
-          <div class="featured-image">
-            <ClickableImage 
-              src={achievement.data.image} 
-              alt={achievement.data.title}
-              allImages={allImages}
-              client:load
-            />
+
+        <h1>{achievement.data.title}</h1>
+        <p class="event">{achievement.data.event}</p>
+        <p class="description">{achievement.data.description}</p>
+
+        {achievement.data.rank && (
+          <div class="rank-badge">
+            <span class="rank-value">{achievement.data.rank}</span>
           </div>
         )}
-      </header>
-      
-      {hasGallery && (
-        <ImageGallery 
-          items={achievement.data.gallery} 
-          title={achievement.data.title}
-          columns={3}
-          client:load
-        />
-      )}
-      
-      <div class="achievement-content prose">
-        <Content />
+
+        <div class="actions">
+          {achievement.data.url && (
+            <a
+              href={achievement.data.url}
+              class="btn btn--primary"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <Icon name="external" size={16} />
+              Open Link
+            </a>
+          )}
+          {achievement.data.game && (
+            <a href={`/games/${achievement.data.game}`} class="btn">
+              <Icon name="gamepad" size={16} />
+              View Game
+            </a>
+          )}
+        </div>
       </div>
     </div>
-  </article>
-</Layout>
+
+    {hasImage && (
+      <div class="featured-image">
+        <ClickableImage
+          src={achievement.data.image}
+          alt={achievement.data.title}
+          allImages={allImages}
+          client:load
+        />
+      </div>
+    )}
+  </header>
+
+  <Content />
+</DetailLayout>
 
 <style>
-  .achievement-detail {
-    padding: 7rem 0 4rem;
-    min-height: 100vh;
-  }
-  
-  .container {
-    max-width: var(--container-max-width-article);
-    margin: 0 auto;
-    padding: 0 var(--container-padding);
-  }
-  
-  .back-link {
-    display: inline-flex;
-    align-items: center;
-    font-size: var(--font-size-base);
-    font-weight: var(--font-weight-medium);
-    color: var(--color-accent);
-    text-decoration: none;
-    margin-bottom: var(--space-9);
-    transition: color var(--duration-fast) var(--ease-out);
-  }
-  
-  .back-link:hover {
-    color: var(--color-accent-dim);
-  }
-  
   .achievement-header {
     margin-bottom: var(--space-11);
     padding-bottom: var(--space-10);
     border-bottom: 1px solid var(--color-border-subtle);
   }
-  
+
   .header-content {
     display: flex;
     gap: var(--space-9);
     margin-bottom: var(--space-9);
   }
-  
+
   .icon-wrapper {
     flex-shrink: 0;
     width: 72px;
@@ -183,73 +136,44 @@ const allImages = [
     border-radius: var(--radius-lg);
     color: var(--color-text-muted);
   }
-  
+
   .icon-wrapper.winner {
     background: var(--color-accent-glow);
     color: var(--color-accent);
   }
-  
+
   .header-info {
     flex: 1;
   }
-  
-  .meta {
-    display: flex;
-    align-items: center;
-    gap: var(--space-5);
-    margin-bottom: var(--space-5);
-    flex-wrap: wrap;
-  }
-  
-  .tag {
-    padding: var(--space-1) var(--space-4);
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-semibold);
-    text-transform: uppercase;
-    letter-spacing: var(--letter-spacing-wide);
-    background: var(--color-bg-elevated);
-    border-radius: var(--radius-sm);
-    color: var(--color-text-secondary);
-  }
-  
-  .tag--highlight {
-    background: var(--color-accent-glow);
-    color: var(--color-accent);
-  }
-  
-  .date {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-muted);
-  }
-  
+
   .participants {
     font-size: var(--font-size-sm);
     color: var(--color-text-muted);
     padding-left: var(--space-5);
     border-left: 1px solid var(--color-border-light);
   }
-  
+
   h1 {
     font-family: var(--font-display);
     font-size: 2.25rem;
     margin-bottom: var(--space-3);
     color: var(--color-text-primary);
   }
-  
+
   .event {
     font-size: 1.1rem;
     color: var(--color-accent);
     font-weight: var(--font-weight-medium);
     margin-bottom: var(--space-5);
   }
-  
+
   .description {
     font-size: var(--font-size-md);
     color: var(--color-text-secondary);
     line-height: 1.65;
     margin-bottom: var(--space-7);
   }
-  
+
   .rank-badge {
     display: inline-flex;
     padding: var(--space-4) var(--space-6);
@@ -258,82 +182,51 @@ const allImages = [
     border-radius: var(--radius-md);
     margin-bottom: var(--space-8);
   }
-  
+
   .rank-value {
     font-family: var(--font-display);
     font-size: var(--font-size-lg);
     font-weight: var(--font-weight-semibold);
     color: var(--color-accent);
   }
-  
+
   .actions {
     display: flex;
     gap: var(--space-5);
     flex-wrap: wrap;
   }
-  
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-3);
-    padding: var(--space-4) var(--space-7);
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
-    border: 1px solid var(--color-border-light);
-    border-radius: var(--radius-md);
-    background: var(--color-bg-card);
-    color: var(--color-text-primary);
-    text-decoration: none;
-    transition: all var(--duration-fast) var(--ease-out);
-  }
-  
-  .btn:hover {
-    background: var(--color-bg-elevated);
-    border-color: var(--color-accent);
-  }
-  
-  .btn--primary {
-    background: var(--color-accent);
-    border-color: var(--color-accent);
-    color: var(--color-bg-primary);
-  }
-  
-  .btn--primary:hover {
-    background: var(--color-accent-dim);
-    border-color: var(--color-accent-dim);
-  }
-  
+
   .featured-image {
     border-radius: var(--radius-lg);
     overflow: hidden;
     background: var(--color-bg-card);
   }
-  
+
   .featured-image :global(.clickable-image) {
     width: 100%;
   }
-  
+
   .featured-image :global(.clickable-image img) {
     width: 100%;
     height: auto;
     object-fit: contain;
   }
-  
+
   @media (max-width: 768px) {
     .header-content {
       flex-direction: column;
       gap: var(--space-8);
     }
-    
+
     .icon-wrapper {
       width: 56px;
       height: 56px;
     }
-    
+
     h1 {
       font-size: 1.75rem;
     }
-    
+
     .actions {
       flex-direction: column;
     }

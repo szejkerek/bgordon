@@ -11,24 +11,13 @@
 
   let { items = [], title, columns = 2 }: Props = $props();
 
-  let lightboxOpen = $state(false);
-  let lightboxIndex = $state(0);
+  let lightboxEl: Lightbox;
 
-  // Filter out videos - lightbox only supports images
   const imageItems = $derived(splitMedia(items).images);
 
   function openLightbox(index: number) {
-    // Find the correct index in imageItems array
-    const item = items[index];
-    const imageIndex = imageItems.indexOf(item);
-    if (imageIndex !== -1) {
-      lightboxIndex = imageIndex;
-      lightboxOpen = true;
-    }
-  }
-
-  function closeLightbox() {
-    lightboxOpen = false;
+    const imageIndex = imageItems.indexOf(items[index]);
+    if (imageIndex !== -1) lightboxEl.open(imageIndex);
   }
 </script>
 
@@ -81,12 +70,7 @@
   </section>
 {/if}
 
-<Lightbox 
-  images={imageItems} 
-  initialIndex={lightboxIndex}
-  isOpen={lightboxOpen}
-  onClose={closeLightbox}
-/>
+<Lightbox bind:this={lightboxEl} images={imageItems} />
 
 <style>
   .gallery-section {

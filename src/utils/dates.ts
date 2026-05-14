@@ -1,4 +1,10 @@
 const YYYY_MM = /^\d{4}-(0[1-9]|1[0-2])$/;
+const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+export function formatDate(dateStr: string): string {
+  const [year, month] = dateStr.split('-');
+  return `${MONTHS[parseInt(month) - 1]} ${year}`;
+}
 
 export function parseDate(dateStr: string): Date | null {
   if (!YYYY_MM.test(dateStr)) return null;

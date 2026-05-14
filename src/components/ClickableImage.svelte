@@ -11,18 +11,13 @@
 
   let { src, alt, class: className = '', allImages }: Props = $props();
 
-  let lightboxOpen = $state(false);
-  
-  // If allImages provided, use those. Otherwise just use the single image
+  let lightboxEl: Lightbox;
+
   const images = $derived(allImages && allImages.length > 0 ? allImages : [src]);
   const initialIndex = $derived(allImages ? allImages.indexOf(src) : 0);
 
   function openLightbox() {
-    lightboxOpen = true;
-  }
-
-  function closeLightbox() {
-    lightboxOpen = false;
+    lightboxEl.open(initialIndex >= 0 ? initialIndex : 0);
   }
 </script>
 
@@ -46,12 +41,7 @@
   </div>
 </div>
 
-<Lightbox 
-  {images}
-  initialIndex={initialIndex >= 0 ? initialIndex : 0}
-  isOpen={lightboxOpen}
-  onClose={closeLightbox}
-/>
+<Lightbox bind:this={lightboxEl} {images} />
 
 <style>
   .clickable-image {

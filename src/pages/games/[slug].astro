@@ -1,12 +1,11 @@
-﻿---
-import Layout from '../../layouts/Layout.astro';
-import ImageGallery from '../../components/ImageGallery.svelte';
+---
+import DetailLayout from '../../layouts/DetailLayout.astro';
 import ClickableImage from '../../components/ClickableImage.svelte';
 import Icon from '../../components/Icon.svelte';
 import { getCollection, render } from 'astro:content';
-import { splitMedia } from '../../utils/media';
+import { collectLightboxImages } from '../../utils/media';
 import { ROUTES } from '../../utils/routes';
-import { getThumbnail, getGallery } from '../../utils/gameImages';
+import { getGameMedia } from '../../utils/gameImages';
 
 export async function getStaticPaths() {
   const games = await getCollection('games', ({ data }) => !data.draft);
@@ -19,138 +18,91 @@ export async function getStaticPaths() {
 const { game } = Astro.props;
 const { Content } = await render(game);
 
-const thumbnailSrc = getThumbnail(game.id);
-const galleryImages = getGallery(game.id);
+const { thumbnail: thumbnailSrc, gallery: galleryImages } = getGameMedia(game.id);
 
-// Computed values
 const hasImage = !!thumbnailSrc;
-const hasGallery = galleryImages.length > 0;
 const tags = game.data.tags || [];
 const teamLabel = game.data.teamSize === 1 ? 'person' : 'people';
 
-// Collect all images for lightbox navigation
-const allImages = [
-  ...(thumbnailSrc ? [thumbnailSrc] : []),
-  ...splitMedia(galleryImages).images,
-];
-
-
+const allImages = collectLightboxImages(thumbnailSrc, galleryImages);
 ---
 
-<Layout 
-  title={`${game.data.title} — Bartłomiej Gordon`} 
+<DetailLayout
+  title={`${game.data.title} — Bartłomiej Gordon`}
   description={game.data.description}
   image={thumbnailSrc}
+  backHref={ROUTES.projects}
+  backLabel="Back to Projects"
+  containerWidth="narrow"
+  galleryItems={galleryImages}
+  galleryTitle={game.data.title}
 >
-  <article class="game-detail">
-    <div class="container">
-      <a href={ROUTES.projects} class="back-link">← Back to Projects</a>
-      
-      <header class="game-header">
-        {hasImage && (
-          <div class="game-image">
-            <ClickableImage
-              src={thumbnailSrc}
-              alt={game.data.title}
-              allImages={allImages}
-              client:load
-            />
-          </div>
-        )}
-        
-        <div class="game-info">
-          <div class="game-meta">
-            <span class="date">{game.data.date}</span>
-            {game.data.jam && <span class="tag tag--highlight">{game.data.jam}</span>}
-            {game.data.teamSize && (
-              <span class="team-badge">
-                <Icon name="team" size={14} />
-                <span>{game.data.teamSize} {teamLabel}</span>
-              </span>
-            )}
-          </div>
-          
-          <h1>{game.data.title}</h1>
-          <p class="description">{game.data.description}</p>
-          
-          {tags.length > 0 && (
-            <div class="tags">
-              {tags.map((tag) => (
-                <span class="tag">{tag}</span>
-              ))}
-            </div>
-          )}
-          
-          <div class="actions">
-            {game.data.playUrl && (
-              <a 
-                href={game.data.playUrl} 
-                class="btn btn--primary" 
-                target="_blank" 
-                rel="noopener noreferrer"
-              >
-                <Icon name="play" size={16} />
-                Play Game
-              </a>
-            )}
-            {game.data.sourceUrl && (
-              <a 
-                href={game.data.sourceUrl} 
-                class="btn" 
-                target="_blank" 
-                rel="noopener noreferrer"
-              >
-                <Icon name="github" size={16} />
-                Source Code
-              </a>
-            )}
-          </div>
-        </div>
-      </header>
-      
-      {hasGallery && (
-        <ImageGallery
-          items={galleryImages}
-          title={game.data.title}
-          columns={3}
+  <header class="game-header" slot="header">
+    {hasImage && (
+      <div class="game-image">
+        <ClickableImage
+          src={thumbnailSrc}
+          alt={game.data.title}
+          allImages={allImages}
           client:load
         />
+      </div>
+    )}
+
+    <div class="game-info">
+      <div class="meta">
+        <span class="date">{game.data.date}</span>
+        {game.data.jam && <span class="tag tag--highlight">{game.data.jam}</span>}
+        {game.data.teamSize && (
+          <span class="team-badge">
+            <Icon name="team" size={14} />
+            <span>{game.data.teamSize} {teamLabel}</span>
+          </span>
+        )}
+      </div>
+
+      <h1>{game.data.title}</h1>
+      <p class="description">{game.data.description}</p>
+
+      {tags.length > 0 && (
+        <div class="tags">
+          {tags.map((tag) => (
+            <span class="tag">{tag}</span>
+          ))}
+        </div>
       )}
-      
-      <div class="game-content prose">
-        <Content />
+
+      <div class="actions">
+        {game.data.playUrl && (
+          <a
+            href={game.data.playUrl}
+            class="btn btn--primary"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Icon name="play" size={16} />
+            Play Game
+          </a>
+        )}
+        {game.data.sourceUrl && (
+          <a
+            href={game.data.sourceUrl}
+            class="btn"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <Icon name="github" size={16} />
+            Source Code
+          </a>
+        )}
       </div>
     </div>
-  </article>
-</Layout>
+  </header>
+
+  <Content />
+</DetailLayout>
 
 <style>
-  .game-detail {
-    padding: 7rem 0 4rem;
-    min-height: 100vh;
-  }
-  
-  .container {
-    max-width: var(--container-max-width-narrow);
-    margin: 0 auto;
-    padding: 0 var(--container-padding);
-  }
-  
-  .back-link {
-    display: inline-flex;
-    align-items: center;
-    font-size: var(--font-size-base);
-    font-weight: var(--font-weight-medium);
-    color: var(--color-accent);
-    text-decoration: none;
-    margin-bottom: var(--space-9);
-    transition: color var(--duration-fast) var(--ease-out);
-  }
-  
-  .back-link:hover {
-    color: var(--color-accent-dim);
-  }
-  
   .game-header {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -159,7 +111,7 @@ const allImages = [
     padding-bottom: var(--space-10);
     border-bottom: 1px solid var(--color-border-subtle);
   }
-  
+
   .game-image {
     border-radius: var(--radius-lg);
     overflow: hidden;
@@ -167,130 +119,59 @@ const allImages = [
     display: flex;
     align-items: center;
   }
-  
+
   .game-image :global(.clickable-image) {
     width: 100%;
   }
-  
+
   .game-image :global(.clickable-image img) {
     width: 100%;
     height: auto;
     object-fit: contain;
   }
-  
+
   .game-info {
     display: flex;
     flex-direction: column;
     justify-content: center;
   }
-  
-  .game-meta {
-    display: flex;
-    align-items: center;
-    gap: var(--space-5);
-    margin-bottom: var(--space-5);
-    flex-wrap: wrap;
-  }
-  
-  .date {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-muted);
-  }
-  
-  .tag {
-    padding: var(--space-1) var(--space-4);
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-semibold);
-    text-transform: uppercase;
-    background: var(--color-bg-elevated);
-    border-radius: var(--radius-sm);
-    color: var(--color-text-secondary);
-  }
-  
-  .tag--highlight {
-    background: var(--color-accent-glow);
-    color: var(--color-accent);
-  }
-  
-  .team-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-1) var(--space-4);
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
-    background: var(--color-bg-elevated);
-    border-radius: var(--radius-sm);
-    color: var(--color-text-secondary);
-  }
-  
+
   h1 {
     font-family: var(--font-display);
     font-size: var(--font-size-2xl);
     margin-bottom: var(--space-5);
     color: var(--color-text-primary);
   }
-  
+
   .description {
     font-size: var(--font-size-md);
     color: var(--color-text-secondary);
     line-height: 1.65;
     margin-bottom: var(--space-7);
   }
-  
+
   .tags {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-2);
     margin-bottom: var(--space-8);
   }
-  
+
   .actions {
     display: flex;
     gap: var(--space-5);
   }
-  
-  .btn {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-3);
-    padding: var(--space-4) var(--space-7);
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
-    border: 1px solid var(--color-border-light);
-    border-radius: var(--radius-md);
-    background: var(--color-bg-card);
-    color: var(--color-text-primary);
-    text-decoration: none;
-    transition: all var(--duration-fast) var(--ease-out);
-  }
-  
-  .btn:hover {
-    background: var(--color-bg-elevated);
-    border-color: var(--color-accent);
-  }
-  
-  .btn--primary {
-    background: var(--color-accent);
-    border-color: var(--color-accent);
-    color: var(--color-bg-primary);
-  }
-  
-  .btn--primary:hover {
-    background: var(--color-accent-dim);
-    border-color: var(--color-accent-dim);
-  }
-  
+
   @media (max-width: 768px) {
     .game-header {
       grid-template-columns: 1fr;
       gap: var(--space-8);
     }
-    
+
     h1 {
       font-size: 1.625rem;
     }
-    
+
     .actions {
       flex-direction: column;
     }

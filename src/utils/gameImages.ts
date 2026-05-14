@@ -25,3 +25,7 @@ export function getGallery(slug: string): string[] {
     .sort((a, b) => parseInt(a) - parseInt(b))
     .map(f => `/images/games/${slug}/${f}`);
 }
+
+export function getGameMedia(slug: string): { thumbnail: string | undefined; gallery: string[] } {
+  return { thumbnail: getThumbnail(slug), gallery: getGallery(slug) };
+}

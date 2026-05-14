@@ -9,11 +9,8 @@ interface Props {
 const { book } = Astro.props;
 const { title, author, status, startDate, finishDate, image, thoughts } = book.data;
 
-function formatDate(d: string) {
-  const [year, month] = d.split('-');
-  const months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  return `${months[parseInt(month) - 1]} ${year}`;
-}
+const EXPAND_THRESHOLD = 200;
+const needsExpand = !!thoughts && thoughts.length > EXPAND_THRESHOLD;
 ---
 
 {status === 'want-to-read' ? (
@@ -36,12 +33,20 @@ function formatDate(d: string) {
     <div class="book-info">
       {startDate && (
         <span class="date">
-          {formatDate(startDate)}{finishDate ? ` → ${formatDate(finishDate)}` : ''}
+          {startDate}{finishDate ? ` → ${finishDate}` : ''}
         </span>
       )}
       <h3 class="book-title">{title}</h3>
       <p class="book-author">{author}</p>
-      {thoughts && <p class="book-thoughts">{thoughts}</p>}
+      {needsExpand && (
+        <div class="thoughts-wrapper" data-expandable>
+          <p class="book-thoughts">{thoughts}</p>
+          <button class="read-more-btn" data-read-more>Read more</button>
+        </div>
+      )}
+      {thoughts && !needsExpand && (
+        <p class="book-thoughts">{thoughts}</p>
+      )}
     </div>
   </article>
 )}
@@ -150,11 +155,39 @@ function formatDate(d: string) {
     text-overflow: ellipsis;
   }
 
+  .thoughts-wrapper {
+    margin: var(--space-2) 0 0;
+  }
+
   .book-thoughts {
     font-size: var(--font-size-base);
     color: var(--color-text-secondary);
     line-height: var(--line-height-relaxed);
-    margin: var(--space-2) 0 0;
+    margin: 0;
+  }
+
+  .thoughts-wrapper:not(.expanded) .book-thoughts {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .read-more-btn {
+    display: inline-block;
+    margin-top: var(--space-2);
+    padding: 0;
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-accent);
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .read-more-btn:hover {
+    color: var(--color-accent-dim);
   }
 
   @media (max-width: 600px) {
@@ -178,3 +211,13 @@ function formatDate(d: string) {
     }
   }
 </style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-expandable]').forEach(wrapper => {
+    const btn = wrapper.querySelector<HTMLButtonElement>('[data-read-more]')!;
+    btn.addEventListener('click', () => {
+      const expanded = wrapper.classList.toggle('expanded');
+      btn.textContent = expanded ? 'Hide' : 'Read more';
+    });
+  });
+</script>
