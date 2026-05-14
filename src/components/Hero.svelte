@@ -62,21 +62,23 @@
           </a>
         {/if}
 
-        {#each data.socialLinks as link (link.url)}
-          {@const isExternal = isExternalLink(link.url)}
-          {@const isDownload = isDownloadLink(link)}
-          <a 
-            href={link.url} 
-            class="hero-link"
-            target={isExternal ? "_blank" : undefined}
-            rel={isExternal ? "noopener noreferrer" : undefined}
-            download={isDownload ? "" : undefined}
-            aria-label={link.text}
-          >
-            <Icon name={link.type} size={16} />
-            <span>{link.text}</span>
-          </a>
-        {/each}
+        <div class="hero-social-links">
+          {#each data.socialLinks as link (link.url)}
+            {@const isExternal = isExternalLink(link.url)}
+            {@const isDownload = isDownloadLink(link)}
+            <a
+              href={link.url}
+              class="hero-link"
+              target={isExternal ? "_blank" : undefined}
+              rel={isExternal ? "noopener noreferrer" : undefined}
+              download={isDownload ? "" : undefined}
+              aria-label={link.text}
+            >
+              <Icon name={link.type} size={16} />
+              <span>{link.text}</span>
+            </a>
+          {/each}
+        </div>
       </nav>
     </div>
 
@@ -99,6 +101,7 @@
 <style>
   .hero {
     min-height: 100vh;
+    min-height: 100dvh;
     position: relative;
     display: flex;
     align-items: center;
@@ -161,7 +164,7 @@
   }
 
   .hero-bio {
-    font-size: 1.05rem;
+    font-size: var(--font-size-lg);
     line-height: var(--line-height-relaxed);
     color: var(--color-text-secondary);
     margin-bottom: var(--space-9);
@@ -169,7 +172,14 @@
 
   .hero-links {
     display: flex;
-    flex-wrap: nowrap;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-5);
+  }
+
+  .hero-social-links {
+    display: flex;
+    flex-wrap: wrap;
     gap: var(--space-5);
   }
 
@@ -206,7 +216,7 @@
   }
 
   .hero-link:focus-visible {
-    outline: 2px solid rgba(110, 231, 183, 0.55);
+    outline: 2px solid var(--color-accent);
     outline-offset: 3px;
   }
 
@@ -278,7 +288,15 @@
       height: 250px;
     }
 
+    .photo-wrapper::before {
+      transform: translate(10px, 10px);
+    }
+
     .hero-links {
+      justify-content: center;
+    }
+
+    .hero-social-links {
       justify-content: center;
     }
   }

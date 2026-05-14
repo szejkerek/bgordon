@@ -33,13 +33,28 @@ const sortedAchievements = sortByDateDesc(achievements);
     client:visible 
   />
   
+  <!-- Achievements Section -->
+  <section id={SECTION_IDS.achievements} class="section section--alt">
+    <div class="container container--achievements">
+      <header class="section-header">
+        <h2 class="section-title">Achievements</h2>
+      </header>
+
+      <div class="achievements-list">
+        {sortedAchievements.map((achievement) => (
+          <AchievementCard achievement={achievement} client:visible />
+        ))}
+      </div>
+    </div>
+  </section>
+
   <!-- Projects Section -->
   <section id={SECTION_IDS.projects} class="section">
     <div class="container">
       <header class="section-header">
         <h2 class="section-title">Projects</h2>
       </header>
-      
+
       <div class="games-grid">
         {sortedGames.map((game) => (
           <GameCard game={game} thumbnailSrc={getThumbnail(game.id)} client:visible />
@@ -47,70 +62,22 @@ const sortedAchievements = sortByDateDesc(achievements);
       </div>
     </div>
   </section>
-  
-  <!-- Achievements Section -->
-  <section id={SECTION_IDS.achievements} class="section section--alt">
-    <div class="container">
-      <header class="section-header">
-        <h2 class="section-title">Achievements</h2>
-      </header>
-      
-      <div class="achievements-grid">
-        {sortedAchievements.map((achievement) => (
-          <AchievementCard achievement={achievement} client:visible />
-        ))}
-      </div>
-    </div>
-  </section>
 </Layout>
 
 <style>
-  .section {
-    padding: var(--section-padding) 0;
-  }
-  
-  .section--alt {
-    background: var(--color-bg-secondary);
-  }
-  
-  .container {
-    max-width: var(--container-max-width);
-    margin: 0 auto;
-    padding: 0 var(--container-padding);
-  }
-  
-  .section-header {
-    margin-bottom: var(--space-11);
-  }
-  
-  .section-title {
-    font-family: var(--font-display);
-    font-size: var(--font-size-2xl);
-    font-weight: var(--font-weight-semibold);
-    color: var(--color-text-primary);
-    letter-spacing: var(--letter-spacing-tight);
-  }
-  
   .games-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
     gap: var(--space-8);
   }
-  
-  .achievements-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-    gap: var(--space-7);
+
+  .container--achievements {
+    max-width: 860px;
   }
-  
+
   @media (max-width: 768px) {
-    .games-grid,
-    .achievements-grid {
+    .games-grid {
       grid-template-columns: 1fr;
-    }
-    
-    .section {
-      padding: var(--section-padding-mobile) 0;
     }
   }
 </style>

@@ -16,7 +16,7 @@
 
   const navLinks = [
     { label: 'Experience', href: ROUTES.experience },
-    { label: 'Education', href: ROUTES.experience },
+    { label: 'Education', href: ROUTES.education },
     { label: 'Projects', href: ROUTES.projects },
     { label: 'Achievements', href: ROUTES.achievements },
     { label: 'Books', href: ROUTES.books },

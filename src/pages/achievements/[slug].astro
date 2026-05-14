@@ -3,7 +3,6 @@ import DetailLayout from '../../layouts/DetailLayout.astro';
 import ClickableImage from '../../components/ClickableImage.svelte';
 import { getCollection, render } from 'astro:content';
 import Icon from '../../components/Icon.svelte';
-import { collectLightboxImages } from '../../utils/media';
 import { ROUTES } from '../../utils/routes';
 
 export async function getStaticPaths() {
@@ -31,11 +30,7 @@ export async function getStaticPaths() {
 const { achievement } = Astro.props;
 const { Content } = await render(achievement);
 
-const isWinner = achievement.data.type === 'winner';
 const hasImage = !!achievement.data.image;
-const iconName = achievement.data.icon;
-
-const allImages = collectLightboxImages(achievement.data.image, achievement.data.gallery);
 ---
 
 <DetailLayout
@@ -49,62 +44,32 @@ const allImages = collectLightboxImages(achievement.data.image, achievement.data
   galleryTitle={achievement.data.title}
 >
   <header class="achievement-header" slot="header">
-    <div class="header-content">
-      <div class="icon-wrapper" class:list={{ winner: isWinner }}>
-        <Icon name={iconName} size={32} strokeWidth={1.5} />
-      </div>
+    <p class="meta">
+      {achievement.data.type} · {achievement.data.date}
+    </p>
 
-      <div class="header-info">
-        <div class="meta">
-          <span class="tag" class:list={{ 'tag--highlight': isWinner }}>
-            {isWinner ? 'Winner' : achievement.data.type}
-          </span>
-          <span class="date">{achievement.data.date}</span>
-          {achievement.data.participants && (
-            <span class="participants">{achievement.data.participants} participants</span>
-          )}
-        </div>
+    <h1>{achievement.data.title}</h1>
+    <p class="event">{achievement.data.event}</p>
+    <p class="description">{achievement.data.description}</p>
 
-        <h1>{achievement.data.title}</h1>
-        <p class="event">{achievement.data.event}</p>
-        <p class="description">{achievement.data.description}</p>
-
-        {achievement.data.rank && (
-          <div class="rank-badge">
-            <span class="rank-value">{achievement.data.rank}</span>
-          </div>
-        )}
-
-        <div class="actions">
-          {achievement.data.url && (
-            <a
-              href={achievement.data.url}
-              class="btn btn--primary"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <Icon name="external" size={16} />
-              Open Link
-            </a>
-          )}
-          {achievement.data.game && (
-            <a href={`/games/${achievement.data.game}`} class="btn">
-              <Icon name="gamepad" size={16} />
-              View Game
-            </a>
-          )}
-        </div>
-      </div>
+    <div class="actions">
+      {achievement.data.url && (
+        <a href={achievement.data.url} class="btn btn--primary" target="_blank" rel="noopener noreferrer">
+          <Icon name="external" size={16} />
+          Open Link
+        </a>
+      )}
+      {achievement.data.game && (
+        <a href={`/games/${achievement.data.game}`} class="btn">
+          <Icon name="gamepad" size={16} />
+          View Game
+        </a>
+      )}
     </div>
 
     {hasImage && (
       <div class="featured-image">
-        <ClickableImage
-          src={achievement.data.image}
-          alt={achievement.data.title}
-          allImages={allImages}
-          client:load
-        />
+        <ClickableImage src={achievement.data.image} alt={achievement.data.title} client:load />
       </div>
     )}
   </header>
@@ -119,81 +84,40 @@ const allImages = collectLightboxImages(achievement.data.image, achievement.data
     border-bottom: 1px solid var(--color-border-subtle);
   }
 
-  .header-content {
-    display: flex;
-    gap: var(--space-9);
-    margin-bottom: var(--space-9);
-  }
-
-  .icon-wrapper {
-    flex-shrink: 0;
-    width: 72px;
-    height: 72px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--color-bg-elevated);
-    border-radius: var(--radius-lg);
-    color: var(--color-text-muted);
-  }
-
-  .icon-wrapper.winner {
-    background: var(--color-accent-glow);
-    color: var(--color-accent);
-  }
-
-  .header-info {
-    flex: 1;
-  }
-
-  .participants {
+  .meta {
     font-size: var(--font-size-sm);
     color: var(--color-text-muted);
-    padding-left: var(--space-5);
-    border-left: 1px solid var(--color-border-light);
+    margin-bottom: var(--space-6);
   }
 
   h1 {
     font-family: var(--font-display);
-    font-size: 2.25rem;
-    margin-bottom: var(--space-3);
+    font-size: var(--font-size-page-title);
+    line-height: var(--line-height-tight);
     color: var(--color-text-primary);
+    margin-bottom: var(--space-3);
   }
 
   .event {
-    font-size: 1.1rem;
+    font-size: var(--font-size-md);
     color: var(--color-accent);
     font-weight: var(--font-weight-medium);
-    margin-bottom: var(--space-5);
+    margin-bottom: var(--space-6);
   }
 
   .description {
     font-size: var(--font-size-md);
     color: var(--color-text-secondary);
     line-height: 1.65;
-    margin-bottom: var(--space-7);
-  }
-
-  .rank-badge {
-    display: inline-flex;
-    padding: var(--space-4) var(--space-6);
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border-light);
-    border-radius: var(--radius-md);
     margin-bottom: var(--space-8);
-  }
-
-  .rank-value {
-    font-family: var(--font-display);
-    font-size: var(--font-size-lg);
-    font-weight: var(--font-weight-semibold);
-    color: var(--color-accent);
+    max-width: 60ch;
   }
 
   .actions {
     display: flex;
-    gap: var(--space-5);
+    gap: var(--space-4);
     flex-wrap: wrap;
+    margin-bottom: var(--space-10);
   }
 
   .featured-image {
@@ -202,10 +126,7 @@ const allImages = collectLightboxImages(achievement.data.image, achievement.data
     background: var(--color-bg-card);
   }
 
-  .featured-image :global(.clickable-image) {
-    width: 100%;
-  }
-
+  .featured-image :global(.clickable-image) { width: 100%; }
   .featured-image :global(.clickable-image img) {
     width: 100%;
     height: auto;
@@ -213,22 +134,15 @@ const allImages = collectLightboxImages(achievement.data.image, achievement.data
   }
 
   @media (max-width: 768px) {
-    .header-content {
-      flex-direction: column;
-      gap: var(--space-8);
-    }
-
-    .icon-wrapper {
-      width: 56px;
-      height: 56px;
-    }
-
-    h1 {
-      font-size: 1.75rem;
-    }
+    h1 { font-size: 1.75rem; }
 
     .actions {
       flex-direction: column;
+    }
+
+    .actions .btn {
+      width: 100%;
+      justify-content: center;
     }
   }
 </style>

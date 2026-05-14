@@ -1,5 +1,4 @@
-﻿<script lang="ts">
-  import Icon from "./Icon.svelte";
+<script lang="ts">
   import type { CollectionEntry } from "astro:content";
 
   interface Props {
@@ -7,166 +6,59 @@
   }
 
   let { achievement }: Props = $props();
-
-  // Computed values
-  const isWinner = $derived(achievement?.data?.type === "winner");
-  const href = $derived(`/achievements/${achievement?.id}`);
-  const iconName = $derived(achievement.data.icon);
 </script>
 
-<a 
-  class="achievement-card-link" 
-  href={href} 
-  aria-label="View {achievement?.data?.title} achievement details"
->
-  <article class="achievement-card card" class:winner={isWinner}>
-    <div class="ach-icon" class:winner={isWinner}>
-      <Icon name={iconName} size={26} strokeWidth={1.5} />
-    </div>
-
-    <div class="ach-content">
-      <div class="ach-header">
-        <span class="tag" class:tag--highlight={isWinner}>
-          {isWinner ? "Winner" : achievement.data.type}
-        </span>
-        <span class="date">{achievement.data.date}</span>
-      </div>
-
-      <h3 class="ach-title">{achievement.data.title}</h3>
-      <p class="ach-event">{achievement.data.event}</p>
-      <p class="ach-desc">{achievement.data.description}</p>
-      
-    </div>
-  </article>
+<a class="ach-row" href={`/achievements/${achievement.id}`}>
+  <div class="ach-body">
+    <h3 class="ach-title">{achievement.data.title}</h3>
+    <p class="ach-desc">{achievement.data.description}</p>
+  </div>
+  <span class="ach-date">{achievement.data.date}</span>
 </a>
 
 <style>
-  .achievement-card-link {
+  .ach-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-8);
+    padding: var(--space-6) 0;
+    border-bottom: 1px solid var(--color-border-subtle);
     text-decoration: none;
-    display: block;
   }
 
-  .achievement-card {
-    display: flex;
-    gap: var(--space-7);
-    padding: var(--space-8);
-    overflow: hidden;
-    transition: 
-      transform var(--duration-normal) var(--ease-out),
-      box-shadow var(--duration-normal) var(--ease-out),
-      background var(--duration-normal) var(--ease-out),
-      border-color var(--duration-normal) var(--ease-out);
-  }
-
-  .achievement-card.winner {
-    background: linear-gradient(
-      135deg,
-      var(--color-bg-card) 0%,
-      rgba(110, 231, 183, 0.05) 100%
-    );
-    border-color: rgba(110, 231, 183, 0.2);
-  }
-
-  .achievement-card-link:hover .achievement-card,
-  .achievement-card-link:focus-visible .achievement-card {
-    border-color: var(--color-border-light);
-    box-shadow: var(--shadow-xl);
-    transform: scale(1.02);
-  }
-
-  .achievement-card-link:hover .achievement-card:not(.winner) {
-    background: var(--color-bg-card-hover);
-  }
-
-  .achievement-card-link:hover .achievement-card.winner {
-    background: linear-gradient(
-      135deg,
-      var(--color-bg-card) 0%,
-      rgba(110, 231, 183, 0.08) 100%
-    );
-    border-color: rgba(110, 231, 183, 0.25);
-  }
-
-  .ach-icon {
-    flex-shrink: 0;
-    width: 52px;
-    height: 52px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--color-bg-elevated);
-    border-radius: var(--radius-md);
-    color: var(--color-text-muted);
-  }
-
-  .ach-icon.winner {
-    background: var(--color-accent-glow);
-    color: var(--color-accent);
-  }
-
-  .ach-content {
-    flex: 1;
-    min-width: 0;
-  }
-
-  .ach-header {
-    display: flex;
-    align-items: center;
-    gap: var(--space-5);
-    margin-bottom: var(--space-3);
-  }
-
-  .tag {
-    padding: var(--space-1) var(--space-4);
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-semibold);
-    text-transform: uppercase;
-    letter-spacing: var(--letter-spacing-wide);
-    background: var(--color-bg-elevated);
-    border-radius: var(--radius-sm);
-    color: var(--color-text-secondary);
-  }
-
-  .tag--highlight {
-    background: var(--color-accent-glow);
-    color: var(--color-accent);
-  }
-
-  .date {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-muted);
+  .ach-row:first-child {
+    border-top: 1px solid var(--color-border-subtle);
   }
 
   .ach-title {
     font-family: var(--font-display);
-    font-size: 1.1rem;
+    font-size: var(--font-size-lg);
     font-weight: var(--font-weight-semibold);
     color: var(--color-text-primary);
-    margin-bottom: var(--space-1);
+    letter-spacing: var(--letter-spacing-tight);
+    margin: 0 0 var(--space-2);
+    line-height: var(--line-height-tight);
+    transition: color var(--duration-fast) var(--ease-out);
   }
 
-  .ach-event {
-    font-size: var(--font-size-sm);
+  .ach-row:hover .ach-title {
     color: var(--color-accent);
-    margin-bottom: var(--space-2);
-    font-weight: var(--font-weight-medium);
   }
 
   .ach-desc {
     font-size: var(--font-size-sm);
-    color: var(--color-text-secondary);
+    color: var(--color-text-muted);
+    margin: 0;
     line-height: 1.5;
   }
 
-  @media (max-width: 600px) {
-    .achievement-card {
-      flex-direction: column;
-      gap: var(--space-6);
-    }
-
-    .ach-icon {
-      width: 44px;
-      height: 44px;
-    }
+  .ach-date {
+    font-size: var(--font-size-xs);
+    color: var(--color-text-muted);
+    font-variant-numeric: tabular-nums;
+    flex-shrink: 0;
+    align-self: flex-start;
+    padding-top: 4px;
   }
 </style>

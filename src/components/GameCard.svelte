@@ -65,33 +65,35 @@
       {/each}
     </div>
 
-    <div class="card-links">
-      {#if game.data.playUrl}
-        <a 
-          href={game.data.playUrl} 
-          class="external-link link" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          aria-label="Play {game.data.title}"
-        >
-          <Icon name="play" size={14} />
-          <span>Play</span>
-        </a>
-      {/if}
+    {#if game.data.playUrl || game.data.sourceUrl}
+      <div class="card-links">
+        {#if game.data.playUrl}
+          <a
+            href={game.data.playUrl}
+            class="external-link link"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Play {game.data.title}"
+          >
+            <Icon name="play" size={14} />
+            <span>Play</span>
+          </a>
+        {/if}
 
-      {#if game.data.sourceUrl}
-        <a 
-          href={game.data.sourceUrl} 
-          class="external-link link" 
-          target="_blank" 
-          rel="noopener noreferrer"
-          aria-label="View source code for {game.data.title}"
-        >
-          <Icon name="github" size={14} />
-          <span>Source</span>
-        </a>
-      {/if}
-    </div>
+        {#if game.data.sourceUrl}
+          <a
+            href={game.data.sourceUrl}
+            class="external-link link"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="View source code for {game.data.title}"
+          >
+            <Icon name="github" size={14} />
+            <span>Source</span>
+          </a>
+        {/if}
+      </div>
+    {/if}
   </div>
 </article>
 
@@ -116,6 +118,7 @@
     border-color: var(--color-border-light);
     box-shadow: var(--shadow-xl);
     background: var(--color-bg-card-hover);
+    z-index: 1;
   }
 
 
@@ -147,7 +150,7 @@
 
   .card-image {
     position: relative;
-    height: 200px;
+    aspect-ratio: 16 / 9;
     overflow: hidden;
     background: var(--color-bg-elevated);
     flex-shrink: 0;
@@ -176,11 +179,11 @@
 
   .card-content {
     padding: var(--space-8);
-    background: var(--color-bg-card);
     position: relative;
     display: flex;
     flex-direction: column;
     flex: 1;
+    transition: background-color var(--duration-normal) var(--ease-out);
   }
 
   .card-meta {

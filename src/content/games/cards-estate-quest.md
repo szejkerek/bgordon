@@ -9,7 +9,7 @@ teamSize: 3
 
 ## About
 
-CardsEstateQuest is a digital adaptation of *Gra w Osiedle*, a physical card game created by the URBANMODEL student group at the Faculty of Architecture of the Silesian University of Technology.
+CardsEstateQuest is a digital adaptation of [*Gra w Osiedle*](https://www.grawosiedle.polsl.pl/), a physical card game created by the URBANMODEL student group at the Faculty of Architecture of the Silesian University of Technology.
 
 Two players compete across three rounds, taking opposing roles: Developer or Ecologist. They place building cards on a shared grid. The Developer scores based on building intensity, while the Ecologist scores based on biologically active area. The neighbor-averaging mechanic makes placement position as important as card choice.
 

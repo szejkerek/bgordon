@@ -191,7 +191,7 @@
   .timeline-section.hydrated {
     opacity: 0;
     transform: translateY(24px);
-    transition: all 0.8s var(--ease-spring);
+    transition: opacity 0.8s var(--ease-spring), transform 0.8s var(--ease-spring);
   }
 
   .timeline-section.hydrated.visible {
@@ -257,7 +257,7 @@
   .timeline-section.hydrated .timeline-item {
     opacity: 0;
     transform: translateY(20px);
-    transition: all 0.6s var(--ease-spring);
+    transition: opacity 0.6s var(--ease-spring), transform 0.6s var(--ease-spring);
     transition-delay: var(--delay);
   }
 

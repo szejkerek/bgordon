@@ -3,7 +3,6 @@ import DetailLayout from '../../layouts/DetailLayout.astro';
 import ClickableImage from '../../components/ClickableImage.svelte';
 import Icon from '../../components/Icon.svelte';
 import { getCollection, render } from 'astro:content';
-import { collectLightboxImages } from '../../utils/media';
 import { ROUTES } from '../../utils/routes';
 import { getGameMedia } from '../../utils/gameImages';
 
@@ -23,8 +22,6 @@ const { thumbnail: thumbnailSrc, gallery: galleryImages } = getGameMedia(game.id
 const hasImage = !!thumbnailSrc;
 const tags = game.data.tags || [];
 const teamLabel = game.data.teamSize === 1 ? 'person' : 'people';
-
-const allImages = collectLightboxImages(thumbnailSrc, galleryImages);
 ---
 
 <DetailLayout
@@ -43,7 +40,6 @@ const allImages = collectLightboxImages(thumbnailSrc, galleryImages);
         <ClickableImage
           src={thumbnailSrc}
           alt={game.data.title}
-          allImages={allImages}
           client:load
         />
       </div>
@@ -169,11 +165,16 @@ const allImages = collectLightboxImages(thumbnailSrc, galleryImages);
     }
 
     h1 {
-      font-size: 1.625rem;
+      font-size: var(--font-size-2xl);
     }
 
     .actions {
       flex-direction: column;
+    }
+
+    .actions .btn {
+      width: 100%;
+      justify-content: center;
     }
   }
 </style>

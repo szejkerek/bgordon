@@ -39,15 +39,16 @@
   --font-body: 'Inter', system-ui, -apple-system, sans-serif;
   
   /* Font sizes (using clamp for fluid typography) */
-  --font-size-xs: 0.7rem;
-  --font-size-sm: 0.8rem;
-  --font-size-base: 0.9rem;
-  --font-size-md: 1rem;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-md: 1.0625rem;
   --font-size-lg: 1.1rem;
   --font-size-xl: 1.25rem;
   --font-size-2xl: clamp(1.5rem, 3vw, 2rem);
   --font-size-3xl: clamp(2rem, 4vw, 3rem);
   --font-size-4xl: clamp(2.5rem, 5vw, 3.5rem);
+  --font-size-page-title: clamp(1.75rem, 3.5vw, 2.25rem);
   
   /* Font weights */
   --font-weight-normal: 400;
