@@ -3,7 +3,6 @@ title: "Pirate Rush VR"
 description: "A VR rhythm-action game for Oculus Quest 2 where players slice flying fruit and shoot barrels as a pirate, submitted as an engineering thesis."
 date: "2024-01"
 tags: ["C#", "Unity", "VR", "Oculus Quest 2", "XR Interaction Toolkit", "URP", "Addressables", "EzySlice", "DOTween", "ScriptableObjects", "Command Pattern", "Ballistic Physics", "Engineering Thesis"]
-image: "/images/games/pirate-rush-vr.webp"
 playUrl: "https://szejkerek.itch.io/pirate-rush-vr"
 sourceUrl: "https://github.com/szejkerek"
 featured: true

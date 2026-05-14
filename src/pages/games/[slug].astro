@@ -12,6 +12,7 @@ import Icon from '../../components/Icon.svelte';
 import { getCollection, render } from 'astro:content';
 import { splitMedia } from '../../utils/media';
 import { ROUTES } from '../../utils/routes';
+import { getThumbnail, getGallery } from '../../utils/gameImages';
 
 export async function getStaticPaths() {
   const games = await getCollection('games', ({ data }) => !data.draft);
@@ -24,16 +25,19 @@ export async function getStaticPaths() {
 const { game } = Astro.props;
 const { Content } = await render(game);
 
+const thumbnailSrc = getThumbnail(game.id);
+const galleryImages = getGallery(game.id);
+
 // Computed values
-const hasImage = !!game.data.image;
-const hasGallery = game.data.gallery && game.data.gallery.length > 0;
+const hasImage = !!thumbnailSrc;
+const hasGallery = galleryImages.length > 0;
 const tags = game.data.tags || [];
 const teamLabel = game.data.teamSize === 1 ? 'person' : 'people';
 
 // Collect all images for lightbox navigation
 const allImages = [
-  ...(game.data.image ? [game.data.image] : []),
-  ...splitMedia(game.data.gallery).images,
+  ...(thumbnailSrc ? [thumbnailSrc] : []),
+  ...splitMedia(galleryImages).images,
 ];
 
 
@@ -42,7 +46,7 @@ const allImages = [
 <Layout 
   title={`${game.data.title} — Bartłomiej Gordon`} 
   description={game.data.description}
-  image={game.data.image}
+  image={thumbnailSrc}
 >
   <article class="game-detail">
     <div class="container">
@@ -51,8 +55,8 @@ const allImages = [
       <header class="game-header">
         {hasImage && (
           <div class="game-image">
-            <ClickableImage 
-              src={game.data.image} 
+            <ClickableImage
+              src={thumbnailSrc}
               alt={game.data.title}
               allImages={allImages}
               client:load
@@ -111,8 +115,8 @@ const allImages = [
       </header>
       
       {hasGallery && (
-        <ImageGallery 
-          items={game.data.gallery} 
+        <ImageGallery
+          items={galleryImages}
           title={game.data.title}
           columns={3}
           client:load

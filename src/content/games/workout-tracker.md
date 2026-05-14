@@ -3,9 +3,6 @@ title: "WorkoutTracker"
 description: "A social fitness tracker where users log workouts, follow friends, and share progress."
 date: "2023-06"
 tags: ["TypeScript", "Svelte", "SvelteKit", "Firebase", "Firestore", "Tailwind CSS", "Full-Stack", "NoSQL", "Social Platform", "Fitness", "Bitwise Flags", "Svelte Stores", "Vite", "Node.js"]
-image: "/images/games/workout-tracker/1.png"
-gallery:
-  - "/images/games/workout-tracker/2.png"
 sourceUrl: "https://github.com/szejkerek/WorkoutTracker"
 featured: false
 teamSize: 1

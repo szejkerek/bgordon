@@ -3,7 +3,6 @@ title: "Project Title"
 description: "A brief description of your project. Keep it to 1-2 sentences that capture the essence of what this project does or achieves."
 date: "2024-01"
 tags: ["Tag1", "Tag2", "Tag3", "Tag4"]
-image: "/images/games/your-image.png"
 playUrl: "https://example.com/play"
 sourceUrl: "https://github.com/yourusername/repo"
 jam: "Game Jam Name"

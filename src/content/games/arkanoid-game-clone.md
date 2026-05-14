@@ -3,12 +3,6 @@ title: "Arkanoid Game Clone"
 description: "A faithful C++ recreation of the 1986 Taito arcade classic, complete with all 33 original levels and a boss fight."
 date: "2022-06"
 tags: ["C++", "SFML", "Game Development", "2D Physics", "OOP", "Collision Detection", "Scene Management", "Design Patterns", "Windows"]
-image: "/images/games/arkanoid/1.png"
-gallery:
-  - "/images/games/arkanoid/2.png"
-  - "/images/games/arkanoid/3.png"
-  - "/images/games/arkanoid/4.png"
-  - "/images/games/arkanoid/5.webp"
 sourceUrl: "https://github.com/szejkerek/ArkanoidGameClone"
 featured: false
 teamSize: 1

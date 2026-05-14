@@ -10,8 +10,6 @@ const gamesCollection = defineCollection({
     description: z.string(),
     date: z.string().refine(dateRefine, dateRefineMessage),
     tags: z.array(z.string()).optional().default([]),
-    image: z.string().optional(),
-    gallery: z.array(z.string()).optional().default([]),
     playUrl: z.string().url().optional(),
     sourceUrl: z.string().url().optional(),
     jam: z.string().optional(),

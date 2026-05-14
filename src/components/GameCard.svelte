@@ -10,13 +10,13 @@
 
   interface Props {
     game: CollectionEntry<'games'>;
+    thumbnailSrc?: string;
   }
 
-  let { game }: Props = $props();
-  
+  let { game, thumbnailSrc }: Props = $props();
+
   // Computed values
   const href = $derived(`/games/${game.id}`);
-  const hasImage = $derived(!!game.data.image);
   const tags = $derived(game.data.tags || []);
 </script>
 
@@ -32,9 +32,9 @@
 	</a>
 
   <div class="card-image">
-    {#if hasImage}
+    {#if thumbnailSrc}
       <img
-        src={game.data.image}
+        src={thumbnailSrc}
         alt={game.data.title}
         loading="lazy"
         decoding="async"

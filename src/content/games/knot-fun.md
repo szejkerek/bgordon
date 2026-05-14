@@ -3,7 +3,6 @@ title: "Knot Fun"
 description: "Co-op arena shooter where players are physically tethered by a Verlet-physics rope that swings through the environment and deals damage to enemies on contact."
 date: "2024-11"
 tags: ["Unity", "C#", "Multiplayer", "Physics", "Verlet Integration", "Game Jam", "URP"]
-image: "/images/games/knot-fun.png"
 sourceUrl: "https://github.com/PlaceHoldersStudio/KnotFun"
 jam: "BIT Festival 2024"
 featured: true

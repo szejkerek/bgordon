@@ -3,10 +3,6 @@ title: "Electro Exile"
 description: "Game where you control a battery that must manage its stored electricity while navigating through a world filled with power-draining objects. 3rd place winner at BEST IT Festival."
 date: "2023-11"
 tags: ["Unity", "C#", "2D", "Platformer", "Game Jam", "URP"]
-image: "/images/games/electro-exile/1.png"
-gallery:
-  - "/images/games/electro-exile/2.png"
-  - "/images/games/electro-exile/3.png"
 
 playUrl: "https://carbon-crab-games.itch.io/the-last-battery"
 sourceUrl: "https://github.com/PlaceHoldersStudio/ElectroExile"

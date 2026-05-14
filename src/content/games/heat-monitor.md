@@ -1,5 +1,5 @@
 ---
-title: "Master Thesis"
+title: "HeatMonitor"
 description: "A brief description of your project. Keep it to 1-2 sentences that capture the essence of what this project does or achieves."
 date: "2024-01"
 tags: ["Tag1", "Tag2", "Tag3", "Tag4"]
