@@ -19,7 +19,7 @@
 <style>
   .ach-row {
     display: flex;
-    align-items: center;
+    align-items: baseline;
     justify-content: space-between;
     gap: var(--space-8);
     padding: var(--space-6) 0;
@@ -50,7 +50,7 @@
     font-size: var(--font-size-sm);
     color: var(--color-text-muted);
     margin: 0;
-    line-height: 1.5;
+    line-height: var(--line-height-base);
   }
 
   .ach-date {
@@ -58,7 +58,5 @@
     color: var(--color-text-muted);
     font-variant-numeric: tabular-nums;
     flex-shrink: 0;
-    align-self: flex-start;
-    padding-top: 4px;
   }
 </style>

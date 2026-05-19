@@ -252,6 +252,7 @@
 
   .timeline-item {
     display: flex;
+    will-change: opacity, transform;
   }
 
   .timeline-section.hydrated .timeline-item {

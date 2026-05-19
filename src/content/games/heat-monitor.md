@@ -1,28 +1,31 @@
 ---
 title: "HeatMonitor"
-description: "A brief description of your project. Keep it to 1-2 sentences that capture the essence of what this project does or achieves."
-date: "2024-01"
-tags: ["Tag1", "Tag2", "Tag3", "Tag4"]
-sourceUrl: "https://github.com/yourusername/repo"
+description: "An ESP32-based solution for real-time boiler temperature monitoring with historical data visualization and AI-driven predictions based on heating furnace settings."
+date: "2025-02"
+tags: ["ESP-32", "Electronics",  "C++"]
+sourceUrl: "https://github.com/szejkerek/HeatMonitor"
 teamSize: 1
-draft: true
+draft: false
 ---
 
 ## About This Project
 
-Provide a more detailed description of your project here. Explain the concept, what problem it solves, or what makes it unique.
+A project for predicting pellet consumption in a furnace to optimize its settings and minimize operating costs.
+
+### Hardware
+
+- ESP32 (PlatformIO/Arduino)
+- 3× DS18B20 temperature sensors (OneWire/Dallas)
+- Distance sensor (tank level measurement)
 
 ### Features
 
-- **Feature 1**: Description of the first key feature
-- **Feature 2**: Description of the second key feature
-- **Feature 3**: Description of the third key feature
-- **Feature 4**: Description of the fourth key feature
+- Readings every ~6 s, median over a 60-second window → pushed to Firebase every minute
+- ESP32 web server (ESPAsyncWebServer) — local data preview
+- WhatsApp alerts via HTTP API
+- Automatic WiFi reconnect
+- Dedicated FreeRTOS task for Firebase
 
-### Technical Details
+### Frontend
 
-Brief overview of the technical implementation, architecture, or interesting challenges you solved.
-
-### Development
-
-Share any interesting development notes, lessons learned, or future plans for the project.
+Static HTML + JS + CSS page (`data/`) querying Firebase or the local web server. Data visualization implemented in Python.

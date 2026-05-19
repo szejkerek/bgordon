@@ -65,35 +65,6 @@
       {/each}
     </div>
 
-    {#if game.data.playUrl || game.data.sourceUrl}
-      <div class="card-links">
-        {#if game.data.playUrl}
-          <a
-            href={game.data.playUrl}
-            class="external-link link"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Play {game.data.title}"
-          >
-            <Icon name="play" size={14} />
-            <span>Play</span>
-          </a>
-        {/if}
-
-        {#if game.data.sourceUrl}
-          <a
-            href={game.data.sourceUrl}
-            class="external-link link"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="View source code for {game.data.title}"
-          >
-            <Icon name="github" size={14} />
-            <span>Source</span>
-          </a>
-        {/if}
-      </div>
-    {/if}
   </div>
 </article>
 
@@ -249,34 +220,5 @@
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-2);
-    margin-bottom: var(--space-7);
-  }
-
-  .card-links {
-    display: flex;
-    gap: var(--space-7);
-    padding-top: var(--space-6);
-    border-top: 1px solid var(--color-border-subtle);
-    margin-top: auto;
-  }
-
-  .link {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
-    color: var(--color-text-secondary);
-    text-decoration: none;
-    transition: color var(--duration-fast) var(--ease-out);
-  }
-
-  .link:hover {
-    color: var(--color-accent);
-  }
-  
-  .external-link {
-    position: relative;
-		z-index: 4;
   }
 </style>

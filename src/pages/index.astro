@@ -35,7 +35,7 @@ const sortedAchievements = sortByDateDesc(achievements);
   
   <!-- Achievements Section -->
   <section id={SECTION_IDS.achievements} class="section section--alt">
-    <div class="container container--achievements">
+    <div class="container container--narrow">
       <header class="section-header">
         <h2 class="section-title">Achievements</h2>
       </header>
@@ -69,10 +69,6 @@ const sortedAchievements = sortByDateDesc(achievements);
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
     gap: var(--space-8);
-  }
-
-  .container--achievements {
-    max-width: 860px;
   }
 
   @media (max-width: 768px) {
