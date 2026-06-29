@@ -1,0 +1,20 @@
+---
+import Icon from './Icon.svelte';
+import type { IconType } from '../utils/icons';
+
+interface Props {
+  href: string;
+  label: string;
+  icon: IconType;
+  primary?: boolean;
+  external?: boolean;
+}
+
+const { href, label, icon, primary = false, external = false } = Astro.props;
+const externalAttrs = external ? { target: '_blank', rel: 'noopener noreferrer' } : {};
+---
+
+<a href={href} class:list={['btn', { 'btn--primary': primary }]} {...externalAttrs}>
+  <Icon name={icon} size={16} />
+  {label}
+</a>

@@ -1,11 +1,15 @@
 ﻿<script lang="ts">
   import Icon from "./Icon.svelte";
+  import { lightboxImages } from "../utils/media";
 
   interface Props {
-    images: string[];
+    media: string[];
   }
 
-  let { images = [] }: Props = $props();
+  let { media = [] }: Props = $props();
+
+  // Lightbox owns the "images only" invariant — callers hand over mixed media.
+  const images = $derived(lightboxImages(media));
 
   let isOpen = $state(false);
   let currentIndex = $state(0);
@@ -13,8 +17,9 @@
   let isFading = $state(false);
   let dialogEl: HTMLDivElement | undefined = $state();
 
-  export function open(index: number) {
-    currentIndex = index;
+  export function open(src: string) {
+    const index = images.indexOf(src);
+    currentIndex = index >= 0 ? index : 0;
     isOpen = true;
     requestAnimationFrame(() => {
       isVisible = true;

@@ -1,7 +1,7 @@
 ﻿<script lang="ts">
   import Lightbox from "./Lightbox.svelte";
   import Icon from "./Icon.svelte";
-  import { getMediaType, splitMedia } from "../utils/media";
+  import { getMediaType } from "../utils/media";
 
   interface Props {
     items: string[];
@@ -12,13 +12,6 @@
   let { items = [], title, columns = 2 }: Props = $props();
 
   let lightboxEl: Lightbox;
-
-  const imageItems = $derived(splitMedia(items).images);
-
-  function openLightbox(index: number) {
-    const imageIndex = imageItems.indexOf(items[index]);
-    if (imageIndex !== -1) lightboxEl.open(imageIndex);
-  }
 </script>
 
 {#if items && items.length > 0}
@@ -49,7 +42,7 @@
           <button 
             type="button"
             class="gallery-item"
-            onclick={() => openLightbox(index)}
+            onclick={() => lightboxEl.open(media)}
             aria-label="View {title} image {index + 1} in fullscreen"
           >
             <img
@@ -70,7 +63,7 @@
   </section>
 {/if}
 
-<Lightbox bind:this={lightboxEl} images={imageItems} />
+<Lightbox bind:this={lightboxEl} media={items} />
 
 <style>
   .gallery-section {

@@ -1,20 +1,20 @@
 import { defineCollection, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { achievementIconKeys } from './utils/icons';
-import { dateRefine, dateRefineMessage } from './utils/dates';
+import { monthDate, draftFlag, optUrl } from './content.schemas';
 
 const gamesCollection = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/games' }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
-    date: z.string().refine(dateRefine, dateRefineMessage),
+    date: monthDate,
     tags: z.array(z.string()).optional().default([]),
-    playUrl: z.string().url().optional(),
-    sourceUrl: z.string().url().optional(),
+    playUrl: optUrl,
+    sourceUrl: optUrl,
     jam: z.string().optional(),
-teamSize: z.number().int().positive().optional(),
-    draft: z.boolean().optional().default(false),
+    teamSize: z.number().int().positive().optional(),
+    draft: draftFlag,
   }),
 });
 
@@ -23,17 +23,17 @@ const achievementsCollection = defineCollection({
   schema: z.object({
     title: z.string(),
     event: z.string(),
-    date: z.string().refine(dateRefine, dateRefineMessage),
+    date: monthDate,
     description: z.string(),
     type: z.enum(['winner', 'finalist', 'participant', 'publication', 'organization']),
     icon: z.enum(achievementIconKeys).optional().default('trophy'),
-    url: z.string().url().optional(),
+    url: optUrl,
     image: z.string().optional(),
     gallery: z.array(z.string()).optional().default([]),
     game: z.string().optional(),
     rank: z.string().optional(),
     participants: z.string().optional(),
-    draft: z.boolean().optional().default(false),
+    draft: draftFlag,
   }),
 });
 
@@ -43,11 +43,11 @@ const booksCollection = defineCollection({
     title: z.string(),
     author: z.string(),
     status: z.enum(['reading', 'finished', 'want-to-read']),
-    startDate: z.string().refine(dateRefine, dateRefineMessage).optional(),
-    finishDate: z.string().refine(dateRefine, dateRefineMessage).optional(),
+    startDate: monthDate.optional(),
+    finishDate: monthDate.optional(),
     image: z.string().optional(),
     thoughts: z.string().optional(),
-    draft: z.boolean().optional().default(false),
+    draft: draftFlag,
   }),
 });
 

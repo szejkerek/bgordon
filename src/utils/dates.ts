@@ -16,19 +16,27 @@ export function isValidDate(dateStr: string): boolean {
   return parseDate(dateStr) !== null;
 }
 
-export function sortByDateDesc<T extends { data: { date: string } }>(items: T[]): T[] {
+type DateAccessor<T> = (item: T) => string | undefined;
+
+const byDataDate: DateAccessor<{ data: { date: string } }> = (item) => item.data.date;
+
+export function sortByDateDesc<T extends { data: { date: string } }>(items: T[]): T[];
+export function sortByDateDesc<T>(items: T[], getDate: DateAccessor<T>): T[];
+export function sortByDateDesc<T>(items: T[], getDate: DateAccessor<T> = byDataDate as DateAccessor<T>): T[] {
   return [...items].sort((a, b) => {
-    const dateA = parseDate(a.data.date);
-    const dateB = parseDate(b.data.date);
+    const dateA = parseDate(getDate(a) ?? '');
+    const dateB = parseDate(getDate(b) ?? '');
     if (!dateA || !dateB) return 0;
     return dateB.getTime() - dateA.getTime();
   });
 }
 
-export function sortByDateAsc<T extends { data: { date: string } }>(items: T[]): T[] {
+export function sortByDateAsc<T extends { data: { date: string } }>(items: T[]): T[];
+export function sortByDateAsc<T>(items: T[], getDate: DateAccessor<T>): T[];
+export function sortByDateAsc<T>(items: T[], getDate: DateAccessor<T> = byDataDate as DateAccessor<T>): T[] {
   return [...items].sort((a, b) => {
-    const dateA = parseDate(a.data.date);
-    const dateB = parseDate(b.data.date);
+    const dateA = parseDate(getDate(a) ?? '');
+    const dateB = parseDate(getDate(b) ?? '');
     if (!dateA || !dateB) return 0;
     return dateA.getTime() - dateB.getTime();
   });

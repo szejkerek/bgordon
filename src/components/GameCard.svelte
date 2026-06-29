@@ -171,22 +171,6 @@
     font-weight: var(--font-weight-medium);
   }
 
-  .tag {
-    padding: var(--space-1) var(--space-4);
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-semibold);
-    text-transform: uppercase;
-    letter-spacing: var(--letter-spacing-wide);
-    background: var(--color-bg-elevated);
-    border-radius: var(--radius-sm);
-    color: var(--color-text-secondary);
-  }
-
-  .tag--highlight {
-    background: var(--color-accent-glow);
-    color: var(--color-accent);
-  }
-
   .team-size {
     display: inline-flex;
     align-items: center;

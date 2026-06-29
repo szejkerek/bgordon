@@ -13,11 +13,10 @@
 
   let lightboxEl: Lightbox;
 
-  const images = $derived(allImages && allImages.length > 0 ? allImages : [src]);
-  const initialIndex = $derived(allImages ? allImages.indexOf(src) : 0);
+  const media = $derived(allImages && allImages.length > 0 ? allImages : [src]);
 
   function openLightbox() {
-    lightboxEl.open(initialIndex >= 0 ? initialIndex : 0);
+    lightboxEl.open(src);
   }
 </script>
 
@@ -41,7 +40,7 @@
   </div>
 </div>
 
-<Lightbox bind:this={lightboxEl} {images} />
+<Lightbox bind:this={lightboxEl} {media} />
 
 <style>
   .clickable-image {

@@ -2,12 +2,14 @@
 import DetailLayout from '../../layouts/DetailLayout.astro';
 import ClickableImage from '../../components/ClickableImage.svelte';
 import Icon from '../../components/Icon.svelte';
-import { getCollection, render } from 'astro:content';
+import ActionButton from '../../components/ActionButton.astro';
+import { render } from 'astro:content';
+import { published } from '../../utils/content';
 import { ROUTES } from '../../utils/routes';
 import { getGameMedia } from '../../utils/gameImages';
 
 export async function getStaticPaths() {
-  const games = await getCollection('games', ({ data }) => !data.draft);
+  const games = await published('games');
   return games.map((game) => ({
     params: { slug: game.id },
     props: { game },
@@ -70,26 +72,10 @@ const teamLabel = game.data.teamSize === 1 ? 'person' : 'people';
 
       <div class="actions">
         {game.data.playUrl && (
-          <a
-            href={game.data.playUrl}
-            class="btn btn--primary"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Icon name="play" size={16} />
-            Play Game
-          </a>
+          <ActionButton href={game.data.playUrl} label="Play Game" icon="play" primary external />
         )}
         {game.data.sourceUrl && (
-          <a
-            href={game.data.sourceUrl}
-            class="btn"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Icon name="github" size={16} />
-            Source Code
-          </a>
+          <ActionButton href={game.data.sourceUrl} label="Source Code" icon="github" external />
         )}
       </div>
     </div>
@@ -153,11 +139,6 @@ const teamLabel = game.data.teamSize === 1 ? 'person' : 'people';
     margin-bottom: var(--space-8);
   }
 
-  .actions {
-    display: flex;
-    gap: var(--space-5);
-  }
-
   @media (max-width: 768px) {
     .game-header {
       grid-template-columns: 1fr;
@@ -166,15 +147,6 @@ const teamLabel = game.data.teamSize === 1 ? 'person' : 'people';
 
     h1 {
       font-size: var(--font-size-2xl);
-    }
-
-    .actions {
-      flex-direction: column;
-    }
-
-    .actions .btn {
-      width: 100%;
-      justify-content: center;
     }
   }
 </style>

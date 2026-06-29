@@ -4,8 +4,8 @@ import Hero from '../components/Hero.svelte';
 import JobTimeline from '../components/JobTimeline.svelte';
 import GameCard from '../components/GameCard.svelte';
 import AchievementCard from '../components/AchievementCard.svelte';
-import { getCollection } from 'astro:content';
-import { sortByDateDesc } from '../utils/dates';
+import Section from '../components/Section.astro';
+import { published } from '../utils/content';
 import { SECTION_IDS } from '../utils/routes';
 import { getThumbnail } from '../utils/gameImages';
 
@@ -14,12 +14,9 @@ import heroData from '../content/site/hero.json';
 import workExperience from '../content/site/work-experience.json';
 import education from '../content/site/education.json';
 
-// Load and sort content collections (filter out drafts)
-const games = await getCollection('games', ({ data }) => !data.draft);
-const achievements = await getCollection('achievements', ({ data }) => !data.draft);
-
-const sortedGames = sortByDateDesc(games);
-const sortedAchievements = sortByDateDesc(achievements);
+// Published (non-draft) collections, newest-first
+const sortedGames = await published('games');
+const sortedAchievements = await published('achievements');
 ---
 
 <Layout title="Bartłomiej Gordon — Unity Developer">
@@ -34,34 +31,22 @@ const sortedAchievements = sortByDateDesc(achievements);
   />
   
   <!-- Achievements Section -->
-  <section id={SECTION_IDS.achievements} class="section section--alt">
-    <div class="container container--narrow">
-      <header class="section-header">
-        <h2 class="section-title">Achievements</h2>
-      </header>
-
-      <div class="achievements-list">
-        {sortedAchievements.map((achievement) => (
-          <AchievementCard achievement={achievement} client:visible />
-        ))}
-      </div>
+  <Section id={SECTION_IDS.achievements} title="Achievements" alt narrow>
+    <div class="achievements-list">
+      {sortedAchievements.map((achievement) => (
+        <AchievementCard achievement={achievement} client:visible />
+      ))}
     </div>
-  </section>
+  </Section>
 
   <!-- Projects Section -->
-  <section id={SECTION_IDS.projects} class="section">
-    <div class="container">
-      <header class="section-header">
-        <h2 class="section-title">Projects</h2>
-      </header>
-
-      <div class="games-grid">
-        {sortedGames.map((game) => (
-          <GameCard game={game} thumbnailSrc={getThumbnail(game.id)} client:visible />
-        ))}
-      </div>
+  <Section id={SECTION_IDS.projects} title="Projects">
+    <div class="games-grid">
+      {sortedGames.map((game) => (
+        <GameCard game={game} thumbnailSrc={getThumbnail(game.id)} client:visible />
+      ))}
     </div>
-  </section>
+  </Section>
 </Layout>
 
 <style>

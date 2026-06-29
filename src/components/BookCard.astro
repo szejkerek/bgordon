@@ -8,9 +8,6 @@ interface Props {
 
 const { book } = Astro.props;
 const { title, author, status, startDate, finishDate, image, thoughts } = book.data;
-
-const EXPAND_THRESHOLD = 200;
-const needsExpand = !!thoughts && thoughts.length > EXPAND_THRESHOLD;
 ---
 
 {status === 'want-to-read' ? (
@@ -38,14 +35,12 @@ const needsExpand = !!thoughts && thoughts.length > EXPAND_THRESHOLD;
       )}
       <h3 class="book-title">{title}</h3>
       <p class="book-author">{author}</p>
-      {needsExpand && (
-        <div class="thoughts-wrapper" data-expandable>
-          <p class="book-thoughts">{thoughts}</p>
-          <button class="read-more-btn" data-read-more>Read more</button>
-        </div>
-      )}
-      {thoughts && !needsExpand && (
-        <p class="book-thoughts">{thoughts}</p>
+      {thoughts && (
+        <details class="book-thoughts">
+          <summary>
+            <span class="thoughts-text">{thoughts}</span>
+          </summary>
+        </details>
       )}
     </div>
   </article>
@@ -155,38 +150,47 @@ const needsExpand = !!thoughts && thoughts.length > EXPAND_THRESHOLD;
     text-overflow: ellipsis;
   }
 
-  .thoughts-wrapper {
+  .book-thoughts {
     margin: var(--space-2) 0 0;
   }
 
-  .book-thoughts {
+  .book-thoughts summary {
+    list-style: none;
+    cursor: pointer;
+  }
+
+  .book-thoughts summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .thoughts-text {
     font-size: var(--font-size-base);
     color: var(--color-text-secondary);
     line-height: var(--line-height-relaxed);
-    margin: 0;
   }
 
-  .thoughts-wrapper:not(.expanded) .book-thoughts {
+  .book-thoughts:not([open]) .thoughts-text {
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
 
-  .read-more-btn {
+  .book-thoughts summary::after {
+    content: 'Read more';
     display: inline-block;
     margin-top: var(--space-2);
-    padding: 0;
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-medium);
     color: var(--color-accent);
-    background: none;
-    border: none;
-    cursor: pointer;
     transition: color var(--duration-fast) var(--ease-out);
   }
 
-  .read-more-btn:hover {
+  .book-thoughts[open] summary::after {
+    content: 'Hide';
+  }
+
+  .book-thoughts summary:hover::after {
     color: var(--color-accent-dim);
   }
 
@@ -211,13 +215,3 @@ const needsExpand = !!thoughts && thoughts.length > EXPAND_THRESHOLD;
     }
   }
 </style>
-
-<script>
-  document.querySelectorAll<HTMLElement>('[data-expandable]').forEach(wrapper => {
-    const btn = wrapper.querySelector<HTMLButtonElement>('[data-read-more]')!;
-    btn.addEventListener('click', () => {
-      const expanded = wrapper.classList.toggle('expanded');
-      btn.textContent = expanded ? 'Hide' : 'Read more';
-    });
-  });
-</script>

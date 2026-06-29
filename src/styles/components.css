@@ -48,6 +48,23 @@
   color: var(--color-bg-primary);
 }
 
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+}
+
+@media (max-width: 768px) {
+  .actions {
+    flex-direction: column;
+  }
+
+  .actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 .btn--primary:hover {
   background: var(--color-accent-dim);
   border-color: var(--color-accent-dim);

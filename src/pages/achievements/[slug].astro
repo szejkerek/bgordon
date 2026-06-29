@@ -1,25 +1,18 @@
 ---
 import DetailLayout from '../../layouts/DetailLayout.astro';
 import ClickableImage from '../../components/ClickableImage.svelte';
-import { getCollection, render } from 'astro:content';
-import Icon from '../../components/Icon.svelte';
+import { render } from 'astro:content';
+import ActionButton from '../../components/ActionButton.astro';
 import { ROUTES } from '../../utils/routes';
+import { published, assertGameRefs } from '../../utils/content';
 
 export async function getStaticPaths() {
   const [achievements, games] = await Promise.all([
-    getCollection('achievements', ({ data }) => !data.draft),
-    getCollection('games', ({ data }) => !data.draft),
+    published('achievements'),
+    published('games'),
   ]);
 
-  const gameIds = new Set(games.map((g) => g.id));
-
-  for (const achievement of achievements) {
-    if (achievement.data.game && !gameIds.has(achievement.data.game)) {
-      throw new Error(
-        `Achievement "${achievement.id}" references unknown game "${achievement.data.game}". Valid IDs: ${[...gameIds].sort().join(', ')}`
-      );
-    }
-  }
+  assertGameRefs(achievements, games);
 
   return achievements.map((achievement) => ({
     params: { slug: achievement.id },
@@ -54,16 +47,10 @@ const hasImage = !!achievement.data.image;
 
     <div class="actions">
       {achievement.data.url && (
-        <a href={achievement.data.url} class="btn btn--primary" target="_blank" rel="noopener noreferrer">
-          <Icon name="external" size={16} />
-          Open Link
-        </a>
+        <ActionButton href={achievement.data.url} label="Open Link" icon="external" primary external />
       )}
       {achievement.data.game && (
-        <a href={`/games/${achievement.data.game}`} class="btn">
-          <Icon name="gamepad" size={16} />
-          View Game
-        </a>
+        <ActionButton href={`/games/${achievement.data.game}`} label="View Game" icon="gamepad" />
       )}
     </div>
 
@@ -118,9 +105,7 @@ const hasImage = !!achievement.data.image;
   }
 
   .actions {
-    display: flex;
     gap: var(--space-4);
-    flex-wrap: wrap;
     margin-bottom: var(--space-10);
   }
 
@@ -135,16 +120,5 @@ const hasImage = !!achievement.data.image;
     width: 100%;
     height: auto;
     object-fit: contain;
-  }
-
-  @media (max-width: 768px) {
-    .actions {
-      flex-direction: column;
-    }
-
-    .actions .btn {
-      width: 100%;
-      justify-content: center;
-    }
   }
 </style>

@@ -43,6 +43,6 @@ export function getVideoPreload(priority: boolean = false): 'auto' | 'metadata' 
   return priority ? 'auto' : 'metadata';
 }
 
-export function collectLightboxImages(cover: string | undefined, gallery: string[]): string[] {
-  return [...(cover ? [cover] : []), ...splitMedia(gallery).images];
+export function lightboxImages(items: string[]): string[] {
+  return splitMedia(items).images;
 }

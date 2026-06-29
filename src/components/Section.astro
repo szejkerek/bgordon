@@ -1,0 +1,19 @@
+---
+interface Props {
+  id: string;
+  title: string;
+  alt?: boolean;
+  narrow?: boolean;
+}
+
+const { id, title, alt = false, narrow = false } = Astro.props;
+---
+
+<section id={id} class:list={['section', { 'section--alt': alt }]}>
+  <div class:list={['container', { 'container--narrow': narrow }]}>
+    <header class="section-header">
+      <h2 class="section-title">{title}</h2>
+    </header>
+    <slot />
+  </div>
+</section>

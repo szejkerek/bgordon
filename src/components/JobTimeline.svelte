@@ -2,6 +2,7 @@
   import { onMount } from "svelte";
   import Icon from "./Icon.svelte";
   import type { WorkExperience, Education } from "../types";
+  import type { IconType } from "../utils/icons";
   import { SECTION_IDS } from "../utils/routes";
   import { resolveMediaPath } from "../utils/media";
 
@@ -10,20 +11,50 @@
     education?: Education[];
   }
 
+  type TimelineEntry = {
+    title: string;
+    subtitle: string;
+    period: string;
+    description: string;
+    skills: string[];
+    logo?: string;
+  };
+
   let { workExperience = [], education = [] }: Props = $props();
+
+  const workItems = $derived<TimelineEntry[]>(
+    workExperience.map((job) => ({
+      title: job.company,
+      subtitle: job.role,
+      period: job.period,
+      description: job.description,
+      skills: job.skills,
+      logo: job.logo,
+    }))
+  );
+
+  const eduItems = $derived<TimelineEntry[]>(
+    education.map((edu) => ({
+      title: edu.institution,
+      subtitle: edu.degree,
+      period: edu.period,
+      description: edu.description,
+      skills: edu.skills,
+      logo: edu.logo,
+    }))
+  );
 
   let sectionEl: HTMLElement | undefined;
   let hydrated = $state(false);
   let inView = $state(false);
   let logoErrors = $state<Record<string, boolean>>({});
 
-  function handleLogoError(kind: 'work' | 'edu', index: number): void {
-    const key = `${kind}_${index}`;
+  function markLogoError(key: string): void {
     logoErrors = { ...logoErrors, [key]: true };
   }
 
-  function hasLogoError(kind: 'work' | 'edu', index: number): boolean {
-    return logoErrors[`${kind}_${index}`] || false;
+  function hasLogoError(key: string): boolean {
+    return logoErrors[key] || false;
   }
 
   function computeInView(el: HTMLElement | null): boolean {
@@ -73,114 +104,69 @@
 >
   <div class="timeline-container">
     <div class="two-column-grid">
-      <!-- Work Experience Column -->
-      <div class="timeline-column">
-        <header class="column-header">
-          <div class="header-icon" aria-hidden="true">
-            <Icon name="briefcase" size={28} />
-          </div>
-          <h2 class="column-title">Work Experience</h2>
-        </header>
-
-        <div class="timeline">
-          {#each workExperience as job, index (job.company + job.role)}
-            <article class="timeline-item" style="--delay: {index * 0.15}s">
-              <div class="timeline-content card">
-                <div class="job-header">
-                  <div class="company-logo">
-                    {#if job.logo && !hasLogoError('work', index)}
-                      <img
-                        src={resolveMediaPath(job.logo)}
-                        alt={job.company}
-                        loading="lazy"
-                        decoding="async"
-                        onerror={() => handleLogoError("work", index)}
-                      />
-                    {:else}
-                      <div class="logo-placeholder" aria-hidden="true">
-                        <Icon name="briefcase" size={24} strokeWidth={1.5} />
-                      </div>
-                    {/if}
-                  </div>
-
-                  <div class="job-info">
-                    <h3 class="company-name">{job.company}</h3>
-                    <p class="job-role">{job.role}</p>
-                  </div>
-                </div>
-
-                <div class="job-meta">
-                  <span class="job-period">{job.period}</span>
-                </div>
-
-                <p class="job-description">{job.description}</p>
-
-                <div class="job-skills">
-                  {#each job.skills as skill (skill)}
-                    <span class="skill-tag">{skill}</span>
-                  {/each}
-                </div>
-              </div>
-            </article>
-          {/each}
-        </div>
-      </div>
-
-      <!-- Education Column -->
-      <div class="timeline-column" id={SECTION_IDS.education}>
-        <header class="column-header">
-          <div class="header-icon" aria-hidden="true">
-            <Icon name="graduation" size={28} />
-          </div>
-          <h2 class="column-title">Education</h2>
-        </header>
-
-        <div class="timeline">
-          {#each education as edu, index (edu.institution + edu.degree)}
-            <article class="timeline-item" style="--delay: {(index + 2) * 0.15}s">
-              <div class="timeline-content card">
-                <div class="job-header">
-                  <div class="company-logo">
-                    {#if edu.logo && !hasLogoError('edu', index)}
-                      <img
-                        src={resolveMediaPath(edu.logo)}
-                        alt={edu.institution}
-                        loading="lazy"
-                        decoding="async"
-                        onerror={() => handleLogoError("edu", index)}
-                      />
-                    {:else}
-                      <div class="logo-placeholder" aria-hidden="true">
-                        <Icon name="graduation" size={24} strokeWidth={1.5} />
-                      </div>
-                    {/if}
-                  </div>
-
-                  <div class="job-info">
-                    <h3 class="company-name">{edu.institution}</h3>
-                    <p class="job-role">{edu.degree}</p>
-                  </div>
-                </div>
-
-                <div class="job-meta">
-                  <span class="job-period">{edu.period}</span>
-                </div>
-
-                <p class="job-description">{edu.description}</p>
-
-                <div class="job-skills">
-                  {#each edu.skills as skill (skill)}
-                    <span class="skill-tag">{skill}</span>
-                  {/each}
-                </div>
-              </div>
-            </article>
-          {/each}
-        </div>
-      </div>
+      {@render column("Work Experience", "briefcase", workItems, 0)}
+      {@render column("Education", "graduation", eduItems, 2, SECTION_IDS.education)}
     </div>
   </div>
 </section>
+
+{#snippet timelineItem(item: TimelineEntry, fallbackIcon: IconType, delay: number)}
+  <article class="timeline-item" style="--delay: {delay}s">
+    <div class="timeline-content card">
+      <div class="job-header">
+        <div class="company-logo">
+          {#if item.logo && !hasLogoError(item.logo)}
+            <img
+              src={resolveMediaPath(item.logo)}
+              alt={item.title}
+              loading="lazy"
+              decoding="async"
+              onerror={() => markLogoError(item.logo!)}
+            />
+          {:else}
+            <div class="logo-placeholder" aria-hidden="true">
+              <Icon name={fallbackIcon} size={24} strokeWidth={1.5} />
+            </div>
+          {/if}
+        </div>
+
+        <div class="job-info">
+          <h3 class="company-name">{item.title}</h3>
+          <p class="job-role">{item.subtitle}</p>
+        </div>
+      </div>
+
+      <div class="job-meta">
+        <span class="job-period">{item.period}</span>
+      </div>
+
+      <p class="job-description">{item.description}</p>
+
+      <div class="job-skills">
+        {#each item.skills as skill (skill)}
+          <span class="tag tag--skill">{skill}</span>
+        {/each}
+      </div>
+    </div>
+  </article>
+{/snippet}
+
+{#snippet column(heading: string, headerIcon: IconType, items: TimelineEntry[], delayBase: number, columnId?: string)}
+  <div class="timeline-column" id={columnId}>
+    <header class="column-header">
+      <div class="header-icon" aria-hidden="true">
+        <Icon name={headerIcon} size={28} />
+      </div>
+      <h2 class="column-title">{heading}</h2>
+    </header>
+
+    <div class="timeline">
+      {#each items as item, index (item.title + item.subtitle)}
+        {@render timelineItem(item, headerIcon, (index + delayBase) * 0.15)}
+      {/each}
+    </div>
+  </div>
+{/snippet}
 
 <style>
   .timeline-section {
@@ -363,16 +349,6 @@
     gap: var(--space-2);
   }
 
-  .skill-tag {
-    padding: 0.2rem 0.5rem;
-    font-size: 0.65rem;
-    font-weight: var(--font-weight-semibold);
-    text-transform: uppercase;
-    letter-spacing: 0.03em;
-    background: var(--color-bg-elevated);
-    border-radius: var(--radius-sm);
-    color: var(--color-text-secondary);
-  }
 
   @media (max-width: 900px) {
     .two-column-grid {

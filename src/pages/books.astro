@@ -1,20 +1,17 @@
 ---
 import Layout from '../layouts/Layout.astro';
 import BookCard from '../components/BookCard.astro';
-import { getCollection } from 'astro:content';
+import { sortByDateDesc } from '../utils/dates';
+import { published } from '../utils/content';
 
-const allBooks = await getCollection('books', ({ data }) => !data.draft);
+const allBooks = await published('books');
 
 const reading = allBooks.filter(b => b.data.status === 'reading');
 
-const finished = allBooks
-  .filter(b => b.data.status === 'finished')
-  .sort((a, b) => {
-    const da = a.data.finishDate ?? a.data.startDate;
-    const db = b.data.finishDate ?? b.data.startDate;
-    if (!da || !db) return 0;
-    return db.localeCompare(da);
-  });
+const finished = sortByDateDesc(
+  allBooks.filter(b => b.data.status === 'finished'),
+  b => b.data.finishDate ?? b.data.startDate
+);
 
 const wantToRead = allBooks.filter(b => b.data.status === 'want-to-read');
 ---
