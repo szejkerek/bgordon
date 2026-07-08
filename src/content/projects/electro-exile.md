@@ -6,7 +6,6 @@ tags: ["Unity", "C#", "2D", "Platformer", "Game Jam", "URP"]
 
 playUrl: "https://carbon-crab-games.itch.io/the-last-battery"
 sourceUrl: "https://github.com/PlaceHoldersStudio/ElectroExile"
-jam: "BEST IT Festival"
 teamSize: 6
 ---
 

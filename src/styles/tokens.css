@@ -35,7 +35,7 @@
      Typography
      ============================================ */
   
-  --font-display: 'Playfair Display', Georgia, serif;
+  --font-display: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
   --font-body: 'Inter', system-ui, -apple-system, sans-serif;
   
   /* Font sizes (using clamp for fluid typography) */

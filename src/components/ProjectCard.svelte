@@ -3,33 +3,33 @@
   import type { CollectionEntry } from "astro:content";
 
   interface Props {
-    game: CollectionEntry<'games'>;
+    project: CollectionEntry<'projects'>;
     thumbnailSrc?: string;
   }
 
-  let { game, thumbnailSrc }: Props = $props();
+  let { project, thumbnailSrc }: Props = $props();
 
   // Computed values
-  const href = $derived(`/games/${game.id}`);
-  const tags = $derived(game.data.tags || []);
+  const href = $derived(`/projects/${project.id}`);
+  const tags = $derived(project.data.tags || []);
 </script>
 
-<article 
-	class="game-card card"
+<article
+	class="project-card card"
 >
 	<a
 		href={href}
 		class="card-overlay-link"
-		aria-label="View {game.data.title} project details"
+		aria-label="View {project.data.title} project details"
 	>
-		<span class="sr-only">View {game.data.title} project details</span>
+		<span class="sr-only">View {project.data.title} project details</span>
 	</a>
 
   <div class="card-image">
     {#if thumbnailSrc}
       <img
         src={thumbnailSrc}
-        alt={game.data.title}
+        alt={project.data.title}
         loading="lazy"
         decoding="async"
         width="640"
@@ -44,20 +44,17 @@
 
   <div class="card-content">
     <div class="card-meta">
-      <span class="date">{game.data.date}</span>
-      {#if game.data.jam}
-        <span class="tag tag--highlight">{game.data.jam}</span>
-      {/if}
-      {#if game.data.teamSize}
+      <span class="date">{project.data.date}</span>
+      {#if project.data.teamSize}
         <span class="team-size" title="Team size">
           <Icon name="team" size={12} />
-          <span>{game.data.teamSize}</span>
+          <span>{project.data.teamSize}</span>
         </span>
       {/if}
     </div>
 
-    <h3 class="card-title">{game.data.title}</h3>
-    <p class="card-description">{game.data.description}</p>
+    <h3 class="card-title">{project.data.title}</h3>
+    <p class="card-description">{project.data.description}</p>
 
     <div class="card-tags">
       {#each tags as tag (tag)}
@@ -69,7 +66,7 @@
 </article>
 
 <style>
-  .game-card {
+  .project-card {
 		position: relative;
     overflow: hidden;
     display: flex;
@@ -77,14 +74,14 @@
     height: 100%;
     cursor: pointer;
     border-radius: var(--radius-lg);
-    transition: 
+    transition:
       transform var(--duration-normal) var(--ease-out),
       border-color var(--duration-normal) var(--ease-out),
       box-shadow var(--duration-normal) var(--ease-out),
       background-color var(--duration-normal) var(--ease-out);
   }
 
-  .game-card:hover {
+  .project-card:hover {
     transform: scale(1.02);
     border-color: var(--color-border-light);
     box-shadow: var(--shadow-xl);
@@ -135,7 +132,7 @@
     transition: transform var(--duration-normal) var(--ease-out);
   }
 
-  .game-card:hover .card-image img {
+  .project-card:hover .card-image img {
     transform: scale(1.05);
   }
   

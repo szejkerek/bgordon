@@ -2,12 +2,12 @@
 import Layout from '../layouts/Layout.astro';
 import Hero from '../components/Hero.svelte';
 import JobTimeline from '../components/JobTimeline.svelte';
-import GameCard from '../components/GameCard.svelte';
+import ProjectsGrid from '../components/ProjectsGrid.svelte';
 import AchievementCard from '../components/AchievementCard.svelte';
 import Section from '../components/Section.astro';
 import { published } from '../utils/content';
 import { SECTION_IDS } from '../utils/routes';
-import { getThumbnail } from '../utils/gameImages';
+import { getThumbnail } from '../utils/projectImages';
 
 // Load site content from JSON files
 import heroData from '../content/site/hero.json';
@@ -15,8 +15,13 @@ import workExperience from '../content/site/work-experience.json';
 import education from '../content/site/education.json';
 
 // Published (non-draft) collections, newest-first
-const sortedGames = await published('games');
+const sortedProjects = await published('projects');
 const sortedAchievements = await published('achievements');
+
+const projectItems = sortedProjects.map((project) => ({
+  project,
+  thumbnailSrc: getThumbnail(project.id),
+}));
 ---
 
 <Layout title="Bartłomiej Gordon — Unity Developer">
@@ -41,24 +46,6 @@ const sortedAchievements = await published('achievements');
 
   <!-- Projects Section -->
   <Section id={SECTION_IDS.projects} title="Projects">
-    <div class="games-grid">
-      {sortedGames.map((game) => (
-        <GameCard game={game} thumbnailSrc={getThumbnail(game.id)} client:visible />
-      ))}
-    </div>
+    <ProjectsGrid items={projectItems} client:visible />
   </Section>
 </Layout>
-
-<style>
-  .games-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
-    gap: var(--space-8);
-  }
-
-  @media (max-width: 768px) {
-    .games-grid {
-      grid-template-columns: 1fr;
-    }
-  }
-</style>

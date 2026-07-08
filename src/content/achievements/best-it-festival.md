@@ -7,7 +7,7 @@ type: "winner"
 icon: "medal"
 url: "https://best.gliwice.pl"
 image: "/images/achievements/best-it.png"
-game: "electro-exile"
+project: "electro-exile"
 rank: "3rd Place"
 ---
 

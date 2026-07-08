@@ -3,8 +3,8 @@ import { glob } from 'astro/loaders';
 import { achievementIconKeys } from './utils/icons';
 import { monthDate, draftFlag, optUrl } from './content.schemas';
 
-const gamesCollection = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/games' }),
+const projectsCollection = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/projects' }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
@@ -12,7 +12,6 @@ const gamesCollection = defineCollection({
     tags: z.array(z.string()).optional().default([]),
     playUrl: optUrl,
     sourceUrl: optUrl,
-    jam: z.string().optional(),
     teamSize: z.number().int().positive().optional(),
     draft: draftFlag,
   }),
@@ -30,7 +29,7 @@ const achievementsCollection = defineCollection({
     url: optUrl,
     image: z.string().optional(),
     gallery: z.array(z.string()).optional().default([]),
-    game: z.string().optional(),
+    project: z.string().optional(),
     rank: z.string().optional(),
     participants: z.string().optional(),
     draft: draftFlag,
@@ -52,7 +51,7 @@ const booksCollection = defineCollection({
 });
 
 export const collections = {
-  games: gamesCollection,
+  projects: projectsCollection,
   achievements: achievementsCollection,
   books: booksCollection,
 };

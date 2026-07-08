@@ -4,7 +4,6 @@ description: "Co-op arena shooter where players are physically tethered by a Ver
 date: "2024-11"
 tags: ["Unity", "C#", "Multiplayer", "Physics", "Verlet Integration", "Game Jam", "URP"]
 sourceUrl: "https://github.com/PlaceHoldersStudio/KnotFun"
-jam: "BIT Festival 2024"
 teamSize: 6
 ---
 

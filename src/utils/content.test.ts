@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { selectPublished, assertGameRefs } from './content';
+import { selectPublished, assertProjectRefs } from './content';
 
 describe('selectPublished', () => {
   it('excludes entries marked draft', () => {
@@ -37,21 +37,21 @@ describe('selectPublished', () => {
   });
 });
 
-describe('assertGameRefs', () => {
-  const games = [{ id: 'pong' }, { id: 'snake' }];
+describe('assertProjectRefs', () => {
+  const projects = [{ id: 'pong' }, { id: 'snake' }];
 
-  it('passes when every achievement.game points at a real game', () => {
+  it('passes when every achievement.project points at a real project', () => {
     const achievements = [
-      { id: 'win', data: { game: 'pong' } },
+      { id: 'win', data: { project: 'pong' } },
       { id: 'noref', data: {} },
     ];
 
-    expect(() => assertGameRefs(achievements, games)).not.toThrow();
+    expect(() => assertProjectRefs(achievements, projects)).not.toThrow();
   });
 
-  it('throws naming the achievement and the unknown game', () => {
-    const achievements = [{ id: 'win', data: { game: 'ghost' } }];
+  it('throws naming the achievement and the unknown project', () => {
+    const achievements = [{ id: 'win', data: { project: 'ghost' } }];
 
-    expect(() => assertGameRefs(achievements, games)).toThrow(/win.*ghost/);
+    expect(() => assertProjectRefs(achievements, projects)).toThrow(/win.*ghost/);
   });
 });

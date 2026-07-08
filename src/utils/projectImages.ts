@@ -4,28 +4,28 @@ import { join } from 'node:path';
 const EXTS = ['png', 'jpg', 'jpeg', 'webp', 'gif'];
 const NUMBERED_RE = /^\d+\.(png|jpg|jpeg|webp|gif)$/;
 
-function gameDir(slug: string): string {
-  return join(process.cwd(), 'public', 'images', 'games', slug);
+function projectDir(slug: string): string {
+  return join(process.cwd(), 'public', 'images', 'projects', slug);
 }
 
 export function getThumbnail(slug: string): string | undefined {
-  const dir = gameDir(slug);
+  const dir = projectDir(slug);
   for (const ext of EXTS) {
     if (existsSync(join(dir, `thumbnail.${ext}`))) {
-      return `/images/games/${slug}/thumbnail.${ext}`;
+      return `/images/projects/${slug}/thumbnail.${ext}`;
     }
   }
 }
 
 export function getGallery(slug: string): string[] {
-  const dir = gameDir(slug);
+  const dir = projectDir(slug);
   if (!existsSync(dir)) return [];
   return readdirSync(dir)
     .filter(f => NUMBERED_RE.test(f))
     .sort((a, b) => parseInt(a) - parseInt(b))
-    .map(f => `/images/games/${slug}/${f}`);
+    .map(f => `/images/projects/${slug}/${f}`);
 }
 
-export function getGameMedia(slug: string): { thumbnail: string | undefined; gallery: string[] } {
+export function getProjectMedia(slug: string): { thumbnail: string | undefined; gallery: string[] } {
   return { thumbnail: getThumbnail(slug), gallery: getGallery(slug) };
 }

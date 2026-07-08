@@ -12,18 +12,18 @@ export async function published<C extends CollectionKey>(name: C): Promise<Colle
   return selectPublished(await getCollection(name));
 }
 
-type GameRef = { id: string; data: { game?: string } };
+type ProjectRef = { id: string; data: { project?: string } };
 type Identified = { id: string };
 
-/** Throws if any achievement references a game id that does not exist. */
-export function assertGameRefs(achievements: GameRef[], games: Identified[]): void {
-  const gameIds = new Set(games.map((game) => game.id));
+/** Throws if any achievement references a project id that does not exist. */
+export function assertProjectRefs(achievements: ProjectRef[], projects: Identified[]): void {
+  const projectIds = new Set(projects.map((project) => project.id));
   for (const achievement of achievements) {
-    const ref = achievement.data.game;
-    if (ref && !gameIds.has(ref)) {
-      const valid = [...gameIds].sort().join(', ');
+    const ref = achievement.data.project;
+    if (ref && !projectIds.has(ref)) {
+      const valid = [...projectIds].sort().join(', ');
       throw new Error(
-        `Achievement "${achievement.id}" references unknown game "${ref}". Valid IDs: ${valid}`
+        `Achievement "${achievement.id}" references unknown project "${ref}". Valid IDs: ${valid}`
       );
     }
   }

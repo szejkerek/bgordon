@@ -6,61 +6,60 @@ import ActionButton from '../../components/ActionButton.astro';
 import { render } from 'astro:content';
 import { published } from '../../utils/content';
 import { ROUTES } from '../../utils/routes';
-import { getGameMedia } from '../../utils/gameImages';
+import { getProjectMedia } from '../../utils/projectImages';
 
 export async function getStaticPaths() {
-  const games = await published('games');
-  return games.map((game) => ({
-    params: { slug: game.id },
-    props: { game },
+  const projects = await published('projects');
+  return projects.map((project) => ({
+    params: { slug: project.id },
+    props: { project },
   }));
 }
 
-const { game } = Astro.props;
-const { Content } = await render(game);
+const { project } = Astro.props;
+const { Content } = await render(project);
 
-const { thumbnail: thumbnailSrc, gallery: galleryImages } = getGameMedia(game.id);
+const { thumbnail: thumbnailSrc, gallery: galleryImages } = getProjectMedia(project.id);
 
 const hasImage = !!thumbnailSrc;
-const tags = game.data.tags || [];
-const teamLabel = game.data.teamSize === 1 ? 'person' : 'people';
+const tags = project.data.tags || [];
+const teamLabel = project.data.teamSize === 1 ? 'person' : 'people';
 ---
 
 <DetailLayout
-  title={`${game.data.title} — Bartłomiej Gordon`}
-  description={game.data.description}
+  title={`${project.data.title} — Bartłomiej Gordon`}
+  description={project.data.description}
   image={thumbnailSrc}
   backHref={ROUTES.projects}
   backLabel="Back to Projects"
   containerWidth="narrow"
   galleryItems={galleryImages}
-  galleryTitle={game.data.title}
+  galleryTitle={project.data.title}
 >
-  <header class="game-header" slot="header">
+  <header class="project-header" slot="header">
     {hasImage && (
-      <div class="game-image">
+      <div class="project-image">
         <ClickableImage
           src={thumbnailSrc}
-          alt={game.data.title}
+          alt={project.data.title}
           client:load
         />
       </div>
     )}
 
-    <div class="game-info">
+    <div class="project-info">
       <div class="meta">
-        <span class="date">{game.data.date}</span>
-        {game.data.jam && <span class="tag tag--highlight">{game.data.jam}</span>}
-        {game.data.teamSize && (
+        <span class="date">{project.data.date}</span>
+        {project.data.teamSize && (
           <span class="team-badge">
             <Icon name="team" size={14} />
-            <span>{game.data.teamSize} {teamLabel}</span>
+            <span>{project.data.teamSize} {teamLabel}</span>
           </span>
         )}
       </div>
 
-      <h1>{game.data.title}</h1>
-      <p class="description">{game.data.description}</p>
+      <h1>{project.data.title}</h1>
+      <p class="description">{project.data.description}</p>
 
       {tags.length > 0 && (
         <div class="tags">
@@ -71,11 +70,11 @@ const teamLabel = game.data.teamSize === 1 ? 'person' : 'people';
       )}
 
       <div class="actions">
-        {game.data.playUrl && (
-          <ActionButton href={game.data.playUrl} label="Play Game" icon="play" primary external />
+        {project.data.playUrl && (
+          <ActionButton href={project.data.playUrl} label="Play Game" icon="play" primary external />
         )}
-        {game.data.sourceUrl && (
-          <ActionButton href={game.data.sourceUrl} label="Source Code" icon="github" external />
+        {project.data.sourceUrl && (
+          <ActionButton href={project.data.sourceUrl} label="Source Code" icon="github" external />
         )}
       </div>
     </div>
@@ -85,7 +84,7 @@ const teamLabel = game.data.teamSize === 1 ? 'person' : 'people';
 </DetailLayout>
 
 <style>
-  .game-header {
+  .project-header {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: var(--space-10);
@@ -94,7 +93,7 @@ const teamLabel = game.data.teamSize === 1 ? 'person' : 'people';
     border-bottom: 1px solid var(--color-border-subtle);
   }
 
-  .game-image {
+  .project-image {
     border-radius: var(--radius-lg);
     overflow: hidden;
     background: var(--color-bg-card);
@@ -102,17 +101,17 @@ const teamLabel = game.data.teamSize === 1 ? 'person' : 'people';
     align-items: center;
   }
 
-  .game-image :global(.clickable-image) {
+  .project-image :global(.clickable-image) {
     width: 100%;
   }
 
-  .game-image :global(.clickable-image img) {
+  .project-image :global(.clickable-image img) {
     width: 100%;
     height: auto;
     object-fit: contain;
   }
 
-  .game-info {
+  .project-info {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -140,7 +139,7 @@ const teamLabel = game.data.teamSize === 1 ? 'person' : 'people';
   }
 
   @media (max-width: 768px) {
-    .game-header {
+    .project-header {
       grid-template-columns: 1fr;
       gap: var(--space-8);
     }

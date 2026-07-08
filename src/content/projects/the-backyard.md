@@ -5,7 +5,6 @@ date: "2023-05"
 tags: ["Unity", "C#", "Isometric", "Resource Management"]
 
 sourceUrl: "https://github.com/szejkerek"
-jam: "GameJamPlus"
 teamSize: 5
 ---
 
