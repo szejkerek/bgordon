@@ -1,12 +1,13 @@
 # bgordon.pl
 
-Portfolio site (Astro + Svelte). Deploy: push to `main` → GitHub Actions → GitHub Pages.
+Portfolio site made using Astro + Svelte
 
 ## Run
 
 ```bash
 npm install
 npm run dev      # http://localhost:4321
+
 npm run build    # production → ./dist
 npm run preview  # preview the build
 ```
@@ -35,10 +36,6 @@ Content...
    - `thumbnail.*` — card thumbnail
    - `1.*`, `2.*`, … — gallery (ordered by number)
 
-   Paths are NOT in frontmatter — resolved by slug (`src/utils/projectImages.ts`).
-
-Filter tags are derived automatically from projects (by occurrence count).
-
 ## Add a book
 
 New file `src/content/books/<slug>.md`:
@@ -56,7 +53,7 @@ draft: false
 ---
 ```
 
-Cover: drop the file in `public/images/books/` and point `image` to it (unlike projects — here the path lives in frontmatter).
+Cover: drop the file in `public/images/books/` and point `image` to it.
 
 ## Add an achievement
 
@@ -82,7 +79,3 @@ draft: false
 ## Static data
 
 `src/content/site/` — `hero.json`, `work-experience.json`, `education.json`.
-
-## Publish
-
-`git push` to `main` — the rest is automatic. Domain: `bgordon.pl` (`astro.config.mjs`).
