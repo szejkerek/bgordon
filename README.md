@@ -1,181 +1,88 @@
-# 🎮 Game Developer Portfolio
+# bgordon.pl
 
-A professional, visually striking portfolio website for game developers built with **Astro + Svelte**. Features a dark cyberpunk-inspired design with neon accents, perfect for showcasing your games, achievements, and CV.
+Portfolio site (Astro + Svelte). Deploy: push to `main` → GitHub Actions → GitHub Pages.
 
-![Portfolio Preview](./public/images/preview.png)
-
-## ✨ Features
-
-- **Games Showcase** - Blog-like entries for all your games with images, tags, and links
-- **Achievements Section** - Highlight your game jam wins and milestones
-- **Professional CV Page** - Printable CV with skills, experience, and education
-- **Responsive Design** - Looks great on desktop, tablet, and mobile
-- **GitHub Pages Ready** - Easy deployment with included workflow
-- **Fast & SEO Friendly** - Astro's static site generation for optimal performance
-- **Dark Cyberpunk Theme** - Distinctive neon aesthetic that stands out
-
-## 🚀 Quick Start
-
-### Prerequisites
-
-- Node.js 18+ installed
-- npm or yarn
-
-### Installation
+## Run
 
 ```bash
-# Clone or download the project
-cd gamedev-portfolio
-
-# Install dependencies
 npm install
-
-# Start development server
-npm run dev
+npm run dev      # http://localhost:4321
+npm run build    # production → ./dist
+npm run preview  # preview the build
 ```
 
-Open [http://localhost:4321](http://localhost:4321) in your browser.
+## Add a project
 
-## 📁 Project Structure
-
-```
-gamedev-portfolio/
-├── src/
-│   ├── components/       # Svelte components
-│   │   ├── Navigation.svelte
-│   │   ├── Hero.svelte
-│   │   ├── GameCard.svelte
-│   │   ├── AchievementCard.svelte
-│   │   └── Footer.svelte
-│   ├── content/          # Markdown content
-│   │   ├── games/        # Game entries
-│   │   └── achievements/ # Achievement entries
-│   ├── layouts/          # Page layouts
-│   ├── pages/            # Route pages
-│   │   ├── index.astro
-│   │   ├── cv.astro
-│   │   └── games/[slug].astro
-│   └── styles/           # Global styles
-├── public/               # Static assets
-│   └── images/
-├── .github/workflows/    # GitHub Actions
-└── astro.config.mjs      # Astro configuration
-```
-
-## 📝 Adding Content
-
-### Adding a New Game
-
-Create a new `.md` file in `src/content/games/`:
+1. New file `src/content/projects/<slug>.md`:
 
 ```markdown
 ---
-title: "Your Game Title"
-description: "A brief description of your game"
-date: "2024-01"
-tags: ["Unity", "C#", "2D"]
-image: "/images/games/your-game.png"
-playUrl: "https://itch.io/your-game"
-sourceUrl: "https://github.com/you/your-game"
-jam: "Game Jam Name"  # Optional
-featured: true        # Optional
+title: "Title"
+description: "Short description"
+date: "2024-01"                 # format YYYY-MM
+tags: ["Unity", "C#"]
+playUrl: "https://..."          # optional
+sourceUrl: "https://github..."  # optional
+teamSize: 1                     # optional
+draft: false                    # true = hidden in production
 ---
 
-## About This Game
-
-Write detailed information about your game here...
+## About This Project
+Content...
 ```
 
-### Adding an Achievement
+2. Images go in `public/images/projects/<slug>/`:
+   - `thumbnail.*` — card thumbnail
+   - `1.*`, `2.*`, … — gallery (ordered by number)
 
-Create a new `.md` file in `src/content/achievements/`:
+   Paths are NOT in frontmatter — resolved by slug (`src/utils/projectImages.ts`).
+
+Filter tags are derived automatically from projects (by occurrence count).
+
+## Add a book
+
+New file `src/content/books/<slug>.md`:
 
 ```markdown
 ---
-title: "1st Place - Category"
+title: "Title"
+author: "Author"
+status: "reading"               # reading | finished | want-to-read
+startDate: "2025-09"            # optional
+finishDate: "2026-01"           # optional
+image: "/images/books/<slug>.png"  # optional (cover)
+thoughts: "My notes..."         # optional
+draft: false
+---
+```
+
+Cover: drop the file in `public/images/books/` and point `image` to it (unlike projects — here the path lives in frontmatter).
+
+## Add an achievement
+
+New file `src/content/achievements/<slug>.md`:
+
+```markdown
+---
+title: "1st Place"
 event: "Game Jam 2024"
 date: "2024-01"
-description: "Brief description of the achievement"
-type: "winner"  # or "honorable mention", "finalist", etc.
-icon: "trophy"  # trophy, medal, star, or award
-url: "https://link-to-results"
+description: "Description"
+type: "winner"                  # winner | finalist | participant | publication | organization
+icon: "trophy"                  # trophy | medal | star | award | book | users
+url: "https://..."              # optional
+image: "..."                    # optional
+gallery: ["...", "..."]         # optional
+rank: "1/50"                    # optional
+participants: "50"              # optional
+draft: false
 ---
 ```
 
-## 🎨 Customization
+## Static data
 
-### Personal Information
+`src/content/site/` — `hero.json`, `work-experience.json`, `education.json`.
 
-1. **Hero Section**: Edit `src/components/Hero.svelte` to update your stats and terminal display
-2. **About Section**: Modify the about content in `src/pages/index.astro`
-3. **CV Page**: Update `src/pages/cv.astro` with your experience and education
-4. **Footer**: Edit `src/components/Footer.svelte` with your social links
+## Publish
 
-### Colors & Theme
-
-Edit CSS variables in `src/styles/global.css`:
-
-```css
-:root {
-  --accent-primary: #00ff88;    /* Main accent color */
-  --accent-secondary: #ff3366;  /* Secondary accent */
-  --accent-tertiary: #00d4ff;   /* Tertiary accent */
-  --accent-yellow: #ffcc00;     /* Winner/highlight color */
-  /* ... */
-}
-```
-
-### Adding Images
-
-Place images in `public/images/`:
-- Game screenshots: `public/images/games/`
-- Profile photo: `public/images/profile.jpg`
-
-## 🚢 Deployment to GitHub Pages
-
-### Setup
-
-1. Update `astro.config.mjs`:
-   ```js
-   export default defineConfig({
-     site: 'https://yourusername.github.io',
-     base: '/your-repo-name',
-     // ...
-   });
-   ```
-
-2. Push to GitHub:
-   ```bash
-   git init
-   git add .
-   git commit -m "Initial commit"
-   git branch -M main
-   git remote add origin https://github.com/yourusername/your-repo-name.git
-   git push -u origin main
-   ```
-
-3. Enable GitHub Pages:
-   - Go to repository Settings → Pages
-   - Source: GitHub Actions
-
-The included workflow will automatically build and deploy your site on every push to `main`.
-
-## 🛠️ Commands
-
-| Command | Action |
-|---------|--------|
-| `npm run dev` | Start development server |
-| `npm run build` | Build for production |
-| `npm run preview` | Preview production build |
-
-## 📄 License
-
-MIT License - feel free to use this template for your own portfolio!
-
-## 🙏 Credits
-
-Built with:
-- [Astro](https://astro.build/)
-- [Svelte](https://svelte.dev/)
-- [JetBrains Mono](https://www.jetbrains.com/lp/mono/)
-- [Outfit Font](https://fonts.google.com/specimen/Outfit)
+`git push` to `main` — the rest is automatic. Domain: `bgordon.pl` (`astro.config.mjs`).
