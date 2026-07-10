@@ -1,6 +1,7 @@
 ﻿<script lang="ts">
   import { onMount } from "svelte";
   import Icon from "./Icon.svelte";
+  import Media from "./Media.svelte";
   import type { HeroData, SocialLink } from "../types";
   import { resolveMediaPath } from "../utils/media";
 
@@ -84,15 +85,15 @@
 
     <div class="hero-photo" aria-label="Profile photo">
       <div class="photo-wrapper">
-        <img
-          src={data.photo}
-          alt={data.name}
-          class="photo-frame"
-          loading="eager"
-          decoding="async"
-          width="320"
-          height="400"
-        />
+        <div class="photo-frame">
+          <Media
+            src={data.photo}
+            alt={data.name}
+            fit="cover"
+            eager
+            fallbackIcon="users"
+          />
+        </div>
       </div>
     </div>
   </div>
@@ -255,13 +256,12 @@
   .photo-frame {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    overflow: hidden;
     border-radius: var(--radius-lg);
     border: 1px solid var(--color-border-light);
     background: var(--color-bg-card);
     position: relative;
     z-index: 1;
-    display: block;
     transform: translate3d(0, 0, 0);
     transition: transform var(--duration-slower) var(--ease-spring);
   }

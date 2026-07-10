@@ -17,6 +17,7 @@ import {
   ChevronLeft,
   ChevronRight,
   ZoomIn,
+  Image as ImageIcon,
 } from 'lucide-svelte';
 import GithubIcon from '../components/icons/GithubIcon.svelte';
 import LinkedinIcon from '../components/icons/LinkedinIcon.svelte';
@@ -43,6 +44,7 @@ const iconComponents = {
   'chevron-left': ChevronLeft,
   'chevron-right': ChevronRight,
   'zoom-in': ZoomIn,
+  image: ImageIcon,
 } satisfies Record<string, unknown>;
 
 export { iconComponents };

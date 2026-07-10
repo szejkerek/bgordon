@@ -1,6 +1,7 @@
 ﻿<script lang="ts">
   import Lightbox from "./Lightbox.svelte";
   import Icon from "./Icon.svelte";
+  import Media from "./Media.svelte";
   import { getMediaType } from "../utils/media";
 
   interface Props {
@@ -45,13 +46,10 @@
             onclick={() => lightboxEl.open(media)}
             aria-label="View {title} image {index + 1} in fullscreen"
           >
-            <img
+            <Media
               src={media}
               alt={`${title} - ${mediaType === 'gif' ? 'GIF' : 'Image'} ${index + 1}`}
-              loading="lazy"
-              decoding="async"
-              width="800"
-              height="500"
+              fit="cover"
             />
             <div class="zoom-indicator">
               <Icon name="zoom-in" size={32} />

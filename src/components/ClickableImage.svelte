@@ -1,15 +1,18 @@
 ﻿<script lang="ts">
   import Lightbox from "./Lightbox.svelte";
   import Icon from "./Icon.svelte";
+  import Media from "./Media.svelte";
 
   interface Props {
     src: string;
     alt: string;
     class?: string;
     allImages?: string[];  // Optional array of all images for navigation
+    fit?: 'cover' | 'contain';
+    ratio?: string;
   }
 
-  let { src, alt, class: className = '', allImages }: Props = $props();
+  let { src, alt, class: className = '', allImages, fit = 'contain', ratio = '16 / 9' }: Props = $props();
 
   let lightboxEl: Lightbox;
 
@@ -28,12 +31,7 @@
   tabindex="0"
   aria-label="View {alt} in fullscreen"
 >
-  <img 
-    {src} 
-    {alt}
-    loading="eager"
-    decoding="async"
-  />
+  <Media {src} {alt} {fit} {ratio} rounded eager />
   <div class="zoom-overlay">
     <Icon name="zoom-in" size={24} />
     <span>Click to expand</span>
@@ -50,14 +48,7 @@
     border-radius: inherit;
   }
 
-  .clickable-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: transform var(--duration-normal) var(--ease-out);
-  }
-
-  .clickable-image:hover img {
+  .clickable-image:hover :global(.media-img) {
     transform: scale(1.03);
   }
 

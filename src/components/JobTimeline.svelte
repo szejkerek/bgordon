@@ -1,10 +1,10 @@
 ﻿<script lang="ts">
   import { onMount } from "svelte";
   import Icon from "./Icon.svelte";
+  import Media from "./Media.svelte";
   import type { WorkExperience, Education } from "../types";
   import type { IconType } from "../utils/icons";
   import { SECTION_IDS } from "../utils/routes";
-  import { resolveMediaPath } from "../utils/media";
 
   interface Props {
     workExperience?: WorkExperience[];
@@ -47,15 +47,6 @@
   let sectionEl: HTMLElement | undefined;
   let hydrated = $state(false);
   let inView = $state(false);
-  let logoErrors = $state<Record<string, boolean>>({});
-
-  function markLogoError(key: string): void {
-    logoErrors = { ...logoErrors, [key]: true };
-  }
-
-  function hasLogoError(key: string): boolean {
-    return logoErrors[key] || false;
-  }
 
   function computeInView(el: HTMLElement | null): boolean {
     if (!el) return false;
@@ -115,19 +106,7 @@
     <div class="timeline-content card">
       <div class="job-header">
         <div class="company-logo">
-          {#if item.logo && !hasLogoError(item.logo)}
-            <img
-              src={resolveMediaPath(item.logo)}
-              alt={item.title}
-              loading="lazy"
-              decoding="async"
-              onerror={() => markLogoError(item.logo!)}
-            />
-          {:else}
-            <div class="logo-placeholder" aria-hidden="true">
-              <Icon name={fallbackIcon} size={24} strokeWidth={1.5} />
-            </div>
-          {/if}
+          <Media src={item.logo} alt={item.title} fit="contain" fill={false} fallbackIcon={fallbackIcon} fallbackIconSize={24} />
         </div>
 
         <div class="job-info">
@@ -285,22 +264,6 @@
     justify-content: center;
     padding: 4px;
     box-sizing: border-box;
-  }
-
-  .company-logo img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    display: block;
-  }
-
-  .logo-placeholder {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 100%;
-    color: var(--color-text-muted);
   }
 
   .job-info {

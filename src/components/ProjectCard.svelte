@@ -1,5 +1,6 @@
 ﻿<script lang="ts">
   import Icon from "./Icon.svelte";
+  import Media from "./Media.svelte";
   import type { CollectionEntry } from "astro:content";
 
   interface Props {
@@ -26,20 +27,13 @@
 	</a>
 
   <div class="card-image">
-    {#if thumbnailSrc}
-      <img
-        src={thumbnailSrc}
-        alt={project.data.title}
-        loading="lazy"
-        decoding="async"
-        width="640"
-        height="360"
-      />
-    {:else}
-      <div class="placeholder">
-        <Icon name="gamepad" size={48} strokeWidth={1.5} />
-      </div>
-    {/if}
+    <Media
+      src={thumbnailSrc}
+      alt={project.data.title}
+      fit="cover"
+      ratio="16 / 9"
+      fallbackIcon="gamepad"
+    />
   </div>
 
   <div class="card-content">
@@ -118,31 +112,11 @@
 
   .card-image {
     position: relative;
-    aspect-ratio: 16 / 9;
-    overflow: hidden;
-    background: var(--color-bg-elevated);
     flex-shrink: 0;
   }
 
-  .card-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-    transition: transform var(--duration-normal) var(--ease-out);
-  }
-
-  .project-card:hover .card-image img {
+  .project-card:hover .card-image :global(.media-img) {
     transform: scale(1.05);
-  }
-  
-  .placeholder {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--color-text-muted);
   }
 
   .card-content {

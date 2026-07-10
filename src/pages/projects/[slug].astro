@@ -94,21 +94,11 @@ const teamLabel = project.data.teamSize === 1 ? 'person' : 'people';
   }
 
   .project-image {
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    background: var(--color-bg-card);
-    display: flex;
-    align-items: center;
+    align-self: center;
   }
 
   .project-image :global(.clickable-image) {
     width: 100%;
-  }
-
-  .project-image :global(.clickable-image img) {
-    width: 100%;
-    height: auto;
-    object-fit: contain;
   }
 
   .project-info {
