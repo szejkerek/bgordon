@@ -1,6 +1,7 @@
 <script lang="ts">
   import { getCurrentYear } from "../utils/dates";
   import { ROUTES } from "../utils/routes";
+  import Icon from "./Icon.svelte";
 
   interface ConnectLink {
     text: string;
@@ -29,7 +30,7 @@
 <footer class="footer">
   <div class="footer-content">
     <div class="footer-grid">
-      <div class="footer-brand">
+      <div class="footer-contact">
         <p class="name">Bartłomiej Gordon</p>
         {#if email}
           <a
@@ -37,30 +38,33 @@
             class="brand-email"
             aria-label="Send email to {email}"
           >
-            {email}
+            <Icon name="email" size={16} />
+            <span>{email}</span>
           </a>
         {/if}
+        {#if connectLinks.length}
+          <nav class="connect-links" aria-label="Social links">
+            {#each connectLinks as link (link.url)}
+              <a
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Visit {link.text} profile"
+              >
+                {link.text}
+              </a>
+            {/each}
+          </nav>
+        {/if}
       </div>
-      
+
       <nav class="footer-col" aria-label="Site navigation">
-        <h4>Work</h4>
-        {#each navLinks as link (link.href)}
-          <a href={link.href}>{link.label}</a>
-        {/each}
-      </nav>
-      
-      <nav class="footer-col" aria-label="Social links">
-        <h4>Connect</h4>
-        {#each connectLinks as link (link.url)}
-          <a
-            href={link.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Visit {link.text} profile"
-          >
-            {link.text}
-          </a>
-        {/each}
+        <h4>Sections</h4>
+        <div class="footer-col-links">
+          {#each navLinks as link (link.href)}
+            <a href={link.href}>{link.label}</a>
+          {/each}
+        </div>
       </nav>
     </div>
     
@@ -84,30 +88,56 @@
   }
   
   .footer-grid {
-    display: grid;
-    grid-template-columns: 1.5fr 1fr 1fr;
-    gap: var(--space-11);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: var(--space-9) var(--space-11);
     margin-bottom: var(--space-11);
     padding-bottom: var(--space-9);
     border-bottom: 1px solid var(--color-border-subtle);
   }
-  
-  .footer-brand .name {
+
+  .footer-contact .name {
     font-family: var(--font-display);
     font-size: var(--font-size-xl);
     font-weight: var(--font-weight-semibold);
     color: var(--color-text-primary);
     margin-bottom: var(--space-3);
   }
-  
+
   .brand-email {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-3) var(--space-6);
+    background: var(--color-accent);
+    border-radius: var(--radius-md);
+    color: var(--color-bg-primary);
     font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    text-decoration: none;
+    transition: background var(--duration-fast) var(--ease-out);
+  }
+
+  .brand-email:hover {
+    background: var(--color-accent-dim);
+  }
+
+  .connect-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-6);
+    margin-top: var(--space-6);
+  }
+
+  .connect-links a {
     color: var(--color-text-secondary);
     text-decoration: none;
+    font-size: var(--font-size-base);
     transition: color var(--duration-normal) var(--ease-out);
   }
-  
-  .brand-email:hover {
+
+  .connect-links a:hover {
     color: var(--color-accent);
   }
   
@@ -121,15 +151,19 @@
     margin-bottom: var(--space-6);
   }
   
+  .footer-col-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-4) var(--space-7);
+  }
+
   .footer-col a {
-    display: block;
     color: var(--color-text-secondary);
     text-decoration: none;
     font-size: var(--font-size-base);
-    padding: var(--space-2) 0;
     transition: color var(--duration-normal) var(--ease-out);
   }
-  
+
   .footer-col a:hover {
     color: var(--color-accent);
   }
@@ -142,18 +176,7 @@
     color: var(--color-text-muted);
   }
   
-  @media (max-width: 900px) {
-    .footer-grid {
-      grid-template-columns: 1fr 1fr;
-      gap: var(--space-9);
-    }
-  }
-  
   @media (max-width: 600px) {
-    .footer-grid {
-      grid-template-columns: 1fr;
-    }
-    
     .footer-bottom {
       flex-direction: column;
       gap: var(--space-3);
