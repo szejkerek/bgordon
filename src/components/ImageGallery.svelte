@@ -116,7 +116,6 @@
     outline-offset: 2px;
   }
   
-  .gallery-item img,
   .gallery-item video {
     width: 100%;
     height: 100%;

@@ -12,19 +12,28 @@ export async function published<C extends CollectionKey>(name: C): Promise<Colle
   return selectPublished(await getCollection(name));
 }
 
-type ProjectRef = { id: string; data: { project?: string } };
-type Identified = { id: string };
+/**
+ * Published achievements, with every project reference verified to resolve to a
+ * published project. Astro's `reference()` types the link but does not check
+ * existence at build, so this is the single place that guarantee lives — every
+ * reader of achievements inherits it.
+ */
+export async function publishedAchievements(): Promise<CollectionEntry<'achievements'>[]> {
+  const [achievements, projects] = await Promise.all([
+    published('achievements'),
+    published('projects'),
+  ]);
 
-/** Throws if any achievement references a project id that does not exist. */
-export function assertProjectRefs(achievements: ProjectRef[], projects: Identified[]): void {
   const projectIds = new Set(projects.map((project) => project.id));
   for (const achievement of achievements) {
     const ref = achievement.data.project;
-    if (ref && !projectIds.has(ref)) {
+    if (ref && !projectIds.has(ref.id)) {
       const valid = [...projectIds].sort().join(', ');
       throw new Error(
-        `Achievement "${achievement.id}" references unknown project "${ref}". Valid IDs: ${valid}`
+        `Achievement "${achievement.id}" references unknown project "${ref.id}". Valid IDs: ${valid}`
       );
     }
   }
+
+  return achievements;
 }

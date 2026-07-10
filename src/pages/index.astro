@@ -5,7 +5,7 @@ import JobTimeline from '../components/JobTimeline.svelte';
 import ProjectsGrid from '../components/ProjectsGrid.svelte';
 import AchievementCard from '../components/AchievementCard.svelte';
 import Section from '../components/Section.astro';
-import { published } from '../utils/content';
+import { published, publishedAchievements } from '../utils/content';
 import { SECTION_IDS } from '../utils/routes';
 import { getThumbnail } from '../utils/projectImages';
 
@@ -16,7 +16,7 @@ import education from '../content/site/education.json';
 
 // Published (non-draft) collections, newest-first
 const sortedProjects = await published('projects');
-const sortedAchievements = await published('achievements');
+const sortedAchievements = await publishedAchievements();
 
 const projectItems = sortedProjects.map((project) => ({
   project,

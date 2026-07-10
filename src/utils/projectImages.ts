@@ -1,8 +1,9 @@
 import { existsSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
+import { IMAGE_FILE_EXTENSIONS } from './media';
 
-const EXTS = ['png', 'jpg', 'jpeg', 'webp', 'gif'];
-const NUMBERED_RE = /^\d+\.(png|jpg|jpeg|webp|gif)$/;
+const EXTS = IMAGE_FILE_EXTENSIONS;
+const NUMBERED_RE = new RegExp(`^\\d+\\.(${EXTS.join('|')})$`, 'i');
 
 function projectDir(slug: string): string {
   return join(process.cwd(), 'public', 'images', 'projects', slug);

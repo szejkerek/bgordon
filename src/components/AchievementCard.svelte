@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { formatDate } from "../utils/dates";
   import type { CollectionEntry } from "astro:content";
 
   interface Props {
@@ -13,7 +14,7 @@
     <h3 class="ach-title">{achievement.data.title}</h3>
     <p class="ach-desc">{achievement.data.description}</p>
   </div>
-  <span class="ach-date">{achievement.data.date}</span>
+  <span class="ach-date">{formatDate(achievement.data.date)}</span>
 </a>
 
 <style>

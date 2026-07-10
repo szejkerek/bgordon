@@ -7,6 +7,7 @@ import { render } from 'astro:content';
 import { published } from '../../utils/content';
 import { ROUTES } from '../../utils/routes';
 import { getProjectMedia } from '../../utils/projectImages';
+import { formatDate } from '../../utils/dates';
 
 export async function getStaticPaths() {
   const projects = await published('projects');
@@ -49,7 +50,7 @@ const teamLabel = project.data.teamSize === 1 ? 'person' : 'people';
 
     <div class="project-info">
       <div class="meta">
-        <span class="date">{project.data.date}</span>
+        <span class="date">{formatDate(project.data.date)}</span>
         {project.data.teamSize && (
           <span class="team-badge">
             <Icon name="team" size={14} />

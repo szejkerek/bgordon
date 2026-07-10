@@ -1,4 +1,4 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection, reference, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 import { achievementIconKeys } from './utils/icons';
 import { monthDate, draftFlag, optUrl } from './content.schemas';
@@ -29,7 +29,7 @@ const achievementsCollection = defineCollection({
     url: optUrl,
     image: z.string().optional(),
     gallery: z.array(z.string()).optional().default([]),
-    project: z.string().optional(),
+    project: reference('projects').optional(),
     rank: z.string().optional(),
     participants: z.string().optional(),
     draft: draftFlag,

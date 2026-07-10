@@ -16,6 +16,7 @@ import {
   X,
   ChevronLeft,
   ChevronRight,
+  ChevronDown,
   ZoomIn,
   Image as ImageIcon,
 } from 'lucide-svelte';
@@ -43,6 +44,7 @@ const iconComponents = {
   x: X,
   'chevron-left': ChevronLeft,
   'chevron-right': ChevronRight,
+  'chevron-down': ChevronDown,
   'zoom-in': ZoomIn,
   image: ImageIcon,
 } satisfies Record<string, unknown>;

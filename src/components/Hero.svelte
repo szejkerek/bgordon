@@ -18,7 +18,7 @@
     label: 'Unity Developer',
     name: 'Bartłomiej Gordon',
     bio: 'Computer Science graduate with 5 years of experience in game development.',
-    photo: '/images/profilePicture.jpg',
+    photo: '/images/profilePicture.png',
   };
 
   // Merged data with defaults
@@ -56,13 +56,6 @@
       <p class="hero-bio">{data.bio}</p>
 
       <nav class="hero-links" aria-label="Primary links">
-        {#if data.primaryLink}
-          <a href={data.primaryLink.url} class="hero-link primary">
-            <span>{data.primaryLink.text}</span>
-            <Icon name="external" size={16} />
-          </a>
-        {/if}
-
         <div class="hero-social-links">
           {#each data.socialLinks as link (link.url)}
             {@const isExternal = isExternalLink(link.url)}
@@ -97,6 +90,15 @@
       </div>
     </div>
   </div>
+
+  {#if data.primaryLink}
+    <a href={data.primaryLink.url} class="scroll-cue" aria-label={data.primaryLink.text}>
+      <span class="scroll-cue-text">{data.primaryLink.text}</span>
+      <span class="scroll-cue-icon" aria-hidden="true">
+        <Icon name="chevron-down" size={22} />
+      </span>
+    </a>
+  {/if}
 </section>
 
 <style>
@@ -221,15 +223,61 @@
     outline-offset: 3px;
   }
 
-  .hero-link.primary {
-    background: rgba(110, 231, 183, 0.92);
-    color: #0b1210;
-    border-color: rgba(110, 231, 183, 0.9);
+  .scroll-cue {
+    position: absolute;
+    left: 50%;
+    bottom: 6rem;
+    transform: translateX(-50%);
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-3);
+    text-decoration: none;
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    opacity: 0;
+    transition:
+      color var(--duration-normal) var(--ease-out),
+      opacity 0.65s var(--ease-spring) 0.4s;
   }
 
-  .hero-link.primary:hover {
-    background: rgba(110, 231, 183, 0.98);
-    border-color: rgba(110, 231, 183, 1);
+  .hero.visible .scroll-cue {
+    opacity: 0.85;
+  }
+
+  .scroll-cue:hover {
+    color: var(--color-accent);
+  }
+
+  .scroll-cue-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    border-radius: var(--radius-full, 999px);
+    border: 1px solid var(--color-border-light);
+    background: rgba(255, 255, 255, 0.03);
+    animation: scroll-bounce 2s var(--ease-out) infinite;
+  }
+
+  .scroll-cue:hover .scroll-cue-icon {
+    border-color: var(--color-accent);
+  }
+
+  @keyframes scroll-bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(6px); }
+  }
+
+  .scroll-cue:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 4px;
+    border-radius: var(--radius-sm);
   }
 
   .hero-photo {
@@ -237,8 +285,8 @@
   }
 
   .photo-wrapper {
-    width: 320px;
-    height: 400px;
+    width: 380px;
+    height: 470px;
     position: relative;
   }
 
@@ -299,6 +347,10 @@
     .hero-social-links {
       justify-content: center;
     }
+
+    .scroll-cue {
+      display: none;
+    }
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -313,6 +365,10 @@
     .photo-wrapper:hover .photo-frame {
       transform: none;
       box-shadow: none;
+    }
+
+    .scroll-cue-icon {
+      animation: none;
     }
   }
 </style>

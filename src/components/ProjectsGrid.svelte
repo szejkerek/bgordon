@@ -14,7 +14,7 @@
 
   let { items }: Props = $props();
 
-  const tags = orderedTags(items.map((item) => item.project));
+  const tags = $derived(orderedTags(items.map((item) => item.project)));
 
   let activeTag = $state<string | null>(null);
 

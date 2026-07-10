@@ -1,6 +1,7 @@
 ﻿<script lang="ts">
   import Icon from "./Icon.svelte";
   import Media from "./Media.svelte";
+  import { formatDate } from "../utils/dates";
   import type { CollectionEntry } from "astro:content";
 
   interface Props {
@@ -32,13 +33,12 @@
       alt={project.data.title}
       fit="cover"
       ratio="16 / 9"
-      fallbackIcon="gamepad"
     />
   </div>
 
   <div class="card-content">
     <div class="card-meta">
-      <span class="date">{project.data.date}</span>
+      <span class="date">{formatDate(project.data.date)}</span>
       {#if project.data.teamSize}
         <span class="team-size" title="Team size">
           <Icon name="team" size={12} />

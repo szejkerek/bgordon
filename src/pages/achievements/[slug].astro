@@ -4,15 +4,11 @@ import ClickableImage from '../../components/ClickableImage.svelte';
 import { render } from 'astro:content';
 import ActionButton from '../../components/ActionButton.astro';
 import { ROUTES } from '../../utils/routes';
-import { published, assertProjectRefs } from '../../utils/content';
+import { publishedAchievements } from '../../utils/content';
+import { formatDate } from '../../utils/dates';
 
 export async function getStaticPaths() {
-  const [achievements, projects] = await Promise.all([
-    published('achievements'),
-    published('projects'),
-  ]);
-
-  assertProjectRefs(achievements, projects);
+  const achievements = await publishedAchievements();
 
   return achievements.map((achievement) => ({
     params: { slug: achievement.id },
@@ -38,7 +34,7 @@ const hasImage = !!achievement.data.image;
 >
   <header class="achievement-header" slot="header">
     <p class="meta">
-      <span class="meta-type">{achievement.data.type}</span> · {achievement.data.date}
+      <span class="meta-type">{achievement.data.type}</span> · {formatDate(achievement.data.date)}
     </p>
 
     <h1>{achievement.data.title}</h1>
@@ -50,7 +46,7 @@ const hasImage = !!achievement.data.image;
         <ActionButton href={achievement.data.url} label="Open Link" icon="external" primary external />
       )}
       {achievement.data.project && (
-        <ActionButton href={`/projects/${achievement.data.project}`} label="View Project" icon="gamepad" />
+        <ActionButton href={`/projects/${achievement.data.project.id}`} label="View Project" icon="play" />
       )}
     </div>
 

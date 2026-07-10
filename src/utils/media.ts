@@ -1,8 +1,17 @@
 import type { MediaType } from '../types';
 
-const VIDEO_EXTENSIONS = /\.(mp4|webm|ogg|mov)$/i;
-const GIF_EXTENSION = /\.gif$/i;
-const IMAGE_EXTENSIONS = /\.(jpg|jpeg|png|webp|avif|svg)$/i;
+const VIDEO_EXT = ['mp4', 'webm', 'ogg', 'mov'];
+const GIF_EXT = ['gif'];
+const STILL_IMAGE_EXT = ['jpg', 'jpeg', 'png', 'webp', 'avif', 'svg'];
+
+const extensionMatcher = (extensions: string[]): RegExp => new RegExp(`\\.(${extensions.join('|')})$`, 'i');
+
+const VIDEO_EXTENSIONS = extensionMatcher(VIDEO_EXT);
+const GIF_EXTENSION = extensionMatcher(GIF_EXT);
+const IMAGE_EXTENSIONS = extensionMatcher(STILL_IMAGE_EXT);
+
+/** Every extension that counts as a displayable image asset — still images plus gif. No leading dot. */
+export const IMAGE_FILE_EXTENSIONS = [...STILL_IMAGE_EXT, ...GIF_EXT];
 
 export function getMediaType(src: string): MediaType {
   if (VIDEO_EXTENSIONS.test(src)) return 'video';

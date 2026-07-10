@@ -1,6 +1,5 @@
 ﻿<script lang="ts">
   import { onMount } from "svelte";
-  import Icon from "./Icon.svelte";
   import Media from "./Media.svelte";
   import type { WorkExperience, Education } from "../types";
   import type { IconType } from "../utils/icons";
@@ -106,7 +105,7 @@
     <div class="timeline-content card">
       <div class="job-header">
         <div class="company-logo">
-          <Media src={item.logo} alt={item.title} fit="contain" fill={false} fallbackIcon={fallbackIcon} fallbackIconSize={24} />
+          <Media src={item.logo} alt={item.title} fit="cover" fill={false} fallbackIcon={fallbackIcon} fallbackIconSize={30} />
         </div>
 
         <div class="job-info">
@@ -133,9 +132,6 @@
 {#snippet column(heading: string, headerIcon: IconType, items: TimelineEntry[], delayBase: number, columnId?: string)}
   <div class="timeline-column" id={columnId}>
     <header class="column-header">
-      <div class="header-icon" aria-hidden="true">
-        <Icon name={headerIcon} size={28} />
-      </div>
       <h2 class="column-title">{heading}</h2>
     </header>
 
@@ -190,17 +186,6 @@
     border-bottom: 1px solid var(--color-border-subtle);
   }
 
-  .header-icon {
-    width: 48px;
-    height: 48px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--color-accent-glow);
-    border-radius: var(--radius-md);
-    color: var(--color-accent);
-  }
-
   .column-title {
     font-family: var(--font-display);
     font-size: var(--font-size-2xl);
@@ -253,17 +238,18 @@
   }
 
   .company-logo {
-    width: 40px;
-    height: 40px;
+    width: 56px;
+    height: 56px;
     background: var(--color-bg-elevated);
+    border: 1px solid var(--color-border-subtle);
     border-radius: var(--radius-md);
     overflow: hidden;
     flex-shrink: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 4px;
     box-sizing: border-box;
+    color: var(--color-accent);
   }
 
   .job-info {
@@ -304,6 +290,8 @@
     color: var(--color-text-secondary);
     line-height: var(--line-height-base);
     margin-bottom: var(--space-5);
+    text-align: justify;
+    hyphens: auto;
   }
 
   .job-skills {
@@ -326,14 +314,7 @@
     }
 
     .column-header {
-      flex-direction: column;
-      align-items: flex-start;
       gap: var(--space-5);
-    }
-
-    .header-icon {
-      width: 40px;
-      height: 40px;
     }
   }
 </style>

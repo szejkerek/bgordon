@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import Media from './Media.svelte';
+import { formatDate } from '../utils/dates';
 
 interface Props {
   book: CollectionEntry<'books'>;
@@ -24,7 +25,7 @@ const { title, author, status, startDate, finishDate, image, thoughts } = book.d
     <div class="book-info">
       {startDate && (
         <span class="date">
-          {startDate}{finishDate ? ` → ${finishDate}` : ''}
+          {formatDate(startDate)}{finishDate ? ` → ${formatDate(finishDate)}` : ''}
         </span>
       )}
       <h3 class="book-title">{title}</h3>
