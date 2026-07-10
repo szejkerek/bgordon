@@ -2,7 +2,7 @@
 title: "HeatMonitor"
 description: "An ESP32-based solution for real-time boiler temperature monitoring with historical data visualization and AI-driven predictions based on heating furnace settings."
 date: "2025-02"
-tags: ["ESP-32", "Electronics",  "C++"]
+tags: ["Embedded", "C++"]
 sourceUrl: "https://github.com/szejkerek/HeatMonitor"
 teamSize: 1
 draft: false

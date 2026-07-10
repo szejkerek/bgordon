@@ -1,28 +1,18 @@
 ---
-title: "Master Thesis"
-description: "A brief description of your project. Keep it to 1-2 sentences that capture the essence of what this project does or achieves."
-date: "2024-01"
-tags: ["Tag1", "Tag2", "Tag3", "Tag4"]
-sourceUrl: "https://github.com/yourusername/repo"
+title: "Procedural Dungeon Generation"
+description: "A master's thesis comparing procedural dungeon-generation algorithms — BSP, Cellular Automata, Diffusion-Limited Aggregation, and Drunkard Walk — in Unity, with a statistical analysis of their output."
+date: "2024-08"
+tags: ["Game", "Unity"]
+sourceUrl: "https://github.com/szejkerek/MasterThesis"
 teamSize: 1
-draft: true
 ---
 
 ## About This Project
 
-Provide a more detailed description of your project here. Explain the concept, what problem it solves, or what makes it unique.
+A master's thesis studying procedural dungeon generation. A Unity generator implements four classic algorithms — Binary Space Partitioning (BSP), Cellular Automata, Diffusion-Limited Aggregation (DLA), and Drunkard Walk — and produces dungeon layouts that are then compared through a statistical analysis of their structural properties.
 
 ### Features
 
-- **Feature 1**: Description of the first key feature
-- **Feature 2**: Description of the second key feature
-- **Feature 3**: Description of the third key feature
-- **Feature 4**: Description of the fourth key feature
-
-### Technical Details
-
-Brief overview of the technical implementation, architecture, or interesting challenges you solved.
-
-### Development
-
-Share any interesting development notes, lessons learned, or future plans for the project.
+- **Four generation algorithms** — BSP, Cellular Automata, DLA, and Drunkard Walk, each configurable and rendered in the Unity scene
+- **Batch experiment runs** — multiple runs per algorithm exported to JSON for offline analysis
+- **Statistical analysis** — a separate analysis stage compares the generators across metrics and stability runs, backing the thesis conclusions with data

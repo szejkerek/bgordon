@@ -2,7 +2,7 @@
 title: "Skeleton Offense"
 description: "Auto-chess tower-offense prototype where you draft skeleton units, combine matching triplets into higher tiers, and send your army down a spline path to attack enemy towers and bases."
 date: "2024-10"
-tags: ["Unity", "C#", "Auto-Chess", "Tower Defense", "3D", "NavMesh", "Splines", "URP"]
+tags: ["Game", "Unity"]
 sourceUrl: "https://github.com/PlaceHoldersStudio/SkeletonOffense"
 ---
 

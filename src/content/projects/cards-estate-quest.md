@@ -2,7 +2,7 @@
 title: "CardsEstateQuest"
 description: "Two-player strategy game adapted from a card game."
 date: "2024-01"
-tags: ["C#", "Unity", "Addressables"]
+tags: ["Game", "Unity"]
 
 teamSize: 3
 ---

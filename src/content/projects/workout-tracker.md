@@ -2,7 +2,7 @@
 title: "WorkoutTracker"
 description: "A social fitness tracker where users log workouts, follow friends, and share progress."
 date: "2023-06"
-tags: ["TypeScript", "Svelte", "Firebase", "NoSQL"]
+tags: ["Web", "TypeScript"]
 sourceUrl: "https://github.com/szejkerek/WorkoutTracker"
 teamSize: 1
 ---

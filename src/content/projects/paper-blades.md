@@ -2,7 +2,7 @@
 title: "Paper Blades"
 description: "Roguelike game with RTS elements set in feudal Japan where you command a squad of origami samurais using your own voice. 2nd place winner at ZTGK competition."
 date: "2024-06"
-tags: ["Unity", "C#", "Voice Control", "RTS", "Roguelike"]
+tags: ["Game", "Unity"]
 teamSize: 6
 ---
 

@@ -2,7 +2,7 @@
 title: "ReWand"
 description: "3D action prototype with a composable wand-casting skill system — delivery mechanics and hit effects are independently swappable ScriptableObjects — and a condition-driven enemy wave spawner."
 date: "2025-11"
-tags: ["Unity", "C#", "3D", "Action", "Zenject", "ScriptableObjects", "Design Patterns", "URP"]
+tags: ["Game", "Unity"]
 sourceUrl: "https://github.com/PlaceHoldersStudio/ReWand"
 ---
 
