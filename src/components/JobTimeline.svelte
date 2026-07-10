@@ -1,5 +1,4 @@
 ﻿<script lang="ts">
-  import { onMount } from "svelte";
   import Media from "./Media.svelte";
   import type { WorkExperience, Education } from "../types";
   import type { IconType } from "../utils/icons";
@@ -43,69 +42,26 @@
     }))
   );
 
-  let sectionEl: HTMLElement | undefined;
-  let hydrated = $state(false);
-  let inView = $state(false);
-
-  function computeInView(el: HTMLElement | null): boolean {
-    if (!el) return false;
-    const r = el.getBoundingClientRect();
-    return r.top < window.innerHeight * 0.9 && r.bottom > 0;
-  }
-
-  onMount(() => {
-    if (!sectionEl) return;
-    
-    inView = computeInView(sectionEl);
-    hydrated = true;
-
-    if (typeof IntersectionObserver === "undefined") {
-      inView = true;
-      return;
-    }
-
-    if (inView) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        for (const entry of entries) {
-          if (entry.isIntersecting) {
-            inView = true;
-            observer.disconnect();
-            break;
-          }
-        }
-      },
-      { threshold: 0.1, rootMargin: "0px 0px -10% 0px" }
-    );
-
-    observer.observe(sectionEl);
-
-    return () => observer.disconnect();
-  });
 </script>
 
 <section
   id={SECTION_IDS.experience}
-  bind:this={sectionEl}
   class="timeline-section"
-  class:hydrated
-  class:visible={inView}
 >
   <div class="timeline-container">
     <div class="two-column-grid">
-      {@render column("Work Experience", "briefcase", workItems, 0)}
-      {@render column("Education", "graduation", eduItems, 2, SECTION_IDS.education)}
+      {@render column("Work Experience", "briefcase", workItems)}
+      {@render column("Education", "graduation", eduItems, SECTION_IDS.education)}
     </div>
   </div>
 </section>
 
-{#snippet timelineItem(item: TimelineEntry, fallbackIcon: IconType, delay: number)}
-  <article class="timeline-item" style="--delay: {delay}s">
+{#snippet timelineItem(item: TimelineEntry, fallbackIcon: IconType)}
+  <article class="timeline-item">
     <div class="timeline-content card">
       <div class="job-header">
         <div class="company-logo">
-          <Media src={item.logo} alt={item.title} fit="cover" fill={false} fallbackIcon={fallbackIcon} fallbackIconSize={30} />
+          <Media src={item.logo} alt={item.title} fit="cover" fallbackIcon={fallbackIcon} fallbackIconSize={30} />
         </div>
 
         <div class="job-info">
@@ -129,15 +85,15 @@
   </article>
 {/snippet}
 
-{#snippet column(heading: string, headerIcon: IconType, items: TimelineEntry[], delayBase: number, columnId?: string)}
+{#snippet column(heading: string, headerIcon: IconType, items: TimelineEntry[], columnId?: string)}
   <div class="timeline-column" id={columnId}>
     <header class="column-header">
       <h2 class="column-title">{heading}</h2>
     </header>
 
     <div class="timeline">
-      {#each items as item, index (item.title + item.subtitle)}
-        {@render timelineItem(item, headerIcon, (index + delayBase) * 0.15)}
+      {#each items as item (item.title + item.subtitle)}
+        {@render timelineItem(item, headerIcon)}
       {/each}
     </div>
   </div>
@@ -147,17 +103,6 @@
   .timeline-section {
     padding: var(--section-padding) 0;
     background: var(--color-bg-secondary);
-  }
-
-  .timeline-section.hydrated {
-    opacity: 0;
-    transform: translateY(24px);
-    transition: opacity 0.8s var(--ease-spring), transform 0.8s var(--ease-spring);
-  }
-
-  .timeline-section.hydrated.visible {
-    opacity: 1;
-    transform: translateY(0);
   }
 
   .timeline-container {
@@ -202,19 +147,6 @@
 
   .timeline-item {
     display: flex;
-    will-change: opacity, transform;
-  }
-
-  .timeline-section.hydrated .timeline-item {
-    opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.6s var(--ease-spring), transform 0.6s var(--ease-spring);
-    transition-delay: var(--delay);
-  }
-
-  .timeline-section.hydrated.visible .timeline-item {
-    opacity: 1;
-    transform: translateY(0);
   }
 
   .timeline-content {

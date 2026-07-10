@@ -1,5 +1,5 @@
 import { describe, it, expect } from 'vitest';
-import { sortByDateAsc, sortByDateDesc } from './dates';
+import { sortByDateDesc } from './dates';
 
 describe('sortByDateDesc', () => {
   it('sorts entries newest-first using a custom date accessor', () => {
@@ -58,18 +58,5 @@ describe('sortByDateDesc', () => {
 
     expect(sorted).not.toBe(games);
     expect(games.map((g) => g.id)).toEqual(['a', 'b']);
-  });
-});
-
-describe('sortByDateAsc', () => {
-  it('sorts entries oldest-first', () => {
-    const games = [
-      { id: 'b', data: { date: '2026-01' } },
-      { id: 'a', data: { date: '2025-02' } },
-    ];
-
-    const sorted = sortByDateAsc(games);
-
-    expect(sorted.map((g) => g.id)).toEqual(['a', 'b']);
   });
 });

@@ -54,9 +54,4 @@ export interface Education {
   logo?: string;
 }
 
-// ============================================
-// Media Types
-// ============================================
-
-export type MediaType = 'image' | 'video' | 'gif';
 

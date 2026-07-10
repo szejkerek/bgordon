@@ -12,7 +12,6 @@
     eager?: boolean;
     fallbackIcon?: IconType;
     fallbackIconSize?: number;
-    fill?: boolean;            // blurred backdrop behind contain; defaults on for contain
     class?: string;
   }
 
@@ -25,14 +24,12 @@
     eager = false,
     fallbackIcon = 'image',
     fallbackIconSize = 40,
-    fill,
     class: className = '',
   }: Props = $props();
 
   let failed = $state(false);
   const resolved = $derived(src ? resolveMediaPath(src) : undefined);
   const showImage = $derived(!!resolved && !failed);
-  const showFill = $derived(fit === 'contain' && (fill ?? true));
 </script>
 
 <div
@@ -42,17 +39,6 @@
   style={ratio ? `aspect-ratio: ${ratio};` : undefined}
 >
   {#if showImage}
-    {#if showFill}
-      <!-- blurred backdrop fills the frame so contain never shows dead-color bars -->
-      <img
-        class="media-fill"
-        src={resolved}
-        alt=""
-        aria-hidden="true"
-        loading="lazy"
-        decoding="async"
-      />
-    {/if}
     <img
       class="media-img"
       src={resolved}
@@ -94,19 +80,6 @@
 
   .is-contain .media-img {
     object-fit: contain;
-  }
-
-  .media-fill {
-    position: absolute;
-    inset: 0;
-    z-index: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: blur(28px) saturate(1.3);
-    transform: scale(1.2);
-    opacity: 0.5;
-    pointer-events: none;
   }
 
   .media-placeholder {

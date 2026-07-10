@@ -1,6 +1,5 @@
 ﻿<script lang="ts">
   import Icon from "./Icon.svelte";
-  import { lightboxImages } from "../utils/media";
 
   interface Props {
     media: string[];
@@ -8,13 +7,11 @@
 
   let { media = [] }: Props = $props();
 
-  // Lightbox owns the "images only" invariant — callers hand over mixed media.
-  const images = $derived(lightboxImages(media));
+  const images = $derived(media);
 
   let isOpen = $state(false);
   let currentIndex = $state(0);
   let isVisible = $state(false);
-  let isFading = $state(false);
   let dialogEl: HTMLDivElement | undefined = $state();
 
   export function open(src: string) {
@@ -35,15 +32,8 @@
   }
 
   function navigate(direction: 1 | -1) {
-    if (isFading || images.length <= 1) return;
-    isFading = true;
-    
-    setTimeout(() => {
-      currentIndex = (currentIndex + direction + images.length) % images.length;
-      setTimeout(() => {
-        isFading = false;
-      }, 50);
-    }, 150);
+    if (images.length <= 1) return;
+    currentIndex = (currentIndex + direction + images.length) % images.length;
   }
 
   function next() {
@@ -122,11 +112,10 @@
 
       <!-- Fixed size image container -->
       <div class="image-container">
-        <img 
-          src={images[currentIndex]} 
+        <img
+          src={images[currentIndex]}
           alt="Gallery image {currentIndex + 1} of {images.length}"
           class="lightbox-image"
-          class:fading={isFading}
         />
       </div>
 
@@ -200,11 +189,6 @@
     object-fit: contain;
     border-radius: var(--radius-lg);
     box-shadow: 0 25px 80px rgba(0, 0, 0, 0.5);
-    transition: opacity 0.15s ease-out;
-  }
-
-  .lightbox-image.fading {
-    opacity: 0;
   }
 
   .close-btn {

@@ -1,18 +1,12 @@
 import {
   Mail,
-  Trophy,
-  Medal,
-  Star,
-  Award,
   Book,
   Users,
   Play,
   ExternalLink,
   Briefcase,
   GraduationCap,
-  Gamepad2,
   Download,
-  ArrowLeft,
   X,
   ChevronLeft,
   ChevronRight,
@@ -27,19 +21,13 @@ const iconComponents = {
   email: Mail,
   github: GithubIcon,
   linkedin: LinkedinIcon,
-  trophy: Trophy,
-  medal: Medal,
-  star: Star,
-  award: Award,
   book: Book,
   users: Users,
   play: Play,
   external: ExternalLink,
   briefcase: Briefcase,
   graduation: GraduationCap,
-  gamepad: Gamepad2,
   download: Download,
-  'arrow-left': ArrowLeft,
   team: Users,
   x: X,
   'chevron-left': ChevronLeft,
@@ -51,6 +39,3 @@ const iconComponents = {
 
 export { iconComponents };
 export type IconType = keyof typeof iconComponents;
-
-export const achievementIconKeys = ['trophy', 'medal', 'star', 'award', 'book', 'users'] as const satisfies readonly IconType[];
-export type AchievementIconType = typeof achievementIconKeys[number];

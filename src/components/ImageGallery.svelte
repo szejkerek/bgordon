@@ -2,7 +2,6 @@
   import Lightbox from "./Lightbox.svelte";
   import Icon from "./Icon.svelte";
   import Media from "./Media.svelte";
-  import { getMediaType } from "../utils/media";
 
   interface Props {
     items: string[];
@@ -20,42 +19,21 @@
     <h2>Gallery</h2>
     <div class="gallery-grid" data-columns={columns}>
       {#each items as media, index (media)}
-        {@const mediaType = getMediaType(media)}
-        {@const isVideo = mediaType === 'video'}
-        
-        {#if isVideo}
-          <div class="gallery-item is-video">
-            <video 
-              src={media} 
-              autoplay 
-              loop 
-              muted 
-              playsinline
-              preload="metadata"
-            >
-              <track kind="captions" />
-            </video>
-            <div class="video-indicator">
-              <Icon name="play" size={16} />
-            </div>
+        <button
+          type="button"
+          class="gallery-item"
+          onclick={() => lightboxEl.open(media)}
+          aria-label="View {title} image {index + 1} in fullscreen"
+        >
+          <Media
+            src={media}
+            alt={`${title} - Image ${index + 1}`}
+            fit="cover"
+          />
+          <div class="zoom-indicator">
+            <Icon name="zoom-in" size={32} />
           </div>
-        {:else}
-          <button 
-            type="button"
-            class="gallery-item"
-            onclick={() => lightboxEl.open(media)}
-            aria-label="View {title} image {index + 1} in fullscreen"
-          >
-            <Media
-              src={media}
-              alt={`${title} - ${mediaType === 'gif' ? 'GIF' : 'Image'} ${index + 1}`}
-              fit="cover"
-            />
-            <div class="zoom-indicator">
-              <Icon name="zoom-in" size={32} />
-            </div>
-          </button>
-        {/if}
+        </button>
       {/each}
     </div>
   </section>
@@ -116,37 +94,6 @@
     outline-offset: 2px;
   }
   
-  .gallery-item video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
-  
-  .gallery-item.is-video {
-    cursor: default;
-  }
-
-  .gallery-item.is-video:hover {
-    transform: none;
-    box-shadow: none;
-  }
-  
-  .video-indicator {
-    position: absolute;
-    top: var(--space-4);
-    right: var(--space-4);
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0, 0, 0, 0.7);
-    border-radius: var(--radius-full);
-    color: white;
-    pointer-events: none;
-  }
-
   .zoom-indicator {
     position: absolute;
     inset: 0;

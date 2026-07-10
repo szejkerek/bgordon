@@ -29,17 +29,16 @@ const projectItems = sortedProjects.map((project) => ({
   <Hero heroData={heroData} client:load />
   
   <!-- Job Timeline Section -->
-  <JobTimeline 
-    workExperience={workExperience} 
-    education={education} 
-    client:visible 
+  <JobTimeline
+    workExperience={workExperience}
+    education={education}
   />
   
   <!-- Achievements Section -->
   <Section id={SECTION_IDS.achievements} title="Achievements" alt narrow>
     <div class="achievements-list">
       {sortedAchievements.map((achievement) => (
-        <AchievementCard achievement={achievement} client:visible />
+        <AchievementCard achievement={achievement} />
       ))}
     </div>
   </Section>

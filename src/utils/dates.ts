@@ -31,17 +31,6 @@ export function sortByDateDesc<T>(items: T[], getDate: DateAccessor<T> = byDataD
   });
 }
 
-export function sortByDateAsc<T extends { data: { date: string } }>(items: T[]): T[];
-export function sortByDateAsc<T>(items: T[], getDate: DateAccessor<T>): T[];
-export function sortByDateAsc<T>(items: T[], getDate: DateAccessor<T> = byDataDate as DateAccessor<T>): T[] {
-  return [...items].sort((a, b) => {
-    const dateA = parseDate(getDate(a) ?? '');
-    const dateB = parseDate(getDate(b) ?? '');
-    if (!dateA || !dateB) return 0;
-    return dateA.getTime() - dateB.getTime();
-  });
-}
-
 export function getCurrentYear(): number {
   return new Date().getFullYear();
 }
