@@ -2,7 +2,7 @@
 title: "Serial Communication Protocols"
 description: "Two Windows desktop apps implementing an RS-232 terminal emulator and a simplified Modbus ASCII protocol over RS-485, with CRC validation, timeouts, and retransmission."
 date: "2023-06"
-tags: ["Embedded", "C#"]
+tags: ["Desktop", "C#"]
 sourceUrl: "https://github.com/szejkerek/IWSK"
 teamSize: 1
 ---

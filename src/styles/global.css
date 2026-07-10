@@ -22,6 +22,8 @@
 }
 
 html {
+  /* Base font size — every rem-based token scales from here. Bump to enlarge all text. */
+  font-size: 112.5%; /* 18px */
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
