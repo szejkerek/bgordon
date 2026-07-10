@@ -1,14 +1,6 @@
-/**
- * Shared Component Styles
- * 
- * Reusable styles for common UI patterns.
- * Import this in components that need these styles.
- */
+/* Shared component styles — reusable UI patterns. */
 
-/* ============================================
-   Buttons
-   ============================================ */
-
+/* Buttons */
 .btn {
   display: inline-flex;
   align-items: center;
@@ -48,33 +40,19 @@
   color: var(--color-bg-primary);
 }
 
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: var(--space-5);
-}
-
-@media (max-width: 768px) {
-  .actions {
-    flex-direction: column;
-  }
-
-  .actions .btn {
-    width: 100%;
-    justify-content: center;
-  }
-}
-
 .btn--primary:hover {
   background: var(--color-accent-dim);
   border-color: var(--color-accent-dim);
   color: var(--color-bg-primary);
 }
 
-/* ============================================
-   Tags
-   ============================================ */
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+}
 
+/* Tags */
 .tag {
   display: inline-block;
   padding: var(--space-1) var(--space-4);
@@ -87,21 +65,13 @@
   color: var(--color-text-secondary);
 }
 
-.tag--highlight {
-  background: var(--color-accent-glow);
-  color: var(--color-accent);
-}
-
 .tag--skill {
   padding: 0.2rem 0.5rem;
   font-size: 0.65rem;
   letter-spacing: 0.03em;
 }
 
-/* ============================================
-   Cards
-   ============================================ */
-
+/* Cards */
 .card {
   background: var(--color-bg-card);
   border: 1px solid var(--color-border-subtle);
@@ -116,19 +86,7 @@
   box-shadow: var(--shadow-xl);
 }
 
-.card--interactive {
-  cursor: pointer;
-}
-
-.card--interactive:focus-visible {
-  outline: 2px solid var(--color-accent);
-  outline-offset: 2px;
-}
-
-/* ============================================
-   Back Links
-   ============================================ */
-
+/* Back links */
 .back-link {
   display: inline-flex;
   align-items: center;
@@ -145,10 +103,7 @@
   color: var(--color-accent-dim);
 }
 
-/* ============================================
-   Section Headers
-   ============================================ */
-
+/* Sections */
 .section {
   padding: var(--section-padding) 0;
 }
@@ -169,10 +124,7 @@
   letter-spacing: var(--letter-spacing-tight);
 }
 
-/* ============================================
-   Container
-   ============================================ */
-
+/* Container */
 .container {
   width: 100%;
   max-width: var(--container-max-width);
@@ -184,14 +136,7 @@
   max-width: var(--container-max-width-narrow);
 }
 
-.container--article {
-  max-width: var(--container-max-width-article);
-}
-
-/* ============================================
-   Date & Meta
-   ============================================ */
-
+/* Date & meta */
 .date {
   font-size: var(--font-size-sm);
   color: var(--color-text-muted);
@@ -205,10 +150,7 @@
   flex-wrap: wrap;
 }
 
-/* ============================================
-   Team Badge
-   ============================================ */
-
+/* Team badge */
 .team-badge {
   display: inline-flex;
   align-items: center;
@@ -225,59 +167,7 @@
   opacity: 0.7;
 }
 
-/* ============================================
-   Click Hints
-   ============================================ */
-
-.click-hint {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--space-3);
-  padding: var(--space-5);
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
-  color: var(--color-text-primary);
-  font-size: var(--font-size-sm);
-  font-weight: var(--font-weight-medium);
-  opacity: 0;
-  transform: translateY(100%);
-  transition: var(--transition-opacity), var(--transition-transform);
-}
-
-.click-hint--visible,
-.card:hover .click-hint,
-.card:focus-visible .click-hint {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ============================================
-   Video Indicator
-   ============================================ */
-
-.video-indicator {
-  position: absolute;
-  top: var(--space-5);
-  right: var(--space-5);
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(0, 0, 0, 0.6);
-  border-radius: var(--radius-full);
-  color: white;
-  pointer-events: none;
-}
-
-/* ============================================
-   Content Styles (for markdown rendered content)
-   ============================================ */
-
+/* Rendered markdown content */
 .prose {
   color: var(--color-text-secondary);
   line-height: var(--line-height-relaxed);
@@ -332,16 +222,22 @@
   color: var(--color-accent-dim);
 }
 
-/* ============================================
-   Responsive Overrides
-   ============================================ */
-
+/* Responsive */
 @media (max-width: 768px) {
   .container {
     padding: 0 var(--container-padding-mobile);
   }
-  
+
   .section {
     padding: var(--section-padding-mobile) 0;
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .actions .btn {
+    width: 100%;
+    justify-content: center;
   }
 }

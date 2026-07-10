@@ -60,29 +60,21 @@
 </article>
 
 <style>
+  /* extends global .card — only the scale-on-hover is unique here */
   .project-card {
-		position: relative;
+    position: relative;
     overflow: hidden;
     display: flex;
     flex-direction: column;
     height: 100%;
     cursor: pointer;
-    border-radius: var(--radius-lg);
-    transition:
-      transform var(--duration-normal) var(--ease-out),
-      border-color var(--duration-normal) var(--ease-out),
-      box-shadow var(--duration-normal) var(--ease-out),
-      background-color var(--duration-normal) var(--ease-out);
+    transition: var(--transition-colors), var(--transition-transform), var(--transition-shadow);
   }
 
   .project-card:hover {
     transform: scale(1.02);
-    border-color: var(--color-border-light);
-    box-shadow: var(--shadow-xl);
-    background: var(--color-bg-card-hover);
     z-index: 1;
   }
-
 
 	.card-overlay-link {
 		position: absolute;
@@ -96,18 +88,6 @@
 	.card-overlay-link:focus-visible {
 		outline: 2px solid var(--color-accent);
 		outline-offset: 2px;
-	}
-
-	.sr-only {
-		position: absolute;
-		width: 1px;
-		height: 1px;
-		padding: 0;
-		margin: -1px;
-		overflow: hidden;
-		clip: rect(0, 0, 0, 0);
-		white-space: nowrap;
-		border: 0;
 	}
 
   .card-image {
@@ -134,12 +114,6 @@
     gap: var(--space-5);
     margin-bottom: var(--space-5);
     flex-wrap: wrap;
-  }
-
-  .date {
-    font-size: var(--font-size-sm);
-    color: var(--color-text-muted);
-    font-weight: var(--font-weight-medium);
   }
 
   .team-size {
