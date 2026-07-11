@@ -28,6 +28,7 @@ export interface HeroData {
   name?: string;
   bio?: string;
   location?: string;
+  birthDate?: string;
   photo?: string;
   primaryLink?: PrimaryLink;
   socialLinks?: SocialLink[];

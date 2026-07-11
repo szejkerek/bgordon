@@ -2,7 +2,8 @@
   "label": "Unity Game Developer",
   "name": "Bartłomiej Gordon",
   "bio": "Game developer building games and interactive applications, with a Master's in Computer Science focused on game technology and real-time graphics. I ship real products with Unity and Unreal Engine.",
-  "location": "Katowice, Poland · Remote / Hybrid",
+  "location": "Katowice, Poland",
+  "birthDate": "2001-10-28",
   "photo": "images/profilePicture.png",
   "primaryLink": {
     "text": "View Projects",

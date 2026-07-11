@@ -8,7 +8,7 @@ import Section from '../components/Section.astro';
 import { published, publishedAchievements } from '../utils/content';
 import { SECTION_IDS } from '../utils/routes';
 import { getThumbnail, PLACEHOLDER_IMAGE } from '../utils/projectImages';
-import { programmingYears, professionalMonths, formatDuration } from '../utils/stats';
+import { programmingYears, professionalMonths, formatDuration, age } from '../utils/stats';
 import type { HeroStat } from '../types';
 
 // Load site content from JSON files
@@ -38,6 +38,12 @@ const jamPodiums = sortedAchievements.filter(
 const codingYears = programmingYears(now);
 const proMonths = professionalMonths(workExperience.map((job) => job.period), now);
 
+let heroAge: number | undefined;
+if (heroData.birthDate) {
+  const [year, month, day] = heroData.birthDate.split('-').map(Number);
+  heroAge = age(new Date(year, month - 1, day), now);
+}
+
 const heroStats: HeroStat[] = [
   { label: 'Work Experience', value: formatDuration(proMonths) },
   { label: 'Coding', value: `${codingYears} ${codingYears === 1 ? 'year' : 'years'}` },
@@ -48,7 +54,7 @@ const heroStats: HeroStat[] = [
 
 <Layout title="Bartłomiej Gordon — Unity Developer">
   <!-- Hero Section -->
-  <Hero heroData={heroData} stats={heroStats} client:load />
+  <Hero heroData={heroData} stats={heroStats} age={heroAge} client:load />
   
   <!-- Job Timeline Section -->
   <JobTimeline

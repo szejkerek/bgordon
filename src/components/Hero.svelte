@@ -9,9 +9,10 @@
   interface Props {
     heroData?: HeroData;
     stats?: HeroStat[];
+    age?: number;
   }
 
-  let { heroData = {}, stats = [] }: Props = $props();
+  let { heroData = {}, stats = [], age }: Props = $props();
 
   let visible = $state(false);
 
@@ -86,10 +87,15 @@
     <div class="hero-content">
       <p class="hero-label">{data.label}</p>
       <h1 class="hero-name">{data.name}</h1>
-      {#if data.location}
+      {#if data.location || age}
         <p class="hero-location">
-          <Icon name="location" size={15} />
-          <span>{data.location}</span>
+          {#if data.location}
+            <span class="hero-location-place">
+              <Icon name="location" size={15} />
+              <span>{data.location}</span>
+            </span>
+          {/if}
+          {#if age}<span class="hero-age">{age} years old</span>{/if}
         </p>
       {/if}
       <p class="hero-bio">{#each bioSegments as seg, i (i)}{#if seg.icon}<span class="engine-mark engine-mark--{seg.icon}"><Icon name={seg.icon} size={21} /><span class="engine-name">{seg.text}</span></span>{:else}{seg.text}{/if}{/each}</p>
@@ -217,16 +223,36 @@
   .hero-location {
     display: inline-flex;
     align-items: center;
-    gap: 0.4em;
+    gap: var(--space-4);
     margin-bottom: var(--space-7);
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-medium);
     color: var(--color-text-secondary);
   }
 
+  .hero-location-place {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+  }
+
   .hero-location :global(svg) {
     color: var(--color-accent);
     flex-shrink: 0;
+  }
+
+  /* Static chip sharing the site button frame (border-light + radius-md +
+     translucent fill), matching hero links and ActionButton. */
+  .hero-age {
+    padding: 0.3em 0.7em;
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.03);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-semibold);
+    line-height: 1;
+    color: var(--color-text-primary);
+    white-space: nowrap;
   }
 
   .hero-bio {

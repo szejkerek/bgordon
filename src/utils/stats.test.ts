@@ -1,6 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import {
   programmingYears,
+  age,
   parsePeriod,
   professionalMonths,
   professionalYears,
@@ -12,6 +13,18 @@ const NOW = new Date(2026, 6, 11); // July 2026 (month is 0-based)
 describe('programmingYears', () => {
   it('counts whole years since 2016', () => {
     expect(programmingYears(NOW)).toBe(10);
+  });
+});
+
+describe('age', () => {
+  const birth = new Date(2001, 9, 28); // 28 Oct 2001
+
+  it('subtracts a year when the birthday has not passed yet', () => {
+    expect(age(birth, NOW)).toBe(24); // July 2026, before October
+  });
+
+  it('counts the full year on/after the birthday', () => {
+    expect(age(birth, new Date(2026, 9, 28))).toBe(25);
   });
 });
 

@@ -17,6 +17,16 @@ export function programmingYears(now: Date): number {
   return now.getFullYear() - PROGRAMMING_START_YEAR;
 }
 
+/** Whole years since birth, accounting for whether this year's birthday has passed. */
+export function age(birthDate: Date, now: Date): number {
+  let years = now.getFullYear() - birthDate.getFullYear();
+  const beforeBirthday =
+    now.getMonth() < birthDate.getMonth() ||
+    (now.getMonth() === birthDate.getMonth() && now.getDate() < birthDate.getDate());
+  if (beforeBirthday) years -= 1;
+  return years;
+}
+
 /** Parse "Month YYYY" / "Present" into an absolute month index (year*12 + month). */
 function parsePoint(text: string, now: Date): number | null {
   const value = text.trim().toLowerCase();
