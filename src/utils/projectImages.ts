@@ -5,17 +5,20 @@ import { IMAGE_FILE_EXTENSIONS } from './media';
 const EXTS = IMAGE_FILE_EXTENSIONS;
 const NUMBERED_RE = new RegExp(`^\\d+\\.(${EXTS.join('|')})$`, 'i');
 
+export const PLACEHOLDER_IMAGE = '/images/placeholder.svg';
+
 function projectDir(slug: string): string {
   return join(process.cwd(), 'public', 'images', 'projects', slug);
 }
 
-export function getThumbnail(slug: string): string | undefined {
+export function getThumbnail(slug: string): string {
   const dir = projectDir(slug);
   for (const ext of EXTS) {
     if (existsSync(join(dir, `thumbnail.${ext}`))) {
       return `/images/projects/${slug}/thumbnail.${ext}`;
     }
   }
+  return PLACEHOLDER_IMAGE;
 }
 
 export function getGallery(slug: string): string[] {
@@ -27,6 +30,6 @@ export function getGallery(slug: string): string[] {
     .map(f => `/images/projects/${slug}/${f}`);
 }
 
-export function getProjectMedia(slug: string): { thumbnail: string | undefined; gallery: string[] } {
+export function getProjectMedia(slug: string): { thumbnail: string; gallery: string[] } {
   return { thumbnail: getThumbnail(slug), gallery: getGallery(slug) };
 }
