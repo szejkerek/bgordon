@@ -30,6 +30,7 @@
     name: heroData.name || defaults.name,
     bio: heroData.bio || defaults.bio,
     location: heroData.location,
+    locationUrl: heroData.locationUrl,
     photo: resolveMediaPath(heroData.photo || defaults.photo),
     primaryLink: heroData.primaryLink,
     socialLinks: heroData.socialLinks || [],
@@ -90,10 +91,23 @@
       {#if data.location || age}
         <p class="hero-location">
           {#if data.location}
-            <span class="hero-location-place">
-              <Icon name="location" size={15} />
-              <span>{data.location}</span>
-            </span>
+            {#if data.locationUrl}
+              <a
+                class="hero-location-place hero-location-place--link"
+                href={data.locationUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="{data.location} on Google Maps"
+              >
+                <Icon name="location" size={15} />
+                <span>{data.location}</span>
+              </a>
+            {:else}
+              <span class="hero-location-place">
+                <Icon name="location" size={15} />
+                <span>{data.location}</span>
+              </span>
+            {/if}
           {/if}
           {#if age}<span class="hero-age">{age} years old</span>{/if}
         </p>
@@ -234,6 +248,22 @@
     display: inline-flex;
     align-items: center;
     gap: 0.4em;
+  }
+
+  .hero-location-place--link {
+    text-decoration: none;
+    color: inherit;
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .hero-location-place--link:hover {
+    color: var(--color-accent);
+  }
+
+  .hero-location-place--link:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: var(--radius-sm);
   }
 
   .hero-location :global(svg) {

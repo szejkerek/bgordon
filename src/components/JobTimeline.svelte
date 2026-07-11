@@ -16,6 +16,7 @@
     description: string;
     skills: string[];
     logo?: string;
+    url?: string;
   };
 
   let { workExperience = [], education = [] }: Props = $props();
@@ -28,6 +29,7 @@
       description: job.description,
       skills: job.skills,
       logo: job.logo,
+      url: job.url,
     }))
   );
 
@@ -56,19 +58,35 @@
   </div>
 </section>
 
+{#snippet jobHeaderInner(item: TimelineEntry, fallbackIcon: IconType)}
+  <div class="company-logo">
+    <Media src={item.logo} alt={item.title} fit="cover" fallbackIcon={fallbackIcon} fallbackIconSize={30} />
+  </div>
+
+  <div class="job-info">
+    <h3 class="company-name">{item.title}</h3>
+    <p class="job-role">{item.subtitle}</p>
+  </div>
+{/snippet}
+
 {#snippet timelineItem(item: TimelineEntry, fallbackIcon: IconType)}
   <article class="timeline-item">
     <div class="timeline-content card">
-      <div class="job-header">
-        <div class="company-logo">
-          <Media src={item.logo} alt={item.title} fit="cover" fallbackIcon={fallbackIcon} fallbackIconSize={30} />
+      {#if item.url}
+        <a
+          class="job-header job-header--link"
+          href={item.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="{item.title} website"
+        >
+          {@render jobHeaderInner(item, fallbackIcon)}
+        </a>
+      {:else}
+        <div class="job-header">
+          {@render jobHeaderInner(item, fallbackIcon)}
         </div>
-
-        <div class="job-info">
-          <h3 class="company-name">{item.title}</h3>
-          <p class="job-role">{item.subtitle}</p>
-        </div>
-      </div>
+      {/if}
 
       <div class="job-meta">
         <span class="job-period">{item.period}</span>
@@ -167,6 +185,25 @@
     align-items: center;
     gap: var(--space-5);
     margin-bottom: var(--space-5);
+  }
+
+  .job-header--link {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .job-header--link .company-name {
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .job-header--link:hover .company-name {
+    color: var(--color-accent);
+  }
+
+  .job-header--link:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+    border-radius: var(--radius-sm);
   }
 
   .company-logo {

@@ -28,6 +28,7 @@ export interface HeroData {
   name?: string;
   bio?: string;
   location?: string;
+  locationUrl?: string;
   birthDate?: string;
   photo?: string;
   primaryLink?: PrimaryLink;
@@ -50,6 +51,7 @@ export interface WorkExperience {
   description: string;
   skills: string[];
   logo?: string;
+  url?: string;
 }
 
 export interface Education {
