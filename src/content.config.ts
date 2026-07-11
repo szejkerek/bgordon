@@ -25,7 +25,6 @@ const achievementsCollection = defineCollection({
     description: z.string(),
     type: z.enum(['winner', 'finalist', 'participant', 'publication', 'organization']),
     url: optUrl,
-    image: z.string().optional(),
     gallery: z.array(z.string()).optional().default([]),
     project: reference('projects').optional(),
     rank: z.string().optional(),

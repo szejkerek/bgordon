@@ -5,7 +5,6 @@ date: "2023-11"
 description: "Won 3rd place at the BEST IT Festival game jam with Electro Exile, a game about a battery managing its stored electricity."
 type: "winner"
 url: "https://best.gliwice.pl"
-image: "/images/achievements/best-it.png"
 project: "electro-exile"
 rank: "3rd Place"
 ---

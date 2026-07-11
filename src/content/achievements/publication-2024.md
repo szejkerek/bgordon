@@ -5,7 +5,6 @@ date: "2024-01"
 description: "Co-authored research paper on rehabilitation of cognitive functions using depth sensors, published in Innovations in Biomedical Engineering journal."
 type: "publication"
 url: "https://doi.org/10.1007/978-3-031-52382-3_5"
-image: "/images/achievements/publication.png"
 rank: "DOI: 10.1007/978-3-031-52382-3_5"
 ---
 

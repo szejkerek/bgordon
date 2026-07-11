@@ -5,7 +5,6 @@ date: "2020-10"
 description: "Long-term member of university club focused on computer graphics and game development at Silesian University of Technology."
 type: "organization"
 url: "https://gvg.polsl.pl"
-image: "/images/achievements/gvg-club.png"
 rank: "Since October 2020"
 participants: "50+"
 ---
