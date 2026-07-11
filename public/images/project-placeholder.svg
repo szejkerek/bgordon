@@ -1,15 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" width="640" height="360" role="img" aria-label="No thumbnail">
   <defs>
     <pattern id="grid" width="32" height="32" patternUnits="userSpaceOnUse">
-      <path d="M32 0H0V32" fill="none" stroke="#6ee7b7" stroke-width="1" stroke-opacity="0.045"/>
+      <path d="M32 0H0V32" fill="none" stroke="#6ee7b7" stroke-width="1" stroke-opacity="0.03"/>
     </pattern>
-    <filter id="glow" x="-60%" y="-60%" width="220%" height="220%">
-      <feGaussianBlur stdDeviation="5" result="b"/>
-      <feMerge>
-        <feMergeNode in="b"/>
-        <feMergeNode in="SourceGraphic"/>
-      </feMerge>
-    </filter>
   </defs>
 
   <rect width="640" height="360" fill="#141414"/>
@@ -17,8 +10,8 @@
 
   <!-- centered code glyph (lucide code-xml), scaled 24u -> 128px, centered -->
   <g transform="translate(256 116) scale(5.333)"
-     fill="none" stroke="#6ee7b7" stroke-width="1.7"
-     stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)">
+     fill="none" stroke="#6ee7b7" stroke-width="1.7" stroke-opacity="0.38"
+     stroke-linecap="round" stroke-linejoin="round">
     <path d="m18 16 4-4-4-4"/>
     <path d="m6 8-4 4 4 4"/>
     <path d="m14.5 4-5 16"/>
