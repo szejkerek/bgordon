@@ -58,11 +58,7 @@
     grid-template-columns: repeat(2, 1fr);
     gap: var(--space-5);
   }
-  
-  .gallery-grid[data-columns="3"] {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  
+
   @media (min-width: 900px) {
     .gallery-grid[data-columns="3"] {
       grid-template-columns: repeat(3, 1fr);
@@ -89,11 +85,6 @@
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
   }
 
-  .gallery-item:focus-visible {
-    outline: 2px solid var(--color-accent);
-    outline-offset: 2px;
-  }
-  
   .zoom-indicator {
     position: absolute;
     inset: 0;

@@ -56,23 +56,21 @@
       <p class="hero-bio">{data.bio}</p>
 
       <nav class="hero-links" aria-label="Primary links">
-        <div class="hero-social-links">
-          {#each data.socialLinks as link (link.url)}
-            {@const isExternal = isExternalLink(link.url)}
-            {@const isDownload = isDownloadLink(link)}
-            <a
-              href={link.url}
-              class="hero-link"
-              target={isExternal ? "_blank" : undefined}
-              rel={isExternal ? "noopener noreferrer" : undefined}
-              download={isDownload ? "" : undefined}
-              aria-label={link.text}
-            >
-              <Icon name={link.type} size={16} />
-              <span>{link.text}</span>
-            </a>
-          {/each}
-        </div>
+        {#each data.socialLinks as link (link.url)}
+          {@const isExternal = isExternalLink(link.url)}
+          {@const isDownload = isDownloadLink(link)}
+          <a
+            href={link.url}
+            class="hero-link"
+            target={isExternal ? "_blank" : undefined}
+            rel={isExternal ? "noopener noreferrer" : undefined}
+            download={isDownload ? "" : undefined}
+            aria-label={link.text}
+          >
+            <Icon name={link.type} size={16} />
+            <span>{link.text}</span>
+          </a>
+        {/each}
       </nav>
     </div>
 
@@ -180,12 +178,6 @@
     gap: var(--space-5);
   }
 
-  .hero-social-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-5);
-  }
-
   .hero-link {
     display: inline-flex;
     align-items: center;
@@ -197,24 +189,22 @@
     border-radius: var(--radius-md);
     border: 1px solid var(--color-border-light);
     background: rgba(255, 255, 255, 0.03);
-    transform: translate3d(0, 0, 0);
-    transition: 
+    transition:
       transform var(--duration-normal) var(--ease-spring),
       box-shadow var(--duration-normal) var(--ease-spring),
       border-color var(--duration-normal) var(--ease-spring),
       background var(--duration-normal) var(--ease-spring);
-    will-change: transform;
   }
 
   .hero-link:hover {
-    transform: translate3d(0, -3px, 0);
+    transform: translateY(-3px);
     border-color: var(--color-border-subtle);
     box-shadow: 0 18px 48px rgba(0, 0, 0, 0.22);
     background: rgba(255, 255, 255, 0.05);
   }
 
   .hero-link:active {
-    transform: translate3d(0, -1px, 0);
+    transform: translateY(-1px);
     box-shadow: 0 10px 26px rgba(0, 0, 0, 0.18);
   }
 
@@ -259,7 +249,7 @@
     justify-content: center;
     width: 40px;
     height: 40px;
-    border-radius: var(--radius-full, 999px);
+    border-radius: var(--radius-full);
     border: 1px solid var(--color-border-light);
     background: rgba(255, 255, 255, 0.03);
     animation: scroll-bounce 2s var(--ease-out) infinite;
@@ -310,12 +300,11 @@
     background: var(--color-bg-card);
     position: relative;
     z-index: 1;
-    transform: translate3d(0, 0, 0);
     transition: transform var(--duration-slower) var(--ease-spring);
   }
 
   .photo-wrapper:hover .photo-frame {
-    transform: translate3d(0, -4px, 0);
+    transform: translateY(-4px);
   }
 
   @media (max-width: 900px) {
@@ -341,10 +330,6 @@
     }
 
     .hero-links {
-      justify-content: center;
-    }
-
-    .hero-social-links {
       justify-content: center;
     }
 

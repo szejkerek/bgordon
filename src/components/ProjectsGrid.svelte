@@ -69,7 +69,7 @@
     color: var(--color-text-secondary);
     background: var(--color-bg-card);
     border: 1px solid var(--color-border-subtle);
-    border-radius: var(--radius-full, 999px);
+    border-radius: var(--radius-full);
     padding: var(--space-2) var(--space-5);
     cursor: pointer;
     transition:
@@ -83,13 +83,8 @@
     border-color: var(--color-border-light);
   }
 
-  .filter-btn:focus-visible {
-    outline: 2px solid var(--color-accent);
-    outline-offset: 2px;
-  }
-
   .filter-btn.active {
-    color: var(--color-bg);
+    color: var(--color-bg-primary);
     background: var(--color-accent);
     border-color: var(--color-accent);
   }

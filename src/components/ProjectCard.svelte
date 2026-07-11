@@ -85,11 +85,6 @@
 		text-decoration: none;
 	}
 
-	.card-overlay-link:focus-visible {
-		outline: 2px solid var(--color-accent);
-		outline-offset: 2px;
-	}
-
   .card-image {
     position: relative;
     flex-shrink: 0;

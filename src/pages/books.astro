@@ -66,10 +66,9 @@ const wantToRead = allBooks.filter(b => b.data.status === 'want-to-read');
     min-height: 100vh;
   }
 
+  /* narrower than the global .container default */
   .container {
     max-width: var(--container-max-width-article);
-    margin: 0 auto;
-    padding: 0 var(--container-padding);
   }
 
   .page-header {
@@ -103,7 +102,7 @@ const wantToRead = allBooks.filter(b => b.data.status === 'want-to-read');
 
   .wishlist-btn:hover {
     background: var(--color-accent);
-    color: var(--color-bg);
+    color: var(--color-bg-primary);
   }
 
   .book-group {
@@ -127,10 +126,6 @@ const wantToRead = allBooks.filter(b => b.data.status === 'want-to-read');
   @media (max-width: 768px) {
     .books-page {
       padding: 6rem 0 3rem;
-    }
-
-    .container {
-      padding: 0 var(--container-padding-mobile);
     }
   }
 </style>
