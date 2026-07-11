@@ -2,8 +2,11 @@
 import DetailLayout from '../../layouts/DetailLayout.astro';
 import { render } from 'astro:content';
 import ActionButton from '../../components/ActionButton.astro';
+import Icon from '../../components/Icon.svelte';
 import { ROUTES } from '../../utils/routes';
 import { publishedAchievements } from '../../utils/content';
+import { getAchievementGallery } from '../../utils/achievementImages';
+import { resolveMediaPath } from '../../utils/media';
 import { formatDate } from '../../utils/dates';
 
 export async function getStaticPaths() {
@@ -17,119 +20,223 @@ export async function getStaticPaths() {
 
 const { achievement } = Astro.props;
 const { Content } = await render(achievement);
+
+// Gallery: folder images (public/images/achievements/<slug>/) take precedence;
+// fall back to any frontmatter `gallery` paths.
+const folderGallery = getAchievementGallery(achievement.id);
+const gallery = folderGallery.length ? folderGallery : achievement.data.gallery ?? [];
+
+const TYPE_LABEL: Record<string, string> = {
+  winner: 'Winner',
+  finalist: 'Finalist',
+  participant: 'Participant',
+  publication: 'Publication',
+  organization: 'Organization',
+  education: 'Education',
+};
+const typeLabel = TYPE_LABEL[achievement.data.type] ?? achievement.data.type;
+const logo = achievement.data.image ? resolveMediaPath(achievement.data.image) : undefined;
 ---
 
 <DetailLayout
   title={`${achievement.data.title} — Bartłomiej Gordon`}
   description={achievement.data.description}
-  image={achievement.data.gallery?.[0]}
+  image={gallery[0] ?? logo}
   backHref={ROUTES.achievements}
   backLabel="Back to Achievements"
   containerWidth="article"
-  galleryItems={achievement.data.gallery}
+  galleryItems={gallery}
   galleryTitle={achievement.data.title}
 >
-  <header class="achievement-header" slot="header">
-    <div class="meta">
-      <span class="type">{achievement.data.type}</span>
-      <span class="dot" aria-hidden="true"></span>
-      <span class="date">{formatDate(achievement.data.date)}</span>
-      {achievement.data.rank && (
-        <>
-          <span class="dot" aria-hidden="true"></span>
-          <span class="rank">{achievement.data.rank}</span>
-        </>
-      )}
-      {achievement.data.participants && (
-        <>
-          <span class="dot" aria-hidden="true"></span>
-          <span>{achievement.data.participants} participants</span>
-        </>
-      )}
+  <header class="ach-header" slot="header">
+    <div class="emblem" aria-hidden="true">
+      {logo
+        ? <img src={logo} alt="" />
+        : <Icon name="award" size={72} strokeWidth={1.25} />}
     </div>
 
-    <h1>{achievement.data.title}</h1>
-    <p class="event">{achievement.data.event}</p>
-    <p class="description">{achievement.data.description}</p>
-
-    {(achievement.data.url || achievement.data.project) && (
-      <div class="actions">
-        {achievement.data.url && (
-          <ActionButton href={achievement.data.url} label="Open Link" icon="external" primary external />
-        )}
-        {achievement.data.project && (
-          <ActionButton href={`/projects/${achievement.data.project.id}`} label="View Project" icon="play" />
-        )}
+    <div class="lead">
+      <div class="tags">
+        <span class="type-pill">
+          <Icon name="award" size={13} strokeWidth={2} />
+          <span>{typeLabel}</span>
+        </span>
+        <span class="date">{formatDate(achievement.data.date)}</span>
       </div>
-    )}
+
+      <h1>{achievement.data.title}</h1>
+      <p class="event">{achievement.data.event}</p>
+
+      {(achievement.data.rank || achievement.data.participants) && (
+        <div class="facts">
+          {achievement.data.rank && (
+            <span class="fact fact--rank">{achievement.data.rank}</span>
+          )}
+          {achievement.data.participants && (
+            <span class="fact">
+              <Icon name="team" size={13} />
+              {achievement.data.participants} participants
+            </span>
+          )}
+        </div>
+      )}
+    </div>
   </header>
+
+  <p class="ach-description" slot="header">{achievement.data.description}</p>
+
+  {(achievement.data.url || achievement.data.project) && (
+    <div class="ach-actions" slot="header">
+      {achievement.data.url && (
+        <ActionButton href={achievement.data.url} label="Open Link" icon="external" primary external />
+      )}
+      {achievement.data.project && (
+        <ActionButton href={`/projects/${achievement.data.project.id}`} label="View Project" icon="play" />
+      )}
+    </div>
+  )}
 
   <Content />
 </DetailLayout>
 
 <style>
-  .achievement-header {
-    margin-bottom: var(--space-9);
-    padding-bottom: var(--space-9);
-    border-bottom: 1px solid var(--color-border-subtle);
-  }
-
-  .meta {
-    display: flex;
-    flex-wrap: wrap;
+  /* Header: event emblem + lead block. */
+  .ach-header {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-8);
     align-items: center;
-    gap: var(--space-3);
-    font-size: var(--font-size-xs);
-    color: var(--color-text-muted);
-    margin-bottom: var(--space-6);
+    margin-bottom: var(--space-7);
   }
 
-  .meta .type {
-    text-transform: uppercase;
-    letter-spacing: var(--letter-spacing-wide);
-    font-weight: var(--font-weight-semibold);
+  .emblem {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 128px;
+    height: 128px;
     color: var(--color-accent);
   }
 
-  .meta .dot {
-    width: 3px;
-    height: 3px;
-    border-radius: var(--radius-full);
-    background: var(--color-text-muted);
+  .emblem img {
+    max-width: 128px;
+    max-height: 128px;
+    width: auto;
+    height: auto;
+    object-fit: contain;
   }
 
-  .meta .rank {
-    color: var(--color-text-secondary);
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-4);
+    margin-bottom: var(--space-4);
+  }
+
+  .type-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 0.28em 0.7em;
+    border-radius: var(--radius-full);
+    background: var(--color-accent-glow);
+    border: 1px solid var(--color-accent);
+    color: var(--color-accent);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+    line-height: 1;
+  }
+
+  .date {
+    font-size: var(--font-size-sm);
+    color: var(--color-text-muted);
+    font-variant-numeric: tabular-nums;
   }
 
   h1 {
     font-family: var(--font-display);
     font-size: var(--font-size-page-title);
     line-height: var(--line-height-tight);
+    letter-spacing: var(--letter-spacing-tight);
     color: var(--color-text-primary);
-    margin-bottom: var(--space-3);
+    margin: 0 0 var(--space-2);
   }
 
   .event {
     font-size: var(--font-size-md);
     color: var(--color-accent);
     font-weight: var(--font-weight-medium);
-    margin-bottom: var(--space-6);
+    margin: 0 0 var(--space-5);
   }
 
-  .description {
+  .facts {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .fact {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 0.3em 0.7em;
+    border-radius: var(--radius-sm);
+    background: var(--color-bg-elevated);
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+  }
+
+  .fact--rank {
+    background: transparent;
+    border: 1px solid var(--color-border-light);
+    color: var(--color-text-primary);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .ach-description {
     font-size: var(--font-size-md);
     color: var(--color-text-secondary);
     line-height: var(--line-height-relaxed);
-    margin-bottom: var(--space-8);
-    max-width: 60ch;
     text-align: justify;
     hyphens: auto;
+    margin: 0 0 var(--space-7);
   }
 
-  .actions {
+  .ach-actions {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-4);
+    margin-bottom: var(--space-9);
+    padding-bottom: var(--space-9);
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  /* The last block before the article body carries the divider: the actions
+     when present, otherwise the description. */
+  .ach-description:not(:has(+ .ach-actions)) {
+    padding-bottom: var(--space-9);
+    border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  @media (max-width: 640px) {
+    .ach-header {
+      grid-template-columns: 1fr;
+      gap: var(--space-6);
+      text-align: left;
+    }
+
+    .emblem {
+      width: 96px;
+      height: 96px;
+    }
+
+    .emblem img {
+      max-width: 96px;
+      max-height: 96px;
+    }
   }
 </style>

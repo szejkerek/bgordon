@@ -175,7 +175,9 @@
     min-height: 100dvh;
     position: relative;
     display: flex;
+    flex-direction: column;
     align-items: center;
+    justify-content: center;
     padding: 8rem 2rem 4rem;
     max-width: var(--container-max-width);
     margin: 0 auto;
@@ -297,7 +299,7 @@
   .hero-stats {
     grid-column: 1 / -1;
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     gap: var(--space-6);
     margin: var(--space-4) 0 0;
     padding: var(--space-8) 0 0;
@@ -351,7 +353,7 @@
   .engine-mark::before {
     content: "";
     position: absolute;
-    inset: 0.02em -0.16em 0.02em;
+    inset: -0.12em -0.26em -0.08em;
     z-index: -1;
     background: var(--color-accent);
     opacity: 0.26;
@@ -430,15 +432,12 @@
   }
 
   .scroll-cue {
-    position: absolute;
-    left: 50%;
-    bottom: 6rem;
-    transform: translateX(-50%);
     z-index: 2;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: var(--space-3);
+    margin-top: var(--space-11);
     text-decoration: none;
     color: var(--color-text-secondary);
     font-size: var(--font-size-sm);

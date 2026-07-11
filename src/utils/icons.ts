@@ -14,6 +14,7 @@ import {
   ZoomIn,
   Image as ImageIcon,
   MapPin,
+  Award,
 } from 'lucide-svelte';
 import GithubIcon from '../components/icons/GithubIcon.svelte';
 import LinkedinIcon from '../components/icons/LinkedinIcon.svelte';
@@ -43,6 +44,7 @@ const iconComponents = {
   'zoom-in': ZoomIn,
   image: ImageIcon,
   location: MapPin,
+  award: Award,
 } satisfies Record<string, unknown>;
 
 export { iconComponents };

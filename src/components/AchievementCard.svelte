@@ -1,5 +1,6 @@
 <script lang="ts">
   import { formatDate } from "../utils/dates";
+  import { resolveMediaPath } from "../utils/media";
   import type { CollectionEntry } from "astro:content";
 
   interface Props {
@@ -8,18 +9,18 @@
 
   let { achievement }: Props = $props();
 
-  const TYPE_LABEL: Record<string, string> = {
-    winner: 'Winner',
-    finalist: 'Finalist',
-    participant: 'Participant',
-    publication: 'Publication',
-    organization: 'Organization',
-    education: 'Education',
-  };
-  const label = $derived(TYPE_LABEL[achievement.data.type] ?? achievement.data.type);
+  const logo = $derived(
+    achievement.data.image ? resolveMediaPath(achievement.data.image) : undefined,
+  );
 </script>
 
 <a class="node" href={`/achievements/${achievement.id}`}>
+  {#if logo}
+    <div class="logo" aria-hidden="true">
+      <img src={logo} alt="" loading="lazy" decoding="async" />
+    </div>
+  {/if}
+
   <div class="rail" aria-hidden="true">
     <span class="dot"></span>
   </div>
@@ -27,7 +28,6 @@
   <div class="body">
     <div class="head">
       <span class="date">{formatDate(achievement.data.date)}</span>
-      <span class="type">{label}</span>
     </div>
     <h3 class="title">{achievement.data.title}</h3>
     <p class="event">{achievement.data.event}{#if achievement.data.rank} · <span class="rank">{achievement.data.rank}</span>{/if}</p>
@@ -36,14 +36,35 @@
 </a>
 
 <style>
+  /* Fixed logo gutter on every card keeps all rails vertically aligned,
+     whether or not a given achievement has a logo. */
   .node {
     display: grid;
-    grid-template-columns: auto 1fr;
-    gap: var(--space-7);
+    grid-template-columns: 140px auto 1fr;
+    gap: var(--space-6);
     text-decoration: none;
   }
 
+  /* Event logo — arbitrary proportions, contained in the gutter box. */
+  .logo {
+    grid-column: 1;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-end;
+  }
+  .logo img {
+    width: 100%;
+    height: auto;
+    max-height: 140px;
+    object-fit: contain;
+    border-radius: var(--radius-sm);
+    opacity: 0.9;
+    transition: opacity var(--duration-fast) var(--ease-out);
+  }
+  .node:hover .logo img { opacity: 1; }
+
   .rail {
+    grid-column: 2;
     position: relative;
     display: flex;
     justify-content: center;
@@ -74,7 +95,7 @@
     box-shadow: 0 0 0 4px var(--color-accent-glow);
   }
 
-  .body { padding-bottom: var(--space-9); }
+  .body { grid-column: 3; padding-bottom: var(--space-9); }
 
   .head {
     display: flex;
@@ -86,13 +107,6 @@
     font-size: var(--font-size-xs);
     color: var(--color-text-secondary);
     font-variant-numeric: tabular-nums;
-  }
-  .type {
-    font-size: var(--font-size-xs);
-    text-transform: uppercase;
-    letter-spacing: var(--letter-spacing-wide);
-    color: var(--color-accent);
-    font-weight: var(--font-weight-semibold);
   }
 
   .title {

@@ -1,11 +1,13 @@
 <script lang="ts">
   import { getCurrentYear } from "../utils/dates";
   import { ROUTES } from "../utils/routes";
+  import type { IconType } from "../utils/icons";
   import Icon from "./Icon.svelte";
 
   interface ConnectLink {
     text: string;
     url: string;
+    type?: IconType;
   }
 
   interface Props {
@@ -28,159 +30,247 @@
 </script>
 
 <footer class="footer">
-  <div class="footer-content">
-    <div class="footer-grid">
-      <div class="footer-contact">
-        <p class="name">Bartłomiej Gordon</p>
-        {#if email}
-          <a
-            href="mailto:{email}"
-            class="brand-email"
-            aria-label="Send email to {email}"
-          >
-            <Icon name="email" size={16} />
-            <span>{email}</span>
-          </a>
-        {/if}
-        {#if connectLinks.length}
-          <nav class="connect-links" aria-label="Social links">
-            {#each connectLinks as link (link.url)}
-              <a
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Visit {link.text} profile"
-              >
-                {link.text}
-              </a>
-            {/each}
-          </nav>
-        {/if}
-      </div>
+  <div class="glow" aria-hidden="true"></div>
+  <div class="inner">
+    <div class="cta">
+      <p class="eyebrow">Get in touch</p>
+      <h2 class="headline">Let's build something together.</h2>
+      {#if email}
+        <a href="mailto:{email}" class="email-btn" aria-label="Send email to {email}">
+          <Icon name="email" size={18} />
+          <span>{email}</span>
+        </a>
+      {/if}
+    </div>
 
-      <nav class="footer-col" aria-label="Site navigation">
-        <h4>Sections</h4>
-        <div class="footer-col-links">
-          {#each navLinks as link (link.href)}
-            <a href={link.href}>{link.label}</a>
-          {/each}
-        </div>
+    <div class="cols">
+      <nav class="col" aria-label="Site navigation">
+        <h4>Explore</h4>
+        {#each navLinks as link (link.href)}
+          <a href={link.href}>{link.label}</a>
+        {/each}
       </nav>
+
+      {#if connectLinks.length}
+        <nav class="col" aria-label="Social links">
+          <h4>Elsewhere</h4>
+          {#each connectLinks as link (link.url)}
+            <a
+              href={link.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Visit {link.text} profile"
+            >
+              {#if link.type}<Icon name={link.type} size={16} />{/if}
+              <span>{link.text}</span>
+            </a>
+          {/each}
+        </nav>
+      {/if}
     </div>
-    
-    <div class="footer-bottom">
-      <p><small>© {startYear} — {currentYear} Bartłomiej Gordon</small></p>
-      <p><small>Gliwice / Katowice, Poland</small></p>
-    </div>
+  </div>
+
+  <div class="bottom">
+    <p class="name-line">
+      <span class="name">Bartłomiej Gordon</span>
+      <small>© {startYear}—{currentYear}</small>
+    </p>
+    <p class="loc">
+      <Icon name="location" size={14} />
+      <span>Katowice/Gliwice, Poland</span>
+    </p>
   </div>
 </footer>
 
 <style>
   .footer {
+    position: relative;
+    overflow: hidden;
     background: var(--color-bg-secondary);
     border-top: 1px solid var(--color-border-subtle);
-    padding: var(--space-12) var(--container-padding) var(--space-9);
+    padding: var(--space-12) var(--container-padding) var(--space-8);
   }
-  
-  .footer-content {
+
+  /* Soft accent glow bleeding up from the bottom-left. */
+  .glow {
+    position: absolute;
+    left: -8%;
+    bottom: -60%;
+    width: 60%;
+    height: 140%;
+    background: radial-gradient(
+      ellipse at center,
+      var(--color-accent-glow) 0%,
+      transparent 65%
+    );
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .inner {
+    position: relative;
     max-width: var(--container-max-width);
     margin: 0 auto;
-  }
-  
-  .footer-grid {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    gap: var(--space-9) var(--space-11);
-    margin-bottom: var(--space-11);
-    padding-bottom: var(--space-9);
-    border-bottom: 1px solid var(--color-border-subtle);
+    gap: var(--space-11) var(--space-12);
+    padding-bottom: var(--space-10);
   }
 
-  .footer-contact .name {
-    font-family: var(--font-display);
-    font-size: var(--font-size-xl);
-    font-weight: var(--font-weight-semibold);
-    color: var(--color-text-primary);
+  /* CTA block */
+  .cta {
+    max-width: 30rem;
+  }
+
+  .eyebrow {
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--color-accent);
     margin-bottom: var(--space-3);
   }
 
-  .brand-email {
+  .headline {
+    font-family: var(--font-display);
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-semibold);
+    line-height: var(--line-height-tight);
+    letter-spacing: var(--letter-spacing-tight);
+    color: var(--color-text-primary);
+    margin: 0 0 var(--space-7);
+  }
+
+  .email-btn {
     display: inline-flex;
     align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-3) var(--space-6);
+    gap: var(--space-3);
+    padding: var(--space-4) var(--space-7);
     background: var(--color-accent);
     border-radius: var(--radius-md);
     color: var(--color-bg-primary);
     font-size: var(--font-size-base);
     font-weight: var(--font-weight-semibold);
     text-decoration: none;
-    transition: background var(--duration-fast) var(--ease-out);
+    transition:
+      transform var(--duration-normal) var(--ease-spring),
+      box-shadow var(--duration-normal) var(--ease-spring),
+      background var(--duration-fast) var(--ease-out);
   }
 
-  .brand-email:hover {
+  .email-btn:hover {
     background: var(--color-accent-dim);
+    transform: translateY(-2px);
+    box-shadow: 0 14px 40px var(--color-accent-glow);
   }
 
-  .connect-links {
+  .email-btn:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+
+  /* Link columns */
+  .cols {
     display: flex;
     flex-wrap: wrap;
-    gap: var(--space-6);
-    margin-top: var(--space-6);
+    gap: var(--space-11);
   }
 
-  .connect-links a {
-    color: var(--color-text-secondary);
-    text-decoration: none;
-    font-size: var(--font-size-base);
-    transition: color var(--duration-normal) var(--ease-out);
+  .col {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-4);
   }
 
-  .connect-links a:hover {
-    color: var(--color-accent);
-  }
-  
-  .footer-col h4 {
+  .col h4 {
     font-family: var(--font-body);
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-semibold);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-bold);
     text-transform: uppercase;
     letter-spacing: var(--letter-spacing-wider);
-    color: var(--color-text-primary);
-    margin-bottom: var(--space-6);
-  }
-  
-  .footer-col-links {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-4) var(--space-7);
+    color: var(--color-text-muted);
+    margin: 0 0 var(--space-2);
   }
 
-  .footer-col a {
+  .col a {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-3);
     color: var(--color-text-secondary);
     text-decoration: none;
     font-size: var(--font-size-base);
-    transition: color var(--duration-normal) var(--ease-out);
+    width: fit-content;
+    transition:
+      color var(--duration-normal) var(--ease-out),
+      transform var(--duration-normal) var(--ease-out);
   }
 
-  .footer-col a:hover {
+  .col a:hover {
     color: var(--color-accent);
+    transform: translateX(3px);
   }
-  
-  .footer-bottom {
+
+  /* Bottom bar */
+  .bottom {
+    position: relative;
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding-top: var(--space-7);
+    border-top: 1px solid var(--color-border-subtle);
     display: flex;
     justify-content: space-between;
     align-items: center;
-    font-size: var(--font-size-sm);
+    gap: var(--space-4);
+    flex-wrap: wrap;
     color: var(--color-text-muted);
   }
-  
+
+  .name-line {
+    display: inline-flex;
+    align-items: baseline;
+    gap: var(--space-4);
+  }
+
+  .name-line .name {
+    font-family: var(--font-display);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-secondary);
+  }
+
+  .name-line small {
+    font-size: var(--font-size-sm);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .loc {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: var(--font-size-sm);
+  }
+
+  .loc :global(svg) {
+    color: var(--color-accent);
+    opacity: 0.8;
+  }
+
   @media (max-width: 600px) {
-    .footer-bottom {
+    .bottom {
       flex-direction: column;
-      gap: var(--space-3);
-      text-align: center;
+      align-items: flex-start;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .email-btn,
+    .col a {
+      transition: color var(--duration-fast) var(--ease-out);
+    }
+    .email-btn:hover,
+    .col a:hover {
+      transform: none;
     }
   }
 </style>

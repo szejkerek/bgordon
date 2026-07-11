@@ -27,6 +27,7 @@ const projectItems = sortedProjects.map((project) => ({
 
 // Hero stats — all derived from content/dates, never hand-maintained.
 const now = new Date();
+const projectsCount = sortedProjects.length;
 const gamesShipped = sortedProjects.filter((project) =>
   project.data.tags?.some((tag) => tag.toLowerCase() === 'game'),
 ).length;
@@ -47,6 +48,7 @@ if (heroData.birthDate) {
 const heroStats: HeroStat[] = [
   { label: 'Work Experience', value: formatDuration(proMonths) },
   { label: 'Coding', value: `${codingYears} ${codingYears === 1 ? 'year' : 'years'}` },
+  { label: 'Projects', value: `${projectsCount}` },
   { label: 'Games', value: `${gamesShipped} shipped` },
   { label: 'Game Jam Podiums', value: `${jamPodiums} ${jamPodiums === 1 ? 'win' : 'wins'}` },
 ];
@@ -63,7 +65,7 @@ const heroStats: HeroStat[] = [
   />
   
   <!-- Achievements Section -->
-  <Section id={SECTION_IDS.achievements} title="Achievements" alt narrow>
+  <Section id={SECTION_IDS.achievements} title="Achievements" alt>
     <div class="achievements-list">
       {sortedAchievements.map((achievement) => (
         <AchievementCard achievement={achievement} />

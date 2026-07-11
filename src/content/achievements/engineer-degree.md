@@ -5,6 +5,7 @@ date: "2024-02"
 description: "Earned the Engineer's degree (inż.) in Computer Science, specializing in software engineering, algorithms, databases, and collaborative development projects."
 type: "education"
 rank: "inż."
+image: "/images/achievements/inz.png"
 ---
 
 ## Engineer's Degree
