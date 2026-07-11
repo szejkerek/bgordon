@@ -8,6 +8,8 @@ import Section from '../components/Section.astro';
 import { published, publishedAchievements } from '../utils/content';
 import { SECTION_IDS } from '../utils/routes';
 import { getThumbnail, PLACEHOLDER_IMAGE } from '../utils/projectImages';
+import { programmingYears, professionalMonths, formatDuration } from '../utils/stats';
+import type { HeroStat } from '../types';
 
 // Load site content from JSON files
 import heroData from '../content/site/hero.json';
@@ -22,11 +24,31 @@ const projectItems = sortedProjects.map((project) => ({
   project,
   thumbnailSrc: getThumbnail(project.id) ?? PLACEHOLDER_IMAGE,
 }));
+
+// Hero stats — all derived from content/dates, never hand-maintained.
+const now = new Date();
+const gamesShipped = sortedProjects.filter((project) =>
+  project.data.tags?.some((tag) => tag.toLowerCase() === 'game'),
+).length;
+const jamPodiums = sortedAchievements.filter(
+  (achievement) =>
+    achievement.data.type === 'winner' || achievement.data.type === 'finalist',
+).length;
+
+const codingYears = programmingYears(now);
+const proMonths = professionalMonths(workExperience.map((job) => job.period), now);
+
+const heroStats: HeroStat[] = [
+  { label: 'Work Experience', value: formatDuration(proMonths) },
+  { label: 'Coding', value: `${codingYears} ${codingYears === 1 ? 'year' : 'years'}` },
+  { label: 'Games', value: `${gamesShipped} shipped` },
+  { label: 'Game Jam Podiums', value: `${jamPodiums} ${jamPodiums === 1 ? 'win' : 'wins'}` },
+];
 ---
 
 <Layout title="Bartłomiej Gordon — Unity Developer">
   <!-- Hero Section -->
-  <Hero heroData={heroData} client:load />
+  <Hero heroData={heroData} stats={heroStats} client:load />
   
   <!-- Job Timeline Section -->
   <JobTimeline

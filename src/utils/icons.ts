@@ -13,14 +13,21 @@ import {
   ChevronDown,
   ZoomIn,
   Image as ImageIcon,
+  MapPin,
 } from 'lucide-svelte';
 import GithubIcon from '../components/icons/GithubIcon.svelte';
 import LinkedinIcon from '../components/icons/LinkedinIcon.svelte';
+import ItchIcon from '../components/icons/ItchIcon.svelte';
+import UnityIcon from '../components/icons/UnityIcon.svelte';
+import UnrealIcon from '../components/icons/UnrealIcon.svelte';
 
 const iconComponents = {
   email: Mail,
   github: GithubIcon,
   linkedin: LinkedinIcon,
+  itch: ItchIcon,
+  unity: UnityIcon,
+  unreal: UnrealIcon,
   book: Book,
   users: Users,
   play: Play,
@@ -35,6 +42,7 @@ const iconComponents = {
   'chevron-down': ChevronDown,
   'zoom-in': ZoomIn,
   image: ImageIcon,
+  location: MapPin,
 } satisfies Record<string, unknown>;
 
 export { iconComponents };

@@ -27,9 +27,15 @@ export interface HeroData {
   label?: string;
   name?: string;
   bio?: string;
+  location?: string;
   photo?: string;
   primaryLink?: PrimaryLink;
   socialLinks?: SocialLink[];
+}
+
+export interface HeroStat {
+  value: string;
+  label: string;
 }
 
 // ============================================
