@@ -36,16 +36,20 @@ describe('sortByDateDesc', () => {
     expect(sorted.map((b) => b.title)).toEqual(['finished', 'started-only']);
   });
 
-  it('does not crash or reorder when a date is missing or unparseable', () => {
+  it('sorts items with a missing or unparseable date after dated ones', () => {
     const items = [
-      { id: 'good', when: '2025-05' },
       { id: 'missing', when: undefined },
+      { id: 'good', when: '2025-05' },
       { id: 'garbage', when: 'not-a-date' },
     ];
 
     const sorted = sortByDateDesc(items, (i) => i.when);
 
     expect(sorted).toHaveLength(3);
+    expect(sorted[0].id).toBe('good');
+    expect(sorted.slice(1).map((i) => i.id)).toEqual(
+      expect.arrayContaining(['missing', 'garbage']),
+    );
   });
 
   it('returns a new array without mutating the input', () => {

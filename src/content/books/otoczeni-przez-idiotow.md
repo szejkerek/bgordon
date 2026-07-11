@@ -1,8 +1,9 @@
 ---
 title: "Otoczeni przez idiotów"
 author: "Thomas Erikson"
-status: "reading"
+status: "finished"
+startDate: "2026-04"
+finishDate: "2026-06"
 image: "/images/books/otoczeni-przez-idiotow.png"
-thoughts: "Typologia osobowości DISC w przystępnej formie. Pomaga zrozumieć, dlaczego ludzie reagują inaczej na te same sytuacje."
 draft: false
 ---

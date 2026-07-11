@@ -1,6 +1,7 @@
 ---
 title: "Deep Work"
 author: "Cal Newport"
-status: "want-to-read"
+status: "reading"
+image: "/images/books/deep-work.png"
 draft: false
 ---
