@@ -260,6 +260,8 @@
     line-height: var(--line-height-relaxed);
     color: var(--color-text-secondary);
     margin-bottom: var(--space-9);
+    text-align: justify;
+    hyphens: auto;
   }
 
   .hero-stats {
