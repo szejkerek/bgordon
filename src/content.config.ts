@@ -23,7 +23,7 @@ const achievementsCollection = defineCollection({
     event: z.string(),
     date: monthDate,
     description: z.string(),
-    type: z.enum(['winner', 'finalist', 'participant', 'publication', 'organization']),
+    type: z.enum(['winner', 'finalist', 'participant', 'publication', 'organization', 'education']),
     url: optUrl,
     gallery: z.array(z.string()).optional().default([]),
     project: reference('projects').optional(),

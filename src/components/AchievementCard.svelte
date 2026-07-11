@@ -14,6 +14,7 @@
     participant: 'Participant',
     publication: 'Publication',
     organization: 'Organization',
+    education: 'Education',
   };
   const label = $derived(TYPE_LABEL[achievement.data.type] ?? achievement.data.type);
 </script>
