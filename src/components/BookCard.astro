@@ -1,14 +1,15 @@
 ---
-import type { CollectionEntry } from 'astro:content';
 import Media from './Media.svelte';
 import { formatDate } from '../utils/dates';
+import type { PublishedBook } from '../utils/content';
 
 interface Props {
-  book: CollectionEntry<'books'>;
+  book: PublishedBook;
 }
 
 const { book } = Astro.props;
-const { title, author, status, startDate, finishDate, image, thoughts } = book.data;
+const { status } = book;
+const { title, author, startDate, finishDate, image, thoughts } = book.data;
 ---
 
 {status === 'want-to-read' ? (

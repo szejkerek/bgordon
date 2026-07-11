@@ -2,18 +2,18 @@
 import Layout from '../layouts/Layout.astro';
 import BookCard from '../components/BookCard.astro';
 import { sortByDateDesc } from '../utils/dates';
-import { published } from '../utils/content';
+import { publishedBooks } from '../utils/content';
 
-const allBooks = await published('books');
+const allBooks = await publishedBooks();
 
-const reading = allBooks.filter(b => b.data.status === 'reading');
+const reading = allBooks.filter(b => b.status === 'reading');
 
 const finished = sortByDateDesc(
-  allBooks.filter(b => b.data.status === 'finished'),
+  allBooks.filter(b => b.status === 'finished'),
   b => b.data.finishDate ?? b.data.startDate
 );
 
-const wantToRead = allBooks.filter(b => b.data.status === 'want-to-read');
+const wantToRead = allBooks.filter(b => b.status === 'want-to-read');
 ---
 
 <Layout

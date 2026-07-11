@@ -3,6 +3,22 @@ import { sortByDateDesc } from './dates';
 
 type PublishableEntry = { data: { date?: string; draft?: boolean } };
 
+/**
+ * A book's reading status is derived from the folder it lives in — not from
+ * frontmatter — so moving a file between folders is the only edit needed to
+ * change its status.
+ */
+export type BookStatus = 'reading' | 'finished' | 'want-to-read';
+
+// Keyed by the lowercased folder name — Astro's glob loader lowercases entry ids.
+const BOOK_FOLDER_STATUS: Record<string, BookStatus> = {
+  reading: 'reading',
+  finished: 'finished',
+  wantstoread: 'want-to-read',
+};
+
+export type PublishedBook = CollectionEntry<'books'> & { status: BookStatus };
+
 export function selectPublished<T extends PublishableEntry>(entries: T[]): T[] {
   const live = entries.filter((entry) => !entry.data.draft);
   return sortByDateDesc(live, (entry) => entry.data.date);
@@ -10,6 +26,27 @@ export function selectPublished<T extends PublishableEntry>(entries: T[]): T[] {
 
 export async function published<C extends CollectionKey>(name: C): Promise<CollectionEntry<C>[]> {
   return selectPublished(await getCollection(name));
+}
+
+/**
+ * Published books, each tagged with the status derived from its folder
+ * (`Reading/`, `Finished/`, `WantsToRead/`). Throws at build if a book sits
+ * outside a known status folder.
+ */
+export async function publishedBooks(): Promise<PublishedBook[]> {
+  const books = await getCollection('books');
+  return books
+    .filter((book) => !book.data.draft)
+    .map((book) => {
+      const folder = book.id.split('/')[0].toLowerCase();
+      const status = BOOK_FOLDER_STATUS[folder];
+      if (!status) {
+        throw new Error(
+          `Book "${book.id}" is not in a status folder. Move it into one of: Reading, Finished, WantsToRead`
+        );
+      }
+      return Object.assign(book, { status });
+    });
 }
 
 /**

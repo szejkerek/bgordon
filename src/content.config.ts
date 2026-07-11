@@ -38,7 +38,6 @@ const booksCollection = defineCollection({
   schema: z.object({
     title: z.string(),
     author: z.string(),
-    status: z.enum(['reading', 'finished', 'want-to-read']),
     startDate: monthDate.optional(),
     finishDate: monthDate.optional(),
     image: z.string().optional(),
