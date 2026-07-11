@@ -7,7 +7,7 @@ import AchievementCard from '../components/AchievementCard.svelte';
 import Section from '../components/Section.astro';
 import { published, publishedAchievements } from '../utils/content';
 import { SECTION_IDS } from '../utils/routes';
-import { getThumbnail } from '../utils/projectImages';
+import { getThumbnail, PLACEHOLDER_IMAGE } from '../utils/projectImages';
 
 // Load site content from JSON files
 import heroData from '../content/site/hero.json';
@@ -20,7 +20,7 @@ const sortedAchievements = await publishedAchievements();
 
 const projectItems = sortedProjects.map((project) => ({
   project,
-  thumbnailSrc: getThumbnail(project.id),
+  thumbnailSrc: getThumbnail(project.id) ?? PLACEHOLDER_IMAGE,
 }));
 ---
 

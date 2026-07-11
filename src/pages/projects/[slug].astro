@@ -37,7 +37,7 @@ const teamLabel = project.data.teamSize === 1 ? 'person' : 'people';
   galleryItems={galleryImages}
   galleryTitle={project.data.title}
 >
-  <header class="project-header" slot="header">
+  <header class:list={['project-header', { 'project-header--no-image': !hasImage }]} slot="header">
     {hasImage && (
       <div class="project-image">
         <ClickableImage
@@ -62,6 +62,17 @@ const teamLabel = project.data.teamSize === 1 ? 'person' : 'people';
       <h1>{project.data.title}</h1>
       <p class="description">{project.data.description}</p>
 
+      {(project.data.playUrl || project.data.sourceUrl) && (
+        <div class="actions">
+          {project.data.playUrl && (
+            <ActionButton href={project.data.playUrl} label="Run" icon="play" primary external />
+          )}
+          {project.data.sourceUrl && (
+            <ActionButton href={project.data.sourceUrl} label="Source Code" icon="github" external />
+          )}
+        </div>
+      )}
+
       {tags.length > 0 && (
         <div class="tags">
           {tags.map((tag) => (
@@ -69,15 +80,6 @@ const teamLabel = project.data.teamSize === 1 ? 'person' : 'people';
           ))}
         </div>
       )}
-
-      <div class="actions">
-        {project.data.playUrl && (
-          <ActionButton href={project.data.playUrl} label="Run" icon="play" primary external />
-        )}
-        {project.data.sourceUrl && (
-          <ActionButton href={project.data.sourceUrl} label="Source Code" icon="github" external />
-        )}
-      </div>
     </div>
   </header>
 
@@ -92,6 +94,14 @@ const teamLabel = project.data.teamSize === 1 ? 'person' : 'people';
     margin-bottom: var(--space-11);
     padding-bottom: var(--space-10);
     border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  .project-header--no-image {
+    grid-template-columns: 1fr;
+  }
+
+  .project-header--no-image .description {
+    max-width: 60ch;
   }
 
   .project-image {
@@ -122,11 +132,18 @@ const teamLabel = project.data.teamSize === 1 ? 'person' : 'people';
     margin-bottom: var(--space-7);
   }
 
+  .actions {
+    margin-bottom: var(--space-7);
+  }
+
+  .actions:last-child {
+    margin-bottom: 0;
+  }
+
   .tags {
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-2);
-    margin-bottom: var(--space-8);
   }
 
   @media (max-width: 768px) {
