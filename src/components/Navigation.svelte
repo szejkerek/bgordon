@@ -73,7 +73,7 @@
           aria-label="Download CV as PDF"
         >
           <Icon name="download" size={14} />
-          <span>Download CV</span>
+          <span>CV</span>
         </a>
       </li>
     </ul>
@@ -180,7 +180,7 @@
     transform: rotate(-45deg) translate(3px, -3px);
   }
   
-  @media (max-width: 768px) {
+  @media (max-width: 900px) {
     .menu-toggle {
       display: flex;
     }
