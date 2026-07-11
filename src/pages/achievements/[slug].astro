@@ -33,48 +33,82 @@ const hasImage = !!achievement.data.image;
   galleryTitle={achievement.data.title}
 >
   <header class="achievement-header" slot="header">
-    <p class="meta">
-      <span class="meta-type">{achievement.data.type}</span> · {formatDate(achievement.data.date)}
-    </p>
+    <div class="meta">
+      <span class="type">{achievement.data.type}</span>
+      <span class="dot" aria-hidden="true"></span>
+      <span class="date">{formatDate(achievement.data.date)}</span>
+      {achievement.data.rank && (
+        <>
+          <span class="dot" aria-hidden="true"></span>
+          <span class="rank">{achievement.data.rank}</span>
+        </>
+      )}
+      {achievement.data.participants && (
+        <>
+          <span class="dot" aria-hidden="true"></span>
+          <span>{achievement.data.participants} participants</span>
+        </>
+      )}
+    </div>
 
     <h1>{achievement.data.title}</h1>
     <p class="event">{achievement.data.event}</p>
     <p class="description">{achievement.data.description}</p>
 
-    <div class="actions">
-      {achievement.data.url && (
-        <ActionButton href={achievement.data.url} label="Open Link" icon="external" primary external />
-      )}
-      {achievement.data.project && (
-        <ActionButton href={`/projects/${achievement.data.project.id}`} label="View Project" icon="play" />
-      )}
-    </div>
-
-    {hasImage && (
-      <div class="featured-image">
-        <ClickableImage src={achievement.data.image} alt={achievement.data.title} client:load />
+    {(achievement.data.url || achievement.data.project) && (
+      <div class="actions">
+        {achievement.data.url && (
+          <ActionButton href={achievement.data.url} label="Open Link" icon="external" primary external />
+        )}
+        {achievement.data.project && (
+          <ActionButton href={`/projects/${achievement.data.project.id}`} label="View Project" icon="play" />
+        )}
       </div>
     )}
   </header>
+
+  {hasImage && (
+    <div class="featured-image" slot="header">
+      <ClickableImage src={achievement.data.image} alt={achievement.data.title} client:load />
+    </div>
+  )}
 
   <Content />
 </DetailLayout>
 
 <style>
   .achievement-header {
-    margin-bottom: var(--space-11);
-    padding-bottom: var(--space-10);
+    margin-bottom: var(--space-9);
+    padding-bottom: var(--space-9);
     border-bottom: 1px solid var(--color-border-subtle);
   }
 
   .meta {
-    font-size: var(--font-size-sm);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: var(--font-size-xs);
     color: var(--color-text-muted);
     margin-bottom: var(--space-6);
   }
 
-  .meta-type {
-    text-transform: capitalize;
+  .meta .type {
+    text-transform: uppercase;
+    letter-spacing: var(--letter-spacing-wide);
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-accent);
+  }
+
+  .meta .dot {
+    width: 3px;
+    height: 3px;
+    border-radius: var(--radius-full);
+    background: var(--color-text-muted);
+  }
+
+  .meta .rank {
+    color: var(--color-text-secondary);
   }
 
   h1 {
@@ -101,9 +135,21 @@ const hasImage = !!achievement.data.image;
   }
 
   .actions {
+    display: flex;
+    flex-wrap: wrap;
     gap: var(--space-4);
+  }
+
+  .featured-image {
     margin-bottom: var(--space-10);
   }
 
-  .featured-image :global(.clickable-image) { width: 100%; }
+  .featured-image :global(.clickable-image) {
+    width: 100%;
+    max-width: 640px;
+    margin: 0 auto;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--color-border-subtle);
+  }
 </style>
