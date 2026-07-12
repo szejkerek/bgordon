@@ -2,12 +2,15 @@
 title: "Engineer's Degree in Computer Science"
 event: "Silesian University of Technology"
 date: "2024-02"
-description: "Earned the Engineer's degree (inż.) in Computer Science, specializing in software engineering, algorithms, databases, and collaborative development projects."
+description: "Computer Science degree completed with a VR game as the final project."
 type: "education"
 rank: "inż."
 image: "/images/achievements/inz.png"
+project: "pirate-rush-vr"
 ---
 
-## Engineer's Degree
+I learned more about computer science at the Silesian University of Technology than I could have learned anywhere else. During my studies, I gained experience in software engineering, object-oriented programming, algorithms, databases, distributed systems, and team projects. I also co-authored a scientific publication about rehabilitation using depth sensors.
 
-Completed the Bachelor of Engineering programme in Computer Science at the Silesian University of Technology, with a focus on designing and implementing software applications, object-oriented programming, algorithms, and distributed systems. Co-authored a research publication on rehabilitation using depth-sensor technology.
+I remember this time very positively, especially because of the people I met and the projects we worked on together.
+
+Finishing the degree by creating a VR game as my engineering project was a great way to close this chapter.

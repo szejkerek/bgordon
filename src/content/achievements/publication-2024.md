@@ -1,27 +1,16 @@
 ---
-title: "Co-Author - Scientific Publication"
+title: "Co-Author scientific publication"
 event: "Innovations in Biomedical Engineering"
 date: "2024-01"
-description: "Co-authored research paper on rehabilitation of cognitive functions using depth sensors, published in Innovations in Biomedical Engineering journal."
+description: "Co-authored paper on Kinect-based rehabilitation research for elderly patients"
 type: "publication"
 url: "https://doi.org/10.1007/978-3-031-52382-3_5"
 rank: "DOI: 10.1007/978-3-031-52382-3_5"
 image: "/images/achievements/book.png"
 ---
 
-## About This Publication
+I was honoured when my future thesis supervisor invited me to join this project during my first year of university. As part of the project, we created a Unity application that used a Kinect depth sensor to track the movements of elderly people during rehabilitation exercises. I worked on the interactive exercises, real-time motion tracking, and user feedback systems.
 
-This research paper explores the use of Kinect depth sensors for cognitive rehabilitation of elderly individuals, developed in collaboration with the National Institute of Oncology. This publication stemmed from a University Project Based Learning initiative (October 2021 - February 2022), where we developed an interactive application to improve the lives of elderly individuals through rehabilitation opportunities.
+What made the project especially meaningful was that the application was later tested with real patients at the National Institute of Oncology in Gliwice.
 
-### Research Overview
-
-**Title:** Rehabilitation of Cognitive Functions of the Elderly with the Use of Depth Sensors - The Preliminary Results
-
-**Published in:** Innovations in Biomedical Engineering, 2024, pages 41-50
-
-### Key Contributions
-
-- Developed interactive rehabilitation exercises using Kinect sensors
-- Implemented real-time motion tracking and feedback systems
-- Contributed to user testing and data analysis
-- Co-authored the final research paper
+The results of our work were published in the scientific paper “Rehabilitation of Cognitive Functions of the Elderly with the Use of Depth Sensors — The Preliminary Results”, and I became one of its co-authors.

@@ -1,14 +1,15 @@
 ---
 title: "3rd Place - Game Jam"
 event: "BEST IT Festival"
-date: "2023-11"
-description: "Won 3rd place at the BEST IT Festival game jam with Electro Exile, a game about a battery managing its stored electricity."
+date: "2022-11"
+description: "Theme: \"You are the source of power\""
 type: "winner"
 url: "https://best.gliwice.pl"
 project: "electro-exile"
 rank: "3rd Place"
+image: "/images/achievements/bit2022.png"
 ---
 
-## About This Achievement
+This was the first game jam I had ever taken part in. Together with my friends, we created Electro Exile (formerly known as "Last Battery"), a game about a battery that has to manage its stored electricity.
 
-BEST IT Festival is an annual technology event organized by BEST Gliwice at Silesian University of Technology. The game jam challenged participants to create innovative games within a limited timeframe.
+We won third place, but the most important part for me was the experience and the people I met. It motivated me to keep learning, working on games, and developing my passion for game development. I had a great time, even though the game itself was never fully finished.

@@ -21,11 +21,6 @@ export async function getStaticPaths() {
 const { achievement } = Astro.props;
 const { Content } = await render(achievement);
 
-// Gallery: folder images (public/images/achievements/<slug>/) take precedence;
-// fall back to any frontmatter `gallery` paths.
-const folderGallery = getAchievementGallery(achievement.id);
-const gallery = folderGallery.length ? folderGallery : achievement.data.gallery ?? [];
-
 const TYPE_LABEL: Record<string, string> = {
   winner: 'Winner',
   finalist: 'Finalist',
@@ -35,13 +30,19 @@ const TYPE_LABEL: Record<string, string> = {
   education: 'Education',
 };
 const typeLabel = TYPE_LABEL[achievement.data.type] ?? achievement.data.type;
-const logo = achievement.data.image ? resolveMediaPath(achievement.data.image) : undefined;
+
+// Gallery: the event thumbnail (frontmatter `image`) leads, followed by folder
+// images (public/images/achievements/<slug>/) or frontmatter `gallery` paths.
+const thumbnail = achievement.data.image ? resolveMediaPath(achievement.data.image) : undefined;
+const folderGallery = getAchievementGallery(achievement.id);
+const baseGallery = folderGallery.length ? folderGallery : achievement.data.gallery ?? [];
+const gallery = thumbnail ? [thumbnail, ...baseGallery] : baseGallery;
 ---
 
 <DetailLayout
   title={`${achievement.data.title} — Bartłomiej Gordon`}
   description={achievement.data.description}
-  image={gallery[0] ?? logo}
+  image={gallery[0]}
   backHref={ROUTES.achievements}
   backLabel="Back to Achievements"
   containerWidth="article"
@@ -49,38 +50,30 @@ const logo = achievement.data.image ? resolveMediaPath(achievement.data.image) :
   galleryTitle={achievement.data.title}
 >
   <header class="ach-header" slot="header">
-    <div class="emblem" aria-hidden="true">
-      {logo
-        ? <img src={logo} alt="" />
-        : <Icon name="award" size={72} strokeWidth={1.25} />}
+    <div class="tags">
+      <span class="type-pill">
+        <Icon name="award" size={13} strokeWidth={2} />
+        <span>{typeLabel}</span>
+      </span>
+      <span class="date">{formatDate(achievement.data.date)}</span>
     </div>
 
-    <div class="lead">
-      <div class="tags">
-        <span class="type-pill">
-          <Icon name="award" size={13} strokeWidth={2} />
-          <span>{typeLabel}</span>
-        </span>
-        <span class="date">{formatDate(achievement.data.date)}</span>
+    <h1>{achievement.data.title}</h1>
+    <p class="event">{achievement.data.event}</p>
+
+    {(achievement.data.rank || achievement.data.participants) && (
+      <div class="facts">
+        {achievement.data.rank && (
+          <span class="fact fact--rank">{achievement.data.rank}</span>
+        )}
+        {achievement.data.participants && (
+          <span class="fact">
+            <Icon name="team" size={13} />
+            {achievement.data.participants} participants
+          </span>
+        )}
       </div>
-
-      <h1>{achievement.data.title}</h1>
-      <p class="event">{achievement.data.event}</p>
-
-      {(achievement.data.rank || achievement.data.participants) && (
-        <div class="facts">
-          {achievement.data.rank && (
-            <span class="fact fact--rank">{achievement.data.rank}</span>
-          )}
-          {achievement.data.participants && (
-            <span class="fact">
-              <Icon name="team" size={13} />
-              {achievement.data.participants} participants
-            </span>
-          )}
-        </div>
-      )}
-    </div>
+    )}
   </header>
 
   <p class="ach-description" slot="header">{achievement.data.description}</p>
@@ -100,30 +93,8 @@ const logo = achievement.data.image ? resolveMediaPath(achievement.data.image) :
 </DetailLayout>
 
 <style>
-  /* Header: event emblem + lead block. */
   .ach-header {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: var(--space-8);
-    align-items: center;
     margin-bottom: var(--space-7);
-  }
-
-  .emblem {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 128px;
-    height: 128px;
-    color: var(--color-accent);
-  }
-
-  .emblem img {
-    max-width: 128px;
-    max-height: 128px;
-    width: auto;
-    height: auto;
-    object-fit: contain;
   }
 
   .tags {
@@ -222,21 +193,4 @@ const logo = achievement.data.image ? resolveMediaPath(achievement.data.image) :
     border-bottom: 1px solid var(--color-border-subtle);
   }
 
-  @media (max-width: 640px) {
-    .ach-header {
-      grid-template-columns: 1fr;
-      gap: var(--space-6);
-      text-align: left;
-    }
-
-    .emblem {
-      width: 96px;
-      height: 96px;
-    }
-
-    .emblem img {
-      max-width: 96px;
-      max-height: 96px;
-    }
-  }
 </style>

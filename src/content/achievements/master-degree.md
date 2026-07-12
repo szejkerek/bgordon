@@ -6,8 +6,11 @@ description: "Earned the Master's degree (mgr inż.) in Computer Science, specia
 type: "education"
 rank: "mgr inż."
 image: "/images/achievements/mgr.png"
+project: "master-thesis"
 ---
 
-## Master's Degree
+My Master’s degree was mostly about exploring new challenges, joining events, and working on increasingly ambitious projects. I genuinely enjoyed this stage of my studies, although it passed much faster than I expected.
 
-Completed the Master of Science programme in Computer Science at the Silesian University of Technology, specializing in graphics programming, physically based and real-time rendering, shader development, GPU computing, and computer vision.
+For my final project, I built a complete framework for evaluating procedurally generated dungeons. It allowed different generation methods and dungeon layouts to be tested, measured, and compared in a consistent way.
+
+During the programme, I focused mainly on graphics programming, physically based and real-time rendering, shader development, GPU computing, and computer vision.
