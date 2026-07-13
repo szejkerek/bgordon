@@ -4,7 +4,7 @@ description: "A machine-learning pipeline for classifying genuine and posed smil
 date: "2024-04"
 tags: ["AI", "Python"]
 sourceUrl: "https://github.com/szejkerek/SmileFactory"
-teamSize: 1
+teamSize: 5
 ---
 
 SmileFactory is a university machine-learning project built by a five-person team to explore whether a model can tell a genuine smile from a deliberately posed one.

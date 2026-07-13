@@ -1,24 +1,13 @@
 ---
 title: "Skeleton Offense"
-description: "Auto-chess tower-offense prototype where you draft skeleton units, combine matching triplets into higher tiers, and send your army down a spline path to attack enemy towers and bases."
+description: "A university Unity prototype created by merging two independently developed team projects."
 date: "2024-10"
 tags: ["Game", "Unity"]
 sourceUrl: "https://github.com/PlaceHoldersStudio/SkeletonOffense"
+teamSize: 1
 ---
 
-## About This Game
+Skeleton Offense is a small tower-offense prototype created across several university classes. The project started as a two-person game built around drafting skeleton units, merging matching characters into stronger tiers, and sending an automated army toward enemy defenses.
 
-Skeleton Offense is a prototype blending auto-chess drafting with tower-offense gameplay. Players buy units from a loot-box shop, place them on board slots, and watch three identical same-tier units automatically combine into a single stronger one. Once a round starts, the army marches down a spline path and breaks off to attack towers and a final enemy base.
+The main challenge came later, when our project had to be merged with a game created by another two-person team. Their version introduced a second player-controlled side. We had to connect two independently developed codebases, align their mechanics, and reshape both ideas into one playable project.
 
-### Features
-
-- **Auto-Merge**: Three identical same-tier units in the camp automatically combine into a tier-up — detected via LINQ `GroupBy({Config, Tier})`
-- **Spline Path + NavMesh Hybrid**: Units walk a Unity Splines path; when close enough to a precomputed aggro waypoint, they switch to NavMesh navigation to fight
-- **Loot Box System**: `ILootGenerator<T>` interface with unit (tier-weighted), gold, and buff generators
-- **Three Unit Types**: Swordsman, crossbowman, mage — each with distinct weapon ranges and tier-scaled damage
-
-### Technical Highlights
-
-- Stand positions pre-computed at spawn time via 200-sample NavMesh rejection loop, correlating each valid position to the earliest spline waypoint — aggro trigger is a single float comparison per frame
-- State machine with seven states; machine is a thin dispatcher, all logic lives in state objects that cache component references at construction
-- `StageManager` coroutine spawner supports per-unit `BulkSpawnCount` for burst-arrival enemy types
