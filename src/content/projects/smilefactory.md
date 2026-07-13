@@ -1,18 +1,15 @@
 ---
 title: "SmileFactory"
-description: "A machine-learning pipeline that classifies genuine versus deliberate smiles from sequences of facial action-unit feature vectors, using windowed temporal aggregation and leave-one-out cross-validation."
+description: "A machine-learning pipeline for classifying genuine and posed smiles."
 date: "2024-04"
 tags: ["AI", "Python"]
 sourceUrl: "https://github.com/szejkerek/SmileFactory"
 teamSize: 1
 ---
 
-## About This Project
+SmileFactory is a university machine-learning project built by a five-person team to explore whether a model can tell a genuine smile from a deliberately posed one.
 
-A machine-learning pipeline that distinguishes genuine (spontaneous) from deliberate (posed) smiles. Each smile is a variable-length sequence of high-dimensional facial action-unit (AU) feature vectors; the pipeline aggregates these temporally, trains classifiers, and reports per-window performance across subject-partitioned folds.
+Instead of working directly with images, the system analyzes sequences of facial action-unit features describing changes in facial muscle activity over time. Because every smile has a different length, we split each sequence into proportional time sections and averaged the features within them. This made it possible to compare the same stage of a smile across different recordings. We trained and evaluated three classifiers.
 
-### Engineering Highlights
+Random Forest delivered the strongest and most consistent results, reaching 79% accuracy in the first of seven analyzed time sections. The project showed that the early phase of a smile can contain some of the most useful signals for distinguishing spontaneous expressions from posed ones.
 
-**Proportional temporal interval averaging** — Each variable-length smile sequence is divided into a fixed number of proportional temporal windows using integer floor division (`total * position // sections`), guaranteeing exact, non-overlapping partition boundaries regardless of length. All AU vectors within the selected window are averaged into one representative vector — the core of the "ranged window" experiment mode, contrasted with point sampling.
-
-**Leave-one-out evaluation over subject folds** — For each temporal window position, the pipeline runs Leave-One-Out cross-validation over 10 subject-partitioned folds, flattening the nine training folds into a single feature matrix before fitting and testing on the held-out fold. Per-window mean and standard deviation drive the primary performance plots.

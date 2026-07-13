@@ -1,18 +1,14 @@
 ---
 title: "Stereo Vision & Disparity"
-description: "A stereo computer-vision pipeline covering camera calibration, image undistortion and rectification, and disparity-map estimation via block matching (BM), semi-global matching (SGBM), and a custom matcher."
+description: "A university stereo-vision project built with Python and OpenCV."
 date: "2024-10"
 tags: ["AI", "Python"]
 sourceUrl: "https://github.com/szejkerek/ZAOWIR"
 teamSize: 1
 ---
 
-## About This Project
+This project was built during a series of university computer vision labs focused on stereo imaging and depth estimation. Using Python and OpenCV, I worked through the full stereo vision pipeline. From camera calibration and lens distortion correction to image rectification and disparity-map generation.
 
-A stereo computer-vision project (ZAOWIR — advanced imaging and robot vision) implemented across five labs. It calibrates cameras, undistorts and rectifies image pairs, and estimates depth by computing disparity maps with several matching algorithms, then evaluates them against ground truth with error maps.
+The most interesting part was camera calibration: calculating intrinsic and extrinsic parameters, correcting distorted images, and preparing stereo pairs for accurate comparison..
 
-### Pipeline
-
-- **Camera calibration** — intrinsic/extrinsic parameters solved and stored, then applied to produce undistorted and remapped images
-- **Disparity estimation** — three matchers compared: OpenCV block matching (BM), semi-global block matching (SGBM), and a hand-written custom matcher
-- **Error evaluation** — per-algorithm error maps quantify each matcher's accuracy against a reference disparity
+The final results were compared with ground-truth disparity maps using error visualizations, making it possible to see how each algorithm handled depth, object edges, and difficult image regions.
