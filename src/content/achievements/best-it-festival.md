@@ -2,11 +2,11 @@
 title: "3rd Place - Game Jam"
 event: "BEST IT Festival"
 date: "2022-11"
-description: "Theme: \"You are the source of power\""
+description: ""
 type: "winner"
-url: "https://best.gliwice.pl"
+url: "https://www.facebook.com/photo.php?fbid=10161012243913783&set=pb.100064823677503.-2207520000&type=3"
 project: "electro-exile"
-rank: "3rd Place"
+rank: "Theme: You are the source of power"
 image: "/images/achievements/bit2022.png"
 ---
 

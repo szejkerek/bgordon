@@ -1,9 +1,10 @@
 ---
 title: "ReWand"
 description: "My most recent project."
-date: "2025-11"
+date: "2025-12"
 tags: ["Game", "Unity"]
 sourceUrl: "https://github.com/PlaceHoldersStudio/ReWand"
+teamSize: 6
 ---
 
 ReWand is a third-person action game that started as a game jam project in December 2025 and has since grown into a larger production.

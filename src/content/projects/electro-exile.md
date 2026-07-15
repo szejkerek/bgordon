@@ -1,7 +1,7 @@
 ---
 title: "Electro Exile"
 description: "Game where you control a battery that must manage its stored electricity while navigating through a world filled with power-draining objects. 3rd place winner at BEST IT Festival."
-date: "2023-11"
+date: "2022-11"
 tags: ["Game", "Unity"]
 
 playUrl: "https://carbon-crab-games.itch.io/the-last-battery"

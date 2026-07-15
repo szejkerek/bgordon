@@ -1,14 +1,15 @@
 ---
 title: "Paper Blades"
-description: "Roguelike game with RTS elements set in feudal Japan where you command a squad of origami samurais using your own voice. 2nd place winner at ZTGK competition."
+description: "Roguelike game with RTS elements set in feudal Japan where you command a squad of origami samurai using your own voice. 2nd place winner at ZTGK competition."
 date: "2024-06"
 tags: ["Game", "Unity"]
+sourceUrl: "https://github.com/PlaceHoldersStudio/PaperBlades"
 teamSize: 6
 ---
 
 ## About This Game
 
-Paper Blades is an innovative roguelike game that combines RTS elements with voice control mechanics. Set in feudal Japan, players command a squad of origami samurais using their own voice.
+Paper Blades is an innovative roguelike game that combines RTS elements with voice control mechanics. Set in feudal Japan, players command a squad of origami samurai using their own voice.
 
 ### Features
 

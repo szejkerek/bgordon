@@ -1,10 +1,10 @@
 ---
-title: "GRiD member - 4+ Years"
-event: "Games , Rendering, Innovation and Development"
+title: "GRiD member - 5+ Years"
+event: "Games, Rendering, Innovation and Development"
 date: "2020-10"
 description: "University club that helped me start my game development career."
 image: "/images/achievements/grid.png"
-url: "https://gvg.polsl.pl"
+url: "https://portal.polsl.pl/skngwigk/en/"
 rank: "Since October 2020"
 participants: "50+"
 type: "organization"

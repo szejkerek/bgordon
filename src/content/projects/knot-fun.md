@@ -1,7 +1,7 @@
 ---
 title: "Knot Fun"
 description: "Co-op arena shooter where players are physically tethered by a Verlet-physics rope that swings through the environment and deals damage to enemies on contact."
-date: "2024-11"
+date: "2024-12"
 tags: ["Game", "Unity"]
 sourceUrl: "https://github.com/PlaceHoldersStudio/KnotFun"
 teamSize: 6
@@ -25,3 +25,7 @@ Knot Fun is a 3D co-op arena shooter where two players are connected by a physic
 - Per-weapon possibility matrix prevents nonsensical upgrades via rejection sampling
 - Multi-player force accumulation aggregates impulses per player before applying them to avoid same-frame interference
 - Google Sheets CSV backend for live balance editing, parsed with a custom quoted-field CSV parser
+
+### Achievement
+
+**1st Place** at the BEST IT Festival Game Jam (theme: "In a time loop").

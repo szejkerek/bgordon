@@ -4,7 +4,7 @@ description: "A university Unity prototype created by merging two independently 
 date: "2024-10"
 tags: ["Game", "Unity"]
 sourceUrl: "https://github.com/PlaceHoldersStudio/SkeletonOffense"
-teamSize: 1
+teamSize: 4
 ---
 
 Skeleton Offense is a small tower-offense prototype created across several university classes. The project started as a two-person game built around drafting skeleton units, merging matching characters into stronger tiers, and sending an automated army toward enemy defenses.
