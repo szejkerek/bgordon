@@ -5,14 +5,14 @@
   import type { CollectionEntry } from "astro:content";
 
   interface Props {
-    project: CollectionEntry<'projects'>;
+    project: CollectionEntry<'projects'> & { slug: string };
     thumbnailSrc?: string;
   }
 
   let { project, thumbnailSrc }: Props = $props();
 
   // Computed values
-  const href = $derived(`/projects/${project.id}`);
+  const href = $derived(`/projects/${project.slug}`);
   const tags = $derived(project.data.tags || []);
 </script>
 

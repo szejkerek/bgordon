@@ -121,6 +121,7 @@
   .timeline-section {
     padding: var(--section-padding) 0;
     background: var(--color-bg-secondary);
+    border-top: 1px solid var(--color-border-subtle);
   }
 
   .timeline-container {

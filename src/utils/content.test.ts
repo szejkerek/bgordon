@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeEach } from 'vitest';
-import { selectPublished, published, publishedAchievements } from './content';
+import { selectPublished, published, publishedProjects, publishedAchievements } from './content';
 import { __setCollection, __resetCollections } from '../test/stubs/astro-content';
 
 describe('selectPublished', () => {
@@ -63,13 +63,37 @@ describe('published', () => {
   });
 });
 
+describe('publishedProjects', () => {
+  beforeEach(() => {
+    __resetCollections();
+  });
+
+  it('shows only public/ projects, strips the folder prefix into slug, sorts newest-first', async () => {
+    __setCollection('projects', [
+      { id: 'public/old', data: { date: '2023-05' } },
+      { id: 'private/secret', data: { date: '2026-01' } },
+      { id: 'public/new', data: { date: '2025-11' } },
+    ]);
+
+    const result = await publishedProjects();
+
+    expect(result.map((project) => project.slug)).toEqual(['new', 'old']);
+  });
+
+  it('throws when a project sits outside a visibility folder', async () => {
+    __setCollection('projects', [{ id: 'loose', data: { date: '2025-01' } }]);
+
+    await expect(publishedProjects()).rejects.toThrow(/public, private/);
+  });
+});
+
 describe('publishedAchievements', () => {
   beforeEach(() => {
     __resetCollections();
   });
 
   it('passes when every project reference resolves to a published project', async () => {
-    __setCollection('projects', [{ id: 'pong', data: { date: '2025-01' } }]);
+    __setCollection('projects', [{ id: 'public/pong', data: { date: '2025-01' } }]);
     __setCollection('achievements', [
       { id: 'win', data: { date: '2025-02', project: { collection: 'projects', id: 'pong' } } },
       { id: 'noref', data: { date: '2025-03' } },
@@ -81,7 +105,7 @@ describe('publishedAchievements', () => {
   });
 
   it('throws naming the achievement and the unknown project', async () => {
-    __setCollection('projects', [{ id: 'pong', data: { date: '2025-01' } }]);
+    __setCollection('projects', [{ id: 'public/pong', data: { date: '2025-01' } }]);
     __setCollection('achievements', [
       { id: 'win', data: { date: '2025-02', project: { collection: 'projects', id: 'ghost' } } },
     ]);
@@ -89,8 +113,8 @@ describe('publishedAchievements', () => {
     await expect(publishedAchievements()).rejects.toThrow(/win.*ghost/);
   });
 
-  it('rejects a reference to a draft (unpublished) project', async () => {
-    __setCollection('projects', [{ id: 'pong', data: { date: '2025-01', draft: true } }]);
+  it('rejects a reference to a project in the private folder', async () => {
+    __setCollection('projects', [{ id: 'private/pong', data: { date: '2025-01' } }]);
     __setCollection('achievements', [
       { id: 'win', data: { date: '2025-02', project: { collection: 'projects', id: 'pong' } } },
     ]);

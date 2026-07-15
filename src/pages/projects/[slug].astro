@@ -4,15 +4,15 @@ import ClickableImage from '../../components/ClickableImage.svelte';
 import Icon from '../../components/Icon.svelte';
 import ActionButton from '../../components/ActionButton.astro';
 import { render } from 'astro:content';
-import { published } from '../../utils/content';
+import { publishedProjects } from '../../utils/content';
 import { ROUTES } from '../../utils/routes';
 import { getProjectMedia } from '../../utils/projectImages';
 import { formatDate } from '../../utils/dates';
 
 export async function getStaticPaths() {
-  const projects = await published('projects');
+  const projects = await publishedProjects();
   return projects.map((project) => ({
-    params: { slug: project.id },
+    params: { slug: project.slug },
     props: { project },
   }));
 }
@@ -20,7 +20,7 @@ export async function getStaticPaths() {
 const { project } = Astro.props;
 const { Content } = await render(project);
 
-const { thumbnail: thumbnailSrc, gallery: galleryImages } = getProjectMedia(project.id);
+const { thumbnail: thumbnailSrc, gallery: galleryImages } = getProjectMedia(project.slug);
 
 const hasImage = !!thumbnailSrc;
 const tags = project.data.tags || [];

@@ -5,7 +5,7 @@ import JobTimeline from '../components/JobTimeline.svelte';
 import ProjectsGrid from '../components/ProjectsGrid.svelte';
 import AchievementCard from '../components/AchievementCard.svelte';
 import Section from '../components/Section.astro';
-import { published, publishedAchievements } from '../utils/content';
+import { publishedProjects, publishedAchievements } from '../utils/content';
 import { SECTION_IDS } from '../utils/routes';
 import { getThumbnail, PLACEHOLDER_IMAGE } from '../utils/projectImages';
 import { programmingYears, professionalMonths, formatDuration, age } from '../utils/stats';
@@ -16,13 +16,13 @@ import heroData from '../content/site/hero.json';
 import workExperience from '../content/site/work-experience.json';
 import education from '../content/site/education.json';
 
-// Published (non-draft) collections, newest-first
-const sortedProjects = await published('projects');
+// Published collections, newest-first (projects: public/ folder; achievements: non-draft)
+const sortedProjects = await publishedProjects();
 const sortedAchievements = await publishedAchievements();
 
 const projectItems = sortedProjects.map((project) => ({
   project,
-  thumbnailSrc: getThumbnail(project.id) ?? PLACEHOLDER_IMAGE,
+  thumbnailSrc: getThumbnail(project.slug) ?? PLACEHOLDER_IMAGE,
 }));
 
 // Hero stats — all derived from content/dates, never hand-maintained.
@@ -65,7 +65,7 @@ const heroStats: HeroStat[] = [
   />
   
   <!-- Achievements Section -->
-  <Section id={SECTION_IDS.achievements} title="Achievements" alt>
+  <Section id={SECTION_IDS.achievements} title="Achievements">
     <div class="achievements-list">
       {sortedAchievements.map((achievement) => (
         <AchievementCard achievement={achievement} />
@@ -74,7 +74,7 @@ const heroStats: HeroStat[] = [
   </Section>
 
   <!-- Projects Section -->
-  <Section id={SECTION_IDS.projects} title="Projects">
+  <Section id={SECTION_IDS.projects} title="Projects" alt>
     <ProjectsGrid items={projectItems} client:visible />
   </Section>
 </Layout>

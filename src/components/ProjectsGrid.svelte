@@ -4,7 +4,7 @@
   import { orderedTags } from "../utils/tags";
 
   interface Item {
-    project: CollectionEntry<'projects'>;
+    project: CollectionEntry<'projects'> & { slug: string };
     thumbnailSrc?: string;
   }
 
@@ -49,7 +49,7 @@
 </div>
 
 <div class="projects-grid">
-  {#each visible as item (item.project.id)}
+  {#each visible as item (item.project.slug)}
     <ProjectCard project={item.project} thumbnailSrc={item.thumbnailSrc} />
   {/each}
 </div>

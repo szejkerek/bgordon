@@ -12,7 +12,6 @@ const projectsCollection = defineCollection({
     playUrl: optUrl,
     sourceUrl: optUrl,
     teamSize: z.number().int().positive().optional(),
-    draft: draftFlag,
   }),
 });
 

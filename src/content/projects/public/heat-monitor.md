@@ -5,7 +5,6 @@ date: "2025-02"
 tags: ["Embedded", "C++"]
 sourceUrl: "https://github.com/szejkerek/HeatMonitor"
 teamSize: 1
-draft: false
 ---
 
 ## About This Project

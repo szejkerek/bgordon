@@ -19,6 +19,19 @@ const BOOK_FOLDER_STATUS: Record<string, BookStatus> = {
 
 export type PublishedBook = CollectionEntry<'books'> & { status: BookStatus };
 
+/**
+ * A project's visibility is derived from the folder it lives in — not from
+ * frontmatter — so moving a file between `public/` and `private/` is the only
+ * edit needed to show or hide it. The bare `slug` (id without the folder
+ * prefix) is what URLs, images and achievement references key on.
+ */
+const PROJECT_FOLDER_VISIBLE: Record<string, boolean> = {
+  public: true,
+  private: false,
+};
+
+export type PublishedProject = CollectionEntry<'projects'> & { slug: string };
+
 export function selectPublished<T extends PublishableEntry>(entries: T[]): T[] {
   const live = entries.filter((entry) => !entry.data.draft);
   return sortByDateDesc(live, (entry) => entry.data.date);
@@ -50,6 +63,28 @@ export async function publishedBooks(): Promise<PublishedBook[]> {
 }
 
 /**
+ * Published projects — those living in the `public/` folder — each tagged with
+ * the bare `slug` derived by stripping the folder prefix from its id. Throws at
+ * build if a project sits outside a known visibility folder (`public`/`private`).
+ */
+export async function publishedProjects(): Promise<PublishedProject[]> {
+  const projects = await getCollection('projects');
+  const shown: PublishedProject[] = [];
+  for (const project of projects) {
+    const [folder, ...rest] = project.id.split('/');
+    const visible = PROJECT_FOLDER_VISIBLE[folder.toLowerCase()];
+    if (visible === undefined || rest.length === 0) {
+      throw new Error(
+        `Project "${project.id}" is not in a visibility folder. Move it into one of: public, private`
+      );
+    }
+    if (!visible) continue;
+    shown.push(Object.assign(project, { slug: rest.join('/') }));
+  }
+  return sortByDateDesc(shown, (project) => project.data.date);
+}
+
+/**
  * Published achievements, with every project reference verified to resolve to a
  * published project. Astro's `reference()` types the link but does not check
  * existence at build, so this is the single place that guarantee lives — every
@@ -58,10 +93,10 @@ export async function publishedBooks(): Promise<PublishedBook[]> {
 export async function publishedAchievements(): Promise<CollectionEntry<'achievements'>[]> {
   const [achievements, projects] = await Promise.all([
     published('achievements'),
-    published('projects'),
+    publishedProjects(),
   ]);
 
-  const projectIds = new Set(projects.map((project) => project.id));
+  const projectIds = new Set(projects.map((project) => project.slug));
   for (const achievement of achievements) {
     const ref = achievement.data.project;
     if (ref && !projectIds.has(ref.id)) {
