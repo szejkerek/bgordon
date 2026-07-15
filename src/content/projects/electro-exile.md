@@ -5,7 +5,7 @@ date: "2022-11"
 tags: ["Game", "Unity"]
 
 playUrl: "https://carbon-crab-games.itch.io/the-last-battery"
-sourceUrl: "https://github.com/PlaceHoldersStudio/ElectroExile"
+# sourceUrl: "https://github.com/PlaceHoldersStudio/ElectroExile"  # private repo
 teamSize: 6
 ---
 

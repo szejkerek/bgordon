@@ -3,7 +3,7 @@ title: "ReWand"
 description: "My most recent project."
 date: "2025-12"
 tags: ["Game", "Unity"]
-sourceUrl: "https://github.com/PlaceHoldersStudio/ReWand"
+# sourceUrl: "https://github.com/PlaceHoldersStudio/ReWand"  # private repo
 teamSize: 6
 ---
 

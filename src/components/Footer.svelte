@@ -30,7 +30,6 @@
 </script>
 
 <footer class="footer">
-  <div class="glow" aria-hidden="true"></div>
   <div class="inner">
     <div class="cta">
       <p class="eyebrow">Get in touch</p>
@@ -91,22 +90,6 @@
     padding: var(--space-12) var(--container-padding) var(--space-8);
   }
 
-  /* Soft accent glow bleeding up from the bottom-left. */
-  .glow {
-    position: absolute;
-    left: -8%;
-    bottom: -60%;
-    width: 60%;
-    height: 140%;
-    background: radial-gradient(
-      ellipse at center,
-      var(--color-accent-glow) 0%,
-      transparent 65%
-    );
-    opacity: 0.5;
-    pointer-events: none;
-  }
-
   .inner {
     position: relative;
     max-width: var(--container-max-width);
@@ -161,8 +144,7 @@
 
   .email-btn:hover {
     background: var(--color-accent-dim);
-    transform: translateY(-2px);
-    box-shadow: 0 14px 40px var(--color-accent-glow);
+    transform: translateY(-1px);
   }
 
   .email-btn:focus-visible {

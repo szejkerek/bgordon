@@ -3,7 +3,7 @@ title: "Procedural Dungeon Generation"
 description: "A master's thesis presenting a framework for evaluating and comparing procedural dungeon-generation algorithms — BSP, Cellular Automata, Diffusion-Limited Aggregation, and Drunkard Walk — in Unity, backed by a statistical analysis of their output."
 date: "2024-08"
 tags: ["Game", "Unity"]
-sourceUrl: "https://github.com/szejkerek/MasterThesis"
+# sourceUrl: "https://github.com/szejkerek/MasterThesis"  # private repo
 teamSize: 1
 ---
 

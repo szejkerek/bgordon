@@ -149,7 +149,7 @@ button:focus-visible {
 
 /* Selection */
 ::selection {
-  background: rgba(110, 231, 183, 0.25);
+  background: rgba(125, 186, 149, 0.28);
   color: var(--color-text-primary);
 }
 

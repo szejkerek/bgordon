@@ -1,5 +1,14 @@
 [
-    {
+  {
+    "company": "Placeholders Studio",
+    "logo": "images/logos/placeholders.png",
+    "url": "https://placeholdersstudio.github.io/placeholders/",
+    "role": "Founder & Game Developer",
+    "period": "June 2024 to Present",
+    "description": "Indie game studio I founded together with the team I had made Paper Blades with. As my own studio we build our own titles from concept to release, including the tethered co-op shooter Knot Fun and our current project ReWand, a third-person action game.",
+    "skills": ["Unity", "C#", "Game Design", "Team Lead"]
+  },
+  {
     "company": "Resimo",
     "logo": "images/logos/resimo.png",
     "url": "https://resimo.com/",

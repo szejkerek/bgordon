@@ -3,7 +3,7 @@ title: "Paper Blades"
 description: "Roguelike game with RTS elements set in feudal Japan where you command a squad of origami samurai using your own voice. 2nd place winner at ZTGK competition."
 date: "2024-06"
 tags: ["Game", "Unity"]
-sourceUrl: "https://github.com/PlaceHoldersStudio/PaperBlades"
+# sourceUrl: "https://github.com/PlaceHoldersStudio/PaperBlades"  # private repo
 teamSize: 6
 ---
 

@@ -3,7 +3,7 @@ title: "Knot Fun"
 description: "Co-op arena shooter where players are physically tethered by a Verlet-physics rope that swings through the environment and deals damage to enemies on contact."
 date: "2024-12"
 tags: ["Game", "Unity"]
-sourceUrl: "https://github.com/PlaceHoldersStudio/KnotFun"
+# sourceUrl: "https://github.com/PlaceHoldersStudio/KnotFun"  # private repo
 teamSize: 6
 ---
 

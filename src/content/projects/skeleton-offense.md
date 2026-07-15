@@ -3,7 +3,7 @@ title: "Skeleton Offense"
 description: "A university Unity prototype created by merging two independently developed team projects."
 date: "2024-10"
 tags: ["Game", "Unity"]
-sourceUrl: "https://github.com/PlaceHoldersStudio/SkeletonOffense"
+# sourceUrl: "https://github.com/PlaceHoldersStudio/SkeletonOffense"  # private repo
 teamSize: 4
 ---
 

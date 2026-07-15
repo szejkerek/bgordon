@@ -202,10 +202,11 @@
     transform: translateX(-50%);
     z-index: -1;
     background-color: var(--color-bg-primary);
-    background-image:
-      linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
-    background-size: 72px 72px;
+    background-image: radial-gradient(
+      ellipse 90% 70% at 50% 0%,
+      var(--color-bg-secondary) 0%,
+      transparent 70%
+    );
   }
 
   .hero-grid {
@@ -227,7 +228,6 @@
     color: var(--color-accent);
     margin-bottom: var(--space-7);
     text-transform: uppercase;
-    opacity: 0.95;
   }
 
   .hero-name {
@@ -347,48 +347,6 @@
     flex-shrink: 0;
   }
 
-  /* Comic highlighter block: spans icon + name, irregular rounded ends,
-     slight tilt, swiped in vertically when the hero reveals.
-     Unity fills bottom→top, Unreal fills top→bottom. */
-  .engine-mark::before {
-    content: "";
-    position: absolute;
-    inset: -0.12em -0.26em -0.08em;
-    z-index: -1;
-    background: var(--color-accent);
-    opacity: 0.26;
-    transform: rotate(-1.8deg) scaleY(0);
-    transition: transform 0.55s var(--ease-spring);
-  }
-
-  /* Unity: careless marker swipe — wobbly edges, ragged ends.
-     Fills bottom -> top. */
-  .engine-mark--unity::before {
-    transform-origin: center bottom;
-    clip-path: polygon(
-      1% 22%, 8% 5%, 23% 12%, 40% 3%, 58% 10%, 75% 2%, 91% 9%, 100% 15%,
-      96% 35%, 100% 59%, 94% 83%, 99% 96%,
-      83% 91%, 65% 100%, 47% 92%, 30% 100%, 13% 93%, 3% 99%,
-      0% 73%, 5% 49%, 0% 38%
-    );
-  }
-
-  /* Unreal: different careless swipe — offset waves, heavier tail.
-     Fills top -> bottom. */
-  .engine-mark--unreal::before {
-    transform-origin: center top;
-    clip-path: polygon(
-      3% 13%, 19% 4%, 35% 12%, 53% 2%, 69% 11%, 86% 3%, 100% 13%,
-      94% 31%, 100% 51%, 93% 71%, 100% 89%,
-      87% 97%, 70% 89%, 53% 99%, 36% 90%, 19% 100%, 5% 92%,
-      0% 71%, 6% 51%, 1% 33%, 4% 21%
-    );
-  }
-
-  .hero.visible .engine-mark::before {
-    transform: rotate(-1.8deg) scaleY(1);
-  }
-
   .hero-links {
     display: flex;
     flex-wrap: wrap;
@@ -415,15 +373,13 @@
   }
 
   .hero-link:hover {
-    transform: translateY(-3px);
-    border-color: var(--color-border-subtle);
-    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.22);
+    transform: translateY(-1px);
+    border-color: var(--color-accent);
     background: rgba(255, 255, 255, 0.05);
   }
 
   .hero-link:active {
-    transform: translateY(-1px);
-    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.18);
+    transform: translateY(0);
   }
 
   .hero-link:focus-visible {
@@ -467,16 +423,10 @@
     border-radius: var(--radius-full);
     border: 1px solid var(--color-border-light);
     background: rgba(255, 255, 255, 0.03);
-    animation: scroll-bounce 2s var(--ease-out) infinite;
   }
 
   .scroll-cue:hover .scroll-cue-icon {
     border-color: var(--color-accent);
-  }
-
-  @keyframes scroll-bounce {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(6px); }
   }
 
   .scroll-cue:focus-visible {
@@ -519,7 +469,7 @@
   }
 
   .photo-wrapper:hover .photo-frame {
-    transform: translateY(-4px);
+    transform: translateY(-2px);
   }
 
   @media (max-width: 900px) {
@@ -570,15 +520,6 @@
     .photo-wrapper:hover .photo-frame {
       transform: none;
       box-shadow: none;
-    }
-
-    .scroll-cue-icon {
-      animation: none;
-    }
-
-    .engine-mark::before {
-      transition: none;
-      transform: rotate(-1.8deg) scaleY(1);
     }
   }
 </style>

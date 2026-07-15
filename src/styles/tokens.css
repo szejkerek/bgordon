@@ -1,26 +1,26 @@
 /* Design tokens — central source of truth, exposed as CSS custom properties. */
 
 :root {
-  /* Background */
-  --color-bg-primary: #0c0c0c;
-  --color-bg-secondary: #111111;
-  --color-bg-card: #161616;
-  --color-bg-card-hover: #1c1c1c;
-  --color-bg-elevated: #222222;
+  /* Background — warm pine-black, subtle green undertone (not flat neutral) */
+  --color-bg-primary: #0e1210;
+  --color-bg-secondary: #121815;
+  --color-bg-card: #171d19;
+  --color-bg-card-hover: #1d241f;
+  --color-bg-elevated: #252d27;
 
-  /* Accent */
-  --color-accent: #6ee7b7;
-  --color-accent-dim: #34d399;
-  --color-accent-glow: rgba(110, 231, 183, 0.15);
+  /* Accent — leafy pine-sage pulled from the shirt/lake; richer than washed sage */
+  --color-accent: #7dba95;
+  --color-accent-dim: #99cead;
+  --color-accent-glow: rgba(125, 186, 149, 0.14);
 
-  /* Text */
-  --color-text-primary: #fafafa;
-  --color-text-secondary: #a3a3a3;
-  --color-text-muted: #666666;
+  /* Text — warm off-white, green-gray secondary (echoes the overcast sky) */
+  --color-text-primary: #f3f4ef;
+  --color-text-secondary: #aab0a5;
+  --color-text-muted: #737a6f;
 
-  /* Border */
-  --color-border-subtle: rgba(255, 255, 255, 0.06);
-  --color-border-light: rgba(255, 255, 255, 0.12);
+  /* Border — warm-tinted */
+  --color-border-subtle: rgba(220, 230, 215, 0.07);
+  --color-border-light: rgba(220, 230, 215, 0.14);
 
   /* Fonts */
   --font-display: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
@@ -83,7 +83,7 @@
   --radius-full: 9999px;
 
   /* Shadow */
-  --shadow-xl: 0 8px 32px rgba(0, 0, 0, 0.35);
+  --shadow-xl: 0 4px 16px rgba(0, 0, 0, 0.25);
 
   /* Easing + duration */
   --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
