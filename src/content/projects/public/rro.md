@@ -7,6 +7,18 @@ sourceUrl: "https://github.com/szejkerek/RRO"
 teamSize: 1
 ---
 
-This project is a collection of experiments completed during university labs focused on physically based rendering. Using pbrt-v4, I explored how modern renderers simulate light, materials, participating media, and complex scenes.
+## Overview
 
-Across several exercises, I worked with spectral rendering, volumetric effects, path tracing, and GPU-accelerated rendering with CUDA and OptiX. The labs involved modifying scenes, adjusting renderer settings, comparing different techniques, and analyzing how individual parameters affected image quality, noise, and rendering time.
+This is a set of physically based rendering experiments I completed solo during university labs, built on top of the pbrt-v4 reference renderer. Rather than modifying the renderer's core, my work was in authoring and configuring scenes to study how modern light transport behaves: comparing integrators, materials and participating media, then analysing how each parameter affected noise, image quality and render time.
+
+## Technical Highlights
+
+- **Material and light-transport study.** A Cornell-box-style scene instances one mesh nine times with different BxDFs (diffuse, dielectric, textured) under identical lighting, isolating how each material responds. See [`scene.pbrt`](https://github.com/szejkerek/RRO/blob/main/Scenes/scene.pbrt).
+- **Volumetric media.** A participating-media scene lit by a spotlight, rendered with pbrt's volumetric path integrator to study fog and scattering. Output in [`spotFog.png`](https://github.com/szejkerek/RRO/blob/main/Scenes/spotFog.png).
+- **Path tracing versus bidirectional.** The same setup rendered with unidirectional and bidirectional path tracing to compare noise and convergence. See [`bidir.png`](https://github.com/szejkerek/RRO/blob/main/Scenes/bidir.png).
+- **Spectral rendering.** Scenes authored for pbrt's sampled-spectrum pipeline instead of RGB, combining procedural and image-based textures. See [`template/scene.pbrt`](https://github.com/szejkerek/RRO/blob/main/Scenes/template/scene.pbrt).
+- **GPU rendering with CUDA and OptiX.** The build was configured for GPU-accelerated rendering, with a live `tev` display server and progressive samples-per-pixel for fast iteration. See [`commands.txt`](https://github.com/szejkerek/RRO/blob/main/Scenes/commands.txt).
+
+## Learnings
+
+The value here was less about writing renderer code and more about reading how a production-grade renderer is put together, and learning to reason about rendering choices from measured output rather than guesswork.

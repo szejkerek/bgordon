@@ -7,8 +7,19 @@ sourceUrl: "https://github.com/szejkerek/ZAOWIR"
 teamSize: 1
 ---
 
-This project was built during a series of university computer vision labs focused on stereo imaging and depth estimation. Using Python and OpenCV, I worked through the full stereo vision pipeline. From camera calibration and lens distortion correction to image rectification and disparity-map generation.
+## Overview
 
-The most interesting part was camera calibration: calculating intrinsic and extrinsic parameters, correcting distorted images, and preparing stereo pairs for accurate comparison..
+This is a solo computer-vision project from a series of university labs on stereo imaging and depth estimation, built in Python with OpenCV. It walks the full stereo pipeline, from single and stereo camera calibration through rectification and disparity estimation to depth maps, 3D point clouds and optical flow on video.
 
-The final results were compared with ground-truth disparity maps using error visualizations, making it possible to see how each algorithm handled depth, object edges, and difficult image regions.
+## Technical Highlights
+
+- **Camera calibration and undistortion.** `calibrateCamera` on chessboard images recovers the intrinsic matrix and a five-coefficient distortion model, then `undistort` and `remap` correct the images. See [`main.py`](https://github.com/szejkerek/ZAOWIR/blob/main/main.py).
+- **Stereo calibration.** Paired left and right captures give the extrinsics (rotation, translation, essential and fundamental matrices) at a mean reprojection error of 2.39 px. See [`Lab2/main.py`](https://github.com/szejkerek/ZAOWIR/blob/main/Lab2/main.py).
+- **Rectification with epipolar lines.** Image pairs are rectified and epipolar lines drawn on top to verify the alignment visually, also in [`Lab2/main.py`](https://github.com/szejkerek/ZAOWIR/blob/main/Lab2/main.py).
+- **Three disparity methods compared.** A custom 5x5 SAD block matcher alongside OpenCV's `StereoBM` and `StereoSGBM`, all scored against ground truth with MAE, RMSE, bad-pixel percentage and SSIM, plus error heatmaps. See [`lab3.py`](https://github.com/szejkerek/ZAOWIR/blob/main/Lab3/GordonKolokwium/lab3.py).
+- **Depth and point clouds.** Disparity is converted to depth from baseline and focal length, and `reprojectImageTo3D` exports colored PLY point clouds. See [`lab4.py`](https://github.com/szejkerek/ZAOWIR/blob/main/Lab4/lab4.py).
+- **Motion analysis on video.** Lucas-Kanade sparse tracking, Farneback dense flow, and morphological motion detection. See [`Lab5/main.py`](https://github.com/szejkerek/ZAOWIR/blob/main/Lab5/main.py).
+
+## Learnings
+
+Calibration turned out to be the most instructive part: intrinsics, distortion and extrinsics all have to be right before any disparity result downstream can be trusted.

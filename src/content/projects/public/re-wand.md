@@ -7,8 +7,12 @@ tags: ["Game", "Unity"]
 teamSize: 6
 ---
 
-ReWand is a third-person action game that started as a game jam project in December 2025 and has since grown into a larger production.
+## Overview
 
-The original prototype focused on responsive spellcasting and reincarnation mechanic: whenever the player died, a clone of their previous character returned as an ally in the next life.
+ReWand is a third-person action game that started as a game jam project in December 2025 and has since grown into a larger production, built by a six-person Placeholders Studio team. The original prototype centred on responsive spellcasting and a reincarnation mechanic: whenever the player died, a clone of their previous character returned as an ally in the next life.
 
-After the jam, the concept showed enough potential to keep developing and expand beyond its original scope. The project is currently in active development with a publisher, so most gameplay, technical, and production details remain private. It is my most recent project and an opportunity to work on a game beyond the prototype stage, with a stronger focus on iteration, production quality, and long-term development.
+After the jam the concept showed enough potential to keep developing well beyond its original scope. It is now in active development with a publisher, so most gameplay, technical and production details stay private for now.
+
+## Why it matters
+
+ReWand is my most recent project and my first chance to work on a game past the prototype stage, with a real focus on iteration, production quality and long-term development rather than a two-day sprint.

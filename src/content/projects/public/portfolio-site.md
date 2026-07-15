@@ -7,6 +7,13 @@ sourceUrl: "https://github.com/szejkerek/bgordon"
 teamSize: 1
 ---
 
-This is my personal portfolio website, built to showcase my projects, skills, and experience in one place.
+## Overview
 
-It was created with Astro, Svelte, and TypeScript, with project content managed through Markdown files. The site is designed to be fast, easy to maintain, and straightforward to browse.
+This is my personal portfolio, the site you are reading right now, built solo with Astro, Svelte 5 and TypeScript. Project, achievement and book content lives in Markdown collections rather than a CMS, and a handful of deliberate architectural choices keep it fast, statically generated, and hard to break as the content grows.
+
+## Technical Highlights
+
+- **Build-time reference integrity.** Every achievement's link to a project is validated in one place at build time; a broken or private reference throws during the build instead of shipping a dead link, also in [`content.ts`](https://github.com/szejkerek/bgordon/blob/main/src/utils/content.ts).
+- **Centralized collection readers.** All content access flows through a single module that enforces draft filtering and newest-first sorting, and pages are not allowed to call `getCollection` directly.
+- **Consent Mode v2.** Analytics load with all storage denied by default and a GDPR banner flips consent only on explicit opt-in. See [`Layout.astro`](https://github.com/szejkerek/bgordon/blob/main/src/layouts/Layout.astro).
+
