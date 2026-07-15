@@ -1,30 +1,14 @@
 ---
 title: "Paper Blades"
-description: "Roguelike game with RTS elements set in feudal Japan where you command a squad of origami samurai using your own voice. 2nd place winner at ZTGK competition."
+description: "An award-winning roguelike strategy game where players command origami samurai with their voice."
 date: "2024-06"
 tags: ["Game", "Unity"]
 # sourceUrl: "https://github.com/PlaceHoldersStudio/PaperBlades"  # private repo
 teamSize: 6
 ---
 
-## About This Game
+Paper Blades is a roguelike strategy game set in a stylized version of feudal Japan, where players command a squad of origami samurai using voice commands. The game was developed by a six-person team and became a major turning point for Placeholders Studio. It was one of the first projects that brought us wider recognition in the game development community and helped turn our group into a proper studio.
 
-Paper Blades is an innovative roguelike game that combines RTS elements with voice control mechanics. Set in feudal Japan, players command a squad of origami samurai using their own voice.
+Paper Blades won second place at the 16th ZTGK Competition and received several additional distinctions, including the Digital Dragons Award, Game Access Award, and long-term legal support from GameDev Lawyer.
 
-### Features
-
-- **Voice-Controlled Commands**: Direct your samurai squad with voice commands
-- **Roguelike Elements**: Procedural generation and permadeath mechanics
-- **RTS Gameplay**: Strategic unit positioning and tactical combat
-- **Feudal Japan Setting**: Beautiful origami-inspired art style
-
-### Awards
-
-- **2nd Place ex aequo** at 16th ZTGK Competition
-- **Digital Dragons Award**
-- **Game Access Award**
-- **GameDev Lawyer Award** (long-term legal support)
-
-### Team
-
-Developed by a team of 6 people (Team Placeholders), showcasing collaborative game development.
+Beyond the awards, the project proved that our team could create an original concept, build it into a polished game, and present it successfully to people from the industry.

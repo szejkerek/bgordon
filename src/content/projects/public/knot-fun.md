@@ -1,31 +1,16 @@
 ---
 title: "Knot Fun"
-description: "Co-op arena shooter where players are physically tethered by a Verlet-physics rope that swings through the environment and deals damage to enemies on contact."
+description: "An award-winning local co-op arena shooter where players fight enemy swarms while physically connected by a damage-dealing rope."
 date: "2024-12"
 tags: ["Game", "Unity"]
 # sourceUrl: "https://github.com/PlaceHoldersStudio/KnotFun"  # private repo
 teamSize: 6
 ---
 
-## About This Game
+Knot Fun is a local co-op arena shooter created by a six-person team during the BEST IT Festival Game Jam in Gliwice, where it won first place.
 
-Knot Fun is a 3D co-op arena shooter where two players are connected by a physically simulated rope. The rope is not merely visual — it collides with geometry and damages enemies on contact, turning cooperative positioning into the core combat mechanic.
+The game plays like a swarm shooter: players fight through waves of enemies while constantly moving around the arena and collecting upgrades between rounds. The main twist is that every player is physically connected to the others by a simulated rope. It reacts to the environment, limits how far the team can split up, and can damage enemies, turning positioning and coordination into the core combat mechanic.
 
-### Features
+Winning the game jam gave the project a life beyond the original event. Thanks to awards and opportunities connected with our earlier ZTGK success, we later presented Knot Fun at ZTGK, Digital Dragons, and Game Access.
 
-- **Physics Rope**: Verlet integration rope that swings dynamically and deals damage
-- **Co-op Play**: Two or more players connected — coordination is required
-- **Wave Combat**: Fight enemy waves with distinct types (melee, ranged, AOE, throw)
-- **Upgrade System**: Procedurally generated card upgrades between waves driven by Google Sheets balance data
-- **Tension Feedback**: Rope colour shifts from grey to yellow as players approach maximum distance
-
-### Technical Highlights
-
-- Custom Verlet integration rope simulation with multi-pass constraint solving and sphere-based collision response
-- Per-weapon possibility matrix prevents nonsensical upgrades via rejection sampling
-- Multi-player force accumulation aggregates impulses per player before applying them to avoid same-frame interference
-- Google Sheets CSV backend for live balance editing, parsed with a custom quoted-field CSV parser
-
-### Achievement
-
-**1st Place** at the BEST IT Festival Game Jam (theme: "In a time loop").
+It became one of the projects that helped us show Placeholders Studio to a wider audience and prove that a small game jam idea could grow into something worth presenting at major industry events.

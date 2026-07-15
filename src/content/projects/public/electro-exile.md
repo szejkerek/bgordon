@@ -6,24 +6,11 @@ tags: ["Game", "Unity"]
 
 playUrl: "https://carbon-crab-games.itch.io/the-last-battery"
 # sourceUrl: "https://github.com/PlaceHoldersStudio/ElectroExile"  # private repo
-teamSize: 6
+teamSize: 4
 ---
 
-## About This Game
+Electro Exile is a simple platform game created during my first-ever game jam. The player controls a battery that slowly loses energy while moving through the level, so every jump and route choice matters.
 
-Electro Exile is a unique puzzle-platformer where resource management meets exploration. Control a battery navigating through environments that constantly drain your power.
+Different parts of the environment drain power at different rates, turning a straightforward platformer into a small resource-management challenge. The goal is to reach the end before the battery runs out.
 
-### Features
-
-- **Energy Management**: Carefully manage your stored electricity
-- **Environmental Hazards**: Various objects drain power at different rates
-- **Strategic Navigation**: Plan routes to conserve energy
-- **Puzzle Elements**: Find the optimal path through each level
-
-### Achievement
-
-**3rd Place Winner** at BEST IT Festival Game Jam
-
-### Team
-
-Developed with a team of 6 people during the game jam, demonstrating effective collaboration under time constraints.
+The game was built by a 4-person team under a tight deadline and won third place at the BEST IT Festival Game Jam. For a first game jam project, it was a great introduction to rapid prototyping, teamwork, and building a complete playable idea in a very limited amount of time.

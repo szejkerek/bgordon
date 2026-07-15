@@ -1,18 +1,16 @@
 ---
 title: "Procedural Dungeon Generation"
-description: "A master's thesis presenting a framework for evaluating and comparing procedural dungeon-generation algorithms — BSP, Cellular Automata, Diffusion-Limited Aggregation, and Drunkard Walk — in Unity, backed by a statistical analysis of their output."
+description: "My master’s thesis comparing  procedural dungeon generation algorithms through large-scale Unity experiments and statistical analysis."
 date: "2024-08"
 tags: ["Game", "Unity"]
 # sourceUrl: "https://github.com/szejkerek/MasterThesis"  # private repo
 teamSize: 1
 ---
 
-## About This Project
+My master’s thesis focused on testing and comparing different approaches to procedural level generation.
 
-A master's thesis presenting a complete framework for evaluating and comparing procedural dungeon generation. A Unity generator implements four classic algorithms — Binary Space Partitioning (BSP), Cellular Automata, Diffusion-Limited Aggregation (DLA), and Drunkard Walk — and produces dungeon layouts that are then tested, measured, and compared in a consistent way through a statistical analysis of their structural properties.
+I implemented four classic dungeon-generation algorithms in Unity: Binary Space Partitioning, Cellular Automata, Diffusion-Limited Aggregation, and Drunkard Walk. Each generator could be configured and executed repeatedly, making it possible to produce large datasets instead of judging the results from a few hand-picked examples.
 
-### Features
+The generated layouts were exported and analyzed using a consistent set of structural metrics. This allowed me to compare not only the visual style of each algorithm, but also its stability, predictability, and the characteristics of the dungeons it produced.
 
-- **Four generation algorithms** — BSP, Cellular Automata, DLA, and Drunkard Walk, each configurable and rendered in the Unity scene
-- **Batch experiment runs** — multiple runs per algorithm exported to JSON for offline analysis
-- **Statistical analysis** — a separate analysis stage compares the generators across metrics and stability runs, backing the thesis conclusions with data
+The project combined game development with large-scale experimentation and statistical analysis, providing a more objective way to evaluate which generation methods work best for different types of dungeon layouts.
