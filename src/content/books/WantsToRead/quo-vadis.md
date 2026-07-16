@@ -1,5 +1,5 @@
 ---
 title: "Quo Vadis"
-author: "Henryk Sienkiewicz"
+author: "Andrzej Dragan"
 draft: false
 ---
