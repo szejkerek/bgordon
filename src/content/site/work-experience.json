@@ -5,8 +5,8 @@
     "url": "https://placeholdersstudio.github.io/placeholders/",
     "role": "Founder & Game Developer",
     "period": "June 2024 to Present",
-    "description": "Indie game studio I founded together with the team I had made Paper Blades with. As my own studio we build our own titles from concept to release, including the tethered co-op shooter Knot Fun and our current project ReWand, a third-person action game.",
-    "skills": ["Unity", "C#", "Game Design", "Team Lead"]
+    "description": "As solo founder I run a small game team, covering programming, publishing and business alongside team management. Built Paper Blades (2nd place, ZTGK 2024), the tethered co-op shooter Knot Fun (sponsor award, ZTGK 2025) and the in-development third-person action game ReWand. All titles are in active development.",
+    "skills": ["Unity", "C#", "Team Lead", "Game Design"]
   },
   {
     "company": "Resimo",
@@ -14,26 +14,25 @@
     "url": "https://resimo.com/",
     "role": "Programmer",
     "period": "July 2024 to Present",
-    "description": "Programming work on interactive realtime 3D solutions for the real estate market. The company builds 3D visualization and digital twin style tools that help developers present investments in an engaging way, both online and in sales offices.",
-    "skills": ["Unity", "C#", "3D", "Real time"]
+    "description": "Develop the core engine and deployment pipeline behind an interactive 3D real estate desktop app (Unity), used by every client across a 100+ person company through a shared CORE codebase. Built the internal unit-testing framework, editor dev tools and app DevOps, and personally delivered dozens of client deployments from zero. Currently porting the full application to Unreal Engine.",
+    "skills": ["Unity", "C#", "Unreal Engine", "DevOps", "Tooling"]
   },
   {
-    "company": "Radicate",
+    "company": "Radikate",
     "logo": "images/logos/radicate.png",
     "url": "https://www.radikate.com/",
     "role": "Unity Developer",
     "period": "May 2023 to July 2023",
-    "description": "Worked on 2 applications simultaneously during a 3 month contract: maintained the mobile game Jump Heroes (available on mobile and PC), and supported development of an unannounced PC game with an 8 person team.",
-    "skills": ["Unity", "C#", "Mobile", "PC"]
+    "description": "Worked as one of 5 programmers on an 8-person team (2 artists, 1 PM) during a 3-month contract. Focused on the PC game Nerd Simulator from its earliest stage, with occasional maintenance and one new mechanic on the live mobile and PC title Jump Heroes.",
+    "skills": ["Unity", "C#", "PC", "Mobile"]
   },
   {
     "company": "IT Silesia",
     "logo": "images/logos/itsilesia.png",
     "url": "https://itsilesia.com/homepage/",
-    "role": "Mid Unity VR Developer",
+    "role": "Unity VR Developer (Intern to Mid)",
     "period": "April 2022 to July 2023",
-    "description": "Developed 6 independent VR simulations using Oculus headsets. Projects outsourced by international company TransFr with bi weekly client meetings.",
-    "skills": ["Unity", "VR", "Oculus XR", "C#"]
+    "description": "Joined as a student intern and was promoted to Mid. Built 6 VR training simulations for TransFr (XR Interaction Toolkit, Oculus), owning most of the scope from framework improvements to turning designs into working VR. Also contributed to two non-simulation products: an interactive product catalogue for mining manufacturer FAMUR and a touchscreen 3D real estate sales app for TDJ Estate.",
+    "skills": ["Unity", "VR", "XR Interaction Toolkit", "C#"]
   }
-
 ]
