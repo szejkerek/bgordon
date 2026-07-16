@@ -12,6 +12,8 @@ teamSize: 1
 
 Pirate Rush VR is my engineering thesis, a standalone arcade high-score game for the Oculus Quest 2 that runs directly on the headset as a sideloaded APK with no PC tether. You play a pirate armed with a sabre and a flintlock: slice inbound fruit, shoot barrels, dodge bombs from the cannon towers around you, and chain clean hits into a score multiplier across three difficulty tiers, with an on-device leaderboard for comparing runs. I built it solo, covering gameplay, the weapon and projectile systems, the combo pipeline, VR comfort, on-device persistence, and the Quest 2 build. Because the thesis centred on comfort, I added configurable locomotion, snap and smooth turning, and a comfort mode that reduces simulator sickness.
 
+📄 [Read the full thesis (PDF)](/files/pirate-rush-vr-thesis.pdf)
+
 ## Technical Highlights
 
 - **Runtime mesh slicing.** The sabre cuts arbitrary fruit meshes live along the blade's swing plane using EzySlice, then gives each half its own collider and rigidbody so the two pieces fall apart naturally. Scoring a clean cut on an irregular mesh is the harder part, since a bounding box tells you nothing about where the blade passed, so I compute the mesh's exact volume with the divergence theorem (one signed tetrahedron per triangle) and compare both halves against a tolerance tuned per difficulty. Code in [`Sabre.cs`](https://github.com/szejkerek/PirateRushVR/blob/main/Assets/__Scripts/Player/Weapons/Sabre.cs).
