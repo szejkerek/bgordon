@@ -5,7 +5,7 @@ date: "2024-02"
 description: "Computer Science degree completed with a VR game as the final project."
 type: "education"
 rank: "inż."
-image: "/images/achievements/inz.png"
+image: "/images/achievements/engineer-degree/thumbnail.png"
 project: "pirate-rush-vr"
 ---
 

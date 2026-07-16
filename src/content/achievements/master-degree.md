@@ -5,7 +5,7 @@ date: "2025-09"
 description: "Earned the Master's degree (mgr inż.) in Computer Science, specializing in graphics programming, real-time rendering, and GPU computing."
 type: "education"
 rank: "mgr inż."
-image: "/images/achievements/mgr.png"
+image: "/images/achievements/master-degree/thumbnail.png"
 project: "master-thesis"
 ---
 

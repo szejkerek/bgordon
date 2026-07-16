@@ -6,7 +6,7 @@ description: "Co-authored paper on Kinect-based rehabilitation research for elde
 type: "publication"
 url: "https://doi.org/10.1007/978-3-031-52382-3_5"
 rank: "DOI: 10.1007/978-3-031-52382-3_5"
-image: "/images/achievements/book.png"
+image: "/images/achievements/publication-2024/thumbnail.png"
 ---
 
 I was honoured when my future thesis supervisor invited me to join this project during my first year of university. As part of the project, we created a Unity application that used a Kinect depth sensor to track the movements of elderly people during rehabilitation exercises. I worked on the interactive exercises, real-time motion tracking, and user feedback systems.
