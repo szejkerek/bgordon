@@ -1,6 +1,5 @@
 ﻿<script lang="ts">
   import { onMount } from "svelte";
-  import Icon from "./Icon.svelte";
   import { ROUTES } from "../utils/routes";
 
   const navLinks = [
@@ -63,19 +62,6 @@
           </a>
         </li>
       {/each}
-      
-      <li role="none">
-        <a 
-          href="/cv.pdf" 
-          download 
-          class="nav-btn" 
-          role="menuitem"
-          aria-label="Download CV as PDF"
-        >
-          <Icon name="download" size={14} />
-          <span>CV</span>
-        </a>
-      </li>
     </ul>
   </div>
 </nav>
@@ -135,23 +121,6 @@
   
   .nav-links a:hover {
     color: var(--color-text-primary);
-  }
-  
-  .nav-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-2);
-    padding: var(--space-3) var(--space-7);
-    background: var(--color-accent);
-    border-radius: var(--radius-md);
-    color: var(--color-bg-primary) !important;
-    font-weight: var(--font-weight-semibold);
-    transition: background var(--duration-fast) var(--ease-out);
-  }
-  
-  .nav-btn:hover {
-    background: var(--color-accent-dim);
-    color: var(--color-bg-primary) !important;
   }
   
   .menu-toggle {
