@@ -61,6 +61,7 @@ export interface Education {
   description: string;
   skills: string[];
   logo?: string;
+  url?: string;
 }
 
 

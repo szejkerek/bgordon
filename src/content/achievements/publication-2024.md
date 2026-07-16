@@ -1,7 +1,7 @@
 ---
 title: "Co-Author scientific publication"
 event: "Innovations in Biomedical Engineering"
-date: "2024-01"
+date: "2024-02"
 description: "Co-authored paper on Kinect-based rehabilitation research for elderly patients"
 type: "publication"
 url: "https://doi.org/10.1007/978-3-031-52382-3_5"
@@ -13,4 +13,4 @@ I was honoured when my future thesis supervisor invited me to join this project 
 
 What made the project especially meaningful was that the application was later tested with real patients at the National Institute of Oncology in Gliwice.
 
-The results of our work were published in the scientific paper “Rehabilitation of Cognitive Functions of the Elderly with the Use of Depth Sensors — The Preliminary Results”, and I became one of its co-authors.
+The results of our work were published in the scientific paper “Rehabilitation of Cognitive Functions of the Elderly with the Use of Depth Sensors — The Preliminary Results”, where I am one of nine co-authors, in a paper led by my supervisor Ewa Lach.

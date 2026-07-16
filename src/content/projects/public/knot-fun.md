@@ -4,12 +4,12 @@ description: "An award-winning local co-op arena shooter where players fight ene
 date: "2024-12"
 tags: ["Game", "Unity"]
 # sourceUrl: "https://github.com/PlaceHoldersStudio/KnotFun"  # private repo
-teamSize: 6
+teamSize: 4
 ---
 
 ## Overview
 
-Knot Fun is a local co-op arena shooter built by a six-person Placeholders Studio team at the BEST IT Festival Game Jam in Gliwice, where it won first place. Up to six players fight continuous swarms of enemies while every player is tied to the others by a simulated rope that reacts to the environment, limits how far the group can spread, and damages enemies it sweeps through, so positioning and coordination become the core of combat. I built the first working rope prototype that set the mechanic's direction during the jam, and afterwards focused on combat feedback and polish as the game went on to be shown at ZTGK, Digital Dragons and Game Access.
+Knot Fun is a local co-op arena shooter first built by a four-person team at the BEST IT Festival Game Jam in Gliwice, where it won first place, and later expanded by the whole Placeholders Studio team. The jam version was made for exactly three players; the continued version supports two to four. Every player is tied to the others by a simulated rope that reacts to the environment, limits how far the group can spread, and damages enemies it sweeps through, so positioning and coordination become the core of combat. I built the first working rope prototype that set the mechanic's direction during the jam, and afterwards focused on combat feedback and polish as the game went on to be shown at ZTGK, Digital Dragons and Game Access.
 
 ## Technical Highlights
 
