@@ -4,37 +4,40 @@
     "logo": "images/logos/polsl.png",
     "degree": "Master's degree in Computer Science",
     "period": "2024 to 2025",
-    "description": "Specialized in graphics programming, physically based rendering, real-time rendering techniques, shader development, GPU computing, computer vision, and interactive 3D application development. Gained practical experience through research and advanced graphics projects using modern graphics APIs and rendering pipelines.",
+    "description": "Graduated in September 2025 with an MSc (mgr inż.), specialized in Interactive 3D Graphics (IGT), final grade 5.0. Courses covered graphics API programming (OpenGL, Vulkan, DirectX), real-time and realistic rendering, game programming, game AI, VR and AR, and image and motion analysis. My master's thesis analyzed procedural level generation algorithms for roguelike games.",
     "skills": [
       "Graphics Programming",
-      "Rendering",
+      "Real-Time Rendering",
       "Shader Programming",
-      "GPU Computing",
       "OpenGL",
       "DirectX",
-      "Real-Time Graphics",
+      "Vulkan",
       "Computer Vision",
-      "Game Technologies",
+      "Game AI",
+      "Procedural Generation",
       "C++",
-      "Research",
-      "Scientific Publication"
+      "C#",
+      "VR/AR"
     ]
-
   },
   {
     "institution": "Silesian University of Technology",
     "logo": "images/logos/polsl.png",
     "degree": "Bachelor's degree in Computer Science",
     "period": "2020 to 2024",
-    "description": "Specialized in designing and implementing software applications, object-oriented programming, database management, algorithms, distributed systems, and collaborative software engineering projects. Co-authored a research publication on rehabilitation using depth sensor technology.",
+    "description": "Graduated in February 2024 with an engineering degree (inż.), final grade 5.0, specialized in Computer Graphics and Software (GKiO). A broad computer science base covering object-oriented programming, algorithms, data structures, databases and 2D and 3D graphics. My thesis was an arcade VR game built in Unity for the Oculus Quest 2. I also co-authored a published research paper on Kinect depth-sensor rehabilitation for elderly patients, tested with real patients.",
     "skills": [
       "Software Development",
       "Object-Oriented Programming",
       "Algorithms",
       "Data Structures",
       "Databases",
-      "Software Architecture",
-      "Git"
+      "Computer Graphics",
+      "Unity",
+      "C++",
+      "C#",
+      "Git",
+      "Scientific Publication"
     ]
 }
   
