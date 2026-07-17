@@ -78,3 +78,28 @@ const heroStats: HeroStat[] = [
     <ProjectsGrid items={projectItems} client:visible />
   </Section>
 </Layout>
+
+<style>
+  /* One continuous timeline spine down the centre, spanning every node.
+     Drawn on the list (not per-card) so node gaps never break the line. */
+  .achievements-list {
+    position: relative;
+  }
+  .achievements-list::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 1px;
+    background: var(--color-border-light);
+  }
+
+  /* No centre spine once the cards stack into a single column. */
+  @media (max-width: 768px) {
+    .achievements-list::before {
+      display: none;
+    }
+  }
+</style>

@@ -9,15 +9,15 @@
 
   let { achievement }: Props = $props();
 
-  const logo = $derived(
+  const image = $derived(
     achievement.data.image ? resolveMediaPath(achievement.data.image) : undefined,
   );
 </script>
 
 <a class="node" href={`/achievements/${achievement.id}`}>
-  {#if logo}
-    <div class="logo" aria-hidden="true">
-      <img src={logo} alt="" loading="lazy" decoding="async" />
+  {#if image}
+    <div class="media" aria-hidden="true">
+      <img src={image} alt="" loading="lazy" decoding="async" />
     </div>
   {/if}
 
@@ -36,54 +36,80 @@
 </a>
 
 <style>
-  /* Fixed logo gutter on every card keeps all rails vertically aligned,
-     whether or not a given achievement has a logo. */
+  /* Centered zig-zag timeline node: [ half ] [ spine ] [ half ].
+     Odd rows: photo left / text right. Even rows: swapped. Both hug the spine. */
   .node {
     display: grid;
-    grid-template-columns: 140px auto 1fr;
-    gap: var(--space-6);
+    grid-template-columns: 1fr 28px 1fr;
+    column-gap: var(--space-8);
+    align-items: center;
     text-decoration: none;
+    padding-bottom: var(--space-10);
   }
 
-  /* Event logo — arbitrary proportions, contained in the gutter box. */
-  .logo {
+  /* All three share one grid row — explicit grid-row:1 stops the auto-placement
+     algorithm from pushing items onto new rows when even-row columns run in
+     reverse source order (which was stacking photo above text). */
+  .media {
+    grid-row: 1;
     grid-column: 1;
+    justify-self: end;
     display: flex;
-    align-items: flex-start;
     justify-content: flex-end;
   }
-  .logo img {
-    width: 100%;
+  .body {
+    grid-row: 1;
+    grid-column: 3;
+    justify-self: start;
+    text-align: left;
+    max-width: 62ch;
+  }
+  .rail {
+    grid-row: 1;
+    grid-column: 2;
+  }
+
+  /* --- even rows: mirror --- */
+  .node:nth-child(even) .media {
+    grid-column: 3;
+    justify-self: start;
+    justify-content: flex-start;
+  }
+  .node:nth-child(even) .body {
+    grid-column: 1;
+    justify-self: end;
+    text-align: right;
+  }
+  .node:nth-child(even) .head {
+    justify-content: flex-end;
+  }
+
+  /* Event photo — natural aspect, fills its half up to a sane height cap. */
+  .media img {
+    display: block;
+    max-width: 75%;
+    max-height: 330px;
+    width: auto;
     height: auto;
-    max-height: 140px;
     object-fit: contain;
-    border-radius: var(--radius-sm);
+    border-radius: var(--radius-md);
     opacity: 0.9;
     transition: opacity var(--duration-fast) var(--ease-out);
   }
-  .node:hover .logo img { opacity: 1; }
+  .node:hover .media img { opacity: 1; }
 
+  /* Dot sits centered in the middle column; the continuous line is drawn by
+     the parent (.achievements-list) so it never breaks across node gaps. */
   .rail {
-    grid-column: 2;
-    position: relative;
     display: flex;
+    align-items: center;
     justify-content: center;
-    width: 12px;
-  }
-  .rail::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    width: 1px;
-    background: var(--color-border-light);
   }
   .dot {
     position: relative;
     z-index: 1;
-    width: 11px;
-    height: 11px;
-    margin-top: 4px;
+    width: 13px;
+    height: 13px;
     border-radius: var(--radius-full);
     background: var(--color-bg-primary);
     border: 2px solid var(--color-text-muted);
@@ -93,12 +119,6 @@
   .node:hover .dot {
     border-color: var(--color-accent);
     box-shadow: 0 0 0 4px var(--color-accent-glow);
-  }
-
-  .body {
-    grid-column: 3;
-    max-width: 62ch;
-    padding-bottom: var(--space-7);
   }
 
   .head {
@@ -137,5 +157,30 @@
     color: var(--color-text-muted);
     margin: 0;
     line-height: var(--line-height-base);
+  }
+
+  /* Narrow screens: zig-zag can't breathe — stack photo over text, no spine. */
+  @media (max-width: 768px) {
+    .node {
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--space-4);
+      padding-bottom: var(--space-8);
+    }
+    .rail { display: none; }
+    .media,
+    .node:nth-child(even) .media {
+      justify-content: flex-start;
+    }
+    .media img { max-height: 300px; }
+    .body,
+    .node:nth-child(even) .body {
+      max-width: none;
+      text-align: left;
+    }
+    .node:nth-child(even) .head {
+      justify-content: flex-start;
+    }
   }
 </style>
