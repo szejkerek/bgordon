@@ -8,7 +8,7 @@ import Section from '../components/Section.astro';
 import { publishedProjects, publishedAchievements } from '../utils/content';
 import { SECTION_IDS } from '../utils/routes';
 import { getThumbnail, PLACEHOLDER_IMAGE } from '../utils/projectImages';
-import { programmingYears, professionalMonths, formatDuration, age } from '../utils/stats';
+import { professionalMonths, formatDuration, age } from '../utils/stats';
 import type { HeroStat } from '../types';
 
 // Load site content from JSON files
@@ -28,15 +28,11 @@ const projectItems = sortedProjects.map((project) => ({
 // Hero stats — all derived from content/dates, never hand-maintained.
 const now = new Date();
 const projectsCount = sortedProjects.length;
-const gamesShipped = sortedProjects.filter((project) =>
-  project.data.tags?.some((tag) => tag.toLowerCase() === 'game'),
-).length;
 const jamPodiums = sortedAchievements.filter(
   (achievement) =>
     achievement.data.type === 'winner' || achievement.data.type === 'finalist',
 ).length;
 
-const codingYears = programmingYears(now);
 const proMonths = professionalMonths(workExperience.map((job) => job.period), now);
 
 let heroAge: number | undefined;
@@ -47,10 +43,8 @@ if (heroData.birthDate) {
 
 const heroStats: HeroStat[] = [
   { label: 'Experience', value: formatDuration(proMonths) },
-  { label: 'Years Coding', value: `${codingYears}` },
   { label: 'Projects', value: `${projectsCount}` },
-  { label: 'Games Shipped', value: `${gamesShipped}` },
-  { label: 'Game Jam Podiums', value: `${jamPodiums} ${jamPodiums === 1 ? 'win' : 'wins'}` },
+  { label: 'Hackathons', value: `${jamPodiums} ${jamPodiums === 1 ? 'win' : 'wins'}` },
 ];
 ---
 

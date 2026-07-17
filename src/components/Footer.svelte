@@ -33,7 +33,6 @@
   <div class="inner">
     <div class="cta">
       <p class="eyebrow">Get in touch</p>
-      <h2 class="headline">Let's talk.</h2>
       {#if email}
         <a href="mailto:{email}" class="email-btn" aria-label="Send email to {email}">
           <Icon name="email" size={18} />
@@ -113,16 +112,6 @@
     text-transform: uppercase;
     color: var(--color-accent);
     margin-bottom: var(--space-3);
-  }
-
-  .headline {
-    font-family: var(--font-display);
-    font-size: var(--font-size-2xl);
-    font-weight: var(--font-weight-semibold);
-    line-height: var(--line-height-tight);
-    letter-spacing: var(--letter-spacing-tight);
-    color: var(--color-text-primary);
-    margin: 0 0 var(--space-7);
   }
 
   .email-btn {

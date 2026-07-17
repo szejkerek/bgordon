@@ -280,7 +280,7 @@
     border: 1px solid var(--color-border-light);
     border-radius: var(--radius-md);
     background: rgba(255, 255, 255, 0.03);
-    font-size: var(--font-size-xs);
+    font-size: var(--font-size-sm);
     font-weight: var(--font-weight-semibold);
     line-height: 1;
     color: var(--color-text-primary);
@@ -298,7 +298,7 @@
   .hero-stats {
     grid-column: 1 / -1;
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: var(--space-6);
     margin: var(--space-4) 0 0;
     padding: var(--space-8) 0 0;
