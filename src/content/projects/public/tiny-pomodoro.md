@@ -2,7 +2,7 @@
 title: "Tiny Pomodoro"
 description: "A Pomodoro widget designed around my personal deep-work routine."
 date: "2026-06"
-tags: ["Desktop", "C#"]
+tags: ["Desktop", "C#", "Tooling"]
 sourceUrl: "https://github.com/szejkerek/TinyPomodoro"
 teamSize: 1
 ---

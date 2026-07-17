@@ -95,7 +95,11 @@
     box-shadow: 0 0 0 4px var(--color-accent-glow);
   }
 
-  .body { grid-column: 3; padding-bottom: var(--space-9); }
+  .body {
+    grid-column: 3;
+    max-width: 62ch;
+    padding-bottom: var(--space-7);
+  }
 
   .head {
     display: flex;
@@ -111,7 +115,7 @@
 
   .title {
     font-family: var(--font-display);
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-xl);
     font-weight: var(--font-weight-semibold);
     color: var(--color-text-primary);
     letter-spacing: var(--letter-spacing-tight);
@@ -122,14 +126,14 @@
   .node:hover .title { color: var(--color-accent); }
 
   .event {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-md);
     color: var(--color-text-secondary);
     margin: 0 0 var(--space-3);
   }
   .rank { color: var(--color-text-primary); }
 
   .desc {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-md);
     color: var(--color-text-muted);
     margin: 0;
     line-height: var(--line-height-base);

@@ -2,7 +2,7 @@
 title: "The Backyard"
 description: "Isometric resource management game set in a kid's treehouse, featuring childhood outdoor games. Created during a 48-hour GameJamPlus event."
 date: "2023-05"
-tags: ["Game", "Unity"]
+tags: ["Unity", "C#"]
 # sourceUrl: "https://github.com/PlaceHoldersStudio/TheBackyard"  # private repo
 teamSize: 5
 ---

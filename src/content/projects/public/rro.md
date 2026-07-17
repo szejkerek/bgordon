@@ -2,7 +2,7 @@
 title: "Physically Based Rendering"
 description: "University experiments with pbrt-v4 exploring rendering, volumetric light, and GPU path tracing."
 date: "2024-10"
-tags: ["Graphics", "C++"]
+tags: ["Graphics", "C++", "GPU"]
 sourceUrl: "https://github.com/szejkerek/RRO"
 teamSize: 1
 ---

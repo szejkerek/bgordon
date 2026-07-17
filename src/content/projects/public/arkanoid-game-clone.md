@@ -2,7 +2,7 @@
 title: "Arkanoid Game Clone"
 description: "My first game project, built in C++ and SFML as a recreation of the classic Arkanoid arcade game."
 date: "2022-06"
-tags: ["Game", "C++"]
+tags: ["C++"]
 sourceUrl: "https://github.com/szejkerek/ArkanoidGameClone"
 teamSize: 1
 ---

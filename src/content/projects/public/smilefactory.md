@@ -2,7 +2,7 @@
 title: "SmileFactory"
 description: "A machine-learning pipeline for classifying genuine and posed smiles."
 date: "2024-04"
-tags: ["AI", "Python"]
+tags: ["AI", "Python", "Analysis"]
 sourceUrl: "https://github.com/szejkerek/SmileFactory"
 teamSize: 5
 ---

@@ -267,7 +267,6 @@
     line-height: var(--line-height-base);
     margin-bottom: var(--space-5);
     text-align: justify;
-    hyphens: auto;
   }
 
   .job-skills {

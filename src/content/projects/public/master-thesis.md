@@ -2,7 +2,7 @@
 title: "PCG Algorithm Analysis"
 description: "My master's thesis comparing procedural dungeon generation algorithms through large-scale Unity experiments and statistical analysis."
 date: "2025-09"
-tags: ["Unity", "Python", "Analysis"]
+tags: ["Unity", "Python", "PCG", "Analysis"]
 # sourceUrl: "https://github.com/szejkerek/MasterThesis"  # private repo
 teamSize: 1
 ---

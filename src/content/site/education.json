@@ -9,16 +9,9 @@
     "skills": [
       "Graphics Programming",
       "Real-Time Rendering",
-      "Shader Programming",
-      "OpenGL",
-      "DirectX",
-      "Vulkan",
       "Computer Vision",
       "Game AI",
-      "Procedural Generation",
-      "C++",
-      "C#",
-      "VR/AR"
+      "C++"
     ]
   },
   {
@@ -29,17 +22,11 @@
     "url": "/achievements/engineer-degree",
     "description": "Graduated February 2024 with an engineering degree (inż.), final grade 5.0, specialized in Computer Graphics and Software. Solid CS foundation across OOP, algorithms, data structures, databases and 2D/3D graphics. My thesis was an arcade VR game in Unity for the Oculus Quest 2, and I co-authored a published research paper on Kinect depth-sensor rehabilitation, tested with real elderly patients.",
     "skills": [
-      "Software Development",
       "Object-Oriented Programming",
       "Algorithms",
       "Data Structures",
-      "Databases",
       "Computer Graphics",
-      "Unity",
-      "C++",
-      "C#",
-      "Git",
-      "Scientific Publication"
+      "C++"
     ]
 }
   

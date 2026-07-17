@@ -51,7 +51,7 @@ const wantToRead = allBooks.filter(b => b.status === 'want-to-read');
       {wantToRead.length > 0 && (
         <section id="wishlist" class="book-group">
           <h2 class="group-title">Want to Read</h2>
-          <div class="book-list">
+          <div class="book-list book-list--wishlist">
             {wantToRead.map((book) => <BookCard book={book} />)}
           </div>
         </section>
@@ -66,9 +66,9 @@ const wantToRead = allBooks.filter(b => b.status === 'want-to-read');
     min-height: 100vh;
   }
 
-  /* narrower than the global .container default */
+  /* 2x the article width — books page reads wider than the rest of the site */
   .container {
-    max-width: var(--container-max-width-article);
+    max-width: calc(var(--container-max-width-article) * 2);
   }
 
   .page-header {
@@ -128,6 +128,14 @@ const wantToRead = allBooks.filter(b => b.status === 'want-to-read');
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr));
     align-items: start;
+  }
+
+  /* Wishlist: dense grid of compact tiles rather than wide single-line bars. */
+  .book-list--wishlist {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+    gap: var(--space-4);
+    align-items: stretch;
   }
 
   @media (max-width: 768px) {

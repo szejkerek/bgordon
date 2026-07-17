@@ -2,7 +2,7 @@
 title: "JustDown"
 description: "A 3D game demo built with C++ and OpenGL, featuring custom physics, shaders, parallax mapping, HDR, and bloom."
 date: "2023-06"
-tags: ["Game", "OpenGL", "C++"]
+tags: ["Graphics", "C++"]
 sourceUrl: "https://github.com/szejkerek/JustDown"
 teamSize: 1
 ---

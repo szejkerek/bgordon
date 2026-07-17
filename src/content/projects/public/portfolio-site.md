@@ -2,7 +2,7 @@
 title: "This Portfolio Site"
 description: "My personal portfolio website showcasing my projects, skills, and experience."
 date: "2026-07"
-tags: ["Web", "TypeScript"]
+tags: ["Web"]
 sourceUrl: "https://github.com/szejkerek/bgordon"
 teamSize: 1
 ---

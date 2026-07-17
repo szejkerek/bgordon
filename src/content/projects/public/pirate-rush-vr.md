@@ -2,7 +2,7 @@
 title: "Pirate Rush VR"
 description: "An arcade high-score VR game for Oculus Quest 2 where players slice flying fruit with a sabre and shoot down barrels with a pistol."
 date: "2024-01"
-tags: ["Game", "Unity", "VR"]
+tags: ["Unity", "C#", "VR"]
 playUrl: "https://szejkerek.itch.io/pirate-rush-vr"
 sourceUrl: "https://github.com/szejkerek/PirateRushVR"
 teamSize: 1

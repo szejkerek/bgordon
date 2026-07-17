@@ -2,7 +2,7 @@
 title: "Paper Blades"
 description: "An award-winning roguelike strategy game where players command origami samurai with their voice."
 date: "2024-06"
-tags: ["Game", "Unity"]
+tags: ["Unity", "C#"]
 # sourceUrl: "https://github.com/PlaceHoldersStudio/PaperBlades"  # private repo
 teamSize: 6
 ---

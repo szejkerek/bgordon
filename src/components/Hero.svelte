@@ -293,7 +293,6 @@
     color: var(--color-text-secondary);
     margin-bottom: var(--space-9);
     text-align: justify;
-    hyphens: auto;
   }
 
   .hero-stats {
@@ -501,6 +500,10 @@
     .hero-stats {
       grid-template-columns: repeat(2, 1fr);
       gap: var(--space-7) var(--space-6);
+    }
+
+    .hero-stat:last-child:nth-child(odd) {
+      grid-column: 1 / -1;
     }
 
     .scroll-cue {

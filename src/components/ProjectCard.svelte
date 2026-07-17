@@ -142,7 +142,41 @@
 
   .card-tags {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     gap: var(--space-2);
+    overflow: hidden;
+  }
+
+  /* Keep all four tags on a single row: compact chrome, no wrap, shrink to fit. */
+  .card-tags .tag {
+    padding: var(--space-1) var(--space-3);
+    letter-spacing: var(--letter-spacing-tight);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* Tighter card chrome when two cards share a narrow (mobile / high-zoom) row. */
+  @media (max-width: 768px) {
+    .card-content {
+      padding: var(--space-5);
+    }
+    .card-title {
+      font-size: var(--font-size-lg);
+    }
+    .card-description {
+      font-size: var(--font-size-sm);
+      -webkit-line-clamp: 4;
+    }
+    .card-meta {
+      gap: var(--space-3);
+      margin-bottom: var(--space-4);
+    }
+    .card-tags {
+      gap: var(--space-1);
+    }
+    .card-tags .tag {
+      padding: var(--space-1) var(--space-2);
+      letter-spacing: var(--letter-spacing-tight);
+    }
   }
 </style>

@@ -2,7 +2,7 @@
 title: "Knot Fun"
 description: "An award-winning local co-op arena shooter where players fight enemy swarms while physically connected by a damage-dealing rope."
 date: "2024-12"
-tags: ["Game", "Unity"]
+tags: ["Unity", "C#"]
 # sourceUrl: "https://github.com/PlaceHoldersStudio/KnotFun"  # private repo
 teamSize: 4
 ---

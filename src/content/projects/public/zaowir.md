@@ -2,7 +2,7 @@
 title: "Stereo Vision & Disparity"
 description: "A university stereo-vision project built with Python and OpenCV."
 date: "2024-10"
-tags: ["AI", "Python"]
+tags: ["Graphics", "Python", "OpenCV"]
 sourceUrl: "https://github.com/szejkerek/ZAOWIR"
 teamSize: 1
 ---

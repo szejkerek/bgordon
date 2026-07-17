@@ -175,7 +175,6 @@
   color: var(--color-text-secondary);
   line-height: var(--line-height-relaxed);
   text-align: justify;
-  hyphens: auto;
 }
 
 .prose h2 {
