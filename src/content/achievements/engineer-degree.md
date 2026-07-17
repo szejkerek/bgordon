@@ -9,8 +9,4 @@ image: "/images/achievements/engineer-degree/thumbnail.png"
 project: "pirate-rush-vr"
 ---
 
-I learned more about computer science at the Silesian University of Technology than I could have learned anywhere else. During my studies, I gained experience in software engineering, object-oriented programming, algorithms, databases, distributed systems, and team projects. I also co-authored a scientific publication about rehabilitation using depth sensors.
-
-I remember this time very positively, especially because of the people I met and the projects we worked on together.
-
-Finishing the degree by creating a VR game as my engineering project was a great way to close this chapter.
+My engineering degree at the Silesian University of Technology gave me the foundation everything since is built on: software engineering, object-oriented programming, algorithms, databases, distributed systems and team projects, plus a co-authored publication on depth-sensor rehabilitation. I remember it most for the people and the projects we built together, and closing it out by shipping a VR game as my thesis was the right way to end the chapter.

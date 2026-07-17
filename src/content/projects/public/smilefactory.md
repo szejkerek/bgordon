@@ -9,7 +9,7 @@ teamSize: 5
 
 ## Overview
 
-SmileFactory is a university machine-learning project by a five-person team asking whether a model can tell a genuine smile from a posed one, using the UvA-NEMO smile dataset. Rather than raw images, it works from facial action-unit features that describe muscle activity over time. I led the core implementation, covering the data loading and fold handling, the classifier integration and metrics, and the results and plots, while a teammate wrote the temporal windowing and others added classifiers and visualisation.
+SmileFactory is a university machine-learning project by a five-person team asking whether a model can tell a genuine smile from a posed one, using the UvA-NEMO smile dataset. Rather than raw images, it works from facial action-unit features that describe muscle activity over time. I led the core implementation: data loading and fold handling, classifier integration and the metrics and plots. A teammate wrote the temporal windowing while others added classifiers and visualisation.
 
 ## Technical Highlights
 

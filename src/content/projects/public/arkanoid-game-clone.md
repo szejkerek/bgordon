@@ -9,7 +9,7 @@ teamSize: 1
 
 ## Overview
 
-Arkanoid Game Clone was the first game I ever built, a solo university project recreating the 1986 arcade classic in C++17 and SFML with no game engine. Working without an engine meant writing the core systems, scenes, collisions, resources and UI, from first principles, which was exactly what I wanted from it.
+This is the first game I ever built: a solo recreation of the 1986 arcade classic in C++17 and SFML, no engine. Writing the core systems from scratch, scenes, collisions, resources and UI, was exactly the point.
 
 ## Technical Highlights
 

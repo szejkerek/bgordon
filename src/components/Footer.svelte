@@ -33,7 +33,7 @@
   <div class="inner">
     <div class="cta">
       <p class="eyebrow">Get in touch</p>
-      <h2 class="headline">Let's build something together.</h2>
+      <h2 class="headline">Let's talk.</h2>
       {#if email}
         <a href="mailto:{email}" class="email-btn" aria-label="Send email to {email}">
           <Icon name="email" size={18} />

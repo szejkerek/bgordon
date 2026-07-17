@@ -9,7 +9,7 @@ teamSize: 5
 
 ## Overview
 
-The Backyard is an isometric game built by a five-person team over a 48-hour GameJamPlus in Lublin, set around a kid's treehouse and built out of classic childhood outdoor games. It never shipped and did not place, but it was a genuine team crucible: several people were touching Unity for the first time, so much of the work was learning the engine, splitting responsibilities and getting a rough idea to playable inside two days.
+The Backyard is an isometric game a five-person team built over a 48-hour GameJamPlus in Lublin: a kid's treehouse world stitched together from the outdoor games we all played as children, floor-is-lava, tag, and the rest. It never shipped and did not place, but it was a real team crucible. Several of us were touching Unity for the first time, so most of the work was learning the engine, splitting the load, and dragging a rough idea to playable inside two days.
 
 ## Technical Highlights
 

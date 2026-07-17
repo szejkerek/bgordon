@@ -1,6 +1,6 @@
 ---
 title: "JustDown"
-description: "A 3D game demo built with C++ and OpenGL, featuring custom physics, shaders, parallax mapping, HDR, and bloom.."
+description: "A 3D game demo built with C++ and OpenGL, featuring custom physics, shaders, parallax mapping, HDR, and bloom."
 date: "2023-06"
 tags: ["Game", "OpenGL", "C++"]
 sourceUrl: "https://github.com/szejkerek/JustDown"
@@ -9,7 +9,7 @@ teamSize: 1
 
 ## Overview
 
-JustDown is a solo 3D game demo I wrote from scratch in C++ and OpenGL 3.3 with no game engine, loosely inspired by *Only Up!* but reversed, so the player descends instead of climbs. Everything an engine normally hides, the renderer, the shaders, the post-processing, the physics and the level loading, I built by hand, which was the whole point of the project.
+JustDown is a 3D game demo I wrote from scratch in C++ and OpenGL 3.3 with no engine underneath. It is loosely *Only Up!* in reverse: the player descends instead of climbs. Everything an engine usually hides, the renderer, shaders, post-processing, physics and level loading, I built by hand. That was the whole point.
 
 ## Technical Highlights
 

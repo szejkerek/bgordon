@@ -7,6 +7,12 @@ tags: ["Unity", "Python", "Analysis"]
 teamSize: 1
 ---
 
+## Overview
+
+Most procedural-generation work is judged by eyeballing a handful of maps. My master's thesis (defended 2025, graded 5.0) judges it by generating thousands and measuring them. I built the generators in Unity, a batch harness that sweeps their parameter spaces, a metric suite scoring every dungeon structurally and through a simulated player, and a JSON export pipeline feeding a separate Python analysis layer.
+
+📄 [Read the full thesis (PDF)](/files/procedural-dungeon-generation-thesis.pdf)
+
 ## What The Images Show
 
 The lead image is the research tool mid-run, with labelled panels: **(A)** the configuration of the algorithm currently under test, **(B)** the study parameters, **(C)** partial test results, **(D)** the estimated time to completion, **(E)** a live visualization of the generated levels, and **(F)** the average execution time of each test.
@@ -14,12 +20,6 @@ The lead image is the research tool mid-run, with labelled panels: **(A)** the c
 Next come sample dungeons from the distinct algorithm families. Binary Space Partitioning produces clean rooms joined by corridors, Cellular Automata grows organic caves, Diffusion-Limited Aggregation forms thin branching passages, and Drunkard Walk carves sparse winding paths.
 
 The final images come from the analytical layer: a line chart tracking a playability metric against algorithm parameters, a Spearman correlation heatmap linking parameters to level properties, and a comparison chart ranking the algorithms by mean normalized steps to exit.
-
-## Overview
-
-My master's thesis (defended in 2025, graded 5.0) is a solo project that implements several procedural dungeon-generation algorithms and compares them objectively, not by eyeballing a few maps but by generating thousands and measuring them. I built the generators in Unity, a batch harness that sweeps their parameter spaces, a metric suite that scores every dungeon both structurally and through a simulated player, and a JSON export pipeline feeding a separate Python analysis layer.
-
-📄 [Read the full thesis (PDF)](/files/procedural-dungeon-generation-thesis.pdf)
 
 ## Technical Highlights
 

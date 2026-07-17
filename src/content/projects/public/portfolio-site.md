@@ -9,7 +9,7 @@ teamSize: 1
 
 ## Overview
 
-This is my personal portfolio, the site you are reading right now, built solo with Astro, Svelte 5 and TypeScript. Project, achievement and book content lives in Markdown collections rather than a CMS, and a handful of deliberate architectural choices keep it fast, statically generated, and hard to break as the content grows.
+You are looking at it. This portfolio is built solo with Astro, Svelte 5 and TypeScript, with all project, achievement and book content living in Markdown collections rather than a CMS. A few deliberate architectural choices keep it fast, statically generated, and hard to break as the content grows.
 
 ## Technical Highlights
 

@@ -9,7 +9,7 @@ teamSize: 1
 
 ## Overview
 
-This is a solo computer-vision project from a series of university labs on stereo imaging and depth estimation, built in Python with OpenCV. It walks the full stereo pipeline, from single and stereo camera calibration through rectification and disparity estimation to depth maps, 3D point clouds and optical flow on video.
+A solo computer-vision project walking the entire stereo pipeline in Python and OpenCV: from single and stereo camera calibration through rectification and disparity estimation, out to depth maps, 3D point clouds and optical flow on video.
 
 ## Technical Highlights
 

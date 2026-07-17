@@ -9,7 +9,7 @@ teamSize: 4
 
 ## Overview
 
-Knot Fun is a local co-op arena shooter first built by a four-person team at the BEST IT Festival Game Jam in Gliwice, where it won first place, and later expanded by the whole Placeholders Studio team. The jam version was made for exactly three players; the continued version supports two to four. Every player is tied to the others by a simulated rope that reacts to the environment, limits how far the group can spread, and damages enemies it sweeps through, so positioning and coordination become the core of combat. I built the first working rope prototype that set the mechanic's direction during the jam, and afterwards focused on combat feedback and polish as the game went on to be shown at ZTGK, Digital Dragons and Game Access.
+Every player is tied to the others by a simulated rope that limits how far you can spread, reacts to the environment, and slices through any enemy it sweeps, so positioning and coordination become the whole fight. Knot Fun is a local co-op arena shooter, first built by a four-person team at the BEST IT Festival Game Jam in Gliwice where it won first place, then expanded by the full Placeholders Studio team and shown at ZTGK, Digital Dragons and Game Access. I built the first working rope prototype that set the mechanic's direction, then focused on combat feedback and polish.
 
 ## Technical Highlights
 

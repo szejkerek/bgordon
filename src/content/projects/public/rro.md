@@ -9,7 +9,7 @@ teamSize: 1
 
 ## Overview
 
-This is a set of physically based rendering experiments I completed solo during university labs, built on top of the pbrt-v4 reference renderer. Rather than modifying the renderer's core, my work was in authoring and configuring scenes to study how modern light transport behaves: comparing integrators, materials and participating media, then analysing how each parameter affected noise, image quality and render time.
+A set of physically based rendering experiments built on the pbrt-v4 reference renderer during university labs. Instead of touching the renderer's core, I authored and configured scenes to study how modern light transport behaves: comparing integrators, materials and participating media, then analysing how each parameter moved noise, image quality and render time.
 
 ## Technical Highlights
 

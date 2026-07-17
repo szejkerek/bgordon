@@ -11,7 +11,7 @@ teamSize: 4
 
 ## Overview
 
-Electro Exile (released as *The Last Battery*) is a platformer from my first-ever game jam, built by a four-person team and awarded third place at the BEST IT Festival. You play a battery that steadily loses charge as it moves, and different parts of the environment drain it at different rates, so a straightforward platformer becomes a small resource-management puzzle where every jump and route choice costs energy. On the team I owned the player movement and the project's core architecture.
+You play a battery that drains as it moves, and different terrain drains it faster, so a simple platformer quietly becomes a resource puzzle where every jump and route choice costs energy. Electro Exile (released as *The Last Battery*) came out of my first-ever game jam, a four-person team, third place at the BEST IT Festival. I owned player movement and the core architecture.
 
 ## Technical Highlights
 

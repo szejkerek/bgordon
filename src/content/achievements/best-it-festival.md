@@ -10,6 +10,4 @@ rank: "Theme: You are the source of power"
 image: "/images/achievements/best-it-festival/thumbnail.png"
 ---
 
-This was the first game jam I had ever taken part in. Together with three friends, as a team of four, we created Electro Exile (formerly known as "Last Battery"), a game about a battery that has to manage its stored electricity.
-
-We won third place, but the most important part for me was the experience and the people I met. It motivated me to keep learning, working on games, and developing my passion for game development. I had a great time, even though the game itself was never fully finished.
+My first-ever game jam. Four of us, three friends and me, built Electro Exile (then called The Last Battery), a game about a battery rationing its own charge. Third place, but the real prize was the people and the proof that I wanted to keep doing this. The game was never finished, and I still had a great time.

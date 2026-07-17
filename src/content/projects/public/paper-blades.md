@@ -9,7 +9,7 @@ teamSize: 6
 
 ## Overview
 
-Paper Blades is a roguelike strategy game set in a stylised feudal Japan where you command a squad of origami samurai using voice commands. Built by a six-person Placeholders Studio team, it became a turning point for the studio, winning second place at the 16th ZTGK competition along with the Digital Dragons Award, the Game Access Award, and long-term legal support from GameDev Lawyer. It was one of the first projects to bring us wider recognition and to turn our group into a proper studio. I worked on the game's voice-control side and built much of the shared systems layer it ran on.
+You command a squad of origami samurai with your voice. Paper Blades is a roguelike strategy game in a stylised feudal Japan, built by a six-person Placeholders Studio team, and it became the studio's turning point: second place at the 16th ZTGK, plus the Digital Dragons, Game Access and GameDev Lawyer awards. I worked on the game's voice-control side and built much of the shared systems layer it ran on.
 
 ## Technical Highlights
 

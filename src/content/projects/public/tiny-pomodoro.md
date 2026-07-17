@@ -9,7 +9,7 @@ teamSize: 1
 
 ## Overview
 
-Tiny Pomodoro is a compact, always-on-top Windows focus timer I built solo in C# and WPF to put the ideas from *Deep Work* into practice, shaped around my own routine. During a focus session it actively removes the distractions I reach for on autopilot and pulls in my real task list, then restores everything the moment I pause or take a break. I built it with the help of Claude Code, as a way to explore AI-assisted development on a real problem I actually wanted solved.
+I kept reaching for Spotify and the same three websites on autopilot mid-focus. Tiny Pomodoro is the fix: a compact, always-on-top Windows timer in C# and WPF that removes those distractions during a session and pulls in my real task list, then restores everything the moment I pause. Built with Claude Code, as a way to explore AI-assisted development on a problem I actually wanted solved.
 
 ## Technical Highlights
 
@@ -24,5 +24,5 @@ A `SessionController` choreographs the timer, task list and blockers and is the 
 
 ## Learnings
 
-Working with Claude Code let me move fast while keeping the design mine, and it pushed me to keep the coordination logic cleanly separated and tested even on what is ultimately a personal tool.
+Even on a personal tool, keeping the coordination logic cleanly separated and unit-tested paid off, and moving fast without letting the design drift was the real exercise.
 

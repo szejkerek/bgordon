@@ -1,6 +1,6 @@
 ---
 title: "ReWand"
-description: "My most recent project."
+description: "A third-person action game about spellcasting and reincarnation: when you die, your last life returns as an ally. In production with a publisher."
 date: "2025-12"
 tags: ["Game", "Unity"]
 # sourceUrl: "https://github.com/PlaceHoldersStudio/ReWand"  # private repo

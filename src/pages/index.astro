@@ -46,10 +46,10 @@ if (heroData.birthDate) {
 }
 
 const heroStats: HeroStat[] = [
-  { label: 'Work Experience', value: formatDuration(proMonths) },
-  { label: 'Coding', value: `${codingYears} ${codingYears === 1 ? 'year' : 'years'}` },
+  { label: 'Experience', value: formatDuration(proMonths) },
+  { label: 'Years Coding', value: `${codingYears}` },
   { label: 'Projects', value: `${projectsCount}` },
-  { label: 'Games', value: `${gamesShipped} shipped` },
+  { label: 'Games Shipped', value: `${gamesShipped}` },
   { label: 'Game Jam Podiums', value: `${jamPodiums} ${jamPodiums === 1 ? 'win' : 'wins'}` },
 ];
 ---

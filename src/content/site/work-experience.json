@@ -14,7 +14,7 @@
     "url": "https://resimo.com/",
     "role": "Programmer",
     "period": "July 2024 to Present",
-    "description": "Develop the core engine and deployment pipeline behind an interactive 3D real estate desktop app (Unity), used by every client across a 100+ person company through a shared CORE codebase. Built the internal unit-testing framework, editor dev tools and app DevOps, and personally delivered dozens of client deployments from zero. Currently porting the full application to Unreal Engine.",
+    "description": "Own the core engine and deployment pipeline behind an interactive 3D real-estate app (Unity) used by every client across the company on one shared CORE codebase. Built the internal unit-testing framework, editor tooling and DevOps, and delivered dozens of client builds from scratch. Currently porting the whole application to Unreal Engine.",
     "skills": ["Unity", "C#", "Unreal Engine", "DevOps", "Tooling"]
   },
   {
@@ -23,7 +23,7 @@
     "url": "https://www.radikate.com/",
     "role": "Unity Developer",
     "period": "May 2023 to July 2023",
-    "description": "Worked as one of 5 programmers on an 8-person team (2 artists, 1 PM) during a 3-month contract. Focused on the PC game Nerd Simulator from its earliest stage, with occasional maintenance and one new mechanic on the live mobile and PC title Jump Heroes.",
+    "description": "Built PC game Nerd Simulator from its earliest stage as one of five programmers on an eight-person team, during a three-month contract. Also maintained the live mobile/PC title Jump Heroes and added one new mechanic.",
     "skills": ["Unity", "C#", "PC", "Mobile"]
   },
   {
@@ -32,7 +32,7 @@
     "url": "https://itsilesia.com/homepage/",
     "role": "Unity VR Developer (Intern to Mid)",
     "period": "April 2022 to July 2023",
-    "description": "Joined as a student intern and was promoted to Mid. Built 6 VR training simulations for TransFr (XR Interaction Toolkit, Oculus), owning most of the scope from framework improvements to turning designs into working VR. Also contributed to two non-simulation products: an interactive product catalogue for mining manufacturer FAMUR and a touchscreen 3D real estate sales app for TDJ Estate.",
+    "description": "Started as a student intern and grew into a Mid developer. Built six VR training simulations for TransFr (XR Interaction Toolkit, Oculus), owning most of the scope from framework work to turning designs into shipped VR. Also shipped two non-simulation products: an interactive product catalogue for mining manufacturer FAMUR and a touchscreen 3D real-estate sales app for TDJ Estate.",
     "skills": ["Unity", "VR", "XR Interaction Toolkit", "C#"]
   }
 ]

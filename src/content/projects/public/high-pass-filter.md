@@ -20,7 +20,7 @@ High Pass Image Filter is a solo university project I built to answer one questi
 - **Bulk bitmap I/O.** Pixels are lifted into a flat byte array in one `Marshal.Copy` via `LockBits`, avoiding the per-pixel `GetPixel`/`SetPixel` penalty. See [`CustomBitmap.cs`](https://github.com/szejkerek/HighPassImageFilter/blob/main/JA_Projekt/Main/CustomBitmap.cs).
 - **Honest benchmarking.** The harness trims the first 2.5% of samples to discard JIT warm-up, then reports average time with standard deviation across seven thread counts. See [`TimeMesurement.cs`](https://github.com/szejkerek/HighPassImageFilter/blob/main/JA_Projekt/Utility/Benchmark/TimeMesurement.cs).
 
-The payoff: the Assembly implementation ran nearly twice as fast as the C++ one.
+The payoff: hand-written Assembly ran nearly twice as fast as the compiler's best C++.
 
 ## Learnings
 
