@@ -88,7 +88,10 @@
   --space-12: 4rem;
 
   /* Layout */
-  --container-max-width: 1200px;
+  /* The site-wide shell spans the window; the side padding below is what keeps
+     content off the edge. Detail pages opt into a narrower measure with the two
+     tokens under this one. */
+  --container-max-width: none;
   --container-max-width-narrow: 900px;
   --container-max-width-article: 1000px;
   --container-padding: 2rem;

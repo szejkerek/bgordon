@@ -138,6 +138,12 @@
   max-width: var(--container-max-width-narrow);
 }
 
+/* DetailLayout asks for "narrow" or "article"; only the first had a rule, so
+   achievement pages silently fell back to the site-wide container. */
+.container--article {
+  max-width: var(--container-max-width-article);
+}
+
 /* Date & meta */
 .date {
   font-size: var(--font-size-sm);
