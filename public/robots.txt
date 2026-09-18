@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://bgordon.pl/sitemap-index.xml
