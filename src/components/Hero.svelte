@@ -1,5 +1,4 @@
 ﻿<script lang="ts">
-  import { onMount } from "svelte";
   import Icon from "./Icon.svelte";
   import Media from "./Media.svelte";
   import type { HeroData, HeroStat, MediaSource, SocialLink } from "../types";
@@ -14,8 +13,6 @@
   }
 
   let { heroData = {}, photo, stats = [], age }: Props = $props();
-
-  let visible = $state(false);
 
   // Default values
   const defaults = {
@@ -74,13 +71,9 @@
   function isDownloadLink(link: SocialLink): boolean {
     return link.type === 'download' || link.url.endsWith('.pdf');
   }
-
-  onMount(() => {
-    visible = true;
-  });
 </script>
 
-<section class="hero" class:visible aria-label="Hero section">
+<section class="hero" aria-label="Hero section">
   <div class="hero-bg" aria-hidden="true"></div>
 
   <div class="hero-grid">
@@ -180,16 +173,20 @@
     padding: 8rem 2rem 4rem;
     max-width: var(--container-max-width);
     margin: 0 auto;
-    opacity: 0;
-    transform: translateY(16px);
-    transition: 
-      opacity 0.65s var(--ease-spring),
-      transform 0.65s var(--ease-spring);
+    /* Entrance runs on load rather than on hydration: the hero is the LCP
+       element, so it must never wait on (or depend on) JavaScript. */
+    animation: hero-enter 0.65s var(--ease-spring) both;
   }
 
-  .hero.visible {
-    opacity: 1;
-    transform: translateY(0);
+  @keyframes hero-enter {
+    from {
+      opacity: 0;
+      transform: translateY(16px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
   }
 
   .hero-bg {
@@ -398,14 +395,18 @@
     font-weight: var(--font-weight-medium);
     letter-spacing: 0.08em;
     text-transform: uppercase;
-    opacity: 0;
-    transition:
-      color var(--duration-normal) var(--ease-out),
-      opacity 0.65s var(--ease-spring) 0.4s;
+    opacity: 0.85;
+    animation: scroll-cue-enter 0.65s var(--ease-spring) 0.4s both;
+    transition: color var(--duration-normal) var(--ease-out);
   }
 
-  .hero.visible .scroll-cue {
-    opacity: 0.85;
+  @keyframes scroll-cue-enter {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 0.85;
+    }
   }
 
   .scroll-cue:hover {
@@ -512,6 +513,10 @@
 
   @media (prefers-reduced-motion: reduce) {
     .hero,
+    .scroll-cue {
+      animation: none;
+    }
+
     .hero-link,
     .photo-frame {
       transition: none;
