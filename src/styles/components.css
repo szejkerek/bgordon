@@ -197,22 +197,25 @@
   margin-bottom: var(--space-6);
 }
 
-.prose ul {
-  list-style: none;
+.prose ul,
+.prose ol {
   padding-left: var(--space-7);
   margin-bottom: var(--space-7);
 }
 
 .prose li {
-  position: relative;
   margin-bottom: var(--space-2);
 }
 
-.prose li::before {
-  content: '–';
-  position: absolute;
-  left: calc(var(--space-7) * -1);
+/* The dash is styled on the marker rather than faked with ::before on a
+   list-style:none list — a list without markers loses its list semantics in
+   Safari/VoiceOver. Browsers that ignore ::marker content fall back to a bullet. */
+.prose li::marker {
   color: var(--color-text-muted);
+}
+
+.prose ul li::marker {
+  content: '–  ';
 }
 
 .prose a {
