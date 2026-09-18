@@ -169,13 +169,26 @@
       transform: translateY(-100%);
       opacity: 0;
       pointer-events: none;
-      transition: all var(--duration-normal) var(--ease-out);
+      /* visibility, not just opacity: a transparent off-screen menu still keeps
+         its links in the tab order, so keyboard users fall into a menu they
+         cannot see. Its transition is delayed to 0s only on the way out, so the
+         links stay visible for the length of the slide. */
+      visibility: hidden;
+      transition:
+        transform var(--duration-normal) var(--ease-out),
+        opacity var(--duration-normal) var(--ease-out),
+        visibility 0s linear var(--duration-normal);
     }
-    
+
     .nav-links.open {
       transform: translateY(0);
       opacity: 1;
       pointer-events: auto;
+      visibility: visible;
+      transition:
+        transform var(--duration-normal) var(--ease-out),
+        opacity var(--duration-normal) var(--ease-out),
+        visibility 0s;
     }
   }
 </style>
