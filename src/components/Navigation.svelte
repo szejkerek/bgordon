@@ -50,14 +50,13 @@
       <span class="bar" class:open={isMenuOpen}></span>
     </button>
     
-    <ul id="nav-links" class="nav-links" class:open={isMenuOpen} role="menubar">
-      {#each navLinks as link}
-        <li role="none">
-          <a 
-            href={link.href} 
-            onclick={closeMenu} 
-            role="menuitem"
-          >
+    <!-- A list of links, not an application menu: role="menubar"/"menuitem"
+         promises arrow-key navigation this does not implement, and replaces the
+         list semantics screen readers use to announce how many links there are. -->
+    <ul id="nav-links" class="nav-links" class:open={isMenuOpen}>
+      {#each navLinks as link (link.href)}
+        <li>
+          <a href={link.href} onclick={closeMenu}>
             {link.label}
           </a>
         </li>
