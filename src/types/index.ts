@@ -3,6 +3,22 @@
  */
 
 // ============================================
+// Media Types
+// ============================================
+
+/**
+ * Everything an `<img>` needs from the build: a URL, optional responsive
+ * variants, and the intrinsic dimensions that reserve its box before it loads.
+ */
+export interface MediaSource {
+  src: string;
+  srcset?: string;
+  sizes?: string;
+  width?: number;
+  height?: number;
+}
+
+// ============================================
 // Social & Link Types
 // ============================================
 
@@ -50,7 +66,7 @@ export interface WorkExperience {
   period: string;
   description: string;
   skills: string[];
-  logo?: string;
+  logo?: MediaSource;
   url?: string;
 }
 
@@ -60,7 +76,7 @@ export interface Education {
   period: string;
   description: string;
   skills: string[];
-  logo?: string;
+  logo?: MediaSource;
   url?: string;
 }
 

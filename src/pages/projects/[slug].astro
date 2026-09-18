@@ -7,6 +7,7 @@ import { render } from 'astro:content';
 import { publishedProjects } from '../../utils/content';
 import { ROUTES } from '../../utils/routes';
 import { getProjectMedia } from '../../utils/projectImages';
+import { toGalleryItems, toOptionalPicture, IMAGE_PRESETS } from '../../utils/images';
 import { formatDate } from '../../utils/dates';
 
 export async function getStaticPaths() {
@@ -21,10 +22,10 @@ const { project } = Astro.props;
 const { Content } = await render(project);
 
 const { thumbnail, gallery } = getProjectMedia(project.slug);
-const thumbnailSrc = thumbnail?.src;
-const galleryImages = gallery.map((image) => image.src);
+const leadImage = await toOptionalPicture(thumbnail, IMAGE_PRESETS.detailHero);
+const galleryItems = await toGalleryItems(gallery);
 
-const hasImage = !!thumbnailSrc;
+const hasImage = !!leadImage;
 const tags = project.data.tags || [];
 const teamLabel = project.data.teamSize === 1 ? 'person' : 'people';
 ---
@@ -32,18 +33,19 @@ const teamLabel = project.data.teamSize === 1 ? 'person' : 'people';
 <DetailLayout
   title={`${project.data.title} — Bartłomiej Gordon`}
   description={project.data.description}
-  image={thumbnailSrc}
+  image={thumbnail?.src}
   backHref={ROUTES.projects}
   backLabel="Back to Projects"
   containerWidth="narrow"
-  galleryItems={galleryImages}
+  galleryItems={galleryItems}
   galleryTitle={project.data.title}
 >
   <header class:list={['project-header', { 'project-header--no-image': !hasImage }]} slot="header">
     {hasImage && (
       <div class="project-image">
         <ClickableImage
-          src={thumbnailSrc}
+          image={leadImage!}
+          full={thumbnail!.src}
           alt={project.data.title}
           client:load
         />

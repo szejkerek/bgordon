@@ -3,13 +3,14 @@
   import Media from "./Media.svelte";
   import { formatDate } from "../utils/dates";
   import type { CollectionEntry } from "astro:content";
+  import type { MediaSource } from "../types";
 
   interface Props {
     project: CollectionEntry<'projects'> & { slug: string };
-    thumbnailSrc?: string;
+    thumbnail?: MediaSource;
   }
 
-  let { project, thumbnailSrc }: Props = $props();
+  let { project, thumbnail }: Props = $props();
 
   // Computed values
   const href = $derived(`/projects/${project.slug}`);
@@ -29,7 +30,7 @@
 
   <div class="card-image">
     <Media
-      src={thumbnailSrc}
+      {...thumbnail}
       alt={project.data.title}
       fit="cover"
       ratio="16 / 9"

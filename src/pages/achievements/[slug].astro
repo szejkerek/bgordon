@@ -6,7 +6,7 @@ import Icon from '../../components/Icon.svelte';
 import { ROUTES } from '../../utils/routes';
 import { publishedAchievements } from '../../utils/content';
 import { getAchievementGallery } from '../../utils/achievementImages';
-import { getImageSrc } from '../../utils/images';
+import { getImageAsset, toGalleryItems } from '../../utils/images';
 import { formatDate } from '../../utils/dates';
 
 export async function getStaticPaths() {
@@ -33,18 +33,20 @@ const typeLabel = TYPE_LABEL[achievement.data.type] ?? achievement.data.type;
 
 // Gallery: the event thumbnail (frontmatter `image`) leads, followed by folder
 // images (public/images/achievements/<slug>/) or frontmatter `gallery` paths.
-const thumbnail = getImageSrc(achievement.data.image);
-const folderGallery = getAchievementGallery(achievement.id).map((image) => image.src);
+const thumbnail = getImageAsset(achievement.data.image);
+const folderGallery = getAchievementGallery(achievement.id);
 const baseGallery = folderGallery.length
   ? folderGallery
-  : (achievement.data.gallery ?? []).map((path) => getImageSrc(path)).filter((src): src is string => !!src);
-const gallery = thumbnail ? [thumbnail, ...baseGallery] : baseGallery;
+  : (achievement.data.gallery ?? [])
+      .map((path) => getImageAsset(path))
+      .filter((asset) => asset !== undefined);
+const gallery = await toGalleryItems(thumbnail ? [thumbnail, ...baseGallery] : baseGallery);
 ---
 
 <DetailLayout
   title={`${achievement.data.title} — Bartłomiej Gordon`}
   description={achievement.data.description}
-  image={gallery[0]}
+  image={thumbnail?.src ?? gallery[0]?.full}
   backHref={ROUTES.achievements}
   backLabel="Back to Achievements"
   containerWidth="article"

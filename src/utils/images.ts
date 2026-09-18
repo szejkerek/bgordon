@@ -1,4 +1,6 @@
 import type { ImageMetadata } from 'astro';
+import { getImage } from 'astro:assets';
+import type { MediaSource } from '../types';
 
 /**
  * Every optimizable image in the project, resolved at build time.
@@ -50,6 +52,109 @@ export function getImageAsset(path?: string): ImageMetadata | undefined {
 /** Resolved URL for a `/images/…` path, or undefined when nothing matches. */
 export function getImageSrc(path?: string): string | undefined {
   return getImageAsset(path)?.src;
+}
+
+/** A fully-resolved {@link MediaSource}: every field present. */
+export type Picture = Required<MediaSource>;
+
+interface PictureOptions {
+  widths: number[];
+  sizes: string;
+}
+
+/**
+ * Widths and `sizes` per usage site, kept next to each other so a CSS change to
+ * one of these slots has one obvious place to be mirrored.
+ */
+export const IMAGE_PRESETS = {
+  /** Homepage project grid: one column under 420px, two on mobile, ~340px cards above. */
+  projectThumbnail: {
+    widths: [340, 480, 680, 960],
+    sizes: '(max-width: 420px) 100vw, (max-width: 768px) 50vw, 340px',
+  },
+  /** Achievement timeline photo: half the row on desktop, full width once stacked. */
+  achievementPhoto: {
+    widths: [300, 480, 640, 900],
+    sizes: '(max-width: 768px) 100vw, 40vw',
+  },
+  /** Hero portrait: 380x470 on desktop, 200x250 once the grid stacks. */
+  heroPhoto: {
+    widths: [200, 380, 400, 760],
+    sizes: '(max-width: 900px) 200px, 380px',
+  },
+  /** Fixed 56px company/school logo. */
+  companyLogo: {
+    widths: [56, 112],
+    sizes: '56px',
+  },
+  /** Book cover: 165x220 in the grid, 195x293 for the featured card, 130px on mobile. */
+  bookCover: {
+    widths: [130, 165, 195, 330, 390],
+    sizes: '(max-width: 600px) 130px, 195px',
+  },
+  /** Gallery tile: three columns on desktop, one on narrow screens. */
+  galleryThumbnail: {
+    widths: [300, 480, 600, 900],
+    sizes: '(max-width: 600px) 100vw, 33vw',
+  },
+  /** Lead image on a project detail page: half the content column, full once stacked. */
+  detailHero: {
+    widths: [400, 640, 900, 1200],
+    sizes: '(max-width: 768px) 100vw, 50vw',
+  },
+} satisfies Record<string, PictureOptions>;
+
+/**
+ * Build responsive variants of an asset.
+ *
+ * `width`/`height` stay the *intrinsic* dimensions rather than the largest
+ * variant: the browser only needs the aspect ratio to reserve the box, and CSS
+ * decides the rendered size.
+ */
+export async function toPicture(
+  asset: ImageMetadata,
+  { widths, sizes }: { widths: number[]; sizes: string },
+): Promise<Picture> {
+  // Never upscale — a variant wider than the source just wastes bytes.
+  const usable = widths.filter((width) => width <= asset.width);
+  const generated = await getImage({
+    src: asset,
+    widths: usable.length ? usable : [asset.width],
+    sizes,
+    format: 'webp',
+  });
+
+  return {
+    src: generated.src,
+    srcset: generated.srcSet.attribute,
+    sizes,
+    width: asset.width,
+    height: asset.height,
+  };
+}
+
+/**
+ * Gallery tiles for a set of assets: a small responsive thumbnail to render,
+ * plus the full-size URL the lightbox opens. Without the split, a 1920px source
+ * would be downloaded just to fill a ~300px tile.
+ */
+export async function toGalleryItems(
+  assets: ImageMetadata[],
+): Promise<{ thumbnail: Picture; full: string }[]> {
+  return Promise.all(
+    assets.map(async (asset) => ({
+      thumbnail: await toPicture(asset, IMAGE_PRESETS.galleryThumbnail),
+      full: asset.src,
+    })),
+  );
+}
+
+/** Same as {@link toPicture}, but tolerates a missing asset. */
+export async function toOptionalPicture(
+  asset: ImageMetadata | undefined,
+  options: { widths: number[]; sizes: string },
+): Promise<Picture | undefined> {
+  return asset ? toPicture(asset, options) : undefined;
 }
 
 /**

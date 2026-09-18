@@ -2,14 +2,23 @@
   import Lightbox from "./Lightbox.svelte";
   import Icon from "./Icon.svelte";
   import Media from "./Media.svelte";
+  import type { MediaSource } from "../types";
+
+  /** A gallery tile: a small responsive thumbnail plus the full-size URL the lightbox opens. */
+  export interface GalleryItem {
+    thumbnail: MediaSource;
+    full: string;
+  }
 
   interface Props {
-    items: string[];
+    items: GalleryItem[];
     title: string;
     columns?: 2 | 3;
   }
 
   let { items = [], title, columns = 2 }: Props = $props();
+
+  const fullSizes = $derived(items.map((item) => item.full));
 
   let lightboxEl: Lightbox;
 </script>
@@ -18,15 +27,15 @@
   <section class="gallery-section">
     <h2>Gallery</h2>
     <div class="gallery-grid" data-columns={columns}>
-      {#each items as media, index (media)}
+      {#each items as item, index (item.full)}
         <button
           type="button"
           class="gallery-item"
-          onclick={() => lightboxEl.open(media)}
+          onclick={() => lightboxEl.open(item.full)}
           aria-label="View {title} image {index + 1} in fullscreen"
         >
           <Media
-            src={media}
+            {...item.thumbnail}
             alt={`${title} - Image ${index + 1}`}
             fit="cover"
           />
@@ -39,7 +48,7 @@
   </section>
 {/if}
 
-<Lightbox bind:this={lightboxEl} media={items} />
+<Lightbox bind:this={lightboxEl} media={fullSizes} />
 
 <style>
   .gallery-section {

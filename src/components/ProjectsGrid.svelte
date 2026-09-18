@@ -2,10 +2,11 @@
   import type { CollectionEntry } from "astro:content";
   import ProjectCard from "./ProjectCard.svelte";
   import { orderedTags } from "../utils/tags";
+  import type { MediaSource } from "../types";
 
   interface Item {
     project: CollectionEntry<'projects'> & { slug: string };
-    thumbnailSrc?: string;
+    thumbnail?: MediaSource;
   }
 
   interface Props {
@@ -50,7 +51,7 @@
 
 <div class="projects-grid">
   {#each visible as item (item.project.slug)}
-    <ProjectCard project={item.project} thumbnailSrc={item.thumbnailSrc} />
+    <ProjectCard project={item.project} thumbnail={item.thumbnail} />
   {/each}
 </div>
 

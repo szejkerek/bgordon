@@ -2,18 +2,18 @@
   import { onMount } from "svelte";
   import Icon from "./Icon.svelte";
   import Media from "./Media.svelte";
-  import type { HeroData, HeroStat, SocialLink } from "../types";
+  import type { HeroData, HeroStat, MediaSource, SocialLink } from "../types";
   import type { IconType } from "../utils/icons";
 
   interface Props {
     heroData?: HeroData;
-    /** Resolved build-time URL for the profile photo. */
-    photoSrc?: string;
+    /** Resolved profile photo, with responsive variants. */
+    photo?: MediaSource;
     stats?: HeroStat[];
     age?: number;
   }
 
-  let { heroData = {}, photoSrc, stats = [], age }: Props = $props();
+  let { heroData = {}, photo, stats = [], age }: Props = $props();
 
   let visible = $state(false);
 
@@ -136,7 +136,7 @@
       <div class="photo-wrapper">
         <div class="photo-frame">
           <Media
-            src={photoSrc}
+            {...photo}
             alt={data.name}
             fit="cover"
             eager

@@ -1,6 +1,7 @@
 ---
 import Layout from './Layout.astro';
 import ImageGallery from '../components/ImageGallery.svelte';
+import type { GalleryItem } from '../components/ImageGallery.svelte';
 
 interface Props {
   title: string;
@@ -9,7 +10,7 @@ interface Props {
   backHref: string;
   backLabel: string;
   containerWidth?: 'narrow' | 'article';
-  galleryItems?: string[];
+  galleryItems?: GalleryItem[];
   galleryTitle?: string;
 }
 

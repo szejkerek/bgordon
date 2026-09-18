@@ -2,24 +2,37 @@
   import Lightbox from "./Lightbox.svelte";
   import Icon from "./Icon.svelte";
   import Media from "./Media.svelte";
+  import type { MediaSource } from "../types";
 
   interface Props {
-    src: string;
+    /** Responsive source for the inline thumbnail. */
+    image: MediaSource;
+    /** Full-size URL the lightbox opens. */
+    full: string;
     alt: string;
     class?: string;
-    allImages?: string[];  // Optional array of all images for navigation
+    /** All full-size URLs, when the lightbox should navigate a set. */
+    allImages?: string[];
     fit?: 'cover' | 'contain';
     ratio?: string;
   }
 
-  let { src, alt, class: className = '', allImages, fit = 'contain', ratio = '16 / 9' }: Props = $props();
+  let {
+    image,
+    full,
+    alt,
+    class: className = '',
+    allImages,
+    fit = 'contain',
+    ratio = '16 / 9',
+  }: Props = $props();
 
   let lightboxEl: Lightbox;
 
-  const media = $derived(allImages && allImages.length > 0 ? allImages : [src]);
+  const media = $derived(allImages && allImages.length > 0 ? allImages : [full]);
 
   function openLightbox() {
-    lightboxEl.open(src);
+    lightboxEl.open(full);
   }
 </script>
 
@@ -31,7 +44,7 @@
   tabindex="0"
   aria-label="View {alt} in fullscreen"
 >
-  <Media {src} {alt} {fit} {ratio} rounded eager />
+  <Media {...image} {alt} {fit} {ratio} rounded eager />
   <div class="zoom-overlay">
     <Icon name="zoom-in" size={24} />
     <span>Click to expand</span>

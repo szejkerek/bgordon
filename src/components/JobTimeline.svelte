@@ -1,6 +1,6 @@
 ﻿<script lang="ts">
   import Media from "./Media.svelte";
-  import type { WorkExperience, Education } from "../types";
+  import type { WorkExperience, Education, MediaSource } from "../types";
   import type { IconType } from "../utils/icons";
   import { SECTION_IDS } from "../utils/routes";
 
@@ -15,7 +15,7 @@
     period: string;
     description: string;
     skills: string[];
-    logo?: string;
+    logo?: MediaSource;
     url?: string;
   };
 
@@ -61,7 +61,7 @@
 
 {#snippet jobHeaderInner(item: TimelineEntry, fallbackIcon: IconType)}
   <div class="company-logo">
-    <Media src={item.logo} alt={item.title} fit="cover" fallbackIcon={fallbackIcon} fallbackIconSize={30} />
+    <Media {...item.logo} alt={item.title} fit="cover" fallbackIcon={fallbackIcon} fallbackIconSize={30} />
   </div>
 
   <div class="job-info">

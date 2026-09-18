@@ -1,7 +1,7 @@
 ---
 import Media from './Media.svelte';
 import { formatDate } from '../utils/dates';
-import { getImageSrc } from '../utils/images';
+import { getImageAsset, toOptionalPicture, IMAGE_PRESETS } from '../utils/images';
 import type { PublishedBook } from '../utils/content';
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 const { book } = Astro.props;
 const { status } = book;
 const { title, author, startDate, finishDate, image, thoughts } = book.data;
-const coverSrc = getImageSrc(image);
+const cover = await toOptionalPicture(getImageAsset(image), IMAGE_PRESETS.bookCover);
 ---
 
 {status === 'want-to-read' ? (
@@ -22,7 +22,7 @@ const coverSrc = getImageSrc(image);
 ) : status === 'reading' ? (
   <article class="reading-card">
     <div class="reading-cover">
-      <Media src={coverSrc} alt={`Cover of ${title}`} fit="contain" fallbackIcon="book" client:visible />
+      <Media {...cover} alt={`Cover of ${title}`} fit="contain" fallbackIcon="book" client:visible />
     </div>
 
     <div class="reading-info">
@@ -44,7 +44,7 @@ const coverSrc = getImageSrc(image);
 ) : (
   <article class="book-card">
     <div class="book-cover">
-      <Media src={coverSrc} alt={`Cover of ${title}`} fit="contain" fallbackIcon="book" client:visible />
+      <Media {...cover} alt={`Cover of ${title}`} fit="contain" fallbackIcon="book" client:visible />
     </div>
 
     <div class="book-info">

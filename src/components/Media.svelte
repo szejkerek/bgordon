@@ -5,6 +5,12 @@
 
   interface Props {
     src?: string;
+    /** Width-descriptor srcset; pairs with `sizes`. */
+    srcset?: string;
+    sizes?: string;
+    /** Intrinsic dimensions — reserve the box so the image cannot shift the layout. */
+    width?: number;
+    height?: number;
     alt: string;
     fit?: 'cover' | 'contain';
     ratio?: string;            // e.g. "16 / 9"; omit to fill parent
@@ -17,6 +23,10 @@
 
   let {
     src,
+    srcset,
+    sizes,
+    width,
+    height,
     alt,
     fit = 'cover',
     ratio,
@@ -42,8 +52,13 @@
     <img
       class="media-img"
       src={resolved}
+      {srcset}
+      {sizes}
+      {width}
+      {height}
       {alt}
       loading={eager ? 'eager' : 'lazy'}
+      fetchpriority={eager ? 'high' : undefined}
       decoding="async"
       onerror={() => (failed = true)}
     />

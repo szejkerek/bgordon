@@ -8,7 +8,7 @@ import Section from '../components/Section.astro';
 import { publishedProjects, publishedAchievements } from '../utils/content';
 import { SECTION_IDS } from '../utils/routes';
 import { getThumbnail, PLACEHOLDER_IMAGE } from '../utils/projectImages';
-import { getImageSrc } from '../utils/images';
+import { getImageAsset, toOptionalPicture, toPicture, IMAGE_PRESETS } from '../utils/images';
 import { professionalMonths, formatDuration, age } from '../utils/stats';
 import type { HeroStat } from '../types';
 
@@ -21,21 +21,35 @@ import education from '../content/site/education.json';
 const sortedProjects = await publishedProjects();
 const sortedAchievements = await publishedAchievements();
 
-const projectItems = sortedProjects.map((project) => ({
-  project,
-  thumbnailSrc: getThumbnail(project.slug)?.src ?? PLACEHOLDER_IMAGE,
-}));
-
 // Images are build-time assets now, so every path is resolved here — Svelte
-// islands receive plain URLs and never touch the asset pipeline themselves.
-const achievementItems = sortedAchievements.map((achievement) => ({
-  achievement,
-  imageSrc: getImageSrc(achievement.data.image),
-}));
+// islands receive ready-to-render sources and never touch the asset pipeline.
+const projectItems = await Promise.all(
+  sortedProjects.map(async (project) => ({
+    project,
+    thumbnail: (await toOptionalPicture(getThumbnail(project.slug), IMAGE_PRESETS.projectThumbnail)) ?? {
+      src: PLACEHOLDER_IMAGE,
+    },
+  })),
+);
 
-const heroPhotoSrc = getImageSrc(heroData.photo);
-const workItems = workExperience.map((job) => ({ ...job, logo: getImageSrc(job.logo) }));
-const educationItems = education.map((entry) => ({ ...entry, logo: getImageSrc(entry.logo) }));
+const achievementItems = await Promise.all(
+  sortedAchievements.map(async (achievement) => ({
+    achievement,
+    image: await toOptionalPicture(
+      getImageAsset(achievement.data.image),
+      IMAGE_PRESETS.achievementPhoto,
+    ),
+  })),
+);
+
+const heroPhoto = await toOptionalPicture(getImageAsset(heroData.photo), IMAGE_PRESETS.heroPhoto);
+
+const withLogo = async <T extends { logo?: string }>(entry: T) => ({
+  ...entry,
+  logo: await toOptionalPicture(getImageAsset(entry.logo), IMAGE_PRESETS.companyLogo),
+});
+const workItems = await Promise.all(workExperience.map(withLogo));
+const educationItems = await Promise.all(education.map(withLogo));
 
 // Hero stats — all derived from content/dates, never hand-maintained.
 const now = new Date();
@@ -62,7 +76,7 @@ const heroStats: HeroStat[] = [
 
 <Layout title="Bartłomiej Gordon — Unity Developer">
   <!-- Hero Section -->
-  <Hero heroData={heroData} photoSrc={heroPhotoSrc} stats={heroStats} age={heroAge} client:load />
+  <Hero heroData={heroData} photo={heroPhoto} stats={heroStats} age={heroAge} client:load />
 
   <!-- Job Timeline Section -->
   <JobTimeline
@@ -73,8 +87,8 @@ const heroStats: HeroStat[] = [
   <!-- Achievements Section -->
   <Section id={SECTION_IDS.achievements} title="Achievements">
     <div class="achievements-list">
-      {achievementItems.map(({ achievement, imageSrc }) => (
-        <AchievementCard achievement={achievement} imageSrc={imageSrc} />
+      {achievementItems.map(({ achievement, image }) => (
+        <AchievementCard achievement={achievement} image={image} />
       ))}
     </div>
   </Section>
