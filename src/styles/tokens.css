@@ -13,10 +13,13 @@
   --color-accent-dim: #99cead;
   --color-accent-glow: rgba(125, 186, 149, 0.14);
 
-  /* Text — warm off-white, green-gray secondary (echoes the overcast sky) */
+  /* Text — warm off-white, green-gray secondary (echoes the overcast sky).
+     Muted is the dimmest tier that still clears WCAG AA (4.5:1) on every
+     background above, including --color-bg-elevated where it reads 4.54:1.
+     The previous #737a6f sat at 3.20-4.26:1 and failed on all of them. */
   --color-text-primary: #f3f4ef;
   --color-text-secondary: #aab0a5;
-  --color-text-muted: #737a6f;
+  --color-text-muted: #8d9489;
 
   /* Border — warm-tinted */
   --color-border-subtle: rgba(220, 230, 215, 0.07);
