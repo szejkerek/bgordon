@@ -7,7 +7,7 @@
   /** A gallery tile: a small responsive thumbnail plus the full-size URL the lightbox opens. */
   export interface GalleryItem {
     thumbnail: MediaSource;
-    full: string;
+    full: MediaSource;
   }
 
   interface Props {
@@ -27,11 +27,11 @@
   <section class="gallery-section">
     <h2>Gallery</h2>
     <div class="gallery-grid" data-columns={columns}>
-      {#each items as item, index (item.full)}
+      {#each items as item, index (item.full.src)}
         <button
           type="button"
           class="gallery-item"
-          onclick={() => lightboxEl.open(item.full)}
+          onclick={() => lightboxEl.open(item.full.src)}
           aria-label="View {title} image {index + 1} in fullscreen"
         >
           <Media

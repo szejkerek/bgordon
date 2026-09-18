@@ -1,8 +1,10 @@
 <script lang="ts">
   import Icon from "./Icon.svelte";
+  import type { MediaSource } from "../types";
 
   interface Props {
-    media: string[];
+    /** Full-size sources, in gallery order. */
+    media: MediaSource[];
   }
 
   let { media = [] }: Props = $props();
@@ -19,7 +21,7 @@
    * overlay and dropped focus entirely on close.
    */
   export function open(src: string) {
-    const index = images.indexOf(src);
+    const index = images.findIndex((image) => image.src === src);
     currentIndex = index >= 0 ? index : 0;
     dialogEl?.showModal();
     lockScroll();
@@ -78,7 +80,9 @@
 
     <div class="image-container">
       <img
-        src={images[currentIndex]}
+        src={images[currentIndex]?.src}
+        width={images[currentIndex]?.width}
+        height={images[currentIndex]?.height}
         alt="Gallery image {currentIndex + 1} of {images.length}"
         class="lightbox-image"
       />

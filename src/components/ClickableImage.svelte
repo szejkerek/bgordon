@@ -7,12 +7,12 @@
   interface Props {
     /** Responsive source for the inline thumbnail. */
     image: MediaSource;
-    /** Full-size URL the lightbox opens. */
-    full: string;
+    /** Full-size source the lightbox opens. */
+    full: MediaSource;
     alt: string;
     class?: string;
-    /** All full-size URLs, when the lightbox should navigate a set. */
-    allImages?: string[];
+    /** All full-size sources, when the lightbox should navigate a set. */
+    allImages?: MediaSource[];
     fit?: 'cover' | 'contain';
     ratio?: string;
   }
@@ -32,7 +32,7 @@
   const media = $derived(allImages && allImages.length > 0 ? allImages : [full]);
 
   function openLightbox() {
-    lightboxEl.open(full);
+    lightboxEl.open(full.src);
   }
 </script>
 

@@ -140,11 +140,11 @@ export async function toPicture(
  */
 export async function toGalleryItems(
   assets: ImageMetadata[],
-): Promise<{ thumbnail: Picture; full: string }[]> {
+): Promise<{ thumbnail: Picture; full: MediaSource }[]> {
   return Promise.all(
     assets.map(async (asset) => ({
       thumbnail: await toPicture(asset, IMAGE_PRESETS.galleryThumbnail),
-      full: asset.src,
+      full: { src: asset.src, width: asset.width, height: asset.height },
     })),
   );
 }
