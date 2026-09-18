@@ -1,0 +1,65 @@
+---
+/**
+ * Static counterpart to Media.svelte, for images that never need to hydrate.
+ *
+ * Media.svelte exists to swap in a fallback icon when an image fails to load at
+ * runtime. Every image is a build-time asset now, so a resolvable source cannot
+ * 404 — whether to show the fallback is known here, and rendering it costs no
+ * JavaScript. Both share the .media rules in components.css.
+ */
+import Icon from './Icon.svelte';
+import type { IconType } from '../utils/icons';
+import type { MediaSource } from '../types';
+
+interface Props extends Partial<MediaSource> {
+  alt: string;
+  fit?: 'cover' | 'contain';
+  /** e.g. "16 / 9"; omit to fill the parent. */
+  ratio?: string;
+  rounded?: boolean;
+  eager?: boolean;
+  fallbackIcon?: IconType;
+  fallbackIconSize?: number;
+  class?: string;
+}
+
+const {
+  src,
+  srcset,
+  sizes,
+  width,
+  height,
+  alt,
+  fit = 'cover',
+  ratio,
+  rounded = false,
+  eager = false,
+  fallbackIcon = 'image',
+  fallbackIconSize = 40,
+  class: className = '',
+} = Astro.props;
+---
+
+<div
+  class:list={['media', className, { rounded, 'is-contain': fit === 'contain' }]}
+  style={ratio ? `aspect-ratio: ${ratio};` : undefined}
+>
+  {src ? (
+    <img
+      class="media-img"
+      src={src}
+      srcset={srcset}
+      sizes={sizes}
+      width={width}
+      height={height}
+      alt={alt}
+      loading={eager ? 'eager' : 'lazy'}
+      fetchpriority={eager ? 'high' : undefined}
+      decoding="async"
+    />
+  ) : (
+    <div class="media-placeholder" role="img" aria-label={alt}>
+      <Icon name={fallbackIcon} size={fallbackIconSize} strokeWidth={1.5} />
+    </div>
+  )}
+</div>

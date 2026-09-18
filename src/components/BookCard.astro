@@ -1,5 +1,5 @@
 ---
-import Media from './Media.svelte';
+import Media from './Media.astro';
 import { formatDate } from '../utils/dates';
 import { getImageAsset, toOptionalPicture, IMAGE_PRESETS } from '../utils/images';
 import type { PublishedBook } from '../utils/content';
@@ -22,7 +22,7 @@ const cover = await toOptionalPicture(getImageAsset(image), IMAGE_PRESETS.bookCo
 ) : status === 'reading' ? (
   <article class="reading-card">
     <div class="reading-cover">
-      <Media {...cover} alt={`Cover of ${title}`} fit="contain" fallbackIcon="book" client:visible />
+      <Media {...cover} alt={`Cover of ${title}`} fit="contain" fallbackIcon="book" />
     </div>
 
     <div class="reading-info">
@@ -45,7 +45,7 @@ const cover = await toOptionalPicture(getImageAsset(image), IMAGE_PRESETS.bookCo
 ) : (
   <article class="book-card">
     <div class="book-cover">
-      <Media {...cover} alt={`Cover of ${title}`} fit="contain" fallbackIcon="book" client:visible />
+      <Media {...cover} alt={`Cover of ${title}`} fit="contain" fallbackIcon="book" />
     </div>
 
     <div class="book-info">
