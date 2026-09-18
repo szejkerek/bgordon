@@ -43,7 +43,7 @@
 
     <div class="cols">
       <nav class="col" aria-label="Site navigation">
-        <h4>Explore</h4>
+        <h2>Explore</h2>
         {#each navLinks as link (link.href)}
           <a href={link.href}>{link.label}</a>
         {/each}
@@ -51,7 +51,7 @@
 
       {#if connectLinks.length}
         <nav class="col" aria-label="Social links">
-          <h4>Elsewhere</h4>
+          <h2>Elsewhere</h2>
           {#each connectLinks as link (link.url)}
             <a
               href={link.url}
@@ -154,7 +154,9 @@
     gap: var(--space-4);
   }
 
-  .col h4 {
+  /* Footer groups sit at the top level of the document outline, so they are h2
+     regardless of what the page body used; the small-caps look is styling. */
+  .col h2 {
     font-family: var(--font-body);
     font-size: var(--font-size-xs);
     font-weight: var(--font-weight-bold);
