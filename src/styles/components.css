@@ -79,7 +79,6 @@
   border: 1px solid var(--color-border-subtle);
   border-radius: var(--radius-lg);
   transition: var(--transition-colors), var(--transition-shadow);
-  will-change: transform;
 }
 
 .card:hover {
