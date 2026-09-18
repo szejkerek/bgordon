@@ -36,25 +36,30 @@
   }
 </script>
 
-<div 
+<!-- A real button rather than a div with role="button": the faked version only
+     handled Enter, while a button also activates on Space. -->
+<button
+  type="button"
   class="clickable-image {className}"
   onclick={openLightbox}
-  onkeydown={(e) => e.key === 'Enter' && openLightbox()}
-  role="button"
-  tabindex="0"
   aria-label="View {alt} in fullscreen"
 >
   <Media {...image} {alt} {fit} {ratio} rounded eager />
-  <div class="zoom-overlay">
+  <span class="zoom-overlay">
     <Icon name="zoom-in" size={24} />
     <span>Click to expand</span>
-  </div>
-</div>
+  </span>
+</button>
 
 <Lightbox bind:this={lightboxEl} {media} />
 
 <style>
   .clickable-image {
+    display: block;
+    width: 100%;
+    padding: 0;
+    border: none;
+    background: none;
     position: relative;
     cursor: pointer;
     overflow: hidden;
