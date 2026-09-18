@@ -10,13 +10,15 @@ interface Props {
 
 const { book } = Astro.props;
 const { status } = book;
-const { title, author, startDate, finishDate, image, thoughts } = book.data;
+const { title, author, startDate, finishDate, image, thoughts, lang } = book.data;
+// Only mark what differs from the page language; tagging English as English is noise.
+const foreign = lang === 'en' ? undefined : lang;
 const cover = await toOptionalPicture(getImageAsset(image), IMAGE_PRESETS.bookCover);
 ---
 
 {status === 'want-to-read' ? (
   <article class="book-card book-card--wishlist">
-    <h3 class="book-title">{title}</h3>
+    <h3 class="book-title" lang={foreign}>{title}</h3>
     <p class="book-author">{author}</p>
   </article>
 ) : status === 'reading' ? (
@@ -27,14 +29,14 @@ const cover = await toOptionalPicture(getImageAsset(image), IMAGE_PRESETS.bookCo
 
     <div class="reading-info">
       <p class="reading-eyebrow"><span class="reading-pulse" aria-hidden="true"></span>Now Reading</p>
-      <h3 class="reading-title">{title}</h3>
+      <h3 class="reading-title" lang={foreign}>{title}</h3>
       <p class="reading-author">by {author}</p>
       {startDate && (
         <span class="reading-date">Started {formatDate(startDate)}</span>
       )}
       {thoughts && (
         <div class="book-thoughts">
-          <p class="thoughts-text">{thoughts}</p>
+          <p class="thoughts-text" lang={foreign}>{thoughts}</p>
           <button type="button" class="thoughts-toggle" aria-expanded="false" hidden>
             Read more
           </button>
@@ -54,11 +56,11 @@ const cover = await toOptionalPicture(getImageAsset(image), IMAGE_PRESETS.bookCo
           {formatDate(startDate)}{finishDate ? ` → ${formatDate(finishDate)}` : ''}
         </span>
       )}
-      <h3 class="book-title">{title}</h3>
+      <h3 class="book-title" lang={foreign}>{title}</h3>
       <p class="book-author">{author}</p>
       {thoughts && (
         <div class="book-thoughts">
-          <p class="thoughts-text">{thoughts}</p>
+          <p class="thoughts-text" lang={foreign}>{thoughts}</p>
           <button type="button" class="thoughts-toggle" aria-expanded="false" hidden>
             Read more
           </button>

@@ -38,6 +38,9 @@ const booksCollection = defineCollection({
   schema: z.object({
     title: z.string(),
     author: z.string(),
+    /** Language of the edition. The page is English, so a Polish title or note
+        has to say so, or a screen reader reads it with English phonemes. */
+    lang: z.enum(['en', 'pl']).optional().default('en'),
     startDate: monthDate.optional(),
     finishDate: monthDate.optional(),
     image: z.string().optional(),
