@@ -122,14 +122,21 @@
     color: var(--color-text-primary);
   }
   
+  /* 44x44 hit area: the bars themselves add up to 34x22, under the 24x24
+     minimum a pointer target needs (WCAG 2.5.8). */
   .menu-toggle {
     display: none;
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
     gap: 6px;
+    width: 44px;
+    height: 44px;
+    margin-right: calc(var(--space-3) * -1);
     background: none;
     border: none;
     cursor: pointer;
-    padding: 6px;
+    padding: 0;
   }
   
   .bar {
