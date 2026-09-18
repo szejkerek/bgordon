@@ -126,7 +126,7 @@
   }
 
   .lightbox::backdrop {
-    background: rgba(0, 0, 0, 0.92);
+    background: var(--color-overlay-scrim);
   }
 
   /* Fade in from the top layer; browsers without @starting-style just show it. */
@@ -179,10 +179,10 @@
     justify-content: center;
     width: 44px;
     height: 44px;
-    background: rgba(255, 255, 255, 0.15);
+    background: var(--color-overlay-control);
     border: none;
     border-radius: var(--radius-full);
-    color: white;
+    color: var(--color-text-primary);
     cursor: pointer;
     transition: background var(--duration-fast) var(--ease-out),
                 transform var(--duration-fast) var(--ease-out);
@@ -190,7 +190,7 @@
   }
 
   .close-btn:hover {
-    background: rgba(255, 255, 255, 0.25);
+    background: var(--color-overlay-control-hover);
     transform: scale(1.1);
   }
 
@@ -205,10 +205,10 @@
     justify-content: center;
     width: 56px;
     height: 56px;
-    background: rgba(255, 255, 255, 0.15);
-    border: 2px solid rgba(255, 255, 255, 0.3);
+    background: var(--color-overlay-control);
+    border: 2px solid var(--color-overlay-border);
     border-radius: var(--radius-full);
-    color: white;
+    color: var(--color-text-primary);
     cursor: pointer;
     transition: background var(--duration-fast) var(--ease-out),
                 border-color var(--duration-fast) var(--ease-out),
@@ -216,8 +216,8 @@
   }
 
   .nav-btn:hover {
-    background: rgba(255, 255, 255, 0.25);
-    border-color: rgba(255, 255, 255, 0.5);
+    background: var(--color-overlay-control-hover);
+    border-color: var(--color-overlay-border-hover);
     transform: scale(1.1);
   }
 
@@ -228,9 +228,9 @@
   .lightbox-counter {
     margin: 16px 0 0;
     padding: 10px 20px;
-    background: rgba(255, 255, 255, 0.15);
+    background: var(--color-overlay-control);
     border-radius: var(--radius-full);
-    color: white;
+    color: var(--color-text-primary);
     font-size: 14px;
     font-weight: var(--font-weight-semibold);
     letter-spacing: 0.5px;

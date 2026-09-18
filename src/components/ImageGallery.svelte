@@ -100,8 +100,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rgba(0, 0, 0, 0.4);
-    color: white;
+    background: var(--color-overlay-hover);
+    color: var(--color-text-primary);
     opacity: 0;
     transition: opacity var(--duration-normal) var(--ease-out);
     pointer-events: none;

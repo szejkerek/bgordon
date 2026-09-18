@@ -14,14 +14,14 @@
   text-decoration: none;
   border: 1px solid var(--color-border-light);
   border-radius: var(--radius-md);
-  background: rgba(255, 255, 255, 0.03);
+  background: var(--color-surface-veil);
   color: var(--color-text-primary);
   cursor: pointer;
   transition: var(--transition-colors), var(--transition-transform), var(--transition-shadow);
 }
 
 .btn:hover {
-  background: rgba(255, 255, 255, 0.05);
+  background: var(--color-surface-veil-strong);
   border-color: var(--color-accent);
   color: var(--color-accent);
 }

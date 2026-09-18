@@ -21,6 +21,23 @@
   --color-text-secondary: #aab0a5;
   --color-text-muted: #8d9489;
 
+  /* Translucent surfaces. The nav tint is the page background, not a separate
+     near-black: they used to differ (#0c0c0c vs #0e1210) and the seam showed. */
+  --color-nav-bg: rgba(14, 18, 16, 0.8);
+  --color-nav-bg-solid: rgba(14, 18, 16, 0.98);
+  --color-surface-veil: rgba(255, 255, 255, 0.03);
+  --color-surface-veil-strong: rgba(255, 255, 255, 0.05);
+
+  /* Overlays — light controls and scrims that sit above imagery, so they are
+     keyed to white rather than to the page palette. */
+  --color-overlay-scrim: rgba(0, 0, 0, 0.92);
+  --color-overlay-control: rgba(255, 255, 255, 0.15);
+  --color-overlay-control-hover: rgba(255, 255, 255, 0.25);
+  --color-overlay-border: rgba(255, 255, 255, 0.3);
+  --color-overlay-border-hover: rgba(255, 255, 255, 0.5);
+  /* Scrim revealed over an image on hover/focus, behind a zoom affordance. */
+  --color-overlay-hover: rgba(0, 0, 0, 0.45);
+
   /* Border — warm-tinted */
   --color-border-subtle: rgba(220, 230, 215, 0.07);
   --color-border-light: rgba(220, 230, 215, 0.14);

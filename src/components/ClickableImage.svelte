@@ -78,8 +78,8 @@
     align-items: center;
     justify-content: center;
     gap: var(--space-3);
-    background: rgba(0, 0, 0, 0.5);
-    color: white;
+    background: var(--color-overlay-hover);
+    color: var(--color-text-primary);
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-medium);
     opacity: 0;

@@ -72,7 +72,7 @@
     left: 0;
     right: 0;
     z-index: var(--z-fixed);
-    background: rgba(12, 12, 12, 0.8);
+    background: var(--color-nav-bg);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
     border-bottom: 1px solid var(--color-border-subtle);
@@ -166,7 +166,7 @@
       left: 0;
       right: 0;
       flex-direction: column;
-      background: rgba(12, 12, 12, 0.98);
+      background: var(--color-nav-bg-solid);
       backdrop-filter: blur(20px);
       -webkit-backdrop-filter: blur(20px);
       padding: var(--space-8) var(--space-9) var(--space-9);

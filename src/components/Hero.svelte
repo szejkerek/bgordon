@@ -275,7 +275,7 @@
     padding: 0.3em 0.7em;
     border: 1px solid var(--color-border-light);
     border-radius: var(--radius-md);
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--color-surface-veil);
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-semibold);
     line-height: 1;
@@ -360,7 +360,7 @@
     color: var(--color-text-primary);
     border-radius: var(--radius-md);
     border: 1px solid var(--color-border-light);
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--color-surface-veil);
     transition:
       transform var(--duration-normal) var(--ease-spring),
       box-shadow var(--duration-normal) var(--ease-spring),
@@ -371,7 +371,7 @@
   .hero-link:hover {
     transform: translateY(-1px);
     border-color: var(--color-accent);
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--color-surface-veil-strong);
   }
 
   .hero-link:active {
@@ -422,7 +422,7 @@
     height: 40px;
     border-radius: var(--radius-full);
     border: 1px solid var(--color-border-light);
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--color-surface-veil);
   }
 
   .scroll-cue:hover .scroll-cue-icon {
