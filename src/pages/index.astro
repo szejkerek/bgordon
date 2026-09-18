@@ -81,6 +81,18 @@ const heroStats: HeroStat[] = [
 ---
 
 <Layout title="Bartłomiej Gordon — Unity Developer">
+  {heroPhoto && (
+    <link
+      slot="head"
+      rel="preload"
+      as="image"
+      href={heroPhoto.src}
+      imagesrcset={heroPhoto.srcset}
+      imagesizes={heroPhoto.sizes}
+      fetchpriority="high"
+    />
+  )}
+
   <!-- Hero Section -->
   <Hero heroData={heroData} photo={heroPhoto} stats={heroStats} age={heroAge} />
 

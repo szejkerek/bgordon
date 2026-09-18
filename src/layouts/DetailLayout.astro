@@ -2,11 +2,12 @@
 import Layout from './Layout.astro';
 import ImageGallery from '../components/ImageGallery.svelte';
 import type { GalleryItem } from '../components/ImageGallery.svelte';
+import type { ImageMetadata } from 'astro';
 
 interface Props {
   title: string;
   description: string;
-  image?: string;
+  image?: ImageMetadata;
   backHref: string;
   backLabel: string;
   containerWidth?: 'narrow' | 'article';

@@ -46,7 +46,7 @@ const gallery = await toGalleryItems(thumbnail ? [thumbnail, ...baseGallery] : b
 <DetailLayout
   title={`${achievement.data.title} — Bartłomiej Gordon`}
   description={achievement.data.description}
-  image={thumbnail?.src ?? gallery[0]?.full}
+  image={thumbnail ?? baseGallery[0]}
   backHref={ROUTES.achievements}
   backLabel="Back to Achievements"
   containerWidth="article"

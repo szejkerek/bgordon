@@ -10,14 +10,14 @@ import Footer from '../components/Footer.svelte';
 import ConsentBanner from '../components/ConsentBanner.svelte';
 import '../styles/global.css';
 import heroData from '../content/site/hero.json';
-import { getImageSrc } from '../utils/images';
-
-const PROFILE_IMAGE = getImageSrc('/images/profilePicture.png');
+import type { ImageMetadata } from 'astro';
+import { getImageAsset, toSocialCard } from '../utils/images';
 
 interface Props {
   title: string;
   description?: string;
-  image?: string;
+  /** Build asset to use as the social preview; falls back to the profile photo. */
+  image?: ImageMetadata;
   canonicalUrl?: string;
   noIndex?: boolean;
 }
@@ -25,10 +25,12 @@ interface Props {
 const { 
   title, 
   description = 'Unity Developer with 5 years of experience. Specializing in game development, VR/AR applications, and graphics programming.', 
-  image = PROFILE_IMAGE,
+  image,
   canonicalUrl,
   noIndex = false,
 } = Astro.props;
+
+const profileImage = getImageAsset('/images/profilePicture.png');
 
 // Site configuration. The origin comes from `site` in astro.config.mjs, which
 // is also what the canonical URLs and the CNAME resolve to — hardcoding it here
@@ -38,7 +40,8 @@ const SITE_URL = Astro.site?.origin ?? Astro.url.origin;
 const SITE_NAME = 'Bartłomiej Gordon — Unity Developer';
 
 // Build full URLs
-const fullImageUrl = image ? new URL(image, SITE_URL).href : undefined;
+const socialCard = await toSocialCard(image ?? profileImage);
+const socialImageUrl = socialCard && new URL(socialCard.url, SITE_URL).href;
 const canonical = canonicalUrl || new URL(Astro.url.pathname, SITE_URL).href;
 
 // Footer data derived from hero.json
@@ -116,18 +119,23 @@ const structuredData = {
     <meta property="og:url" content={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    {fullImageUrl && <meta property="og:image" content={fullImageUrl} />}
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    {socialCard && socialImageUrl && (
+      <Fragment>
+        <meta property="og:image" content={socialImageUrl} />
+        <meta property="og:image:width" content={String(socialCard.width)} />
+        <meta property="og:image:height" content={String(socialCard.height)} />
+        <meta property="og:image:alt" content={title} />
+      </Fragment>
+    )}
     <meta property="og:site_name" content={SITE_NAME} />
     <meta property="og:locale" content="en_US" />
     
     <!-- Twitter -->
-    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:card" content={socialCard?.type ?? 'summary'} />
     <meta name="twitter:url" content={canonical} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    {fullImageUrl && <meta name="twitter:image" content={fullImageUrl} />}
+    {socialImageUrl && <meta name="twitter:image" content={socialImageUrl} />}
     
     <!-- Preconnect to font origins -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -136,8 +144,8 @@ const structuredData = {
     <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'" />
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" /></noscript>
-    <!-- Preload LCP image -->
-    {PROFILE_IMAGE && <link rel="preload" as="image" href={PROFILE_IMAGE} />}
+    <!-- Page-specific head content, e.g. an LCP preload -->
+    <slot name="head" />
     
     <!-- DNS Prefetch for external links -->
     <link rel="dns-prefetch" href="https://github.com" />

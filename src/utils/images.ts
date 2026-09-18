@@ -149,6 +149,48 @@ export async function toGalleryItems(
   );
 }
 
+/** The social-preview image for a page, with dimensions that are actually true. */
+export interface SocialCard {
+  url: string;
+  width: number;
+  height: number;
+  /** Twitter card type matching the shape below. */
+  type: 'summary_large_image' | 'summary';
+}
+
+const SOCIAL_CARD_WIDTH = 1200;
+const SOCIAL_CARD_HEIGHT = 630;
+
+/**
+ * Crops an asset to the 1.91:1 card social platforms expect — but only when the
+ * source is wide enough to fill it. A narrower source (the portrait profile
+ * photo, say) is served at its own size and declared as a small card, rather
+ * than upscaled into a blurry banner or described with dimensions it does not
+ * have.
+ */
+export async function toSocialCard(asset?: ImageMetadata): Promise<SocialCard | undefined> {
+  if (!asset) return undefined;
+
+  if (asset.width >= SOCIAL_CARD_WIDTH) {
+    const cropped = await getImage({
+      src: asset,
+      width: SOCIAL_CARD_WIDTH,
+      height: SOCIAL_CARD_HEIGHT,
+      fit: 'cover',
+      format: 'webp',
+    });
+    return {
+      url: cropped.src,
+      width: SOCIAL_CARD_WIDTH,
+      height: SOCIAL_CARD_HEIGHT,
+      type: 'summary_large_image',
+    };
+  }
+
+  const asIs = await getImage({ src: asset, format: 'webp' });
+  return { url: asIs.src, width: asset.width, height: asset.height, type: 'summary' };
+}
+
 /** Same as {@link toPicture}, but tolerates a missing asset. */
 export async function toOptionalPicture(
   asset: ImageMetadata | undefined,
