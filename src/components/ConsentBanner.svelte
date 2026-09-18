@@ -9,8 +9,28 @@
 
   let visible = $state(false);
 
+  // Storage access throws outright when cookies are blocked (Safari private
+  // browsing, hardened settings). Unguarded, that exception escapes the effect
+  // and kills hydration of the whole island — for a banner about consent, on
+  // exactly the machines whose owners are most likely to have blocked storage.
+  function readChoice(): string | null {
+    try {
+      return localStorage.getItem(STORAGE_KEY);
+    } catch {
+      return null;
+    }
+  }
+
+  function rememberChoice(choice: 'granted' | 'denied') {
+    try {
+      localStorage.setItem(STORAGE_KEY, choice);
+    } catch {
+      // Nothing to persist to; the banner simply asks again next visit.
+    }
+  }
+
   $effect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY);
+    const stored = readChoice();
     if (stored === 'granted') {
       updateConsent('granted');
     } else if (stored !== 'denied') {
@@ -29,35 +49,31 @@
     });
   }
 
-  function accept() {
-    localStorage.setItem(STORAGE_KEY, 'granted');
-    updateConsent('granted');
-    visible = false;
-  }
-
-  function reject() {
-    localStorage.setItem(STORAGE_KEY, 'denied');
-    updateConsent('denied');
+  function choose(choice: 'granted' | 'denied') {
+    rememberChoice(choice);
+    updateConsent(choice);
     visible = false;
   }
 </script>
 
 {#if visible}
-  <div class="consent" role="dialog" aria-live="polite" aria-label="Cookie consent">
+  <!-- A region, not a dialog: nothing here is modal, focus is not trapped or
+       moved, and the page stays fully usable behind it. -->
+  <section class="consent" aria-label="Cookie consent">
     <p class="consent__text">
       I use Google Analytics to track which projects make the biggest splash with
       recruiters. Clicking “Accept” means you consent to processing your personal data
       for this purpose. Wanna help out?
     </p>
     <div class="consent__actions">
-      <button type="button" class="consent__btn consent__btn--ghost" onclick={reject}>
+      <button type="button" class="consent__btn consent__btn--ghost" onclick={() => choose('denied')}>
         No thanks
       </button>
-      <button type="button" class="consent__btn consent__btn--accent" onclick={accept}>
+      <button type="button" class="consent__btn consent__btn--accent" onclick={() => choose('granted')}>
         Accept
       </button>
     </div>
-  </div>
+  </section>
 {/if}
 
 <style>
