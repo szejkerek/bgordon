@@ -30,13 +30,16 @@ const {
   noIndex = false,
 } = Astro.props;
 
-// Site configuration
-const SITE_URL = 'https://bartlomiejgordon.dev';
+// Site configuration. The origin comes from `site` in astro.config.mjs, which
+// is also what the canonical URLs and the CNAME resolve to — hardcoding it here
+// is how og:image and the JSON-LD ended up pointing at a domain that is not
+// this site.
+const SITE_URL = Astro.site?.origin ?? Astro.url.origin;
 const SITE_NAME = 'Bartłomiej Gordon — Unity Developer';
 
 // Build full URLs
-const fullImageUrl = image?.startsWith('http') ? image : `${SITE_URL}${image ?? ''}`;
-const canonical = canonicalUrl || Astro.url.href;
+const fullImageUrl = image ? new URL(image, SITE_URL).href : undefined;
+const canonical = canonicalUrl || new URL(Astro.url.pathname, SITE_URL).href;
 
 // Footer data derived from hero.json
 const emailLink = heroData.socialLinks.find(l => l.type === 'email');
@@ -113,7 +116,7 @@ const structuredData = {
     <meta property="og:url" content={canonical} />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:image" content={fullImageUrl} />
+    {fullImageUrl && <meta property="og:image" content={fullImageUrl} />}
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:site_name" content={SITE_NAME} />
@@ -124,7 +127,7 @@ const structuredData = {
     <meta name="twitter:url" content={canonical} />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={fullImageUrl} />
+    {fullImageUrl && <meta name="twitter:image" content={fullImageUrl} />}
     
     <!-- Preconnect to font origins -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
