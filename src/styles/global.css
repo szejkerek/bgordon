@@ -16,6 +16,10 @@ html {
   /* Base font size — every rem-based token scales from here. Bump to enlarge all text. */
   font-size: 112.5%; /* 18px */
   scroll-behavior: smooth;
+  /* The nav is fixed (~3.5rem tall), so an anchor target would otherwise land
+     underneath it — #education in particular, whose heading sits flush at the
+     top of its column. */
+  scroll-padding-top: 5rem;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-size-adjust: 100%;
