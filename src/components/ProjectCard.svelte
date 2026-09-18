@@ -16,13 +16,10 @@
 <article
 	class="project-card card"
 >
-	<a
-		href={href}
-		class="card-overlay-link"
-		aria-label="View {project.title} project details"
-	>
-		<span class="sr-only">View {project.title} project details</span>
-	</a>
+	<!-- The card's whole surface is the link. aria-label names it; a visually
+	     hidden span repeating the same words would be overridden by the label
+	     and never read. -->
+	<a href={href} class="card-overlay-link" aria-label="View {project.title} project details"></a>
 
   <div class="card-image">
     <Media
