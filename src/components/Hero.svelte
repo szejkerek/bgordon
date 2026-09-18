@@ -411,6 +411,27 @@
     border-radius: var(--radius-full);
     border: 1px solid var(--color-border-light);
     background: var(--color-surface-veil);
+    /* A slow nudge downwards, repeating with a long pause between beats: enough
+       to read as "there is more below" without strobing. Deliberately not an
+       on/off blink — anything flashing that often is unpleasant to sit under
+       and runs at the WCAG flash threshold. */
+    animation: scroll-cue-nudge 3s var(--ease-out) 1.4s infinite;
+  }
+
+  @keyframes scroll-cue-nudge {
+    0%,
+    55%,
+    100% {
+      transform: translateY(0);
+      border-color: var(--color-border-light);
+    }
+    20% {
+      transform: translateY(5px);
+      border-color: var(--color-accent);
+    }
+    38% {
+      transform: translateY(1px);
+    }
   }
 
   .scroll-cue:hover .scroll-cue-icon {
@@ -502,7 +523,8 @@
 
   @media (prefers-reduced-motion: reduce) {
     .hero,
-    .scroll-cue {
+    .scroll-cue,
+    .scroll-cue-icon {
       animation: none;
     }
 

@@ -250,7 +250,7 @@
 
   .company-name {
     font-family: var(--font-display);
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-xl);
     font-weight: var(--font-weight-semibold);
     color: var(--color-text-primary);
     margin-bottom: 0.125rem;
@@ -258,7 +258,7 @@
   }
 
   .job-role {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
     color: var(--color-accent);
     font-weight: var(--font-weight-medium);
   }
@@ -271,13 +271,13 @@
   }
 
   .job-period {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
     font-weight: var(--font-weight-semibold);
     color: var(--color-text-primary);
   }
 
   .job-description {
-    font-size: var(--font-size-sm);
+    font-size: var(--font-size-base);
     color: var(--color-text-secondary);
     line-height: var(--line-height-base);
     margin-bottom: var(--space-5);
