@@ -73,7 +73,7 @@
   }
 </script>
 
-<section class="hero" aria-label="Hero section">
+<section class="hero">
   <div class="hero-bg" aria-hidden="true"></div>
 
   <div class="hero-grid">
@@ -116,7 +116,6 @@
             target={isExternal ? "_blank" : undefined}
             rel={isExternal ? "noopener noreferrer" : undefined}
             download={isDownload ? "" : undefined}
-            aria-label={link.text}
           >
             <Icon name={link.type} size={16} />
             <span>{link.text}</span>
@@ -125,7 +124,7 @@
       </nav>
     </div>
 
-    <div class="hero-photo" aria-label="Profile photo">
+    <div class="hero-photo">
       <div class="photo-wrapper">
         <div class="photo-frame">
           <Media
@@ -152,7 +151,7 @@
   </div>
 
   {#if data.primaryLink}
-    <a href={data.primaryLink.url} class="scroll-cue" aria-label={data.primaryLink.text}>
+    <a href={data.primaryLink.url} class="scroll-cue">
       <span class="scroll-cue-text">{data.primaryLink.text}</span>
       <span class="scroll-cue-icon" aria-hidden="true">
         <Icon name="chevron-down" size={22} />
