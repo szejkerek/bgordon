@@ -54,7 +54,7 @@
   <div class="timeline-container">
     <div class="two-column-grid">
       {@render column("Work Experience", "briefcase", workItems)}
-      {@render column("Education", "graduation", eduItems, SECTION_IDS.education)}
+      {@render column("Education", "graduation", eduItems, SECTION_IDS.education, "end")}
     </div>
   </div>
 </section>
@@ -108,9 +108,15 @@
   </article>
 {/snippet}
 
-{#snippet column(heading: string, headerIcon: IconType, items: TimelineEntry[], columnId?: string)}
+{#snippet column(
+  heading: string,
+  headerIcon: IconType,
+  items: TimelineEntry[],
+  columnId?: string,
+  align: 'start' | 'end' = 'start',
+)}
   <div class="timeline-column" id={columnId}>
-    <header class="column-header">
+    <header class="column-header" class:column-header--end={align === 'end'}>
       <h2 class="column-title">{heading}</h2>
     </header>
 
@@ -153,6 +159,12 @@
     margin-bottom: var(--space-9);
     padding-bottom: var(--space-6);
     border-bottom: 1px solid var(--color-border-subtle);
+  }
+
+  /* The right-hand column's heading sits against the outer edge, so the two
+     headings frame the pair rather than both hugging the middle. */
+  .column-header--end {
+    justify-content: flex-end;
   }
 
   .column-title {
@@ -279,6 +291,11 @@
     .two-column-grid {
       grid-template-columns: 1fr;
       gap: var(--space-11);
+    }
+
+    /* Stacked, there is no pair to frame — both headings read from the left. */
+    .column-header--end {
+      justify-content: flex-start;
     }
   }
 

@@ -210,7 +210,12 @@
     gap: var(--space-12);
     align-items: center;
     width: 100%;
-    max-width: var(--container-max-width);
+    /* Centred on its own measure rather than following the window: at 1600px the
+       full-width version pinned the text to the left edge and the photo to the
+       right with a dead gap between them. The background still spans the window,
+       because it is painted by .hero, not by this grid. */
+    max-width: var(--container-max-width-centered);
+    margin-inline: auto;
   }
 
   .hero-content {

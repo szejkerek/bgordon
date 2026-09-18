@@ -26,14 +26,14 @@ const wantToRead = allBooks.filter(b => b.status === 'want-to-read');
         <h1>Books</h1>
         <p class="page-subtitle">My personal reading tracker, public on purpose: a trick from <em>Atomic Habits</em>, since a visible habit is an accountable one.</p>
         {wantToRead.length > 0 && (
-          <a href="#wishlist" class="wishlist-btn">Wishlist →</a>
+          <a href="#wishlist" class="btn">Want to read</a>
         )}
       </header>
 
       {reading.length > 0 && (
         <section class="book-group">
           <h2 class="group-title">Currently Reading</h2>
-          <div class="book-list">
+          <div class="book-list book-list--grid">
             {reading.map((book) => <BookCard book={book} />)}
           </div>
         </section>
@@ -66,11 +66,6 @@ const wantToRead = allBooks.filter(b => b.status === 'want-to-read');
     min-height: 100vh;
   }
 
-  /* 2x the article width — books page reads wider than the rest of the site */
-  .container {
-    max-width: calc(var(--container-max-width-article) * 2);
-  }
-
   .page-header {
     margin-bottom: var(--space-12);
   }
@@ -87,24 +82,6 @@ const wantToRead = allBooks.filter(b => b.status === 'want-to-read');
     margin: 0 0 var(--space-6);
   }
 
-  .wishlist-btn {
-    display: inline-block;
-    padding: var(--space-2) var(--space-5);
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-semibold);
-    color: var(--color-accent);
-    border: 1px solid var(--color-accent);
-    border-radius: var(--radius-sm);
-    text-decoration: none;
-    transition: background var(--duration-fast) var(--ease-out),
-                color var(--duration-fast) var(--ease-out);
-  }
-
-  .wishlist-btn:hover {
-    background: var(--color-accent);
-    color: var(--color-bg-primary);
-  }
-
   .book-group {
     margin-bottom: var(--space-12);
   }
@@ -118,22 +95,19 @@ const wantToRead = allBooks.filter(b => b.status === 'want-to-read');
   }
 
   .book-list {
-    display: flex;
-    flex-direction: column;
-    gap: var(--space-5);
-  }
-
-  /* Finished: fill the wide container instead of one tall single column. */
-  .book-list--grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr));
+    gap: var(--space-5);
     align-items: start;
   }
 
-  /* Wishlist: dense grid of compact tiles rather than wide single-line bars. */
+  /* One card shape, two densities: books with covers and notes need room,
+     wishlist entries are two lines. */
+  .book-list--grid {
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 420px), 1fr));
+  }
+
   .book-list--wishlist {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr));
     gap: var(--space-4);
     align-items: stretch;
   }

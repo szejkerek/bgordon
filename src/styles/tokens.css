@@ -92,6 +92,8 @@
      content off the edge. Detail pages opt into a narrower measure with the two
      tokens under this one. */
   --container-max-width: none;
+  /* For blocks that read better centred on a measure than spread edge to edge. */
+  --container-max-width-centered: 1200px;
   --container-max-width-narrow: 900px;
   --container-max-width-article: 1000px;
   --container-padding: 2rem;
