@@ -171,8 +171,12 @@
     align-items: center;
     justify-content: center;
     padding: 8rem 2rem 4rem;
-    max-width: var(--container-max-width);
-    margin: 0 auto;
+    /* The section spans the full width and the grid inside it carries the
+       measure, so the background can simply fill its parent. Sizing it at
+       100vw instead made it wider than the content box by exactly the
+       scrollbar's width, which is the horizontal overflow the body used to
+       hide. */
+    width: 100%;
     /* Entrance runs on load rather than on hydration: the hero is the LCP
        element, so it must never wait on (or depend on) JavaScript. */
     animation: hero-enter 0.65s var(--ease-spring) both;
@@ -191,11 +195,7 @@
 
   .hero-bg {
     position: absolute;
-    top: 0;
-    left: 50%;
-    width: 100vw;
-    height: 100%;
-    transform: translateX(-50%);
+    inset: 0;
     z-index: -1;
     background-color: var(--color-bg-primary);
     background-image: radial-gradient(
@@ -211,6 +211,7 @@
     gap: var(--space-12);
     align-items: center;
     width: 100%;
+    max-width: var(--container-max-width);
   }
 
   .hero-content {
