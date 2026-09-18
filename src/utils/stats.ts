@@ -53,6 +53,11 @@ export function parsePeriod(period: string, now: Date): [number, number] | null 
 /**
  * Total professional months across the given periods, with overlapping ranges
  * merged so concurrent jobs are not double-counted.
+ *
+ * Both endpoints count: "April 2022 to July 2023" is 16 months of work, not 15,
+ * and a job that started this month already counts as one. That matches how a
+ * CV is read. Consecutive ranges (one ending the month before the next starts)
+ * merge, since there is no gap between them.
  */
 export function professionalMonths(periods: string[], now: Date): number {
   const intervals = periods
@@ -68,15 +73,15 @@ export function professionalMonths(periods: string[], now: Date): number {
     if (openStart === null) {
       openStart = start;
       openEnd = end;
-    } else if (start <= openEnd) {
+    } else if (start <= openEnd + 1) {
       openEnd = Math.max(openEnd, end);
     } else {
-      total += openEnd - openStart;
+      total += openEnd - openStart + 1;
       openStart = start;
       openEnd = end;
     }
   }
-  if (openStart !== null) total += openEnd - openStart;
+  if (openStart !== null) total += openEnd - openStart + 1;
 
   return total;
 }

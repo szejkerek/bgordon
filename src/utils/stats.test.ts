@@ -51,12 +51,31 @@ describe('professionalMonths', () => {
       'May 2023 to July 2023', // inside IT Silesia below
       'April 2022 to July 2023', // 15 months (absorbs Radicate)
     ];
-    // merged: [Apr2022..Jul2023] = 15  +  [Jul2024..Jul2026] = 24  => 39
-    expect(professionalMonths(periods, NOW)).toBe(39);
+    // merged: [Apr2022..Jul2023] = 16  +  [Jul2024..Jul2026] = 25  => 41
+    expect(professionalMonths(periods, NOW)).toBe(41);
+  });
+
+  it('counts both endpoints of a single period', () => {
+    // May, June, July
+    expect(professionalMonths(['May 2023 to July 2023'], NOW)).toBe(3);
+  });
+
+  it('counts a job starting this month as one month', () => {
+    expect(professionalMonths(['July 2026 to Present'], NOW)).toBe(1);
+  });
+
+  it('merges consecutive periods without inventing a gap month', () => {
+    const periods = ['January 2022 to March 2022', 'April 2022 to June 2022'];
+    expect(professionalMonths(periods, NOW)).toBe(6);
+  });
+
+  it('keeps a real gap between periods out of the total', () => {
+    const periods = ['January 2022 to February 2022', 'May 2022 to June 2022'];
+    expect(professionalMonths(periods, NOW)).toBe(4);
   });
 
   it('ignores unparseable periods', () => {
-    expect(professionalMonths(['garbage', 'July 2024 to Present'], NOW)).toBe(24);
+    expect(professionalMonths(['garbage', 'July 2024 to Present'], NOW)).toBe(25);
   });
 });
 
