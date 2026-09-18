@@ -86,7 +86,7 @@
 
   .projects-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 425px), 1fr));
     gap: var(--space-8);
   }
 

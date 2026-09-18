@@ -67,10 +67,10 @@ interface PictureOptions {
  * one of these slots has one obvious place to be mirrored.
  */
 export const IMAGE_PRESETS = {
-  /** Homepage project grid: one column under 420px, two on mobile, ~340px cards above. */
+  /** Homepage project grid: one column under 420px, two on mobile, ~425px cards above. */
   projectThumbnail: {
-    widths: [340, 480, 680, 960],
-    sizes: '(max-width: 420px) 100vw, (max-width: 768px) 50vw, 340px',
+    widths: [425, 640, 850, 1280],
+    sizes: '(max-width: 420px) 100vw, (max-width: 768px) 50vw, 425px',
   },
   /** Achievement timeline photo: half the row on desktop, full width once stacked. */
   achievementPhoto: {
@@ -87,10 +87,10 @@ export const IMAGE_PRESETS = {
     widths: [56, 112],
     sizes: '56px',
   },
-  /** Book cover: 165x220 in the grid, 195x293 for the featured card, 130px on mobile. */
+  /** Book cover: 206x275 in the grid, 163px wide once the card stacks. */
   bookCover: {
-    widths: [130, 165, 195, 330, 390],
-    sizes: '(max-width: 600px) 130px, 195px',
+    widths: [163, 206, 326, 412],
+    sizes: '(max-width: 600px) 163px, 206px',
   },
   /** Gallery tile: three columns on desktop, one on narrow screens. */
   galleryThumbnail: {
