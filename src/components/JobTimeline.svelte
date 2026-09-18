@@ -138,7 +138,10 @@
   .timeline-container {
     max-width: var(--container-max-width);
     margin: 0 auto;
-    padding: 0 var(--container-padding);
+    /* Wider inset than the rest of the page: two columns of cards running the
+       full window read as spilled rather than laid out. Scales with the
+       viewport, and falls back to the standard padding on small screens. */
+    padding: 0 clamp(var(--container-padding), 7vw, 10rem);
   }
 
   .two-column-grid {

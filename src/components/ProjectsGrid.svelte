@@ -1,6 +1,5 @@
 <script lang="ts">
   import ProjectCard from "./ProjectCard.svelte";
-  import { orderedTags } from "../utils/tags";
   import type { ProjectSummary } from "../types";
 
   interface Props {
@@ -8,82 +7,15 @@
   }
 
   let { items }: Props = $props();
-
-  const tags = $derived(orderedTags(items.map((item) => item.tags)));
-
-  let activeTag = $state<string | null>(null);
-
-  const visible = $derived(
-    activeTag === null
-      ? items
-      : items.filter((item) => item.tags.includes(activeTag!))
-  );
 </script>
 
-<div class="filters" role="group" aria-label="Filter projects by tag">
-  <button
-    type="button"
-    class="filter-btn"
-    class:active={activeTag === null}
-    aria-pressed={activeTag === null}
-    onclick={() => (activeTag = null)}
-  >
-    All
-  </button>
-  {#each tags as tag (tag)}
-    <button
-      type="button"
-      class="filter-btn"
-      class:active={activeTag === tag}
-      aria-pressed={activeTag === tag}
-      onclick={() => (activeTag = tag)}
-    >
-      {tag}
-    </button>
-  {/each}
-</div>
-
 <div class="projects-grid">
-  {#each visible as project (project.slug)}
+  {#each items as project (project.slug)}
     <ProjectCard {project} />
   {/each}
 </div>
 
 <style>
-  .filters {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-3);
-    margin-bottom: var(--space-9);
-  }
-
-  .filter-btn {
-    font-family: inherit;
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
-    color: var(--color-text-secondary);
-    background: var(--color-bg-card);
-    border: 1px solid var(--color-border-subtle);
-    border-radius: var(--radius-full);
-    padding: var(--space-2) var(--space-5);
-    cursor: pointer;
-    transition:
-      color var(--duration-fast) var(--ease-out),
-      border-color var(--duration-fast) var(--ease-out),
-      background-color var(--duration-fast) var(--ease-out);
-  }
-
-  .filter-btn:hover {
-    color: var(--color-text-primary);
-    border-color: var(--color-border-light);
-  }
-
-  .filter-btn.active {
-    color: var(--color-bg-primary);
-    background: var(--color-accent);
-    border-color: var(--color-accent);
-  }
-
   .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(min(100%, 425px), 1fr));

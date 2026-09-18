@@ -9,7 +9,7 @@ import { publishedProjects, publishedAchievements } from '../utils/content';
 import { SECTION_IDS } from '../utils/routes';
 import { getThumbnail, PLACEHOLDER_IMAGE } from '../utils/projectImages';
 import { getImageAsset, toOptionalPicture, toPicture, IMAGE_PRESETS } from '../utils/images';
-import { professionalMonths, formatDuration, age } from '../utils/stats';
+import { professionalMonths, formatDuration } from '../utils/stats';
 import type { HeroStat, ProjectSummary } from '../types';
 
 // Load site content from JSON files
@@ -67,12 +67,6 @@ const jamPodiums = sortedAchievements.filter(
 
 const proMonths = professionalMonths(workExperience.map((job) => job.period), now);
 
-let heroAge: number | undefined;
-if (heroData.birthDate) {
-  const [year, month, day] = heroData.birthDate.split('-').map(Number);
-  heroAge = age(new Date(year, month - 1, day), now);
-}
-
 const heroStats: HeroStat[] = [
   { label: 'Experience', value: formatDuration(proMonths) },
   { label: 'Projects', value: `${projectsCount}` },
@@ -94,7 +88,7 @@ const heroStats: HeroStat[] = [
   )}
 
   <!-- Hero Section -->
-  <Hero heroData={heroData} photo={heroPhoto} stats={heroStats} age={heroAge} />
+  <Hero heroData={heroData} photo={heroPhoto} stats={heroStats} />
 
   <!-- Job Timeline Section -->
   <JobTimeline
@@ -113,7 +107,7 @@ const heroStats: HeroStat[] = [
 
   <!-- Projects Section -->
   <Section id={SECTION_IDS.projects} title="Projects" alt>
-    <ProjectsGrid items={projectItems} client:visible />
+    <ProjectsGrid items={projectItems} />
   </Section>
 </Layout>
 

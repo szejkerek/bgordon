@@ -31,16 +31,6 @@
 
 <footer class="footer">
   <div class="inner">
-    <div class="col">
-      <h2>Get in touch</h2>
-      {#if email}
-        <a href="mailto:{email}">
-          <Icon name="email" size={16} />
-          <span>{email}</span>
-        </a>
-      {/if}
-    </div>
-
     <div class="cols">
       <nav class="col" aria-label="Site navigation">
         <h2>Explore</h2>
@@ -71,7 +61,10 @@
   <div class="bottom">
     <p class="name-line">
       <span class="name">Bartłomiej Gordon</span>
-      <small>© {startYear}—{currentYear}</small>
+      {#if email}
+        <a class="email" href="mailto:{email}">{email}</a>
+      {/if}
+      <small>© {startYear}-{currentYear}</small>
     </p>
     <p class="loc">
       <Icon name="location" size={14} />
@@ -95,7 +88,6 @@
     margin: 0 auto;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between;
     gap: var(--space-11) var(--space-12);
     padding-bottom: var(--space-10);
   }
@@ -161,7 +153,18 @@
   .name-line {
     display: inline-flex;
     align-items: baseline;
-    gap: var(--space-4);
+    flex-wrap: wrap;
+    gap: var(--space-4) var(--space-6);
+  }
+
+  .name-line .email {
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--ease-out);
+  }
+
+  .name-line .email:hover {
+    color: var(--color-accent);
   }
 
   .name-line .name {

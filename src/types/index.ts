@@ -43,6 +43,8 @@ export interface SocialLink {
   type: IconType;
   text: string;
   url: string;
+  /** Set false to keep a link in the footer but out of the hero. */
+  inHero?: boolean;
 }
 
 export interface PrimaryLink {
@@ -60,7 +62,6 @@ export interface HeroData {
   bio?: string;
   location?: string;
   locationUrl?: string;
-  birthDate?: string;
   photo?: string;
   primaryLink?: PrimaryLink;
   socialLinks?: SocialLink[];

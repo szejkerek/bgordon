@@ -10,12 +10,16 @@
   }
 
   let { achievement, image }: Props = $props();
+
+  // Which dimension binds depends on orientation, and the two are styled apart.
+  const isPortrait = $derived(!!image?.width && !!image?.height && image.height > image.width);
 </script>
 
 <a class="node" href={`/achievements/${achievement.id}`}>
   {#if image}
     <div class="photo" aria-hidden="true">
       <img
+        class:portrait={isPortrait}
         src={image.src}
         srcset={image.srcset}
         sizes={image.sizes}
@@ -91,7 +95,11 @@
     justify-content: flex-end;
   }
 
-  /* Event photo — natural aspect, fills its half up to a sane height cap. */
+  /* Event photo — natural aspect, capped so one tall shot cannot dominate a row.
+     The cap sets the box width too (the column is content-sized), and max-width
+     then takes another 25% off that, so a taller cap grows the photo in both
+     directions. Portraits get the taller cap; landscape keeps the original, or
+     raising it would have grown any shot squarer than about 3:2 as well. */
   .photo img {
     display: block;
     max-width: 75%;
@@ -103,6 +111,10 @@
     opacity: 0.9;
     transition: opacity var(--duration-fast) var(--ease-out);
   }
+  .photo img.portrait {
+    max-height: 430px;
+  }
+
   .node:hover .photo img { opacity: 1; }
 
   /* Dot sits centered in the middle column; the continuous line is drawn by
@@ -181,6 +193,7 @@
       justify-content: flex-start;
     }
     .photo img { max-height: 300px; }
+    .photo img.portrait { max-height: 390px; }
     .body,
     .node:nth-child(even) .body {
       max-width: none;

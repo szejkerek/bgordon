@@ -9,10 +9,9 @@
     /** Resolved profile photo, with responsive variants. */
     photo?: MediaSource;
     stats?: HeroStat[];
-    age?: number;
   }
 
-  let { heroData = {}, photo, stats = [], age }: Props = $props();
+  let { heroData = {}, photo, stats = [] }: Props = $props();
 
   // Default values
   const defaults = {
@@ -29,7 +28,8 @@
     location: heroData.location,
     locationUrl: heroData.locationUrl,
     primaryLink: heroData.primaryLink,
-    socialLinks: heroData.socialLinks || [],
+    // A link can opt out of the hero and still appear in the footer.
+    socialLinks: (heroData.socialLinks || []).filter((link) => link.inHero !== false),
   });
 
   // Engine names that get an inline icon + comic marker highlight in the bio.
@@ -80,28 +80,25 @@
     <div class="hero-content">
       <p class="hero-label">{data.label}</p>
       <h1 class="hero-name">{data.name}</h1>
-      {#if data.location || age}
+      {#if data.location}
         <p class="hero-location">
-          {#if data.location}
-            {#if data.locationUrl}
-              <a
-                class="hero-location-place hero-location-place--link"
-                href={data.locationUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="{data.location} on Google Maps"
-              >
-                <Icon name="location" size={15} />
-                <span>{data.location}</span>
-              </a>
-            {:else}
-              <span class="hero-location-place">
-                <Icon name="location" size={15} />
-                <span>{data.location}</span>
-              </span>
-            {/if}
+          {#if data.locationUrl}
+            <a
+              class="hero-location-place hero-location-place--link"
+              href={data.locationUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="{data.location} on Google Maps"
+            >
+              <Icon name="location" size={15} />
+              <span>{data.location}</span>
+            </a>
+          {:else}
+            <span class="hero-location-place">
+              <Icon name="location" size={15} />
+              <span>{data.location}</span>
+            </span>
           {/if}
-          {#if age}<span class="hero-age">{age} years old</span>{/if}
         </p>
       {/if}
       <p class="hero-bio">{#each bioSegments as seg, i (i)}{#if seg.icon}<span class="engine-mark engine-mark--{seg.icon}"><Icon name={seg.icon} size={21} /><span class="engine-name">{seg.text}</span></span>{:else}{seg.text}{/if}{/each}</p>
@@ -272,20 +269,6 @@
   .hero-location :global(svg) {
     color: var(--color-accent);
     flex-shrink: 0;
-  }
-
-  /* Static chip sharing the site button frame (border-light + radius-md +
-     translucent fill), matching hero links and ActionButton. */
-  .hero-age {
-    padding: 0.3em 0.7em;
-    border: 1px solid var(--color-border-light);
-    border-radius: var(--radius-md);
-    background: var(--color-surface-veil);
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-semibold);
-    line-height: 1;
-    color: var(--color-text-primary);
-    white-space: nowrap;
   }
 
   .hero-bio {
