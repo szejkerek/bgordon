@@ -18,6 +18,21 @@ export interface MediaSource {
   height?: number;
 }
 
+/**
+ * The subset of a project a card renders. Deliberately not the content-collection
+ * entry: props of a hydrated island are serialized into the HTML, and an entry
+ * drags its whole markdown body, rendered output and digest along with it.
+ */
+export interface ProjectSummary {
+  slug: string;
+  title: string;
+  description: string;
+  date: string;
+  tags: string[];
+  teamSize?: number;
+  thumbnail?: MediaSource;
+}
+
 // ============================================
 // Social & Link Types
 // ============================================

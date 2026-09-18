@@ -1,13 +1,12 @@
-type Tagged = { data: { tags?: string[] } };
-
 /**
- * Distinct tags across the given projects, ordered by how many projects carry
- * each tag (descending). Each project counts at most once per tag.
+ * Distinct tags across the given tag lists, ordered by how many lists carry
+ * each tag (descending), ties broken alphabetically. One list per project, so a
+ * project counts at most once per tag even if it repeats one.
  */
-export function orderedTags(projects: Tagged[]): string[] {
+export function orderedTags(tagLists: (string[] | undefined)[]): string[] {
   const counts = new Map<string, number>();
-  for (const project of projects) {
-    for (const tag of new Set(project.data.tags ?? [])) {
+  for (const tags of tagLists) {
+    for (const tag of new Set(tags ?? [])) {
       counts.set(tag, (counts.get(tag) ?? 0) + 1);
     }
   }

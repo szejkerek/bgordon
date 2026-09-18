@@ -10,7 +10,7 @@ import { SECTION_IDS } from '../utils/routes';
 import { getThumbnail, PLACEHOLDER_IMAGE } from '../utils/projectImages';
 import { getImageAsset, toOptionalPicture, toPicture, IMAGE_PRESETS } from '../utils/images';
 import { professionalMonths, formatDuration, age } from '../utils/stats';
-import type { HeroStat } from '../types';
+import type { HeroStat, ProjectSummary } from '../types';
 
 // Load site content from JSON files
 import heroData from '../content/site/hero.json';
@@ -23,12 +23,18 @@ const sortedAchievements = await publishedAchievements();
 
 // Images are build-time assets now, so every path is resolved here — Svelte
 // islands receive ready-to-render sources and never touch the asset pipeline.
-const projectItems = await Promise.all(
+const projectItems: ProjectSummary[] = await Promise.all(
   sortedProjects.map(async (project) => ({
-    project,
-    thumbnail: (await toOptionalPicture(getThumbnail(project.slug), IMAGE_PRESETS.projectThumbnail)) ?? {
-      src: PLACEHOLDER_IMAGE,
-    },
+    slug: project.slug,
+    title: project.data.title,
+    description: project.data.description,
+    date: project.data.date,
+    tags: project.data.tags ?? [],
+    teamSize: project.data.teamSize,
+    thumbnail: (await toOptionalPicture(
+      getThumbnail(project.slug),
+      IMAGE_PRESETS.projectThumbnail,
+    )) ?? { src: PLACEHOLDER_IMAGE },
   })),
 );
 

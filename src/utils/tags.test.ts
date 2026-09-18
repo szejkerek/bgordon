@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { orderedTags } from './tags';
 
-const p = (...tags: string[]) => ({ data: { tags } });
+const p = (...tags: string[]) => tags;
 
 describe('orderedTags', () => {
   it('orders tags by descending project count', () => {
@@ -24,7 +24,7 @@ describe('orderedTags', () => {
   });
 
   it('ignores projects with no tags and returns every distinct tag', () => {
-    const result = orderedTags([p(), p('A'), { data: {} }, p('B')]);
+    const result = orderedTags([p(), p('A'), undefined, p('B')]);
 
     expect(result).toEqual(['A', 'B']);
   });

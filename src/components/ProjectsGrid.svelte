@@ -1,28 +1,22 @@
 <script lang="ts">
-  import type { CollectionEntry } from "astro:content";
   import ProjectCard from "./ProjectCard.svelte";
   import { orderedTags } from "../utils/tags";
-  import type { MediaSource } from "../types";
-
-  interface Item {
-    project: CollectionEntry<'projects'> & { slug: string };
-    thumbnail?: MediaSource;
-  }
+  import type { ProjectSummary } from "../types";
 
   interface Props {
-    items: Item[];
+    items: ProjectSummary[];
   }
 
   let { items }: Props = $props();
 
-  const tags = $derived(orderedTags(items.map((item) => item.project)));
+  const tags = $derived(orderedTags(items.map((item) => item.tags)));
 
   let activeTag = $state<string | null>(null);
 
   const visible = $derived(
     activeTag === null
       ? items
-      : items.filter((item) => (item.project.data.tags ?? []).includes(activeTag!))
+      : items.filter((item) => item.tags.includes(activeTag!))
   );
 </script>
 
@@ -50,8 +44,8 @@
 </div>
 
 <div class="projects-grid">
-  {#each visible as item (item.project.slug)}
-    <ProjectCard project={item.project} thumbnail={item.thumbnail} />
+  {#each visible as project (project.slug)}
+    <ProjectCard {project} />
   {/each}
 </div>
 

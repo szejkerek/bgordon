@@ -2,19 +2,15 @@
   import Icon from "./Icon.svelte";
   import Media from "./Media.svelte";
   import { formatDate } from "../utils/dates";
-  import type { CollectionEntry } from "astro:content";
-  import type { MediaSource } from "../types";
+  import type { ProjectSummary } from "../types";
 
   interface Props {
-    project: CollectionEntry<'projects'> & { slug: string };
-    thumbnail?: MediaSource;
+    project: ProjectSummary;
   }
 
-  let { project, thumbnail }: Props = $props();
+  let { project }: Props = $props();
 
-  // Computed values
   const href = $derived(`/projects/${project.slug}`);
-  const tags = $derived(project.data.tags || []);
 </script>
 
 <article
@@ -23,15 +19,15 @@
 	<a
 		href={href}
 		class="card-overlay-link"
-		aria-label="View {project.data.title} project details"
+		aria-label="View {project.title} project details"
 	>
-		<span class="sr-only">View {project.data.title} project details</span>
+		<span class="sr-only">View {project.title} project details</span>
 	</a>
 
   <div class="card-image">
     <Media
-      {...thumbnail}
-      alt={project.data.title}
+      {...project.thumbnail}
+      alt={project.title}
       fit="cover"
       ratio="16 / 9"
     />
@@ -39,20 +35,20 @@
 
   <div class="card-content">
     <div class="card-meta">
-      <span class="date">{formatDate(project.data.date)}</span>
-      {#if project.data.teamSize}
+      <span class="date">{formatDate(project.date)}</span>
+      {#if project.teamSize}
         <span class="team-size" title="Team size">
           <Icon name="team" size={12} />
-          <span>{project.data.teamSize}</span>
+          <span>{project.teamSize}</span>
         </span>
       {/if}
     </div>
 
-    <h3 class="card-title">{project.data.title}</h3>
-    <p class="card-description">{project.data.description}</p>
+    <h3 class="card-title">{project.title}</h3>
+    <p class="card-description">{project.description}</p>
 
     <div class="card-tags">
-      {#each tags as tag (tag)}
+      {#each project.tags as tag (tag)}
         <span class="tag">{tag}</span>
       {/each}
     </div>
