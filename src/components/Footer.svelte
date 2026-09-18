@@ -31,11 +31,11 @@
 
 <footer class="footer">
   <div class="inner">
-    <div class="cta">
-      <p class="eyebrow">Get in touch</p>
+    <div class="col">
+      <h2>Get in touch</h2>
       {#if email}
-        <a href="mailto:{email}" class="email-btn" aria-label="Send email to {email}">
-          <Icon name="email" size={18} />
+        <a href="mailto:{email}">
+          <Icon name="email" size={16} />
           <span>{email}</span>
         </a>
       {/if}
@@ -98,47 +98,6 @@
     justify-content: space-between;
     gap: var(--space-11) var(--space-12);
     padding-bottom: var(--space-10);
-  }
-
-  /* CTA block */
-  .cta {
-    max-width: 30rem;
-  }
-
-  .eyebrow {
-    font-size: var(--font-size-xs);
-    font-weight: var(--font-weight-bold);
-    letter-spacing: 0.16em;
-    text-transform: uppercase;
-    color: var(--color-accent);
-    margin-bottom: var(--space-3);
-  }
-
-  .email-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--space-3);
-    padding: var(--space-4) var(--space-7);
-    background: var(--color-accent);
-    border-radius: var(--radius-md);
-    color: var(--color-bg-primary);
-    font-size: var(--font-size-base);
-    font-weight: var(--font-weight-semibold);
-    text-decoration: none;
-    transition:
-      transform var(--duration-normal) var(--ease-spring),
-      box-shadow var(--duration-normal) var(--ease-spring),
-      background var(--duration-fast) var(--ease-out);
-  }
-
-  .email-btn:hover {
-    background: var(--color-accent-dim);
-    transform: translateY(-1px);
-  }
-
-  .email-btn:focus-visible {
-    outline: 2px solid var(--color-accent);
-    outline-offset: 3px;
   }
 
   /* Link columns */
@@ -237,11 +196,10 @@
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .email-btn,
     .col a {
       transition: color var(--duration-fast) var(--ease-out);
     }
-    .email-btn:hover,
+
     .col a:hover {
       transform: none;
     }
