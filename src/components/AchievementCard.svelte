@@ -14,7 +14,7 @@
 
 <a class="node" href={`/achievements/${achievement.id}`}>
   {#if image}
-    <div class="media" aria-hidden="true">
+    <div class="photo" aria-hidden="true">
       <img
         src={image.src}
         srcset={image.srcset}
@@ -57,7 +57,7 @@
   /* All three share one grid row — explicit grid-row:1 stops the auto-placement
      algorithm from pushing items onto new rows when even-row columns run in
      reverse source order (which was stacking photo above text). */
-  .media {
+  .photo {
     grid-row: 1;
     grid-column: 1;
     justify-self: end;
@@ -77,7 +77,7 @@
   }
 
   /* --- even rows: mirror --- */
-  .node:nth-child(even) .media {
+  .node:nth-child(even) .photo {
     grid-column: 3;
     justify-self: start;
     justify-content: flex-start;
@@ -92,7 +92,7 @@
   }
 
   /* Event photo — natural aspect, fills its half up to a sane height cap. */
-  .media img {
+  .photo img {
     display: block;
     max-width: 75%;
     max-height: 330px;
@@ -103,7 +103,7 @@
     opacity: 0.9;
     transition: opacity var(--duration-fast) var(--ease-out);
   }
-  .node:hover .media img { opacity: 1; }
+  .node:hover .photo img { opacity: 1; }
 
   /* Dot sits centered in the middle column; the continuous line is drawn by
      the parent (.achievements-list) so it never breaks across node gaps. */
@@ -176,11 +176,11 @@
       padding-bottom: var(--space-8);
     }
     .rail { display: none; }
-    .media,
-    .node:nth-child(even) .media {
+    .photo,
+    .node:nth-child(even) .photo {
       justify-content: flex-start;
     }
-    .media img { max-height: 300px; }
+    .photo img { max-height: 300px; }
     .body,
     .node:nth-child(even) .body {
       max-width: none;
