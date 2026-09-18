@@ -217,7 +217,11 @@
 .prose {
   color: var(--color-text-secondary);
   line-height: var(--line-height-relaxed);
+  /* Justified text needs somewhere to break words, or the spaces stretch into
+     rivers. Only wide measures stay justified — see JobTimeline and the project
+     header, which are too narrow for it. */
   text-align: justify;
+  hyphens: auto;
 }
 
 .prose h2 {

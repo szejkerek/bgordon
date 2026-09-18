@@ -266,7 +266,6 @@
     color: var(--color-text-secondary);
     line-height: var(--line-height-base);
     margin-bottom: var(--space-5);
-    text-align: justify;
   }
 
   .job-skills {
