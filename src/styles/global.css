@@ -148,8 +148,16 @@ button:focus-visible {
   }
 }
 
+/* Readers who ask for more contrast are asking about text first. Bumping only
+   the borders left the dimmest text tier exactly where it was — at the AA
+   threshold — which is the tier they are struggling with. Measured against
+   --color-bg-elevated, the least favourable surface: muted 4.54 -> 7.37,
+   secondary 6.38 -> 8.37, accent 6.29 -> 7.95. */
 @media (prefers-contrast: high) {
   :root {
+    --color-text-muted: #b7bdb1;
+    --color-text-secondary: #c3c9bd;
+    --color-accent: #99cead;
     --color-border-subtle: rgba(255, 255, 255, 0.2);
     --color-border-light: rgba(255, 255, 255, 0.4);
   }
