@@ -9,7 +9,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "test": "vitest",
-    "test:run": "vitest run"
+    "test:run": "vitest run",
+    "images:optimize": "node scripts/optimize-images.mjs"
   },
   "dependencies": {
     "@astrojs/svelte": "^8.1.0",

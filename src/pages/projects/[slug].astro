@@ -20,7 +20,9 @@ export async function getStaticPaths() {
 const { project } = Astro.props;
 const { Content } = await render(project);
 
-const { thumbnail: thumbnailSrc, gallery: galleryImages } = getProjectMedia(project.slug);
+const { thumbnail, gallery } = getProjectMedia(project.slug);
+const thumbnailSrc = thumbnail?.src;
+const galleryImages = gallery.map((image) => image.src);
 
 const hasImage = !!thumbnailSrc;
 const tags = project.data.tags || [];

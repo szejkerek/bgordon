@@ -4,15 +4,16 @@
   import Media from "./Media.svelte";
   import type { HeroData, HeroStat, SocialLink } from "../types";
   import type { IconType } from "../utils/icons";
-  import { resolveMediaPath } from "../utils/media";
 
   interface Props {
     heroData?: HeroData;
+    /** Resolved build-time URL for the profile photo. */
+    photoSrc?: string;
     stats?: HeroStat[];
     age?: number;
   }
 
-  let { heroData = {}, stats = [], age }: Props = $props();
+  let { heroData = {}, photoSrc, stats = [], age }: Props = $props();
 
   let visible = $state(false);
 
@@ -21,7 +22,6 @@
     label: 'Unity Developer',
     name: 'Bartłomiej Gordon',
     bio: 'Computer Science graduate with 5 years of experience in game development.',
-    photo: '/images/profilePicture.png',
   };
 
   // Merged data with defaults
@@ -31,7 +31,6 @@
     bio: heroData.bio || defaults.bio,
     location: heroData.location,
     locationUrl: heroData.locationUrl,
-    photo: resolveMediaPath(heroData.photo || defaults.photo),
     primaryLink: heroData.primaryLink,
     socialLinks: heroData.socialLinks || [],
   });
@@ -137,7 +136,7 @@
       <div class="photo-wrapper">
         <div class="photo-frame">
           <Media
-            src={data.photo}
+            src={photoSrc}
             alt={data.name}
             fit="cover"
             eager

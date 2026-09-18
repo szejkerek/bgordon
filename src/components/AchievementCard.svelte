@@ -1,23 +1,20 @@
 <script lang="ts">
   import { formatDate } from "../utils/dates";
-  import { resolveMediaPath } from "../utils/media";
   import type { CollectionEntry } from "astro:content";
 
   interface Props {
     achievement: CollectionEntry<'achievements'>;
+    /** Resolved build-time URL for the event photo, or undefined when there is none. */
+    imageSrc?: string;
   }
 
-  let { achievement }: Props = $props();
-
-  const image = $derived(
-    achievement.data.image ? resolveMediaPath(achievement.data.image) : undefined,
-  );
+  let { achievement, imageSrc }: Props = $props();
 </script>
 
 <a class="node" href={`/achievements/${achievement.id}`}>
-  {#if image}
+  {#if imageSrc}
     <div class="media" aria-hidden="true">
-      <img src={image} alt="" loading="lazy" decoding="async" />
+      <img src={imageSrc} alt="" loading="lazy" decoding="async" />
     </div>
   {/if}
 

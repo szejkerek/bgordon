@@ -6,7 +6,7 @@ import Icon from '../../components/Icon.svelte';
 import { ROUTES } from '../../utils/routes';
 import { publishedAchievements } from '../../utils/content';
 import { getAchievementGallery } from '../../utils/achievementImages';
-import { resolveMediaPath } from '../../utils/media';
+import { getImageSrc } from '../../utils/images';
 import { formatDate } from '../../utils/dates';
 
 export async function getStaticPaths() {
@@ -33,9 +33,11 @@ const typeLabel = TYPE_LABEL[achievement.data.type] ?? achievement.data.type;
 
 // Gallery: the event thumbnail (frontmatter `image`) leads, followed by folder
 // images (public/images/achievements/<slug>/) or frontmatter `gallery` paths.
-const thumbnail = achievement.data.image ? resolveMediaPath(achievement.data.image) : undefined;
-const folderGallery = getAchievementGallery(achievement.id);
-const baseGallery = folderGallery.length ? folderGallery : achievement.data.gallery ?? [];
+const thumbnail = getImageSrc(achievement.data.image);
+const folderGallery = getAchievementGallery(achievement.id).map((image) => image.src);
+const baseGallery = folderGallery.length
+  ? folderGallery
+  : (achievement.data.gallery ?? []).map((path) => getImageSrc(path)).filter((src): src is string => !!src);
 const gallery = thumbnail ? [thumbnail, ...baseGallery] : baseGallery;
 ---
 

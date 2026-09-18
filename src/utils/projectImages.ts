@@ -1,34 +1,30 @@
-import { existsSync, readdirSync } from 'node:fs';
-import { join } from 'node:path';
-import { IMAGE_FILE_EXTENSIONS } from './media';
+import type { ImageMetadata } from 'astro';
+import { assetsInDirectory, getImageAsset } from './images';
 
-const EXTS = IMAGE_FILE_EXTENSIONS;
-const NUMBERED_RE = new RegExp(`^\\d+\\.(${EXTS.join('|')})$`, 'i');
+export const PLACEHOLDER_IMAGE = '/project-placeholder.svg';
 
-export const PLACEHOLDER_IMAGE = '/images/project-placeholder.svg';
+const NUMBERED_RE = /\/(\d+)\.[^./]+$/;
 
-function projectDir(slug: string): string {
-  return join(process.cwd(), 'public', 'images', 'projects', slug);
+function projectDirectory(slug: string): string {
+  return `/images/projects/${slug}`;
 }
 
-export function getThumbnail(slug: string): string | undefined {
-  const dir = projectDir(slug);
-  for (const ext of EXTS) {
-    if (existsSync(join(dir, `thumbnail.${ext}`))) {
-      return `/images/projects/${slug}/thumbnail.${ext}`;
-    }
-  }
+/** Thumbnail asset for a project, resolved from `src/assets/images/projects/<slug>/thumbnail.*`. */
+export function getThumbnail(slug: string): ImageMetadata | undefined {
+  return getImageAsset(`${projectDirectory(slug)}/thumbnail`);
 }
 
-export function getGallery(slug: string): string[] {
-  const dir = projectDir(slug);
-  if (!existsSync(dir)) return [];
-  return readdirSync(dir)
-    .filter(f => NUMBERED_RE.test(f))
-    .sort((a, b) => parseInt(a) - parseInt(b))
-    .map(f => `/images/projects/${slug}/${f}`);
+/** Gallery assets for a project — numbered files (`1.*`, `2.*`, …) in ascending order. */
+export function getGallery(slug: string): ImageMetadata[] {
+  return assetsInDirectory(projectDirectory(slug))
+    .filter(([path]) => NUMBERED_RE.test(path))
+    .sort(([a], [b]) => Number(a.match(NUMBERED_RE)![1]) - Number(b.match(NUMBERED_RE)![1]))
+    .map(([, asset]) => asset);
 }
 
-export function getProjectMedia(slug: string): { thumbnail: string | undefined; gallery: string[] } {
+export function getProjectMedia(slug: string): {
+  thumbnail: ImageMetadata | undefined;
+  gallery: ImageMetadata[];
+} {
   return { thumbnail: getThumbnail(slug), gallery: getGallery(slug) };
 }

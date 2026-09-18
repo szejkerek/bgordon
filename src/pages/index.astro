@@ -8,6 +8,7 @@ import Section from '../components/Section.astro';
 import { publishedProjects, publishedAchievements } from '../utils/content';
 import { SECTION_IDS } from '../utils/routes';
 import { getThumbnail, PLACEHOLDER_IMAGE } from '../utils/projectImages';
+import { getImageSrc } from '../utils/images';
 import { professionalMonths, formatDuration, age } from '../utils/stats';
 import type { HeroStat } from '../types';
 
@@ -22,8 +23,19 @@ const sortedAchievements = await publishedAchievements();
 
 const projectItems = sortedProjects.map((project) => ({
   project,
-  thumbnailSrc: getThumbnail(project.slug) ?? PLACEHOLDER_IMAGE,
+  thumbnailSrc: getThumbnail(project.slug)?.src ?? PLACEHOLDER_IMAGE,
 }));
+
+// Images are build-time assets now, so every path is resolved here — Svelte
+// islands receive plain URLs and never touch the asset pipeline themselves.
+const achievementItems = sortedAchievements.map((achievement) => ({
+  achievement,
+  imageSrc: getImageSrc(achievement.data.image),
+}));
+
+const heroPhotoSrc = getImageSrc(heroData.photo);
+const workItems = workExperience.map((job) => ({ ...job, logo: getImageSrc(job.logo) }));
+const educationItems = education.map((entry) => ({ ...entry, logo: getImageSrc(entry.logo) }));
 
 // Hero stats — all derived from content/dates, never hand-maintained.
 const now = new Date();
@@ -50,19 +62,19 @@ const heroStats: HeroStat[] = [
 
 <Layout title="Bartłomiej Gordon — Unity Developer">
   <!-- Hero Section -->
-  <Hero heroData={heroData} stats={heroStats} age={heroAge} client:load />
-  
+  <Hero heroData={heroData} photoSrc={heroPhotoSrc} stats={heroStats} age={heroAge} client:load />
+
   <!-- Job Timeline Section -->
   <JobTimeline
-    workExperience={workExperience}
-    education={education}
+    workExperience={workItems}
+    education={educationItems}
   />
   
   <!-- Achievements Section -->
   <Section id={SECTION_IDS.achievements} title="Achievements">
     <div class="achievements-list">
-      {sortedAchievements.map((achievement) => (
-        <AchievementCard achievement={achievement} />
+      {achievementItems.map(({ achievement, imageSrc }) => (
+        <AchievementCard achievement={achievement} imageSrc={imageSrc} />
       ))}
     </div>
   </Section>

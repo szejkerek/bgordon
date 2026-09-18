@@ -10,6 +10,9 @@ import Footer from '../components/Footer.svelte';
 import ConsentBanner from '../components/ConsentBanner.svelte';
 import '../styles/global.css';
 import heroData from '../content/site/hero.json';
+import { getImageSrc } from '../utils/images';
+
+const PROFILE_IMAGE = getImageSrc('/images/profilePicture.png');
 
 interface Props {
   title: string;
@@ -22,7 +25,7 @@ interface Props {
 const { 
   title, 
   description = 'Unity Developer with 5 years of experience. Specializing in game development, VR/AR applications, and graphics programming.', 
-  image = '/images/profilePicture.png',
+  image = PROFILE_IMAGE,
   canonicalUrl,
   noIndex = false,
 } = Astro.props;
@@ -32,7 +35,7 @@ const SITE_URL = 'https://bartlomiejgordon.dev';
 const SITE_NAME = 'Bartłomiej Gordon — Unity Developer';
 
 // Build full URLs
-const fullImageUrl = image.startsWith('http') ? image : `${SITE_URL}${image}`;
+const fullImageUrl = image?.startsWith('http') ? image : `${SITE_URL}${image ?? ''}`;
 const canonical = canonicalUrl || Astro.url.href;
 
 // Footer data derived from hero.json
@@ -129,7 +132,7 @@ const structuredData = {
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" media="print" onload="this.media='all'" />
     <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" /></noscript>
     <!-- Preload LCP image -->
-    <link rel="preload" as="image" href="/images/profilePicture.png" />
+    {PROFILE_IMAGE && <link rel="preload" as="image" href={PROFILE_IMAGE} />}
     
     <!-- DNS Prefetch for external links -->
     <link rel="dns-prefetch" href="https://github.com" />
