@@ -33,11 +33,12 @@ const cover = await toOptionalPicture(getImageAsset(image), IMAGE_PRESETS.bookCo
         <span class="reading-date">Started {formatDate(startDate)}</span>
       )}
       {thoughts && (
-        <details class="book-thoughts">
-          <summary>
-            <span class="thoughts-text">{thoughts}</span>
-          </summary>
-        </details>
+        <div class="book-thoughts">
+          <p class="thoughts-text">{thoughts}</p>
+          <button type="button" class="thoughts-toggle" aria-expanded="false" hidden>
+            Read more
+          </button>
+        </div>
       )}
     </div>
   </article>
@@ -56,34 +57,48 @@ const cover = await toOptionalPicture(getImageAsset(image), IMAGE_PRESETS.bookCo
       <h3 class="book-title">{title}</h3>
       <p class="book-author">{author}</p>
       {thoughts && (
-        <details class="book-thoughts">
-          <summary>
-            <span class="thoughts-text">{thoughts}</span>
-          </summary>
-        </details>
+        <div class="book-thoughts">
+          <p class="thoughts-text">{thoughts}</p>
+          <button type="button" class="thoughts-toggle" aria-expanded="false" hidden>
+            Read more
+          </button>
+        </div>
       )}
     </div>
   </article>
 )}
 
 <script>
-  // Only enable the "Read more" toggle when the thoughts text actually
-  // overflows the 3-line clamp — otherwise show it in full with no toggle.
-  function markClampableBooks() {
-    document.querySelectorAll<HTMLElement>('.book-thoughts').forEach((details) => {
-      const text = details.querySelector<HTMLElement>('.thoughts-text');
-      if (!text) return;
+  // The toggle only exists for text that actually overflows the 3-line clamp.
+  // Until this runs the button stays hidden and the text unclamped, so without
+  // JavaScript every review is readable in full and adds no stray tab stop.
+  function setUpThoughtToggles() {
+    document.querySelectorAll<HTMLElement>('.book-thoughts').forEach((block, index) => {
+      const text = block.querySelector<HTMLElement>('.thoughts-text');
+      const toggle = block.querySelector<HTMLButtonElement>('.thoughts-toggle');
+      if (!text || !toggle) return;
+
       const lineHeight = parseFloat(getComputedStyle(text).lineHeight);
-      if (Number.isFinite(lineHeight) && text.scrollHeight > lineHeight * 3 + 4) {
-        details.classList.add('is-clampable');
-      }
+      const overflows = Number.isFinite(lineHeight) && text.scrollHeight > lineHeight * 3 + 4;
+      if (!overflows) return;
+
+      text.id ||= `book-thoughts-${index}`;
+      toggle.setAttribute('aria-controls', text.id);
+      block.classList.add('is-clampable');
+      toggle.hidden = false;
+
+      toggle.addEventListener('click', () => {
+        const expanded = block.classList.toggle('is-open');
+        toggle.setAttribute('aria-expanded', String(expanded));
+        toggle.textContent = expanded ? 'Hide' : 'Read more';
+      });
     });
   }
 
   if (document.fonts?.ready) {
-    document.fonts.ready.then(markClampableBooks);
+    document.fonts.ready.then(setUpThoughtToggles);
   } else {
-    markClampableBooks();
+    setUpThoughtToggles();
   }
 </script>
 
@@ -298,48 +313,34 @@ const cover = await toOptionalPicture(getImageAsset(image), IMAGE_PRESETS.bookCo
     margin: var(--space-2) 0 0;
   }
 
-  .book-thoughts summary {
-    list-style: none;
-    cursor: default;
-  }
-
-  .book-thoughts.is-clampable summary {
-    cursor: pointer;
-  }
-
-  .book-thoughts summary::-webkit-details-marker {
-    display: none;
-  }
-
   .thoughts-text {
+    margin: 0;
     font-size: var(--font-size-md);
     color: var(--color-text-secondary);
     line-height: var(--line-height-relaxed);
   }
 
-  .book-thoughts.is-clampable:not([open]) .thoughts-text {
+  .book-thoughts.is-clampable:not(.is-open) .thoughts-text {
     display: -webkit-box;
     -webkit-line-clamp: 3;
+    line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
 
-  /* "Read more" toggle only when the text is actually clamped */
-  .book-thoughts.is-clampable summary::after {
-    content: 'Read more';
-    display: inline-block;
+  .thoughts-toggle {
     margin-top: var(--space-2);
+    padding: 0;
     font-size: var(--font-size-sm);
     font-weight: var(--font-weight-medium);
     color: var(--color-accent);
+    background: none;
+    border: none;
+    cursor: pointer;
     transition: color var(--duration-fast) var(--ease-out);
   }
 
-  .book-thoughts.is-clampable[open] summary::after {
-    content: 'Hide';
-  }
-
-  .book-thoughts.is-clampable summary:hover::after {
+  .thoughts-toggle:hover {
     color: var(--color-accent-dim);
   }
 
