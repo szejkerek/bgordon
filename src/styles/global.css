@@ -24,7 +24,15 @@ html {
   -moz-osx-font-smoothing: grayscale;
   text-size-adjust: 100%;
   scrollbar-width: thin;
+  /* Reserve the scrollbar's width at all times, so locking page scroll behind a
+     modal cannot shift the layout sideways. */
+  scrollbar-gutter: stable;
   scrollbar-color: var(--color-bg-elevated) var(--color-bg-secondary);
+}
+
+/* Page scroll lock while a modal is open. */
+html.has-modal {
+  overflow: hidden;
 }
 
 body {

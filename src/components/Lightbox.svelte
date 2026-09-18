@@ -1,4 +1,4 @@
-﻿<script lang="ts">
+<script lang="ts">
   import Icon from "./Icon.svelte";
 
   interface Props {
@@ -9,26 +9,24 @@
 
   const images = $derived(media);
 
-  let isOpen = $state(false);
+  let dialogEl: HTMLDialogElement | undefined = $state();
   let currentIndex = $state(0);
-  let isVisible = $state(false);
-  let dialogEl: HTMLDivElement | undefined = $state();
 
+  /**
+   * Opens as a native modal dialog, which is what provides the focus trap, the
+   * inert background, Escape-to-close and focus restoration to whatever opened
+   * it. Hand-rolling those is how the previous version let Tab walk behind the
+   * overlay and dropped focus entirely on close.
+   */
   export function open(src: string) {
     const index = images.indexOf(src);
     currentIndex = index >= 0 ? index : 0;
-    isOpen = true;
-    requestAnimationFrame(() => {
-      isVisible = true;
-      dialogEl?.focus();
-    });
+    dialogEl?.showModal();
+    lockScroll();
   }
 
   function close() {
-    isVisible = false;
-    setTimeout(() => {
-      isOpen = false;
-    }, 200);
+    dialogEl?.close();
   }
 
   function navigate(direction: 1 | -1) {
@@ -36,132 +34,113 @@
     currentIndex = (currentIndex + direction + images.length) % images.length;
   }
 
-  function next() {
-    navigate(1);
+  function handleKeydown(event: KeyboardEvent) {
+    if (event.key === 'ArrowRight') navigate(1);
+    else if (event.key === 'ArrowLeft') navigate(-1);
   }
 
-  function prev() {
-    navigate(-1);
+  // Clicks that land on the dialog itself rather than on its content box are
+  // backdrop clicks.
+  function handleClick(event: MouseEvent) {
+    if (event.target === dialogEl) close();
   }
 
-  function handleKeydown(e: KeyboardEvent) {
-    if (!isOpen) return;
-    
-    switch (e.key) {
-      case 'Escape':
-        close();
-        break;
-      case 'ArrowRight':
-        next();
-        break;
-      case 'ArrowLeft':
-        prev();
-        break;
-    }
+  // Scroll lock lives on a class, not on an inline style, so it cannot clobber
+  // an overflow value set elsewhere. Unlocking hangs off the dialog's `close`
+  // event, which fires for the close button, a backdrop click and Escape alike.
+  function lockScroll() {
+    document.documentElement.classList.add('has-modal');
   }
 
-  function handleBackdropClick(e: MouseEvent) {
-    const target = e.target as HTMLElement;
-    if (target.classList.contains('lightbox-overlay') || target.classList.contains('lightbox-content')) {
-      close();
-    }
+  function unlockScroll() {
+    document.documentElement.classList.remove('has-modal');
   }
-
-  $effect(() => {
-    document.body.style.overflow = isOpen ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
-  });
 </script>
 
-{#if isOpen}
-  <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-  <div 
-    bind:this={dialogEl}
-    class="lightbox-overlay" 
-    class:visible={isVisible}
-    onclick={handleBackdropClick}
-    onkeydown={handleKeydown}
-    role="dialog"
-    aria-modal="true"
-    aria-label="Image viewer"
-    tabindex="-1"
-  >
-    <!-- Close button -->
-    <button 
-      type="button"
-      class="close-btn" 
-      onclick={close}
-      aria-label="Close lightbox"
-    >
-      <Icon name="x" size={20} strokeWidth={2.5} />
-    </button>
+<dialog
+  bind:this={dialogEl}
+  class="lightbox"
+  aria-label="Image viewer"
+  onkeydown={handleKeydown}
+  onclick={handleClick}
+  onclose={unlockScroll}
+>
+  <button type="button" class="close-btn" onclick={close} aria-label="Close lightbox">
+    <Icon name="x" size={20} strokeWidth={2.5} />
+  </button>
 
-    <!-- Main content area with image and arrows -->
-    <div class="lightbox-content">
-      <!-- Previous button -->
-      {#if images.length > 1}
-        <button 
-          type="button"
-          class="nav-btn prev-btn" 
-          onclick={prev}
-          aria-label="Previous image"
-        >
-          <Icon name="chevron-left" size={28} strokeWidth={2.5} />
-        </button>
-      {/if}
+  <div class="lightbox-content">
+    {#if images.length > 1}
+      <button type="button" class="nav-btn" onclick={() => navigate(-1)} aria-label="Previous image">
+        <Icon name="chevron-left" size={28} strokeWidth={2.5} />
+      </button>
+    {/if}
 
-      <!-- Fixed size image container -->
-      <div class="image-container">
-        <img
-          src={images[currentIndex]}
-          alt="Gallery image {currentIndex + 1} of {images.length}"
-          class="lightbox-image"
-        />
-      </div>
-
-      <!-- Next button -->
-      {#if images.length > 1}
-        <button 
-          type="button"
-          class="nav-btn next-btn" 
-          onclick={next}
-          aria-label="Next image"
-        >
-          <Icon name="chevron-right" size={28} strokeWidth={2.5} />
-        </button>
-      {/if}
+    <div class="image-container">
+      <img
+        src={images[currentIndex]}
+        alt="Gallery image {currentIndex + 1} of {images.length}"
+        class="lightbox-image"
+      />
     </div>
 
-    <!-- Counter -->
     {#if images.length > 1}
-      <div class="lightbox-counter">
-        {currentIndex + 1} / {images.length}
-      </div>
+      <button type="button" class="nav-btn" onclick={() => navigate(1)} aria-label="Next image">
+        <Icon name="chevron-right" size={28} strokeWidth={2.5} />
+      </button>
     {/if}
   </div>
-{/if}
+
+  {#if images.length > 1}
+    <p class="lightbox-counter" aria-live="polite">
+      {currentIndex + 1} / {images.length}
+    </p>
+  {/if}
+</dialog>
 
 <style>
-  .lightbox-overlay {
-    position: fixed;
-    inset: 0;
-    z-index: 9999;
-    background: rgba(0, 0, 0, 0.92);
+  .lightbox {
+    /* Reset the UA dialog box: this one fills the viewport and paints nothing
+       itself — the backdrop does. */
+    width: 100%;
+    max-width: 100vw;
+    height: 100%;
+    max-height: 100vh;
+    margin: 0;
+    padding: 20px;
+    border: none;
+    background: transparent;
+    color: var(--color-text-primary);
+    overflow: hidden;
+  }
+
+  .lightbox:not([open]) {
+    display: none;
+  }
+
+  .lightbox[open] {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    opacity: 0;
-    transition: opacity 0.2s ease-out;
-    padding: 20px;
   }
 
-  .lightbox-overlay:focus {
-    outline: none;
+  .lightbox::backdrop {
+    background: rgba(0, 0, 0, 0.92);
   }
 
-  .lightbox-overlay.visible {
+  /* Fade in from the top layer; browsers without @starting-style just show it. */
+  @starting-style {
+    .lightbox[open],
+    .lightbox[open]::backdrop {
+      opacity: 0;
+    }
+  }
+
+  .lightbox[open],
+  .lightbox[open]::backdrop {
     opacity: 1;
+    transition: opacity var(--duration-fast) var(--ease-out);
   }
 
   .lightbox-content {
@@ -171,7 +150,7 @@
     gap: 16px;
     width: 100%;
     max-width: 1400px;
-    height: calc(100vh - 120px);
+    height: calc(100% - 60px);
   }
 
   .image-container {
@@ -202,10 +181,11 @@
     height: 44px;
     background: rgba(255, 255, 255, 0.15);
     border: none;
-    border-radius: 50%;
+    border-radius: var(--radius-full);
     color: white;
     cursor: pointer;
-    transition: all 0.2s ease-out;
+    transition: background var(--duration-fast) var(--ease-out),
+                transform var(--duration-fast) var(--ease-out);
     z-index: 10;
   }
 
@@ -227,10 +207,12 @@
     height: 56px;
     background: rgba(255, 255, 255, 0.15);
     border: 2px solid rgba(255, 255, 255, 0.3);
-    border-radius: 50%;
+    border-radius: var(--radius-full);
     color: white;
     cursor: pointer;
-    transition: all 0.2s ease-out;
+    transition: background var(--duration-fast) var(--ease-out),
+                border-color var(--duration-fast) var(--ease-out),
+                transform var(--duration-fast) var(--ease-out);
   }
 
   .nav-btn:hover {
@@ -244,27 +226,23 @@
   }
 
   .lightbox-counter {
-    position: absolute;
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
+    margin: 16px 0 0;
     padding: 10px 20px;
     background: rgba(255, 255, 255, 0.15);
-    border-radius: 100px;
+    border-radius: var(--radius-full);
     color: white;
     font-size: 14px;
-    font-weight: 600;
+    font-weight: var(--font-weight-semibold);
     letter-spacing: 0.5px;
   }
 
   @media (max-width: 768px) {
-    .lightbox-overlay {
+    .lightbox {
       padding: 12px;
     }
 
     .lightbox-content {
       gap: 8px;
-      height: calc(100vh - 100px);
     }
 
     .nav-btn {
@@ -280,7 +258,6 @@
     }
 
     .lightbox-counter {
-      bottom: 12px;
       padding: 8px 16px;
       font-size: 13px;
     }
@@ -290,6 +267,15 @@
     .nav-btn {
       width: 40px;
       height: 40px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .close-btn:hover,
+    .close-btn:active,
+    .nav-btn:hover,
+    .nav-btn:active {
+      transform: none;
     }
   }
 </style>
