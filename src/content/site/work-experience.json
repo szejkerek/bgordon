@@ -1,5 +1,18 @@
 [
   {
+    "company": "Immersion Labs",
+    "logo": "images/logos/immersion.png",
+    "url": "https://immersion.pl/",
+    "role": "Unity Developer",
+    "period": "October 2026 to Present",
+    "description": "Design, build and optimize Unity applications for MetaCoach AI, an AI-driven training platform that simulates conversations and crisis scenarios so trainees can build skills in a safe virtual environment. Working clients in education, healthcare, defense and public-safety training.",
+    "skills": [
+      "Unity",
+      "C#",
+      "AI Tooling"
+    ]
+  },
+  {
     "company": "Placeholders Studio",
     "logo": "images/logos/placeholders.png",
     "url": "https://placeholdersstudio.github.io/placeholders/",
@@ -18,7 +31,7 @@
     "logo": "images/logos/resimo.png",
     "url": "https://resimo.com/",
     "role": "Unity & Unreal Engine 5.8 Developer",
-    "period": "July 2024 to Present",
+    "period": "July 2024 to September 2026",
     "description": "Own the core engine and deployment pipeline behind an interactive 3D real-estate app (Unity) used by every client across the company on one shared CORE codebase. Built the internal unit-testing framework, editor tooling and DevOps, and delivered dozens of client builds from scratch. Currently porting the whole application to Unreal Engine.",
     "skills": [
       "Unity",
